@@ -109,9 +109,15 @@ function mountWaitList(dontRefresh)
 
 	$('#SongListsDiv').html('');
 	$.each(musicsLine, (idx, ipt) => {
-		turn = idx + 1;
-		$('#SongListsDiv').append('<p>'+turn+'. ' + ipt.cantor+' | ['+ipt.codigo+']'+ ipt.nome_musica+'</p>');
+		if(idx < 7){
+			turn = idx + 1;
+			$('#SongListsDiv').append('<p>'+turn+'. ' + ipt.cantor+' | ['+ipt.codigo+']'+ ipt.nome_musica+'</p>');
+		}
 	});
+	if(musicsLine.length > 7){
+		let leftSongs = musicsLine.length - 7;
+		$('#SongListsDiv').append('<p>...Mais '+leftSongs+' música(s) na fila....</p>');
+	}
 	if(!!songNow.cantor){
 		$('#playingNow').html('<p>'+songNow.cantor+' | ['+songNow.codigo+'] '+ songNow.nome_musica+'</p>');
 		$('#songNowId').val(songNow.id);

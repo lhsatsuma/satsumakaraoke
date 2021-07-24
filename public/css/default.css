@@ -915,6 +915,9 @@ input[type=range] {
   .volumeDiv{
 	height: 10vh;
   }
+  .karaokeLogo{
+	  height: 15vh;
+  }
   .joinUsKaraoke{
 	height: 5vh;
   }

@@ -42,7 +42,7 @@
 		<div class="row m-0">
 			<div class="col-4">
 				<div class="row">
-					<div class="col-12 mt-2 mb-2 center">
+					<div class="col-12 mt-2 mb-2 center karaokeLogo">
 						<img src="{$app_url}images/logo.png" style="width: 65%"/>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 					<div class="col-12 center">
 						<p><strong>Músicas na Fila:</strong></p>
 					</div>
-					<div class="col-12" id="SongListsDiv"></div>
+					<div class="col-12 h-75" id="SongListsDiv"></div>
 				</div>
 			</div>
 			<div class="col-8">
