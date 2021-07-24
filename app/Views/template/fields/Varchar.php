@@ -1,2 +1,2 @@
-<label for="{$name}">{$label}</label>{if $required} <span class="required">*</span>{/if}
+<label for="{$name}">{$label}</label>{if $required && !$its_filter} <span class="required">*</span>{/if}
 <p><input class="form-control {if $error}invalid-value{/if}" type="text" name="{$name}" value="{$value}" {$ext_attrs} {if $disabled}disabled="true"{/if} />{if $error}<span class='validate-error required'>{$error}</span>{/if}</p>
