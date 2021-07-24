@@ -40,7 +40,7 @@ $routes->set404Override(function() {
 	$focus->SetView();
 	$focus->SetLayout();
 	$focus->SetInitialData();
-	return $focus->display_template($focus->view->view('404'));
+	return $focus->display($focus->view->view('404'));
 });
 $routes->setAutoRoute(true);
 
