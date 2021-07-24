@@ -1,0 +1,2 @@
+<label for="{$name}">{$label}</label>{if $required} <span class="required">*</span>{/if}
+<p><textarea class="form-control {if $error}invalid-value{/if}" name="{$name}" {$ext_attrs} {if $disabled}disabled="true"{/if} >{$value|nl2br|replace:"<br />":"&#13;&#10;"}</textarea>{if $error}<span class='validate-error required'>{$error}</span>{/if}</p>

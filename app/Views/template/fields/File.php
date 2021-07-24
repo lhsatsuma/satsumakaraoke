@@ -1,0 +1,3 @@
+<label for="{$name}">{$label}</label>{if $required} <span class="required">*</span>{/if}
+<p><input type="hidden" name="{$name}" value="{$value}" /><input class="form-control {if $error}invalid-value{/if}" type="file" name="{$name}" accept="{$accept}" custom_type_validation="file" max_size="{$max_size}" {$ext_attrs} {if $disabled}disabled="true"{/if} />{if $max_size}Tamanho máximo: {$max_size_mb}MB{/if}{if $error}<br /><span class='validate-error required'>{$error}</span>{/if}
+</p>

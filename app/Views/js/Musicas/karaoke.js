@@ -1,0 +1,267 @@
+var video = document.getElementById('video');
+video.onloadeddata = function() {
+	let newWidth = '80%';
+   if(video.videoWidth == 540
+	&& video.videoHeight == 360){
+		newWidth = '80%';
+	}else if(video.videoWidth > 480){
+		newWidth = '100%';
+   }
+
+   $('#video').css('width', newWidth);
+};
+video.onpause = (event) => {
+	if(video.paused && video.src !== ""){
+		$('#pausedDiv').show();
+	}else{
+		$('#pausedDiv').hide();
+	}
+};
+var videoSrc = document.getElementById('videoSrc');
+var its_running_thread = false;
+var its_running_thread_list = false;
+video.addEventListener('ended',endedVideo,false);
+var last_volume = 1;
+var musicsLine = [];
+var keyListSong = null;
+var songNow = {};
+$(document).ready(function(){
+	$('#InitialModal').modal('show');
+});
+
+function removeInitial()
+{
+	$('#InitialModal').modal('hide');
+
+	handleAjax({
+		url: app_url+'Musicas_fila_ajax/k_get_thread_copy',
+		callback: (res) => {
+			if(res.detail.volume !== null){
+				video.volume = res.detail.volume / 100;
+				last_volume = res.detail.volume / 100;
+				$('#volumeSpan').html(res.detail.volume + '%');
+			}
+		},
+		callbackAll: (res) => {
+			getListSongs();
+
+			getThread();
+
+			getNextVideo();
+		}
+	});
+}
+
+function getListSongs(dontRefresh)
+{
+	if(its_running_thread_list){
+		return;
+	}
+	its_running_thread_list = true;
+	$.ajax({
+		url: app_url+'Musicas_fila_ajax/k_musics_list',
+		method: 'post',
+		dataType: 'json',
+		headers: {
+		  "Content-Type": "application/json",
+		  "X-Requested-With": "XMLHttpRequest"
+		},
+		success: function(d){
+			
+		},
+		complete: function(d){
+			var r = d.responseJSON;
+			if(!!r){
+				if(r.status == 'success'){
+					musicsLine = [];
+					songNow = {};
+					$.each(r.detail, (idx, ipt) =>{
+						if(idx == 0){
+							songNow = ipt;
+						}else{
+							musicsLine.push(ipt);
+						}
+					});
+					mountWaitList(dontRefresh);
+				}else{
+					console.log('Não foi possível buscar a lista de músicas na fila!');
+				}
+			}else{
+				console.log('Não foi possível buscar a lista de músicas na fila!');
+			}
+		},
+		error: function(d){
+			console.log(d);
+		}
+	});
+}
+
+function mountWaitList(dontRefresh)
+{
+	if(typeof dontRefresh == 'undefined'){ dontRefresh = false; }
+
+	console.log('dontRefresh', dontRefresh);
+	$('#SongListsDiv').html('');
+	$.each(musicsLine, (idx, ipt) => {
+		turn = idx + 1;
+		$('#SongListsDiv').append('<p>'+turn+'. ' + ipt.cantor+' | ['+ipt.codigo+']'+ ipt.nome_musica+'</p>');
+	});
+	if(!!songNow.cantor){
+		console.log('video_srcWaitList', video.src);
+		$('#playingNow').html('<p>'+songNow.cantor+' | ['+songNow.codigo+'] '+ songNow.nome_musica+'</p>');
+		$('#songNowId').val(songNow.id);
+		if(video.src == app_url + 'musicas/karaoke' || video.src == "" || video.src !== karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow.md5+'.mp4'){
+			getNextVideo();
+		}
+	}
+	its_running_thread_list = false;
+	if(!dontRefresh){
+		setTimeout(() => {
+			getListSongs();
+		}, 5000);
+	}
+}
+
+function getThread()
+{
+	if(its_running_thread){
+		return;
+	}
+	its_running_thread = true;
+	var wait_mil = 1500;
+	$.ajax({
+		'url': app_url+'Musicas_fila_ajax/k_get_thread',
+		'method': 'post',
+		'dataType': 'json',
+		headers: {
+		  "Content-Type": "application/json",
+		  "X-Requested-With": "XMLHttpRequest"
+		},
+		success: function(d){
+			
+		},
+		complete: function(d){
+			var r = d.responseJSON;
+			if(!!r.detail){
+				let action = r.detail.action;
+				switch(action){
+					case 'play':
+						video.play();
+						break;
+					case 'pause':
+						video.pause();
+						break;
+					case 'next':
+						endedVideo();
+						break;
+					case 'repeat':
+						video.currentTime = 0;
+						break;
+					case 'volume':
+						volSpan = parseFloat(r.detail.valueTo);
+						let volumeAllFloat = volSpan / 100;
+						video.volume = volumeAllFloat;
+						last_volume = volumeAllFloat;
+						wait_mil = 200;
+						$('#volumeSpan').html(volSpan + '%');
+						break;
+					case 'vol_down':
+						let volumeFloat = parseFloat(video.volume.toFixed(2));
+						if(volumeFloat > 0){
+							volumeFloat -= 0.1;
+							volSpan = parseFloat((volumeFloat * 100).toFixed(2));
+							video.volume = volumeFloat;
+						}else{
+							volSpan = 0;
+						}
+						video.volume = volumeFloat;
+						last_volume = volumeFloat;
+						wait_mil = 200;
+						$('#volumeSpan').html(volSpan + '%');
+						break;
+					case 'vol_up':
+						let volumeUpFloat = parseFloat(video.volume.toFixed(2));
+						if(volumeUpFloat < 1){
+							volumeUpFloat += 0.1;
+							volSpan = parseFloat((volumeUpFloat * 100).toFixed(2));
+							video.volume = volumeUpFloat;
+						}else{
+							volSpan = 100;
+						}
+						video.volume = volumeUpFloat;
+						last_volume = volumeUpFloat;
+						wait_mil = 200;
+						$('#volumeSpan').html(volSpan + '%');
+						break;
+					case 'mute':
+						let volumeMuteFloat = parseFloat(video.volume.toFixed(2));
+						if(volumeMuteFloat > 0){
+							volSpan = 0;
+							video.volume = 0;
+						}else{
+							video.volume = last_volume;
+							volSpan = last_volume * 100;
+						}
+						$('#volumeSpan').html(volSpan + '%');
+						break;
+					default:
+						break;
+				}
+				handleAjax({
+					url: app_url+'Musicas_fila_ajax/k_reset_thread',
+					callback: (res) => {
+						its_running_thread = false;
+						setTimeout(function(){
+							getThread();
+						}, wait_mil);
+					}
+				});
+			}else{
+				its_running_thread = false;
+				setTimeout(function(){
+					getThread();
+				}, wait_mil);
+			}
+		},
+		error: function(d){
+			console.log(d);
+		}
+	});
+}
+
+function getNextVideo()
+{
+	if(!!songNow.cantor){
+		video.src = karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow.md5+'.mp4';
+		$('#pausedDiv').hide();
+	}
+}
+
+function endedVideo(e)
+{
+	video.src = "";
+	$('#playingNow').html('<p>&nbsp</p>');
+	$.ajax({
+		'url': app_url+'Musicas_fila_ajax/k_ended_video',
+		'method': 'post',
+		'dataType': 'json',
+		headers: {
+		  "Content-Type": "application/json",
+		  "X-Requested-With": "XMLHttpRequest"
+		},
+		data: JSON.stringify({
+			'id': $('#songNowId').val()
+		}),
+		success: function(d){
+			
+		},
+		complete: function(d){
+			var r = d.responseJSON;
+			console.log('ENDED VIDEO AJAX');
+			getListSongs(true);
+		},
+		error: function(d){
+			console.log(d);
+		}
+	});
+}

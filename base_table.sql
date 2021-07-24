@@ -1,0 +1,1 @@
+CREATE TABLE musicas ( id VARCHAR(36) NOT NULL , nome VARCHAR(255) NULL , deletado BOOLEAN NOT NULL DEFAULT FALSE , data_criacao DATETIME NULL , usuario_criacao VARCHAR(36) NULL , data_modificacao DATETIME NULL , usuario_modificacao VARCHAR(36) NULL , PRIMARY KEY (id)) ENGINE = InnoDB;
