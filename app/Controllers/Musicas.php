@@ -189,6 +189,11 @@ class Musicas extends BaseController
 	public function karaoke()
 	{
 		$version = new \Config\AppVersion();
-		return $this->display($this->view->setData(['karaokeURL' => (($version->VideosKaraokeURL) ? $version->VideosKaraokeURL : base_url().'/')])->view('pages/Musicas/karaoke'));
+
+		$data = [
+			'karaokeURL' => ($version->VideosKaraokeURL) ? $version->VideosKaraokeURL : base_url().'/',
+			'host_fila' => ($version->host_fila) ? $version->host_fila : base_url().'/',
+		];
+		return $this->display($this->view->setData($data)->view('pages/Musicas/karaoke'));
 	}
 }

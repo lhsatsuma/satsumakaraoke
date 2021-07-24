@@ -28,6 +28,8 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	Compress HTML to output
 	*/
 	public $compress_output = true;
+
+	public $host_fila = '';
 	
 	public function __construct()
 	{

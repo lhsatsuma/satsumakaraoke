@@ -643,3 +643,20 @@ function changeByTraco2(str){
 
 	return str;
 };
+
+document.getScrollTop = function() {
+    if (window.pageYOffset != undefined) {
+        return pageYOffset;
+    } else {
+        var sx, sy, d = document,
+            r = d.documentElement,
+            b = d.body;
+        sx = r.scrollLeft || b.scrollLeft || 0;
+        sy = r.scrollTop || b.scrollTop || 0;
+        return sy;
+    }
+}
+
+document.setScrollTop = function(y) {
+	window.scrollTo(0, y);
+}

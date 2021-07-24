@@ -82,7 +82,7 @@ function changeNameToDel(elm)
                                 showConfirmButton: false,
                                 timer: 500,
                                 timerProgressBar: true,
-                                onClose: () => {
+                                didClose: () => {
                                     //Nothing
                                     $('#filtroForm').submit();
                                 }
@@ -111,6 +111,7 @@ function saveChangeName(elm)
 
     if($('#changeRowNewNome').val().length < 10){
         Swal.fire({
+            heightAuto: false,
             title: 'Deseja mesmo salvar a música?',
             text: 'O nome possui menos de 10 caracteres.',
             icon: 'warning',
@@ -149,10 +150,13 @@ function ajaxSaveChanges(){
 		},
 		complete: function(d){
             var r = d.responseJSON;
+            var scrollOld = document.getScrollTop();
 			if(!!r){
-                console.log(r);
                 if(r.detail){
                     Swal.fire({
+                        scrollbarPadding: false,
+                        returnFocus: false,
+                        focusConfirm: false,
                         title: 'Salvo com sucesso!',
                         text: '',
                         icon: 'success',
@@ -160,8 +164,9 @@ function ajaxSaveChanges(){
                         showConfirmButton: false,
                         timer: 500,
                         timerProgressBar: true,
-                        onClose: () => {
+                        didClose: () => {
                             //Nothing
+                            document.setScrollTop(scrollOld);
                             $('#ChangeNameToModal').modal('hide');
                         }
                     });

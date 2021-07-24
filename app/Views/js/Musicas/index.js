@@ -138,7 +138,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').click(function(){
 								showConfirmButton: false,
 								timer: 1000,
 								timerProgressBar: true,
-								onClose: () => {
+								didClose: () => {
 									$('#filtroForm').submit();
 								}
 							});

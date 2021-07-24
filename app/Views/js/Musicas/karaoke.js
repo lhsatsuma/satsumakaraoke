@@ -1,14 +1,15 @@
 var video = document.getElementById('video');
 video.onloadeddata = function() {
-	let newWidth = '80%';
-   if(video.videoWidth == 540
-	&& video.videoHeight == 360){
-		newWidth = '80%';
-	}else if(video.videoWidth > 480){
-		newWidth = '100%';
-   }
 
-   $('#video').css('width', newWidth);
+	let windowTotalHeight = window.innerHeight;
+
+	let window70Height = (windowTotalHeight * 75) / 100;
+	console.log(window70Height);
+	let videoHeight = video.videoHeight;
+
+	let videoHeightPerc = (videoHeight * 100) / windowTotalHeight;
+	console.log(videoHeight, videoHeightPerc);
+	$('#video').css('height', window70Height);
 };
 video.onpause = (event) => {
 	if(video.paused && video.src !== ""){
@@ -100,14 +101,12 @@ function mountWaitList(dontRefresh)
 {
 	if(typeof dontRefresh == 'undefined'){ dontRefresh = false; }
 
-	console.log('dontRefresh', dontRefresh);
 	$('#SongListsDiv').html('');
 	$.each(musicsLine, (idx, ipt) => {
 		turn = idx + 1;
 		$('#SongListsDiv').append('<p>'+turn+'. ' + ipt.cantor+' | ['+ipt.codigo+']'+ ipt.nome_musica+'</p>');
 	});
 	if(!!songNow.cantor){
-		console.log('video_srcWaitList', video.src);
 		$('#playingNow').html('<p>'+songNow.cantor+' | ['+songNow.codigo+'] '+ songNow.nome_musica+'</p>');
 		$('#songNowId').val(songNow.id);
 		if(video.src == app_url + 'musicas/karaoke' || video.src == "" || video.src !== karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow.md5+'.mp4'){
@@ -257,7 +256,6 @@ function endedVideo(e)
 		},
 		complete: function(d){
 			var r = d.responseJSON;
-			console.log('ENDED VIDEO AJAX');
 			getListSongs(true);
 		},
 		error: function(d){

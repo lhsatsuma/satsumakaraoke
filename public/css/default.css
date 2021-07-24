@@ -775,9 +775,6 @@ input.form-control[name="valor_total"]{
 #ControleRemotoModal div.center > span:hover{
 	color: #888;
 }
-#video{
-	width: 100%;
-}
 .ui-autocomplete{
    z-index: 1050 !important;
 }
@@ -908,3 +905,18 @@ input[type=range] {
 	}
   }
   
+  .playingNowDiv{
+	height: 15vh;
+  }
+  .videoDiv{
+	height: 70vh;
+  }
+  .volumeDiv{
+	height: 10vh;
+  }
+  .joinUsKaraoke{
+	height: 5vh;
+  }
+  .b800{
+	  font-weight: 800;
+  }
