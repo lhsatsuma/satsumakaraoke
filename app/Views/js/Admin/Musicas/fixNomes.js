@@ -1,12 +1,12 @@
 function changeNameTo(elm)
 {
     let row = $(elm).parent();
-    $('#changeRowID').val(row.attr('data-row-id'));
+    $('#changeRowID').val(row.attr('dt-r-id'));
 
     $(row).find('td').each(function(){
-        if($(this).attr('data-row-nome')){
-            var newName = decodeURIComponent($(this).attr('data-row-nome'));
-            var oldName = decodeURIComponent($(this).attr('data-row-nome'));
+        if($(this).attr('dt-r-nome')){
+            var newName = decodeURIComponent($(this).attr('dt-r-nome'));
+            var oldName = decodeURIComponent($(this).attr('dt-r-nome'));
             $.ajax({
                 'url': app_url+'admin/musicas/sanitanizeName',
                 'method': 'post',
@@ -17,7 +17,7 @@ function changeNameTo(elm)
                   "X-Requested-With": "XMLHttpRequest"
                 },
                 data: JSON.stringify({
-                    'nome': $(this).attr('data-row-nome'),
+                    'nome': $(this).attr('dt-r-nome'),
                 }),
                 success: function(d){
                     
@@ -36,15 +36,15 @@ function changeNameTo(elm)
                     console.log(d);
                 }
             });
-        }else if($(this).attr('data-row-tipo')){
-            $('#changeRowTipo').val($(this).attr('data-row-tipo'));
+        }else if($(this).attr('dt-r-tipo')){
+            $('#changeRowTipo').val($(this).attr('dt-r-tipo'));
         }
     });
     $('#ChangeNameToModal').modal('show');
 }
 function changeNameToDel(elm)
 {
-    var idDel = $(elm).parent().parent().attr('data-row-id');
+    var idDel = $(elm).parent().parent().attr('dt-r-id');
     Swal.fire({
         title: 'Deseja mesmo deleta esta música?',
         text: 'O registro não estará mais disponível no sistema.',

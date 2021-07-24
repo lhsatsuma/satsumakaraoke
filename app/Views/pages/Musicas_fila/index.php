@@ -14,10 +14,10 @@
 <table class="table table-responsive-xl table-striped table-list">
 	<thead>
 		<tr>
-			<th scope="col" class="pointer" data-head-field="usuario_cantar" onclick="OrderByFiltro('usuario_cantar')">Usuário <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer d-none d-lg-table-cell" data-head-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="usuario_cantar" onclick="OrderByFiltro('usuario_cantar')">Usuário <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer d-none d-lg-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data <span class="icon-order-by"></span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,11 +27,11 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer row-data-select" data-row-id="{$campos.id}">
-			<td data-row-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
-			<td data-row-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
-			<td data-row-status="{$campos.status}">{$campos.status}</td>
-			<td class="d-none d-lg-table-cell" data-row-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
+		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
+			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
+			<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
+			<td dt-r-status="{$campos.status}">{$campos.status}</td>
+			<td class="d-none d-lg-table-cell" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
 		</tr>
 		{/foreach}
 		{/if}

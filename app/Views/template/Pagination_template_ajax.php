@@ -5,7 +5,7 @@ $pager->setSurroundCount(2);
 	<ul class="pagination">
 		<?php if ($pager->hasPrevious()) : ?>
 			<li class="page-item">
-				<a href="javascript:void(0)" onclick="GoToPageSubpanel('<?= $group ?>', <?= $pager->GetFirstPageNumber() ?>)" org_href="<?= $pager->getFirst() ?>" aria-label="<?= lang('Pager.first') ?>">
+				<a href="javascript:void(0)" onclick="GoToPageSubpanel('<?= $group ?>', <?= $pager->GetFirstPageNumber() ?>)" og_loc="<?= $pager->getFirst() ?>" aria-label="<?= lang('Pager.first') ?>">
 					<span aria-hidden="true"><?= lang('Pager.first') ?></span>
 				</a>
 			</li>
@@ -13,7 +13,7 @@ $pager->setSurroundCount(2);
 
 		<?php foreach ($pager->links() as $key => $link) : ?>
 			<li class="page-item <?php echo $link['active'] ? 'active' : '' ?>">
-				<a href="javascript:void(0)" onclick="GoToPageSubpanel('<?= $group ?>', <?= $link['title'] ?>)" org_href="<?= $link['uri'] ?>">
+				<a href="javascript:void(0)" onclick="GoToPageSubpanel('<?= $group ?>', <?= $link['title'] ?>)" og_loc="<?= $link['uri'] ?>">
 					<?= $link['title'] ?>
 				</a>
 			</li>
@@ -21,7 +21,7 @@ $pager->setSurroundCount(2);
 
 		<?php if ($pager->hasNext()) : ?>
 			<li class="page-item">
-				<a href="javascript:void(0)" onclick="GoToPageSubpanel('<?= $group ?>', <?= $pager->GetLastPageNumber() ?>)" org_href="<?= $pager->getLast() ?>"  aria-label="<?= lang('Pager.last') ?>">
+				<a href="javascript:void(0)" onclick="GoToPageSubpanel('<?= $group ?>', <?= $pager->GetLastPageNumber() ?>)" og_loc="<?= $pager->getLast() ?>"  aria-label="<?= lang('Pager.last') ?>">
 					<span aria-hidden="true"><?= lang('Pager.last') ?></span>
 				</a>
 			</li>

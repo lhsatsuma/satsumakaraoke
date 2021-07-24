@@ -79,7 +79,7 @@ function getListSongs(dontRefresh)
 		complete: function(d){
 			var r = d.responseJSON;
 			if(!!r){
-				if(r.status == 'success'){
+				if(r.status){
 					musicsLine = [];
 					songNow = {};
 					$.each(r.detail, (idx, ipt) =>{
@@ -267,7 +267,6 @@ function endedVideo(e)
 			
 		},
 		complete: function(d){
-			var r = d.responseJSON;
 			getListSongs(true);
 		},
 		error: function(d){

@@ -1,13 +1,13 @@
 $('.row-data-select').each(function(){
 	$(this).click(function(){
-		OpenModalSelected($(this).attr('data-row-id'));
+		OpenModalSelected($(this).attr('dt-r-id'));
 	});
 	
 });
 function OpenModalSelected(id){
-	var row = $('tr[data-row-id="'+id+'"]');
-	const codigo = row.find('th[data-row-codigo]').attr('data-row-codigo');
-	const nome = row.find('td[data-row-nome]').attr('data-row-nome');
+	var row = $('tr[dt-r-id="'+id+'"]');
+	const codigo = row.find('th[dt-r-codigo]').attr('dt-r-codigo');
+	const nome = row.find('td[dt-r-nome]').attr('dt-r-nome');
 	$('#IdInsertModal').val(id);
 	$('#SelectedRowModalLabel').html('['+codigo+'] '+nome);
 	$('#SelectedRowModal').modal('show');
@@ -78,7 +78,7 @@ $('#ImportModalLink').keyup(function(){
 					complete: function(d){
 						var r = d.responseJSON;
 						if(!!r.status){
-							if(r.status == 'success'){
+							if(r.status){
 								$('#ImportModalLinkTitleDiv').html('<p><label>Nome</label><input type="hidden" id="ImportModalLinkMD5" name="ImportModalLinkMD5" value="'+r.detail.md5+'"/><input class="form-control" type="text" id="ImportModalLinkTitle" name="ImportModalLinkTitle" value="'+fixNameUtf8(r.detail.title)+'"/></p><p><button type="button" class="btn btn-info" onclick="changeByTraco(this)">Inverter Titulo/cantor</button></p><p><label>Tipo</label><select class="form-control" id="ImportModalLinkTipo" name="ImportModalLinkTipo"><option value="N/A">N/A</option><option value="INT">INT</option><option value="BRL">BRL</option><option value="ESP">ESP</option><option value="JPN">JPN</option><option value="OTR">OTR</option></select></p>');
 								$('#ImportMusicaButton').prop('disabled', false);
 								$('#ImportMusicaAndFilaButton').prop('disabled', false);
@@ -125,7 +125,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').click(function(){
 					var r = d.responseJSON;
 					swal.close();
 					if(!!r){
-						if(r.status == 'success'){
+						if(r.status){
 							let title_sa_fire = 'Música importada';
 							if(r.detail.auto_fila){
 								title_sa_fire += " e colocada na fila";

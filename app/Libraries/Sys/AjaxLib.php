@@ -47,14 +47,14 @@ class AjaxLib{
 	}
 	public function setSuccess($data = array())
 	{
-		$this->data['status'] = 'success';
+		$this->data['status'] = 1;
 		$this->data['detail'] = $data;
 		$this->setAjax();
 		
 	}
 	public function setError($code, $msg)
 	{
-		$this->data['status'] = 'error';
+		$this->data['status'] = 0;
 		$this->data['error_code'] = $code;
 		$this->data['detail'] = $msg;
 		$this->setAjax();

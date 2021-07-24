@@ -263,6 +263,7 @@ class BaseController extends Controller
 			'auth_user_admin' => $this->session->get('auth_user_admin'),
 			'breadcrumb' => $this->SetBreadCrumbArr(),
 			'auto_redirect_after_to' => $this->request->getPost('auto_redirect_after_to'),
+			'body_only' => ($this->request->getGet('bodyOnly') ? true : false),
 		);
 		$this->view->setData($dataArr);
 		
@@ -386,7 +387,8 @@ class BaseController extends Controller
 		$this->data['order_by_field'] = $order_by_field;
 		$this->data['order_by_order'] = $order_by_order;
 		
-		if($this->filterLib_cfg['use']){
+		if($this->filterLib_cfg['use']
+			&& !$this->request->getGet('bodyOnly')){
 			$this->data['filter_template'] = $this->GenerateGenericFilter();
 			
 		}
@@ -438,7 +440,12 @@ class BaseController extends Controller
 		if($AppVersion->compress_output){
 			$content = str_replace(array("    ", "\t", "\n", "\r"), "", $content);
 		}
-		return $content;
+		if($this->request->getGet('bodyOnly')){
+			$Ajax = new \App\Libraries\Sys\AjaxLib($this->request);
+			$Ajax->setSuccess($content);
+		}else{
+			return $content;
+		}
 	}
 	
 	public function displayNew($tpl)

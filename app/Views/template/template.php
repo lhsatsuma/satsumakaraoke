@@ -1,3 +1,4 @@
+{if !$body_only}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 	<head>
 		<title>{$title} - Satsuma Karaoke</title>
@@ -189,3 +190,6 @@
 	</body>
 	<script type="text/javascript" src="{$app_url}jsManager/ControleRemoto.js?v={$ch_ver}"></script>
 </html>
+{else}
+{$content}
+{/if}

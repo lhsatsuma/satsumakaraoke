@@ -49,7 +49,7 @@ $(document).ready(function(){
 		}else if(order_by_order == 'DESC'){
 			icon = '<i class="fas fa-sort-amount-up-alt"></i>';
 		}
-		$('th[data-head-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
+		$('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
 	}
 	insertMaskInputs();
 });
@@ -190,7 +190,7 @@ function LoadPaginationAjax(id_subpanel, page = 0)
 					}else if(order_by_order == 'DESC'){
 						icon = '<i class="fas fa-sort-amount-up-alt"></i>';
 					}
-					$('#'+cfg.id).find('th[data-head-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
+					$('#'+cfg.id).find('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
 				}
 			}
 			$(elem).find('.loading-icon').hide();
@@ -243,15 +243,13 @@ function SetRelatedField(args = {})
 				complete: function(d){
 					var r = d.responseJSON;
 					if(!!r.status){
-						if(r.status == 'success'){
-							let records = [];
-							if(!Array.isArray(r.detail)){
-								records.push(r.detail);
-							}else if(r.detail.length > 0){
-								response(r.detail);
-							}else{
-								response([{"label":"Nenhum registro encontrado!", "value": $(elmCfg.elm).val()}]);
-							}
+						let records = [];
+						if(!Array.isArray(r.detail)){
+							records.push(r.detail);
+						}else if(r.detail.length > 0){
+							response(r.detail);
+						}else{
+							response([{"label":"Nenhum registro encontrado!", "value": $(elmCfg.elm).val()}]);
 						}
 					}
 				}

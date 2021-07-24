@@ -399,7 +399,7 @@ function setCepField(args = {})
 			complete: function(d){
 				var r = d.responseJSON;
 				if(!!r.status){
-					if(r.status == 'success' && !!r.detail){
+					if(r.status && !!r.detail){
 						if(!!r.detail.endereco){
 							if(elmCfg.fillFields){
 								$.each(elmCfg.fillFields, function(idx, ipt){
@@ -475,10 +475,41 @@ function GoToPage(elm, page)
 		}else{
 			action += '/'+page;
 		}
-		$('#filtroForm').attr('action', action);
-		$('#filtroForm').submit();
+
+		if($('#filtroForm').parent().find('.table-result-filter').length > 0){
+			//Lets try to get Pagination with Ajax
+			
+			let formData = new FormData(document.getElementById('filtroForm'));
+
+			let formValues = Object.fromEntries(formData.entries());
+
+			formValues.topics = formData.getAll("topics");
+			fireLoading({
+				title: 'Aguarde...',
+				text: 'Estamos buscando os registros...',
+				didOpen: () => {
+					Swal.showLoading();
+					handleAjax({
+						url: action+'?bodyOnly=1',
+						dontfireError: true,
+						data: formValues,
+						callback: (res) => {
+							$('#filtroForm').parent().find('.table-result-filter').remove();
+							$('#filtroForm').parent().find('.table-pagination').remove();
+							$('#filtroForm').after(res.detail);
+						},
+						callbackAll: (res) => {
+							Swal.close();
+						}
+					});
+				}
+			});
+		}else{
+			$('#filtroForm').attr('action', action);
+			$('#filtroForm').submit();
+		}
 	}else{
-		location.href = $(elm).attr('org_href');
+		location.href = $(elm).attr('og_loc');
 	}
 }
 function QuickGoToPage(elm)
@@ -581,10 +612,12 @@ function handleAjax(args){
 			"X-Requested-With": "XMLHttpRequest"
 		},
         success: function(d){
-            if(!!d.status && d.status == 'success'){
+            if(!!d.status && d.detail){
                 args.callback(d);
             }else{
-                fireErrorGeneric();
+				if(!args.dontfireError){
+					fireErrorGeneric();
+				}
                 if(!!args.callbackError){
                     args.callbackError(d);
                 }

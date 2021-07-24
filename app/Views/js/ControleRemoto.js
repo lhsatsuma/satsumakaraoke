@@ -5,10 +5,12 @@ $('#ControleRemotoButton').click(function(){
 	$('#ControleRemotoModal').modal('show');
 	$('#ControleRemotoModal').draggable(); 
 });
+$('#volumeRange').val(100);
 function getLastVolume()
 {
 	handleAjax({
 		url: app_url+'Musicas_fila_ajax/k_get_thread_copy',
+		dontfireError: true,
 		callback: (res) => {
 			if(res.detail !== null
 				&& res.detail.volume !== null){
@@ -42,7 +44,7 @@ $('.controlbtns').click(function(){
 		complete: function(d){
 			var r = d.responseJSON;
 			if(!!r){
-				if(r.status == 'success'){
+				if(r.status){
 					//Everything ok with Thread
 				}else{
 					console.log('Não foi possível buscar a lista de músicas na fila!');
@@ -77,7 +79,7 @@ $('#volumeRange').change(function(){
 		complete: function(d){
 			var r = d.responseJSON;
 			if(!!r){
-				if(r.status == 'success'){
+				if(r.status){
 					//Everything ok with Thread
 				}else{
 					console.log('Não foi possível buscar a lista de músicas na fila!');

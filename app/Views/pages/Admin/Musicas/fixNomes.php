@@ -2,27 +2,27 @@
 <table class="table table-responsive-xl table-striped table-list">
 	<thead>
 		<tr>
-			<th scope="col" class="pointer" data-head-field="codigo" onclick="OrderByFiltro('codigo')">Código <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="nome" onclick="OrderByFiltro('nome')">Nome <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="tipo" onclick="OrderByFiltro('tipo')">Tipo <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="md5" onclick="OrderByFiltro('md5')">MD5 <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">Código <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="md5" onclick="OrderByFiltro('md5')">MD5 <span class="icon-order-by"></span></th>
 			<th scope="col">Deletar</th>
 		</tr>
 	</thead>
 	<tbody>
 		{if empty($records)}
-		<tr class="pointer row-data-select" data-row-id="{$campos.id}">
+		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
 			<td colspan="4">Nenhuma música encontrada!</td>
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="row-data-select" data-row-id="{$campos.id}">
-			<td class="pointer" onclick="changeNameTo(this)" scope="row" data-row-codigo="{$campos.codigo}">{$campos.codigo}</td>
-			<td class="pointer" onclick="changeNameTo(this)" data-row-nome="{$campos.nome|escape:'url'}">{$campos.nome}</td>
-			<td class="pointer" onclick="changeNameTo(this)" data-row-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
-			<td class="pointer" onclick="changeNameTo(this)" data-row-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
-			<td class="pointer" data-row-md5="{$campos.md5}">{$campos.md5}</td>
+		<tr class="row-data-select" dt-r-id="{$campos.id}">
+			<td class="pointer" onclick="changeNameTo(this)" scope="row" dt-r-codigo="{$campos.codigo}">{$campos.codigo}</td>
+			<td class="pointer" onclick="changeNameTo(this)" dt-r-nome="{$campos.nome|escape:'url'}">{$campos.nome}</td>
+			<td class="pointer" onclick="changeNameTo(this)" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
+			<td class="pointer" onclick="changeNameTo(this)" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
+			<td class="pointer" dt-r-md5="{$campos.md5}">{$campos.md5}</td>
 			<td><i class="fas fa-trash pointer" onclick="changeNameToDel(this)"></i></td>
 		</tr>
 		{/foreach}

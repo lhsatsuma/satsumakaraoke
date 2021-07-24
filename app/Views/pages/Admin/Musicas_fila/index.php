@@ -16,10 +16,10 @@
 	<thead>
 		<tr>
 			<th scope="col">Ordem</th>
-			<th scope="col" class="pointer" data-head-field="nome" onclick="OrderByFiltro('nome')">Nome <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="usuario_cantar" onclick="OrderByFiltro('usuario_cantar')">Usuário <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" data-head-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="usuario_cantar" onclick="OrderByFiltro('usuario_cantar')">Usuário <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação <span class="icon-order-by"></span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,12 +29,12 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer row-data-select" data-row-id="{$campos.id}">
-			<td scope="row" data-row-ordem="{$campos.ordem}">{$campos.ordem}</td>
-			<td data-row-nome="{$campos.nome}">{$campos.nome}</td>
-			<td data-row-usuario_cantar_nome="{$usuario_cantar_nome}"> {$campos.usuario_cantar_nome} </td>
-			<td data-row-status="{$campos.status}">{$campos.status}</td>
-			<td data-row-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
+		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
+			<td scope="row" dt-r-ordem="{$campos.ordem}">{$campos.ordem}</td>
+			<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
+			<td dt-r-usuario_cantar_nome="{$usuario_cantar_nome}"> {$campos.usuario_cantar_nome} </td>
+			<td dt-r-status="{$campos.status}">{$campos.status}</td>
+			<td dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
 		</tr>
 		{/foreach}
 		{/if}

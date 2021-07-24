@@ -6,19 +6,19 @@
 				<th>&nbsp;</th>
 			{/if}
 		{foreach from=$layout_list.table_heads item=thead key=thead_name}
-			<th scope="col" class="pointer {$thead.class}" data-head-field="{$thead_name}" onclick="OrderByFiltro('{$thead_name}')">{$thead.label} <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFiltro('{$thead_name}')">{$thead.label} <span class="icon-order-by"></span></th>
 		{/foreach}
 		</tr>
 	</thead>
 	<tbody>
 		{if $layout_list.table_tbody.has_records}
 			{foreach from=$layout_list.table_tbody.records item=body_record}
-				<tr class="row-data-select" data-row-id="{$body_record.id_value}">
+				<tr class="row-data-select" dt-r-id="{$body_record.id_value}">
 					{if $layout_list.has_edit}
 						<td><a href="{$body_record.location_href|replace:"/detalhes":"/editar"}"><i class="fas fa-edit"></i></a></td>
 					{/if}
 					{foreach from=$body_record.columns item=tbody_col key=tbody_name}
-						<td class="{$layout_list.table_heads[$tbody_name].class}" data-row-{$tbody_col.name}="{$tbody_col.name}" >
+						<td class="{$layout_list.table_heads[$tbody_name].class}" dt-r-{$tbody_col.name}="{$tbody_col.name}" >
 							{if $tbody_col.link_record}
 								<a href="{$tbody_col.link_record}">{$tbody_col.value}</a>
 							{else}
