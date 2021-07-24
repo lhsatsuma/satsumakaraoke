@@ -174,8 +174,6 @@ class Musicas extends BaseController
 		if(!$result){
 			$AjaxLib->setError('2x001', 'registro não encontrado');
 		}
-
-		$musicas_fila_mdl->f['usuario_cantar'] = $this->session->get('auth_user')['id'];
 		$musicas_fila_mdl->f['musica_id'] = $result['id'];
 		$musicas_fila_mdl->f['status'] = 'pendente';
 		$saved_record = $musicas_fila_mdl->saveRecord();
