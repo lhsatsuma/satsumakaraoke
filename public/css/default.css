@@ -920,3 +920,6 @@ input[type=range] {
   .b800{
 	  font-weight: 800;
   }
+  #video{
+	  max-width: 100% !important;
+  }
