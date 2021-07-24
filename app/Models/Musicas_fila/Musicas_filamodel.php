@@ -6,6 +6,7 @@ class Musicas_filamodel extends \App\Models\Basic\Basicmodel
 	public $db;
 	public $table = 'musicas_fila';
 	public $f = array();
+	public $id_by_name = true;
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'ID',
@@ -56,13 +57,6 @@ class Musicas_filamodel extends \App\Models\Basic\Basicmodel
 				'link_detail' => 'admin/usuarios/detalhes/',
 			),
 			'dont_load_layout' => true,
-		),
-		'usuario_cantar' => array(
-			'lbl' => 'Usuário Cantar',
-			'type' => 'related',
-			'required' => true,
-			'table' => 'usuarios',
-			'validations' => 'required|callback_dat',
 		),
 		'musica_id' => array(
 			'lbl' => 'Música ID',

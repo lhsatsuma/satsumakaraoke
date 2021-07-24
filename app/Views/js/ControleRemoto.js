@@ -10,7 +10,8 @@ function getLastVolume()
 	handleAjax({
 		url: app_url+'Musicas_fila_ajax/k_get_thread_copy',
 		callback: (res) => {
-			if(res.detail.volume !== null){
+			if(res.detail !== null
+				&& res.detail.volume !== null){
 				$('#volumeRange').val(res.detail.volume);
 				$('#volP').html(res.detail.volume+'%');
 			}

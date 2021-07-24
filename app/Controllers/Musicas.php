@@ -140,7 +140,6 @@ class Musicas extends BaseController
 			
 			$musicas_fila_mdl = new \App\Models\Musicas_fila\Musicas_filamodel();
 			$musicas_fila_mdl->f['nome'] = $return_data['saved_record']['nome'];
-			$musicas_fila_mdl->f['usuario_cantar'] = $this->session->get('auth_user')['id'];
 			$musicas_fila_mdl->f['musica_id'] = $return_data['saved_record']['id'];
 			$musicas_fila_mdl->f['status'] = 'pendente';
 			$return_data['saved_fila'] = $musicas_fila_mdl->saveRecord();
@@ -175,9 +174,7 @@ class Musicas extends BaseController
 		if(!$result){
 			$AjaxLib->setError('2x001', 'registro não encontrado');
 		}
-		
-		
-		$musicas_fila_mdl->f['nome'] = $result['nome'];
+
 		$musicas_fila_mdl->f['usuario_cantar'] = $this->session->get('auth_user')['id'];
 		$musicas_fila_mdl->f['musica_id'] = $result['id'];
 		$musicas_fila_mdl->f['status'] = 'pendente';

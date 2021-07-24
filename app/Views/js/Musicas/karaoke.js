@@ -1,15 +1,6 @@
 var video = document.getElementById('video');
 video.onloadeddata = function() {
-
-	let windowTotalHeight = window.innerHeight;
-
-	let window70Height = (windowTotalHeight * 75) / 100;
-	console.log(window70Height);
-	let videoHeight = video.videoHeight;
-
-	let videoHeightPerc = (videoHeight * 100) / windowTotalHeight;
-	console.log(videoHeight, videoHeightPerc);
-	$('#video').css('height', window70Height);
+	resizeVideo();
 };
 video.onpause = (event) => {
 	if(video.paused && video.src !== ""){
@@ -26,10 +17,24 @@ var last_volume = 1;
 var musicsLine = [];
 var keyListSong = null;
 var songNow = {};
+$(window).resize(() => {
+	resizeVideo();
+});
 $(document).ready(function(){
 	$('#InitialModal').modal('show');
 });
+function resizeVideo()
+{
+	let windowTotalHeight = window.innerHeight;
 
+	let window70Height = (windowTotalHeight * 75) / 100;
+	console.log(window70Height);
+	let videoHeight = video.videoHeight;
+
+	let videoHeightPerc = (videoHeight * 100) / windowTotalHeight;
+	console.log(videoHeight, videoHeightPerc);
+	$('#video').css('height', window70Height);
+}
 function removeInitial()
 {
 	$('#InitialModal').modal('hide');
@@ -37,7 +42,8 @@ function removeInitial()
 	handleAjax({
 		url: app_url+'Musicas_fila_ajax/k_get_thread_copy',
 		callback: (res) => {
-			if(res.detail.volume !== null){
+			if(res.detail !== null
+				&& res.detail.volume !== null){
 				video.volume = res.detail.volume / 100;
 				last_volume = res.detail.volume / 100;
 				$('#volumeSpan').html(res.detail.volume + '%');

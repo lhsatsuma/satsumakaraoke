@@ -29,6 +29,8 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	*/
 	public $compress_output = true;
 
+	public $VideosKaraokeURL = '';
+
 	public $host_fila = '';
 	
 	public function __construct()
