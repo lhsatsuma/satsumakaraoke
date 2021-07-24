@@ -54,9 +54,9 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->add('/admin/login', 'admin/Usuarios::login');
-$routes->add('/admin/login/auth', 'admin/Usuarios::auth');
-$routes->add('/admin/login/logout', 'admin/Usuarios::logout');
+$routes->add('/admin/login', 'Admin/Usuarios::login');
+$routes->add('/admin/login/auth', 'Admin/Usuarios::auth');
+$routes->add('/admin/login/logout', 'Admin/Usuarios::logout');
 
 $routes->add('/login', 'Usuarios::login');
 $routes->add('/login/(:any)', 'Usuarios::$1');
