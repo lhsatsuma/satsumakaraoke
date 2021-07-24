@@ -30,6 +30,10 @@ class DropdownLib extends \App\Libraries\Sys\DropdownLib{
 			'JPN' => 'JPN',
 			'OTR' => 'OTR',
 		),
+		'status_musicas_fila_list' => array(
+			'pendente' => 'Pendente',
+			'encerrado' => 'Encerrado',
+		)
 	);
 }
 ?>

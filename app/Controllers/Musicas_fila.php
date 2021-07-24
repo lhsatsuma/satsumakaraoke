@@ -22,6 +22,8 @@ class Musicas_fila extends BaseController
 		$result = $this->mdl->search(20, $offset);
 		
 		$result = $this->mdl->formatRecordsView($result);
+
+		// echo '<pre>';var_dump($result);exit;
 		
 		$this->data['records'] = $result;
 		
@@ -37,8 +39,6 @@ class Musicas_fila extends BaseController
 		
 		$this->data['color_status_pendente'] = 'success';
 		$this->data['icon_status_pendente'] = '';
-		$this->data['color_status_encerrado'] = 'success';
-		$this->data['icon_status_encerrado'] = '';
 		
 		if($this->filter['status']['value'] == 'pendente'){
 			$this->data['color_status_pendente'] = 'warning';

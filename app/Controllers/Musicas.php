@@ -8,14 +8,14 @@ class Musicas extends BaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
+		$extBtns = [];
+		$extBtns['helpSongs'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#helpSongsModal"><i class="fas fa-info"></i></button>';
 		if($this->session->get('auth_user')['tipo'] >= 80
 		|| $this->session->get('auth_user_admin')['tipo'] >= 80){
-			return array(
-				'import' => '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i> Importar</button>',
-			);
+			$extBtns['import'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i> Importar</button>';
 		}
 
-		return array();
+		return $extBtns;
 	}
 	
 	public function index($offset=0)
