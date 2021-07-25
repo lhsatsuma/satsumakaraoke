@@ -31,6 +31,7 @@
 		<script type="text/javascript">
 			var app_url = '{$app_url}';
 			var karaoke_url = '{$karaoke_url}';
+			var ajax_pagination = parseInt('{$ajax_pagination}');
 		</script>
 	</head>
 	<body>

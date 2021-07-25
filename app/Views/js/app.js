@@ -39,6 +39,11 @@ $(document).ready(function(){
 	
 	/* -->SIDEBAR JS */
 	
+	orderByFiltro();
+	insertMaskInputs();
+});
+function orderByFiltro()
+{
 	let order_by_field = $('#filtroForm').find('input[name="order_by_field"]').val();
 	let order_by_order = $('#filtroForm').find('input[name="order_by_order"]').val();
 	
@@ -51,8 +56,7 @@ $(document).ready(function(){
 		}
 		$('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
 	}
-	insertMaskInputs();
-});
+}
 function ConfirmDeleteRecord(fm)
 {
 	Swal.fire({

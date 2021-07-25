@@ -476,9 +476,9 @@ function GoToPage(elm, page)
 			action += '/'+page;
 		}
 
-		if($('#filtroForm').parent().find('.table-result-filter').length > 0){
+		if(ajax_pagination && $('#filtroForm').parent().find('.table-result-filter').length > 0){
 			//Lets try to get Pagination with Ajax
-			
+
 			let formData = new FormData(document.getElementById('filtroForm'));
 
 			let formValues = Object.fromEntries(formData.entries());
@@ -497,6 +497,8 @@ function GoToPage(elm, page)
 							$('#filtroForm').parent().find('.table-result-filter').remove();
 							$('#filtroForm').parent().find('.table-pagination').remove();
 							$('#filtroForm').after(res.detail);
+							orderByFiltro();
+							window.history.pushState({"html":document.html,"pageTitle":document.pageTitle},"", action);
 						},
 						callbackAll: (res) => {
 							Swal.close();

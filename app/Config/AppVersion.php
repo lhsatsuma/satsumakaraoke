@@ -32,6 +32,8 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	public $VideosKaraokeURL = '';
 
 	public $host_fila = '';
+
+	public $ajax_pagination = true;
 	
 	public function __construct()
 	{

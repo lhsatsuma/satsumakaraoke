@@ -244,6 +244,7 @@ class BaseController extends Controller
 	
 	public function SetInitialData()
 	{
+		global $AppVersion;
 		//Initial data for view, assuming this it's gonna be used in all pages
 		$msg_type = '';
 		if($this->session->getFlashdata('msg_type') == 'success'){
@@ -264,6 +265,7 @@ class BaseController extends Controller
 			'breadcrumb' => $this->SetBreadCrumbArr(),
 			'auto_redirect_after_to' => $this->request->getPost('auto_redirect_after_to'),
 			'body_only' => ($this->request->getGet('bodyOnly') ? true : false),
+			'ajax_pagination' => ($AppVersion->ajax_pagination ? true : false),
 		);
 		$this->view->setData($dataArr);
 		
