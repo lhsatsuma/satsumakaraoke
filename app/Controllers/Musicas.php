@@ -127,7 +127,7 @@ class Musicas extends BaseController
 		$downloaded = $ytLib->importUrl($body_post['link'], $body_post['md5'], $body_post['title']);
 
 		if(!$downloaded){
-			$AjaxLib->setError('3x002', 'Não foi possível realizar o download do vídeo! Entre em contato com o administrador!');
+			$AjaxLib->setError('3x002', 'Não foi possível realizar o download do vídeo! Entre em contato com o administrador!', $return_data);
 		}
 		
 		$return_data = $this->mdl->force_save($body_post['link'], $body_post['md5'], $body_post['title'], $body_post['tipo']);

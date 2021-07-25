@@ -78,13 +78,11 @@ $('#ImportModalLink').keyup(function(){
 					complete: function(d){
 						var r = d.responseJSON;
 						if(!!r.status){
-							if(r.status){
-								$('#ImportModalLinkTitleDiv').html('<p><label>Nome</label><input type="hidden" id="ImportModalLinkMD5" name="ImportModalLinkMD5" value="'+r.detail.md5+'"/><input class="form-control" type="text" id="ImportModalLinkTitle" name="ImportModalLinkTitle" value="'+fixNameUtf8(r.detail.title)+'"/></p><p><button type="button" class="btn btn-info" onclick="changeByTraco(this)">Inverter Titulo/cantor</button></p><p><label>Tipo</label><select class="form-control" id="ImportModalLinkTipo" name="ImportModalLinkTipo"><option value="N/A">N/A</option><option value="INT">INT</option><option value="BRL">BRL</option><option value="ESP">ESP</option><option value="JPN">JPN</option><option value="OTR">OTR</option></select></p>');
-								$('#ImportMusicaButton').prop('disabled', false);
-								$('#ImportMusicaAndFilaButton').prop('disabled', false);
-							}else{
-								$('#ImportModalLink').addClass('invalid-value').after('<span class="validation-error required">'+r.detail+'</span>');
-							}
+							$('#ImportModalLinkTitleDiv').html('<p><label>Nome</label><input type="hidden" id="ImportModalLinkMD5" name="ImportModalLinkMD5" value="'+r.detail.md5+'"/><input class="form-control" type="text" id="ImportModalLinkTitle" name="ImportModalLinkTitle" value="'+fixNameUtf8(r.detail.title)+'"/></p><p><button type="button" class="btn btn-info" onclick="changeByTraco(this)">Inverter Titulo/cantor</button></p><p><label>Tipo</label><select class="form-control" id="ImportModalLinkTipo" name="ImportModalLinkTipo"><option value="N/A">N/A</option><option value="INT">INT</option><option value="BRL">BRL</option><option value="ESP">ESP</option><option value="JPN">JPN</option><option value="OTR">OTR</option></select></p>');
+							$('#ImportMusicaButton').prop('disabled', false);
+							$('#ImportMusicaAndFilaButton').prop('disabled', false);
+						}else{
+							$('#ImportModalLink').addClass('invalid-value').after('<span class="validation-error required">'+r.detail+'</span>');
 						}
 						swal.close();
 						
@@ -145,7 +143,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').click(function(){
 						}else{
 							Swal.fire({
 								title: 'Erro ao importar a música!',
-								text: r.detail,
+								text: r.error_msg,
 								icon: 'error',
 								width: '400px',
 							});

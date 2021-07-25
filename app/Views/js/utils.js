@@ -398,29 +398,27 @@ function setCepField(args = {})
 			},
 			complete: function(d){
 				var r = d.responseJSON;
-				if(!!r.status){
-					if(r.status && !!r.detail){
-						if(!!r.detail.endereco){
-							if(elmCfg.fillFields){
-								$.each(elmCfg.fillFields, function(idx, ipt){
-									$('input[name="'+ipt+'"]').val(r.detail.endereco[idx]);
-									$('select[name="'+ipt+'"]').val(r.detail.endereco[idx]);
-								});
-							}
-							if(elmCfg.callback_select){
-								var fn = window[elmCfg.callback_select];
-								if(typeof fn !== 'function')
-									return;
-								fn.apply(window, [r.detail]);
-							}
-						}else{
-							Swal.fire({
-								title: 'CEP não encontrado!',
-								text: '',
-								icon: 'error',
-
-							})
+				if(!!r.status && !!r.detail){
+					if(!!r.detail.endereco){
+						if(elmCfg.fillFields){
+							$.each(elmCfg.fillFields, function(idx, ipt){
+								$('input[name="'+ipt+'"]').val(r.detail.endereco[idx]);
+								$('select[name="'+ipt+'"]').val(r.detail.endereco[idx]);
+							});
 						}
+						if(elmCfg.callback_select){
+							var fn = window[elmCfg.callback_select];
+							if(typeof fn !== 'function')
+								return;
+							fn.apply(window, [r.detail]);
+						}
+					}else{
+						Swal.fire({
+							title: 'CEP não encontrado!',
+							text: '',
+							icon: 'error',
+
+						})
 					}
 				}
 				hideLoadingIcon('#consulta_cep_'+$(elmCfg.elm).attr('name'));

@@ -52,11 +52,12 @@ class AjaxLib{
 		$this->setAjax();
 		
 	}
-	public function setError($code, $msg)
+	public function setError($code, $msg, array $moreArr = null)
 	{
 		$this->data['status'] = 0;
 		$this->data['error_code'] = $code;
-		$this->data['detail'] = $msg;
+		$this->data['error_msg'] = $code;
+		$this->data['detail'] = $moreArr;
 		$this->setAjax();
 	}
 	public function setAjax()
