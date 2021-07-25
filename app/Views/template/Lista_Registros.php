@@ -1,5 +1,7 @@
+{if !$body_only}
 {$filter_template}
-<table class="table table-hover table-striped table-list">
+{/if}
+<table class="table table-hover table-striped table-list table-result-filter">
 	<thead>
 		<tr>
 			{if $layout_list.has_edit}

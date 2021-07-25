@@ -1,5 +1,7 @@
+{if !$body_only}
 {$filter_template}
-<table class="table table-responsive-xl table-striped table-list">
+{/if}
+<table class="table table-responsive-xl table-striped table-list table-result-filter">
 	<thead>
 		<tr>
 			<th scope="col" class="pointer" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo <span class="icon-order-by"></span></th>
@@ -42,4 +44,6 @@
 		</tr>
 	</tbody>
 </table>
+{if !$body_only}
 <script type="text/javascript" src="{$app_url}jsManager/Musicas_fila/index.js?v={$ch_ver}"></script>
+{/if}

@@ -1,3 +1,4 @@
+{if !$body_only}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 	<head>
 		<title>{$title} - Satsuma Karaokê</title>
@@ -142,3 +143,6 @@
 		<!-- page-wrapper -->
 		</body>
 </html>
+{else}
+{$content}
+{/if}

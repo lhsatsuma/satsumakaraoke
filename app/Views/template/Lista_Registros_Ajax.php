@@ -1,5 +1,7 @@
+{if !$body_only}
 {$filter_template}
-<table class="table table-striped table-list collapse {if $layout_list.table_id}{$layout_list.table_id}{/if} show" style="margin-top: 10px;" id="{if $layout_list.table_id}{$layout_list.table_id}{/if}">
+{/if}
+<table class="table-result-filter table table-striped table-list collapse {if $layout_list.table_id}{$layout_list.table_id}{/if} show" style="margin-top: 10px;" id="{if $layout_list.table_id}{$layout_list.table_id}{/if}">
 	<thead>
 		<tr>
 			{if $layout_list.has_edit}

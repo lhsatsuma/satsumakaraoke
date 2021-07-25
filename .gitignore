@@ -129,5 +129,6 @@ nb-configuration.xml
 /fivem/
 .vs/VSWorkspaceState.json
 ffmpeg.exe
+thread.json
 threadCopy.json
 *.log

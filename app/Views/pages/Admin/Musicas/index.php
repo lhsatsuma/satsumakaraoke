@@ -1,5 +1,7 @@
+{if !$body_only}
 {$filter_template}
-<table class="table table-striped table-list">
+{/if}
+<table class="table table-striped table-list table-result-filter">
 	<thead>
 		<tr class="d-flex">
 			<th scope="col" class="pointer col-2 col-xl-1" dt-h-field="codigo" onclick="OrderByFiltro('codigo')"># <span class="icon-order-by"></span></th>

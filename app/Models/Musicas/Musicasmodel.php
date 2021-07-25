@@ -125,6 +125,7 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			$this->f['codigo'] = $result[0]['codigo'];
 		}
 		if(empty($this->f['codigo'])){
+			$this->force_deletado = true;
 			$this->where = array();
 			$this->select = "MAX(CAST(codigo as UNSIGNED))+1 as codigo_ult";
 			$number = $this->search(1);
@@ -132,6 +133,7 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			if(is_null($this->f['codigo'])){
 				$this->f['codigo'] = 1;
 			}
+			$this->force_deletado = false;
 		}
 		$this->f['nome'] = $title;
 		$this->f['md5'] = $md5;

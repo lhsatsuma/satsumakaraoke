@@ -1,5 +1,7 @@
+{if !$body_only}
 {$filter_template}
-<table class="table table-responsive-xl table-striped table-list">
+{/if}
+<table class="table table-responsive-xl table-striped table-list table-result-filter">
 	<thead>
 		<tr>
 			<th scope="col" class="pointer" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">Código <span class="icon-order-by"></span></th>
@@ -41,6 +43,7 @@
 		</tr>
 	</tbody>
 </table>
+{if !$body_only}
 <div class="modal fade" id="ChangeNameToModal" tabindex="-1" role="dialog" aria-labelledby="ChangeNameToModalLabel" aria-hidden="true">
 	<input type="hidden" id="IdInsertModal" />
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -83,3 +86,4 @@
 	</div>
 </div>
 <script type="text/javascript" src="{$app_url}jsManager/Admin/Musicas/fixNomes.js?v={$ch_ver}"></script>
+{/if}
