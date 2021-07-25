@@ -27,7 +27,7 @@ function resizeVideo()
 {
 	let windowTotalHeight = window.innerHeight;
 
-	let window70Height = (windowTotalHeight * 70) / 100;
+	let window70Height = (windowTotalHeight * 65) / 100;
 	console.log(window70Height);
 	let videoHeight = video.videoHeight;
 

@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			<div id="joinUsKaraoke" class="col-12 center">
-				<h3>Junte-se a nós no karaokê! Acesse <span class="b800">{$host_fila}</span> e coloque suas músicas na fila para cantar!</h3>
+				<h1>Junte-se a nós no karaokê! Acesse <span class="b800">{$host_fila}</span></h1>
 			</div>
 		</div>
 	</body>

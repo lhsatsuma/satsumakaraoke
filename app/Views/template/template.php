@@ -127,7 +127,7 @@
 		<!-- page-content" -->
 		</div>
 		<!-- page-wrapper -->
-		{if $auth_user.tipo == 99}
+		{if $auth_user.tipo >= 80}
 		<div class="modal fade" id="ControleRemotoModal" tabindex="-1" role="dialog" aria-labelledby="ControleRemotoModalLabel" aria-hidden="true">
 			<input type="hidden" id="IdInsertModal" />
 			<div class="modal-dialog modal-sm modal-dialog-centered" role="document">

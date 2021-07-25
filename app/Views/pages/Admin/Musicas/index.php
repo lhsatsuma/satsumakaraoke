@@ -11,12 +11,12 @@
 	</thead>
 	<tbody>
 		{if empty($records)}
-		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
+		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
 			<td colspan="2">Nenhuma música encontrada!</td>
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer row-data-select d-flex" dt-r-id="{$campos.id}">
+		<tr class="pointer r-dt-slct d-flex" dt-r-id="{$campos.id}">
 			<th class="col-2 col-xl-1" dt-r-codigo="{$campos.codigo}">{$campos.codigo}</th>
 			<td class="col-2 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
 			<td class="col-8 col-xl-10" dt-r-nome="{$campos.nome}">{$campos.nome}</td>

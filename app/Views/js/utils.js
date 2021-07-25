@@ -495,7 +495,11 @@ function GoToPage(elm, page)
 							$('#filtroForm').parent().find('.table-pagination').remove();
 							$('#filtroForm').after(res.detail);
 							orderByFiltro();
+							if(typeof addEventRowData !== undefined){
+								addEventRowData();
+							}
 							window.history.pushState({"html":document.html,"pageTitle":document.pageTitle},"", action);
+							window.scrollTo(0,0);
 						},
 						callbackError: (res) => {
 							fireErrorGeneric();

@@ -27,7 +27,7 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
+		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
 			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
 			<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
 			<td dt-r-status="{$campos.status}">{$campos.status}</td>

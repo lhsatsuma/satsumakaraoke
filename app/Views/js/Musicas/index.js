@@ -1,9 +1,14 @@
-$('.row-data-select').each(function(){
-	$(this).click(function(){
-		OpenModalSelected($(this).attr('dt-r-id'));
+function addEventRowData()
+{
+	$('.r-dt-slct').each(function(){
+		$(this).click(function(){
+			OpenModalSelected($(this).attr('dt-r-id'));
+		});
+		
 	});
 	
-});
+}
+addEventRowData();
 function OpenModalSelected(id){
 	var row = $('tr[dt-r-id="'+id+'"]');
 	const codigo = row.find('th[dt-r-codigo]').attr('dt-r-codigo');

@@ -15,7 +15,7 @@
 	<tbody>
 	{if !empty($records)}
 		{foreach from=$records item=campos}
-			<tr class="pointer row-data-select" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/usuarios/detalhes/{$campos.id}'">
+			<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/usuarios/detalhes/{$campos.id}'">
 				<td dt-r-tipo="{$campos.tipo}">{$campos.tipo}</td>
 				<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
 				<td class="d-none d-md-table-cell" dt-r-email="{$campos.email}"> {$campos.email} </td>

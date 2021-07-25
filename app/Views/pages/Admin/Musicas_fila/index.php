@@ -29,7 +29,7 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
+		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
 			<td scope="row" dt-r-ordem="{$campos.ordem}">{$campos.ordem}</td>
 			<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
 			<td dt-r-usuario_cantar_nome="{$usuario_cantar_nome}"> {$campos.usuario_cantar_nome} </td>

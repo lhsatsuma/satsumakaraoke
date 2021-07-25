@@ -15,7 +15,7 @@
 	<tbody>
 		{if $layout_list.table_tbody.has_records}
 			{foreach from=$layout_list.table_tbody.records item=body_record}
-				<tr class="row-data-select" dt-r-id="{$body_record.id_value}">
+				<tr class="r-dt-slct" dt-r-id="{$body_record.id_value}">
 					{if $layout_list.has_edit}
 						<td><a href="{$body_record.location_href|replace:"/detalhes":"/editar"}"><i class="fas fa-edit"></i></a></td>
 					{/if}
@@ -31,7 +31,7 @@
 				</tr>
 			{/foreach}
 		{else}
-		<tr class="row-data-select">
+		<tr class="r-dt-slct">
 			<td colspan="{if $layout_list.has_edit}{count($layout_list.table_heads)+1}{else}{count($layout_list.table_heads)}{/if}">Nenhum registro encontrado!</td>
 		</tr>
 		{/if}

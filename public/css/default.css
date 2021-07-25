@@ -910,7 +910,7 @@ input[type=range] {
 	height: 15vh;
   }
   .videoDiv{
-	height: 70vh;
+	height: 65vh;
   }
   .volumeDiv{
 	height: 10vh;
@@ -919,7 +919,7 @@ input[type=range] {
 	  height: 15vh;
   }
   .joinUsKaraoke{
-	height: 5vh;
+	height: 10vh;
   }
   .b800{
 	  font-weight: 800;

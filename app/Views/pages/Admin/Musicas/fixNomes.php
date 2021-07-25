@@ -14,12 +14,12 @@
 	</thead>
 	<tbody>
 		{if empty($records)}
-		<tr class="pointer row-data-select" dt-r-id="{$campos.id}">
+		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
 			<td colspan="4">Nenhuma música encontrada!</td>
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="row-data-select" dt-r-id="{$campos.id}">
+		<tr class="r-dt-slct" dt-r-id="{$campos.id}">
 			<td class="pointer" onclick="changeNameTo(this)" scope="row" dt-r-codigo="{$campos.codigo}">{$campos.codigo}</td>
 			<td class="pointer" onclick="changeNameTo(this)" dt-r-nome="{$campos.nome|escape:'url'}">{$campos.nome}</td>
 			<td class="pointer" onclick="changeNameTo(this)" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
