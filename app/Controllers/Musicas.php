@@ -20,7 +20,6 @@ class Musicas extends BaseController
 	
 	public function index($offset=0)
 	{
-		
 		$this->data['title'] = 'Músicas';
 
 

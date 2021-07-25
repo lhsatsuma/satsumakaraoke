@@ -48,11 +48,11 @@ class Usuarios extends BaseController
 	public function createUser()
 	{
 		$this->PopulatePost();
-		$this->mdl->where['email'] = $this->request->getPost('email');
+		$this->mdl->where['email'] = getFormData('email');
 		$this->mdl->f['status'] = 'ativo';
 		$founded = $this->mdl->search(1);
 
-		if($this->request->getPost('senha') !== $this->request->getPost('senha_repeat')
+		if(getFormData('senha') !== getFormData('senha_repeat')
 			|| $founded[0]){
 			rdct('/login/criarConta');
 		}
@@ -110,7 +110,7 @@ class Usuarios extends BaseController
 		
 		$AuthUser = $this->session->get('auth_user');
 		
-		$SenhaAtual = md5($this->request->getPost('senha_atual'));
+		$SenhaAtual = md5(getFormData('senha_atual'));
 		
 		if($AuthUser['senha'] !== $SenhaAtual){
 			$this->validation_errors = array(
@@ -120,9 +120,9 @@ class Usuarios extends BaseController
 			rdct('/usuarios/MeusDados');
 		}
 		
-		if(!empty($this->request->getPost('senha_nova')) || !empty($this->request->getPost('confirm_senha_nova'))){
-			$senha_nova = $this->request->getPost('senha_nova');
-			$confirm_senha_nova = $this->request->getPost('confirm_senha_nova');
+		if(!empty(getFormData('senha_nova')) || !empty(getFormData('confirm_senha_nova'))){
+			$senha_nova = getFormData('senha_nova');
+			$confirm_senha_nova = getFormData('confirm_senha_nova');
 			if($senha_nova !== $confirm_senha_nova){
 				$this->validation_errors = array(
 					'confirm_senha_nova' => 'As senhas não conferem',

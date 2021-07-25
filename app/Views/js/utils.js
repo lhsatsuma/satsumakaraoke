@@ -483,7 +483,6 @@ function GoToPage(elm, page)
 
 			let formValues = Object.fromEntries(formData.entries());
 
-			formValues.topics = formData.getAll("topics");
 			fireLoading({
 				title: 'Aguarde...',
 				text: 'Estamos buscando os registros...',
@@ -492,13 +491,16 @@ function GoToPage(elm, page)
 					handleAjax({
 						url: action+'?bodyOnly=1',
 						dontfireError: true,
-						data: formValues,
+						data: JSON.stringify(formValues),
 						callback: (res) => {
 							$('#filtroForm').parent().find('.table-result-filter').remove();
 							$('#filtroForm').parent().find('.table-pagination').remove();
 							$('#filtroForm').after(res.detail);
 							orderByFiltro();
 							window.history.pushState({"html":document.html,"pageTitle":document.pageTitle},"", action);
+						},
+						callbackError: (res) => {
+							fireErrorGeneric();
 						},
 						callbackAll: (res) => {
 							Swal.close();

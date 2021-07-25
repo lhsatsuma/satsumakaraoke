@@ -106,11 +106,11 @@ class Usuarios extends AdminBaseController
 		
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
-			rdct('/admin/usuarios/editar/'.$this->request->getPost('id'));
+			rdct('/admin/usuarios/editar/'.getFormData('id'));
 		}
 		
 		if(empty($this->mdl->f['id'])){
-			if(empty($this->request->getPost('senha_nova')) && empty($this->request->getPost('confirm_senha_nova'))){
+			if(empty(getFormData('senha_nova')) && empty(getFormData('confirm_senha_nova'))){
 				$this->validation_errors = array(
 					'senha_nova' => 'É necessário digitar uma senha para novos usuários.',
 				);
@@ -119,15 +119,15 @@ class Usuarios extends AdminBaseController
 			}
 		}
 		
-		if(!empty($this->request->getPost('senha_nova')) || !empty($this->request->getPost('confirm_senha_nova'))){
-			$senha_nova = $this->request->getPost('senha_nova');
-			$confirm_senha_nova = $this->request->getPost('confirm_senha_nova');
+		if(!empty(getFormData('senha_nova')) || !empty(getFormData('confirm_senha_nova'))){
+			$senha_nova = getFormData('senha_nova');
+			$confirm_senha_nova = getFormData('confirm_senha_nova');
 			if($senha_nova !== $confirm_senha_nova){
 				$this->validation_errors = array(
 					'confirm_senha_nova' => 'As senhas não conferem',
 				);
 				$this->SetErrorValidatedForm();
-				rdct('/admin/usuarios/editar/'.$this->request->getPost('id'));
+				rdct('/admin/usuarios/editar/'.getFormData('id'));
 			}
 			$this->mdl->f['senha'] = $confirm_senha_nova;
 		}
@@ -141,7 +141,7 @@ class Usuarios extends AdminBaseController
 				'email' => 'Já existe um usuário com este email.',
 			);
 			$this->SetErrorValidatedForm();
-			rdct('/admin/usuarios/editar/'.$this->request->getPost('id'));
+			rdct('/admin/usuarios/editar/'.getFormData('id'));
 		}
 		$saved = $this->mdl->saveRecord();
 		if($saved){
@@ -151,7 +151,7 @@ class Usuarios extends AdminBaseController
 				'generic_error' => $this->mdl->last_error,
 			);
 			$this->SetErrorValidatedForm();
-			rdct('/admin/usuarios/editar/'.$this->request->getPost('id'));
+			rdct('/admin/usuarios/editar/'.getFormData('id'));
 		}
 	}
 	public function MeusDados()
@@ -187,7 +187,7 @@ class Usuarios extends AdminBaseController
 		
 		$AuthUser = $this->session->get('auth_user');
 		
-		$SenhaAtual = md5($this->request->getPost('senha_atual'));
+		$SenhaAtual = md5(getFormData('senha_atual'));
 		
 		if($AuthUser['senha'] !== $SenhaAtual){
 			$this->validation_errors = array(
@@ -197,9 +197,9 @@ class Usuarios extends AdminBaseController
 			rdct('/admin/usuarios/MeusDados');
 		}
 		
-		if(!empty($this->request->getPost('senha_nova')) || !empty($this->request->getPost('confirm_senha_nova'))){
-			$senha_nova = $this->request->getPost('senha_nova');
-			$confirm_senha_nova = $this->request->getPost('confirm_senha_nova');
+		if(!empty(getFormData('senha_nova')) || !empty(getFormData('confirm_senha_nova'))){
+			$senha_nova = getFormData('senha_nova');
+			$confirm_senha_nova = getFormData('confirm_senha_nova');
 			if($senha_nova !== $confirm_senha_nova){
 				$this->validation_errors = array(
 					'confirm_senha_nova' => 'As senhas não conferem',

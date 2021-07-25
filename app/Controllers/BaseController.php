@@ -263,7 +263,7 @@ class BaseController extends Controller
 			'auth_user' => $this->session->get('auth_user'),
 			'auth_user_admin' => $this->session->get('auth_user_admin'),
 			'breadcrumb' => $this->SetBreadCrumbArr(),
-			'auto_redirect_after_to' => $this->request->getPost('auto_redirect_after_to'),
+			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
 			'body_only' => ($this->request->getGet('bodyOnly') ? true : false),
 			'ajax_pagination' => ($AppVersion->ajax_pagination ? true : false),
 		);
@@ -277,9 +277,9 @@ class BaseController extends Controller
 		foreach($this->mdl->fields_map as $field => $options){
 			if($options['type'] == 'file'){
 				//Old value for model update
-				$this->mdl->f[$field] = $this->request->getPost($field);
+				$this->mdl->f[$field] = getFormData($field);
 			}else{
-				$value = $this->request->getPost($field);
+				$value = getFormData($field);
 				if(!is_null($value)){
 					if($encode){
 						$value = $this->mdl->formatDBValues($options['type'], $value);
@@ -294,7 +294,7 @@ class BaseController extends Controller
 	{
 		//Just a generic function for populate all mdl->f with incoming post
 		foreach($this->mdl->fields_map as $field => $options){
-			$value = (!is_null($this->request->getPost('search_'.$field))) ? $this->request->getPost('search_'.$field) : null;
+			$value = (!is_null(getFormData('search_'.$field))) ? getFormData('search_'.$field) : null;
 			if(is_null($value) &&
 			isset($initial_filter[$field]) &&
 			!empty($initial_filter[$field])){
@@ -316,9 +316,9 @@ class BaseController extends Controller
 				//Default condition it's LIKE for filter
 				$condition = 'LIKE';
 
-				if($this->request->getPost('search_'.$field.'_condition')){
+				if(getFormData('search_'.$field.'_condition')){
 					//Condition came with POST
-					$condition = $this->request->getPost('search_'.$field.'_condition');
+					$condition = getFormData('search_'.$field.'_condition');
 				}elseif(in_array($options['type'], ['related','dropdown','bool'])){
 					
 					//Force condition EQUAL for this types of fields
@@ -346,8 +346,8 @@ class BaseController extends Controller
 				);
 			}
 		}
-		if($this->filterLib_cfg['generic_filter'] && !is_null($this->request->getPost('search_generic_filter'))){
-			$value = $this->request->getPost('search_generic_filter');
+		if($this->filterLib_cfg['generic_filter'] && !is_null(getFormData('search_generic_filter'))){
+			$value = getFormData('search_generic_filter');
 			if($value){
 				foreach($this->filterLib_cfg['generic_filter'] as $key => $field){
 					$key_where = "";
@@ -370,12 +370,12 @@ class BaseController extends Controller
 		if(!empty($this->body['order_by_field'])){
 			$order_by_field = $this->body['order_by_field'];
 		}else{
-			$order_by_field = $this->request->getPost('order_by_field');
+			$order_by_field = getFormData('order_by_field');
 		}
 		if(!empty($this->body['order_by_order'])){
 			$order_by_order = $this->body['order_by_order'];
 		}else{
-			$order_by_order = $this->request->getPost('order_by_order');
+			$order_by_order = getFormData('order_by_order');
 		}
 		if(!empty($order_by_field) && !empty($order_by_order)){
 			$this->mdl->order_by[$order_by_field] = $order_by_order;
@@ -462,11 +462,11 @@ class BaseController extends Controller
 		if(is_null($save_data)){
 			///Let's try from POST params
 			foreach($this->mdl->fields_map as $field => $attrs){
-				$value = $this->request->getPost('save_data_'.$field);
+				$value = getFormData('save_data_'.$field);
 				if(!empty($value)){
 					if($attrs['type'] == 'related'){
-						$save_data[$field.'_nome'] = $this->request->getPost('save_data_'.$field);
-						$save_data[$field] = $this->request->getPost('save_data_'.$field.'_nome');
+						$save_data[$field.'_nome'] = getFormData('save_data_'.$field);
+						$save_data[$field] = getFormData('save_data_'.$field.'_nome');
 					}elseif($attrs['type'] == 'dropdown'){
 						$save_data['raw'][$field] = $value;
 					}else{
@@ -553,7 +553,7 @@ class BaseController extends Controller
 		}
 		$this->session->setFlashdata('save_data_errors', $this->validation_errors);
 		if($set_save_data){
-			$this->session->setFlashdata('save_data', $this->request->getPost());
+			$this->session->setFlashdata('save_data', getFormData());
 		}
 	}
 

@@ -52,7 +52,7 @@ class FilterLib
 		$data['id_filter'] = $this->id_filter;
 		$data['page'] = $this->page;
 		$data['generic_filter'] = $this->generic_filter;
-		$data['search_generic_filter'] = $this->request->getPost('search_generic_filter');
+		$data['search_generic_filter'] = getFormData('search_generic_filter');
 		$data['order_by'] = $this->order_by;
 		
 		$data['ext_buttons'] = $this->ext_buttons;
@@ -70,7 +70,7 @@ class FilterLib
 			if($attrs['options']['type'] == 'related'){
 				$fields_map['search_'.$field] = $attrs['options'];
 				$record['search_'.$field] = $attrs['value'];
-				$record['search_'.$field.'_nome'] = $this->request->getPost('search_'.$field.'_nome');
+				$record['search_'.$field.'_nome'] = getFormData('search_'.$field.'_nome');
 			}
 			$fields_map['search_'.$field] = $attrs['options'];
 			$record['search_'.$field] = $attrs['value'];

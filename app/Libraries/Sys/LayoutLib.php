@@ -275,7 +275,7 @@ class LayoutLib
 	{
 		$condition_filter_html = '';
 		if($this->its_filter){
-			$postVal = $this->request->getPost($field.'_condition');
+			$postVal = getFormData($field.'_condition');
 			if(!$postVal){
 				$postVal = 'LIKE';
 			}

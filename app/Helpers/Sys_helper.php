@@ -262,5 +262,24 @@ function getModules()
 	}
 	return $return;
 }
-
+function getFormData($key=null)
+{
+	global $requestForm;
+	if(!$requestForm){
+		$requestForm = \Config\Services::request();
+	}
+	$rawInput = $requestForm->getBody();
+	if($rawInput){
+		$decoded = json_decode($rawInput, true);
+		if($key === null){
+			return $decoded;
+		}elseif(isset($decoded[$key])){
+			return $decoded[$key];
+		}
+	}
+	if($key === null){
+		return $requestForm->getPostGet();
+	}
+	return $requestForm->getPostGet($key);
+}
 ?>
