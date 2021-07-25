@@ -112,7 +112,7 @@ function ajaxNextImport()
             },
             success: function(res){
                 $('#countLinksTotal').html(parseInt($('#countLinksTotal').html()) + 1);
-                if(!!res.status && res.status == 'success' && res.detail.downloaded){
+                if(!!res.status && res.detail.downloaded){
                     $('#countLinksSuccess').html(parseInt($('#countLinksSuccess').html()) + 1);
                     console.log($('.importLink_Link'+totalImported).val(), 'OK');
                     $('.importLink_Status'+res.detail.len_link).html('<i class="fas fa-check"></i>');
