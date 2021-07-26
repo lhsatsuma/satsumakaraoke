@@ -50,6 +50,12 @@
 							<span>Ir para o Site</span>
 							</a>
 						</li>
+						<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
+							<a href="{$app_url}admin/musicas/karaoke" target="_blank">
+							<i class="fas fa-music"></i>
+							<span>Karaokê</span>
+							</a>
+						</li>
 						<li class="{if $breadcrumb.admin.musicas_fila}active{/if}">
 							<a href="{$app_url}admin/musicas_fila/index">
 							<i class="fas fa-list"></i>

@@ -40,7 +40,7 @@ function removeInitial()
 	$('#InitialModal').modal('hide');
 
 	handleAjax({
-		url: app_url+'Musicas_fila_ajax/k_get_thread_copy',
+		url: app_url+'musicas_fila_ajax/k_get_thread_copy',
 		callback: (res) => {
 			if(res.detail !== null
 				&& res.detail.volume !== null){
@@ -66,7 +66,7 @@ function getListSongs(dontRefresh)
 	}
 	its_running_thread_list = true;
 	$.ajax({
-		url: app_url+'Musicas_fila_ajax/k_musics_list',
+		url: app_url+'admin/musicas_fila_ajax/k_musics_list',
 		method: 'post',
 		dataType: 'json',
 		headers: {
@@ -141,7 +141,7 @@ function getThread()
 	its_running_thread = true;
 	var wait_mil = 1500;
 	$.ajax({
-		'url': app_url+'Musicas_fila_ajax/k_get_thread',
+		'url': app_url+'admin/musicas_fila_ajax/k_get_thread',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {
@@ -219,7 +219,7 @@ function getThread()
 						break;
 				}
 				handleAjax({
-					url: app_url+'Musicas_fila_ajax/k_reset_thread',
+					url: app_url+'admin/musicas_fila_ajax/k_reset_thread',
 					callback: (res) => {
 						its_running_thread = false;
 						setTimeout(function(){
@@ -253,7 +253,7 @@ function endedVideo(e)
 	video.src = "";
 	$('#playingNow').html('<p>&nbsp</p>');
 	$.ajax({
-		'url': app_url+'Musicas_fila_ajax/k_ended_video',
+		'url': app_url+'admin/musicas_fila_ajax/k_ended_video',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {

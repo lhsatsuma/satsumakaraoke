@@ -60,13 +60,6 @@
 							<span>Controle</span>
 							</a>
 						</li>
-						
-						<li class="{if $breadcrumb.musicas.karaoke}active{/if}">
-							<a href="{$app_url}musicas/karaoke" target="_blank">
-							<i class="fas fa-music"></i>
-							<span>Karaokê</span>
-							</a>
-						</li>
 						{/if}
 						<li class="{if $breadcrumb.musicas_fila.index}active{/if}">
 							<a href="{$app_url}musicas_fila/index">

@@ -1,9 +1,9 @@
 <form method="post" id="filtroForm" action="{$app_url}musicas_fila/index">
-	<input type="hidden" id="search_usuario_cantar" name="search_usuario_cantar" value="{$search_usuario_cantar}"/>
+	<input type="hidden" id="search_usuario_criacao" name="search_usuario_criacao" value="{$search_usuario_criacao}"/>
 	<input type="hidden" id="search_status" name="search_status" value="{$search_status}"/>
 	<div class="row">
 		<div class="col-12">
-			<p><button class="btn btn-{$color_usuario_cantar} search-button" id="SearchByAssigned">Filtrar por Meu Nome {$icon_usuario_cantar}</button>
+			<p><button class="btn btn-{$color_usuario_criacao} search-button" id="SearchByAssigned">Filtrar por Meu Nome {$icon_usuario_criacao}</button>
 				<button class="btn btn-{$color_status_pendente} search-button" id="SearchByPendente">Filtrar pelos Pendentes {$icon_status_pendente}</button>
 				<button class="btn btn-{$color_status_encerrado} search-button" id="SearchByEncerrados">Filtrar pelos Encerrados {$icon_status_encerrado}</button>
 			</p>
@@ -17,7 +17,7 @@
 		<tr>
 			<th scope="col">Ordem</th>
 			<th scope="col" class="pointer" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" dt-h-field="usuario_cantar" onclick="OrderByFiltro('usuario_cantar')">Usuário <span class="icon-order-by"></span></th>
+			<th scope="col" class="pointer" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário <span class="icon-order-by"></span></th>
 			<th scope="col" class="pointer" dt-h-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
 			<th scope="col" class="pointer" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação <span class="icon-order-by"></span></th>
 		</tr>
@@ -32,7 +32,7 @@
 		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
 			<td scope="row" dt-r-ordem="{$campos.ordem}">{$campos.ordem}</td>
 			<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
-			<td dt-r-usuario_cantar_nome="{$usuario_cantar_nome}"> {$campos.usuario_cantar_nome} </td>
+			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
 			<td dt-r-status="{$campos.status}">{$campos.status}</td>
 			<td dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
 		</tr>

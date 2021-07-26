@@ -1,8 +1,8 @@
 $('#SearchByAssigned').click(function(){
-	if($('#search_usuario_cantar').val() == '|ASSIGNED_ONLY|'){
-		$('#search_usuario_cantar').val('');
+	if($('#search_usuario_criacao').val() == '|ASSIGNED_ONLY|'){
+		$('#search_usuario_criacao').val('');
 	}else{
-		$('#search_usuario_cantar').val('|ASSIGNED_ONLY|');
+		$('#search_usuario_criacao').val('|ASSIGNED_ONLY|');
 	}
 	$('#filtroForm').submit();
 });

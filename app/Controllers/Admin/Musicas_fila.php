@@ -10,7 +10,7 @@ class Musicas_fila extends AdminBaseController
 		$this->data['title'] = 'Músicas na Fila';
 		
 		$initial_filter = array(
-			'usuario_cantar' => '',
+			'usuario_criacao' => '',
 			'status' => 'pendente',
 		);
 		$initial_order_by = array(
@@ -29,12 +29,12 @@ class Musicas_fila extends AdminBaseController
 		
 		
 		$icon_search = '<i class="far fa-times-circle"></i>';
-		if($this->filter['usuario_cantar']['value']){
-			$this->data['color_usuario_cantar'] = 'warning';
-			$this->data['icon_usuario_cantar'] = $icon_search;
+		if($this->filter['usuario_criacao']['value']){
+			$this->data['color_usuario_criacao'] = 'warning';
+			$this->data['icon_usuario_criacao'] = $icon_search;
 		}else{
-			$this->data['color_usuario_cantar'] = 'success';
-			$this->data['icon_usuario_cantar'] = '';
+			$this->data['color_usuario_criacao'] = 'success';
+			$this->data['icon_usuario_criacao'] = '';
 		}
 		
 		$this->data['color_status_pendente'] = 'success';
@@ -78,7 +78,7 @@ class Musicas_fila extends AdminBaseController
 		
 		
 		$this->mdl->f['nome'] = $result['nome'];
-		$this->mdl->f['usuario_cantar'] = $this->session->get('auth_user')['id'];
+		$this->mdl->f['usuario_criacao'] = $this->session->get('auth_user')['id'];
 		$this->mdl->f['musica_id'] = $result['id'];
 		$this->mdl->f['status'] = 'pendente';
 		$saved_record = $this->mdl->saveRecord();

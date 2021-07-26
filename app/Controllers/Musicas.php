@@ -179,15 +179,4 @@ class Musicas extends BaseController
 		$AjaxLib->setSuccess($saved_record);
 		
 	}
-
-	public function karaoke()
-	{
-		$version = new \Config\AppVersion();
-
-		$data = [
-			'karaokeURL' => ($version->VideosKaraokeURL) ? $version->VideosKaraokeURL : base_url().'/',
-			'host_fila' => ($version->host_fila) ? $version->host_fila : base_url().'/',
-		];
-		return $this->display($this->view->setData($data)->view('pages/Musicas/karaoke'));
-	}
 }

@@ -77,5 +77,5 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="{$app_url}jsManager/Musicas/karaoke.js?v={$ch_ver}"></script>
+	<script type="text/javascript" src="{$app_url}jsManager/Admin/Musicas/karaoke.js?v={$ch_ver}"></script>
 </html>

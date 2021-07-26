@@ -152,4 +152,15 @@ class Musicas extends AdminBaseController
 		
 		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Musicas/import'));
 	}
+
+	public function karaoke()
+	{
+		$version = new \Config\AppVersion();
+
+		$data = [
+			'karaokeURL' => ($version->VideosKaraokeURL) ? $version->VideosKaraokeURL : base_url().'/',
+			'host_fila' => ($version->host_fila) ? $version->host_fila : base_url().'/',
+		];
+		return $this->display($this->view->setData($data)->view('pages/Admin/Musicas/karaoke'));
+	}
 }
