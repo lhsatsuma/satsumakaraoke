@@ -27,4 +27,31 @@ class Musicas_fila_ajax extends BaseController
 		$encoded = file_get_contents(ROOTPATH . 'public/threadCopy.json');
 		$this->ajax->setSuccess(json_decode($encoded, true));
 	}
+
+	public function k_set_thread()
+	{
+
+		if(empty($this->body['action'])){
+			$this->ajax->setError('1x001', 'action not found');
+		}
+		$data_encode = [
+			'action' => $this->body['action'],
+			'valueTo' => (int)$this->body['valueTo'],
+		];
+
+		$encoded = json_encode($data_encode);
+		file_put_contents(ROOTPATH . 'public/thread.json', $encoded);
+
+		
+		$data_copy = [
+			'volume' => null,
+		];
+		if($data_encode['action'] == 'volume'){
+			$data_copy = [
+				'volume' => (int)$data_encode['valueTo'],
+			];
+			file_put_contents(ROOTPATH . 'public/threadCopy.json', json_encode($data_copy));
+		}
+		$this->ajax->setSuccess($data_encode);
+	}
 }
