@@ -1,14 +1,14 @@
 {if !$body_only}
 {$filter_template}
 {/if}
-<table class="table table-hover table-striped table-list table-result-filter">
+<table class="table table-hover table-striped table-list tb-rst-fltr">
 	<thead>
 		<tr>
 			{if $layout_list.has_edit}
 				<th>&nbsp;</th>
 			{/if}
 		{foreach from=$layout_list.table_heads item=thead key=thead_name}
-			<th scope="col" class="pointer {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFiltro('{$thead_name}')">{$thead.label} <span class="icon-order-by"></span></th>
+			<th scope="col" class="ptr {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFiltro('{$thead_name}')">{$thead.label}</th>
 		{/foreach}
 		</tr>
 	</thead>

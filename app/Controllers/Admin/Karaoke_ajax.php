@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Musicas_fila_ajax extends AdminBaseController
+class Karaoke_ajax extends AdminBaseController
 {
 	public $module_name = 'Musicas_fila';
 
@@ -34,12 +34,6 @@ class Musicas_fila_ajax extends AdminBaseController
 		$this->ajax->setSuccess(json_decode($encoded, true));
 	}
 
-	public function k_get_thread_copy()
-	{
-		$encoded = file_get_contents(ROOTPATH . 'public/threadCopy.json');
-		$this->ajax->setSuccess(json_decode($encoded, true));
-	}
-
 	public function k_musics_list()
 	{
 
@@ -55,6 +49,7 @@ class Musicas_fila_ajax extends AdminBaseController
 		foreach($result as $key => $fila){
 			if(strlen($fila['cantor']) > 13){
 				$result[$key]['cantor'] = substr($fila['cantor'], 0, 10) . '...';
+				$result[$key]['codigo'] = (int)$result[$key]['codigo'];
 			}
 		}
 		$this->ajax->setSuccess($result);

@@ -1,14 +1,14 @@
 {if !$body_only}
 {$filter_template}
 {/if}
-<table class="table-result-filter table table-striped table-list collapse {if $layout_list.table_id}{$layout_list.table_id}{/if} show" style="margin-top: 10px;" id="{if $layout_list.table_id}{$layout_list.table_id}{/if}">
+<table class="tb-rst-fltr table table-striped table-list collapse {if $layout_list.table_id}{$layout_list.table_id}{/if} show" style="margin-top: 10px;" id="{if $layout_list.table_id}{$layout_list.table_id}{/if}">
 	<thead>
 		<tr>
 			{if $layout_list.has_edit}
 				<th>&nbsp;</th>
 			{/if}
 		{foreach from=$layout_list.table_heads item=thead key=thead_name}
-			<th scope="col" class="pointer {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFiltroSubpanel('{$layout_list.table_id}', '{$thead_name}')">{$thead.label} <span class="icon-order-by"></span></th>
+			<th scope="col" class="ptr {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFiltroSubpanel('{$layout_list.table_id}', '{$thead_name}')">{$thead.label}</th>
 		{/foreach}
 		</tr>
 	</thead>

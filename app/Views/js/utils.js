@@ -474,7 +474,7 @@ function GoToPage(elm, page)
 			action += '/'+page;
 		}
 
-		if(ajax_pagination && $('#filtroForm').parent().find('.table-result-filter').length > 0){
+		if(ajax_pagination && $('#filtroForm').parent().find('.tb-rst-fltr').length > 0){
 			//Lets try to get Pagination with Ajax
 
 			let formData = new FormData(document.getElementById('filtroForm'));
@@ -491,7 +491,7 @@ function GoToPage(elm, page)
 						dontfireError: true,
 						data: JSON.stringify(formValues),
 						callback: (res) => {
-							$('#filtroForm').parent().find('.table-result-filter').remove();
+							$('#filtroForm').parent().find('.tb-rst-fltr').remove();
 							$('#filtroForm').parent().find('.table-pagination').remove();
 							$('#filtroForm').after(res.detail);
 							orderByFiltro();

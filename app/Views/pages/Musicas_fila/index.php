@@ -14,10 +14,10 @@
 <table class="table table-responsive-xl table-striped table-list">
 	<thead>
 		<tr>
-			<th scope="col" class="pointer" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" dt-h-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer d-none d-lg-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data <span class="icon-order-by"></span></th>
+			<th scope="col" class="ptr" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário</th>
+			<th scope="col" class="ptr" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome</th>
+			<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
+			<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,7 +27,7 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
+		<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
 			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
 			<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
 			<td dt-r-status="{$campos.status}">{$campos.status}</td>

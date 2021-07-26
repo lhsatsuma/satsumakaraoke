@@ -54,6 +54,9 @@ function orderByFiltro()
 		}else if(order_by_order == 'DESC'){
 			icon = '<i class="fas fa-sort-amount-up-alt"></i>';
 		}
+		if($('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').length < 1){
+			$('th[dt-h-field="'+order_by_field+'"]').append(' <span class="icon-order-by"></span>');
+		}
 		$('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
 	}
 }
@@ -193,6 +196,10 @@ function LoadPaginationAjax(id_subpanel, page = 0)
 						icon = '<i class="fas fa-sort-amount-down-alt"></i>';
 					}else if(order_by_order == 'DESC'){
 						icon = '<i class="fas fa-sort-amount-up-alt"></i>';
+					}
+					
+					if($('#'+cfg.id).find('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').length < 1){
+						$('#'+cfg.id).find('th[dt-h-field="'+order_by_field+'"]').append(' <span class="icon-order-by"></span>');
 					}
 					$('#'+cfg.id).find('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
 				}

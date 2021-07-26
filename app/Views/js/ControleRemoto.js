@@ -9,7 +9,7 @@ $('#volumeRange').val(100);
 function getLastVolume()
 {
 	handleAjax({
-		url: app_url+'Musicas_fila_ajax/k_get_thread_copy',
+		url: app_url+'Karaoke_ajax/k_get_thread_copy',
 		dontfireError: true,
 		callback: (res) => {
 			if(res.detail !== null
@@ -28,7 +28,7 @@ $('.controlbtns').click(function(){
 	let domObj = $(this);
 	
 	$.ajax({
-		'url': app_url+'Musicas_fila_ajax/k_set_thread',
+		'url': app_url+'Karaoke_ajax/k_set_thread',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {
@@ -62,7 +62,7 @@ $('#volumeRange').change(function(){
 	let domObj = $(this);
 	$('#volP').html($(this).val()+'%');
 	$.ajax({
-		'url': app_url+'Musicas_fila_ajax/k_set_thread',
+		'url': app_url+'Karaoke_ajax/k_set_thread',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {

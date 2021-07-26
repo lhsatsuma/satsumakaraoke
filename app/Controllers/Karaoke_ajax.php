@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-class Musicas_fila_ajax extends BaseController
+class Karaoke_ajax extends BaseController
 {
 	public $module_name = 'Musicas_fila';
 
@@ -14,7 +14,6 @@ class Musicas_fila_ajax extends BaseController
 		$this->ajax->CheckIncoming();
 		
 		$this->body = $this->ajax->GetData();
-		$this->mdl = new \App\Models\Musicas_fila\Musicas_filamodel();
 	}
 
 	public function index()

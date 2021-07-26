@@ -134,13 +134,13 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-6 center">
-								<span class="pointer controlbtns" data-val="play">
+								<span class="ptr controlbtns" data-val="play">
 									<i class="fas fa-play margin-5"></i>
 									<p>Play</p>
 								</span>
 							</div>
 							<div class="col-6 center">
-								<span class="pointer controlbtns" data-val="pause">
+								<span class="ptr controlbtns" data-val="pause">
 									<i class="fas fa-pause margin-5"></i>
 									<p>Pausar</p>
 								</span>
@@ -148,13 +148,13 @@
 						</div>
 						<div class="row">
 							<div class="col-6 center">
-								<span class="pointer controlbtns" data-val="next">
+								<span class="ptr controlbtns" data-val="next">
 									<i class="fas fa-step-forward margin-5"></i>
 									<p>Próximo</p>
 								</span>
 							</div>
 							<div class="col-6 center">
-								<span class="pointer controlbtns" data-val="repeat">
+								<span class="ptr controlbtns" data-val="repeat">
 									<i class="fas fa-sync-alt margin-5"></i>
 									<p>Repetir</p>
 								</span>
@@ -162,7 +162,7 @@
 						</div>
 						<div class="row">
 							<div class="col-12 center mb-4">
-								<span class="pointer">
+								<span class="ptr">
 									<p id="volP">100%</p>
 									<input type="range" class="form-control-range" id="volumeRange" step="5">
 								</span>
@@ -170,7 +170,7 @@
 						</div>
 						<div class="row">
 							<div class="col-12 center">
-								<span class="pointer controlbtns" data-val="mute">
+								<span class="ptr controlbtns" data-val="mute">
 									<i class="fas fa-volume-mute margin-5"></i>
 									<p>Mutar</p>
 								</span>

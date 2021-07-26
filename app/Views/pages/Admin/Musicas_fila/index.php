@@ -16,10 +16,10 @@
 	<thead>
 		<tr>
 			<th scope="col">Ordem</th>
-			<th scope="col" class="pointer" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" dt-h-field="status" onclick="OrderByFiltro('status')">Status <span class="icon-order-by"></span></th>
-			<th scope="col" class="pointer" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação <span class="icon-order-by"></span></th>
+			<th scope="col" class="ptr" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
+			<th scope="col" class="ptr" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário</th>
+			<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
+			<th scope="col" class="ptr" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,7 +29,7 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="pointer r-dt-slct" dt-r-id="{$campos.id}">
+		<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
 			<td scope="row" dt-r-ordem="{$campos.ordem}">{$campos.ordem}</td>
 			<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
 			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>

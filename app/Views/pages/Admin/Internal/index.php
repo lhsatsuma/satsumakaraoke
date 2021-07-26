@@ -10,28 +10,28 @@
 <table class="table table-striped table-list table-hover">
 	<thead>
 		<tr>
-			<th scope="col">Ação <span class="icon-order-by"></span></th>
-			<th scope="col">Descrição <span class="icon-order-by"></span></th>
+			<th scope="col">Ação</th>
+			<th scope="col">Descrição</th>
 		</tr>
 	</thead>
 	<tbody>
-        <tr class="pointer r-dt-slct" onclick="confirmInternal('clearCache')">
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('clearCache')">
             <td>Limpar arquivos Caches</td>
             <td>Limpa os caches de template, JavaScript e logs afim de otimizar o sistema.</td>
         </tr>
-        <tr class="pointer r-dt-slct" onclick="confirmInternal('pruneDatabase')">
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('pruneDatabase')">
             <td>Prune database</td>
             <td>Deleta os registros do banco de dados que estão como deletados igual a 1.</td>
         </tr>
-        <tr class="pointer r-dt-slct" onclick="confirmInternal('reconstructDB')">
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('reconstructDB')">
             <td>Reconstruir campos no Banco de Dados</td>
             <td>Reconstruir campos de acordo com os models e as definições do campo.(<span class="required">ATENÇÃO:</span> Experimental... Talvez não funcione corretamente, faça um backup antes).</td>
         </tr>
-        <tr class="pointer r-dt-slct" onclick="confirmInternal('deleteArquivos')">
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('deleteArquivos')">
             <td>Deletar arquivos não existentes no banco de dados</td>
             <td>Deleta os arquivos físicos que não possuem vínculo ao banco de dados (apenas da pasta upload).</td>
         </tr>
-        <tr class="pointer r-dt-slct" onclick="confirmInternal('deleteSessions')">
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('deleteSessions')">
             <td>Limpar sessões de usuários</td>
             <td>Deleta as sessões em abertas dos usuários (<span class="required">ATENÇÃO:</span> todos os usuários terão que realizar o login novamente caso necessário).</td>
         </tr>
