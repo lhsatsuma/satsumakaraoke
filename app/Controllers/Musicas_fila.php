@@ -22,8 +22,6 @@ class Musicas_fila extends BaseController
 		$result = $this->mdl->search(20, $offset);
 		
 		$result = $this->mdl->formatRecordsView($result);
-
-		// echo '<pre>';var_dump($result);exit;
 		
 		$this->data['records'] = $result;
 		
@@ -49,5 +47,25 @@ class Musicas_fila extends BaseController
 		}
 		
 		return $this->display_template($this->view->setData($this->data)->view('pages/Musicas_fila/index'));
+	}
+
+	public function topMusicas()
+	{
+		$this->data['title'] = 'Top Músicas Mais Tocadas';
+		
+		$this->mdl->select = "count(*) as total, musica_id";
+		$this->mdl->group_by = 'musica_id';
+		$this->mdl->order_by['count(*)'] = 'DESC';
+		$results = $this->mdl->search(10, 0);
+		foreach($results as $key => $result){
+			if($result['total'] < 2){
+				unset($results[$key]);
+			}
+		}
+		$results = $this->mdl->formatRecordsView($results);
+		$this->data['records'] = $results;
+		
+		
+		return $this->display_template($this->view->setData($this->data)->view('pages/Musicas_fila/topMusicas'));
 	}
 }

@@ -73,6 +73,12 @@
 							<span>Músicas</span>
 							</a>
 						</li>
+						<li class="{if $breadcrumb.musicas_fila.topMusicas}active{/if}">
+							<a href="{$app_url}musicas_fila/topMusicas">
+							<i class="fas fa-music"></i>
+							<span>Músicas mais Tocadas</span>
+							</a>
+						</li>
 						<li class="{if $breadcrumb.usuarios.MeusDados}active{/if}">
 							<a href="{$app_url}usuarios/MeusDados">
 							<i class="fas fa-user"></i>

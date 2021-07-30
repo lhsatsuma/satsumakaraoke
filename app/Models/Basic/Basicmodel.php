@@ -341,7 +341,7 @@ class Basicmodel extends Model
 		$comp = '';
 		$return_string = '';
 		foreach($this->order_by as $field => $value){
-			if(strpos($field, '.') == false){
+			if(strpos($field, '.') == false && strpos($field, '(*)') == false){
 				$field = $this->table.'.'.$field;
 			}
 			if($field == $this->table.'.nome' && $this->id_by_name){
@@ -392,17 +392,22 @@ class Basicmodel extends Model
 		if($debug){
 			echo '<pre>';var_dump($this->helper->getCompiledSelect());exit;
 		}
-		$q = $this->helper->get($limit, $offset);
+		try{
+			$q = $this->helper->get($limit, $offset);
+			if($debug){
+				echo '<Pre>';var_dump((string)$this->db->getLastQuery());exit;
+			}
 		
-		if($this->db->error()['message']){
-			$this->RegisterLastError("Query search failed: ");
-			return null;
+			if($q->resultID->num_rows > 0){
+				return $q->getResult('array');
+			}
+			return array();
+		}catch(Exception $e){
+			if ($this->db->error()['message']) {
+				$this->RegisterLastError("Error fetching total rows: ");
+				return null;
+			}
 		}
-		
-		if($q->resultID->num_rows > 0){
-			return $q->getResult('array');
-		}
-		return array();
 	}
 	
 	public function before_save()
