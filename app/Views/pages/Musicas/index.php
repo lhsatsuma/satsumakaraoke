@@ -1,4 +1,4 @@
-{if !$body_only}
+{if !$bdOnly}
 {$filter_template}
 {/if}
 <table class="table table-striped table-list tb-rst-fltr">
@@ -37,7 +37,7 @@
 		</tr>
 	</tbody>
 </table>
-{if !$body_only}
+{if !$bdOnly}
 <div class="modal fade" id="SelectedRowModal" tabindex="-1" role="dialog" aria-labelledby="SelectedRowModalLabel" aria-hidden="true">
 	<input type="hidden" id="IdInsertModal" />
 	<div class="modal-dialog modal-dialog-centered" role="document">

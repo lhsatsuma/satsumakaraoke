@@ -487,7 +487,7 @@ function GoToPage(elm, page)
 				didOpen: () => {
 					Swal.showLoading();
 					handleAjax({
-						url: action+'?bodyOnly=1',
+						url: action+'?bdOnly=1',
 						dontfireError: true,
 						data: JSON.stringify(formValues),
 						callback: (res) => {

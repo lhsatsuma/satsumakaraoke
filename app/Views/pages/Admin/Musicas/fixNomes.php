@@ -1,4 +1,4 @@
-{if !$body_only}
+{if !$bdOnly}
 {$filter_template}
 {/if}
 <table class="table table-responsive-xl table-striped table-list tb-rst-fltr">
@@ -43,7 +43,7 @@
 		</tr>
 	</tbody>
 </table>
-{if !$body_only}
+{if !$bdOnly}
 <div class="modal fade" id="ChangeNameToModal" tabindex="-1" role="dialog" aria-labelledby="ChangeNameToModalLabel" aria-hidden="true">
 	<input type="hidden" id="IdInsertModal" />
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">

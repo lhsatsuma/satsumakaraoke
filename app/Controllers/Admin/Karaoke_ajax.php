@@ -37,7 +37,11 @@ class Karaoke_ajax extends AdminBaseController
 	public function k_musics_list()
 	{
 
-		$this->mdl->select = "musicas_fila.id, usuarios.nome as cantor, musicas.nome as nome_musica, musicas.codigo, musicas.md5";
+		$this->mdl->select = "musicas_fila.id,
+		usuarios.nome as cantor,
+		musicas.codigo,
+		musicas.nome as nome_musica,
+		musicas.md5";
 		$this->mdl->where["status"] = "pendente";
 		$this->mdl->join["musicas"] = "musicas.id = musicas_fila.musica_id";
 		$this->mdl->join["usuarios"] = "usuarios.id = musicas_fila.usuario_criacao";
@@ -48,9 +52,13 @@ class Karaoke_ajax extends AdminBaseController
 		}
 		foreach($result as $key => $fila){
 			if(strlen($fila['cantor']) > 13){
-				$result[$key]['cantor'] = substr($fila['cantor'], 0, 10) . '...';
-				$result[$key]['codigo'] = (int)$result[$key]['codigo'];
+				$result[$key]['cantor'] = substr($fila['cantor'], 0, 11) . '...';
 			}
+			if(strlen($fila['nome_musica']) > 30){
+				$result[$key]['nome_musica'] = substr($fila['nome_musica'], 0, 27) . '...';
+			}
+			$result[$key]['codigo'] = (int)$result[$key]['codigo'];
+			$result[$key] = array_values($result[$key]);
 		}
 		$this->ajax->setSuccess($result);
 	}

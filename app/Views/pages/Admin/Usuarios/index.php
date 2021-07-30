@@ -1,4 +1,4 @@
-{if !$body_only}
+{if !$bdOnly}
 {$filter_template}
 {/if}
 <table class="table table-responsive-xl table-striped table-list tb-rst-fltr">
@@ -44,6 +44,6 @@
 		</tr>
 	</tbody>
 </table>
-{if !$body_only}
+{if !$bdOnly}
 <script type="text/javascript" src="{$app_url}jsManager/Musicas_fila/index.js?v={$ch_ver}"></script>
 {/if}

@@ -1,4 +1,4 @@
-{if !$body_only}
+{if !$bdOnly}
 {$filter_template}
 {/if}
 <table class="table table-hover table-striped table-list tb-rst-fltr">

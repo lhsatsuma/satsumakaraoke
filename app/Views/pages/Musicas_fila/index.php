@@ -28,6 +28,7 @@
 		{else}
 		{foreach from=$records item=campos}
 		<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
+			<input type="hidden" dt-r-musica_id="{$campos.musica_id}" />
 			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
 			<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
 			<td dt-r-status="{$campos.status}">{$campos.status}</td>
@@ -37,4 +38,28 @@
 		{/if}
 	</tbody>
 </table>
+{if !$bdOnly}
+<div class="modal fade" id="SelectedRowModal" tabindex="-1" role="dialog" aria-labelledby="SelectedRowModalLabel" aria-hidden="true">
+	<input type="hidden" id="IdInsertModal" />
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h6 class="modal-title" id="SelectedRowModalLabel"></h6>
+			</div>
+			<div class="modal-body">
+				<div class="row margin-5">
+					<div class="col-12 primary-row center">
+						<button type="button" id="InsertFilaBtn" class="btn btn-success btn-bordered col-8">Colocar na Fila novamente</button>
+					</div>
+				</div>
+				<div class="row margin-5">
+					<div class="col-12 primary-row center">
+						<button type="button" class="btn btn-danger btn-bordered col-8" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript" src="{$app_url}jsManager/Musicas_fila/index.js?v={$ch_ver}"></script>
+{/if}

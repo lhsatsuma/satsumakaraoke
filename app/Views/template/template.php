@@ -1,4 +1,4 @@
-{if !$body_only}
+{if !$bdOnly}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 	<head>
 		<title>{$title} - Satsuma Karaoke</title>

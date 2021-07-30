@@ -1,4 +1,4 @@
-{if !$body_only}
+{if !$bdOnly}
 {$filter_template}
 {/if}
 <table class="tb-rst-fltr table table-striped table-list collapse {if $layout_list.table_id}{$layout_list.table_id}{/if} show" style="margin-top: 10px;" id="{if $layout_list.table_id}{$layout_list.table_id}{/if}">
