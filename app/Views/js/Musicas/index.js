@@ -64,7 +64,7 @@ $('#ImportModalLink').keyup(function(){
 	if($(this).val() !== ''){
 		swal.fire({
 			title: 'Procurando...',
-			onBeforeOpen: () => {
+			didOpen: () => {
 				swal.showLoading();
 				$.ajax({
 					'url': app_url+'musicas/CheckImportVideo',

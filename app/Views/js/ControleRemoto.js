@@ -1,4 +1,7 @@
+var isControleOpen = false;
 $('#ControleRemotoButton').click(function(){
+	getLastVolume();
+	isControleOpen = true;
 	if(hasToggleMenu){
 		$(".page-wrapper").removeClass("toggled");
 	}
@@ -6,7 +9,7 @@ $('#ControleRemotoButton').click(function(){
 	$('#ControleRemotoModal').draggable(); 
 });
 $('#volumeRange').val(100);
-function getLastVolume()
+function getLastVolume(needCheck = false)
 {
 	handleAjax({
 		url: app_url+'Karaoke_ajax/k_get_thread_copy',
@@ -16,14 +19,30 @@ function getLastVolume()
 				&& res.detail.volume !== null){
 				$('#volumeRange').val(res.detail.volume);
 				$('#volP').html(res.detail.volume+'%');
+				if(needCheck){
+					checkControleOpen();
+				}
 			}
-			setTimeout(function(){
-				getLastVolume();
-			}, 5000);
 		}
 	});
 }
+$('#ControleRemotoModal').on('hidden.bs.modal', (e) => {
+	isControleOpen = false;
+});
+function checkControleOpen()
+{
+	setTimeout(() => {
+		if(isControleOpen){
+			getLastVolume(true);
+		}else{
+			checkControleOpen();
+		}
+	}, 5000);
+}
 getLastVolume();
+checkControleOpen();
+
+
 $('.controlbtns').click(function(){
 	let domObj = $(this);
 	
@@ -92,4 +111,4 @@ $('#volumeRange').change(function(){
 			console.log(d);
 		}
 	});
-})
+});
