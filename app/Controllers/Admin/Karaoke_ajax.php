@@ -46,21 +46,25 @@ class Karaoke_ajax extends AdminBaseController
 		$this->mdl->join["musicas"] = "musicas.id = musicas_fila.musica_id";
 		$this->mdl->join["usuarios"] = "usuarios.id = musicas_fila.usuario_criacao";
 		$this->mdl->order_by["musicas_fila.data_criacao"] = "ASC";
-		$result = $this->mdl->search(11);
+
+		$total_rows = $this->mdl->total_rows();
+		$result = $this->mdl->search(($this->body['ct']) ? $this->body['ct'] : 10);
 		if(is_null($result)){
 			$this->ajax->setError('0x001', 'Error retrieving list of musics');
 		}
 		foreach($result as $key => $fila){
-			if(strlen($fila['cantor']) > 13){
-				$result[$key]['cantor'] = substr($fila['cantor'], 0, 11) . '...';
-			}
-			if(strlen($fila['nome_musica']) > 30){
-				$result[$key]['nome_musica'] = substr($fila['nome_musica'], 0, 27) . '...';
+			if($this->body['sh']){
+				if(strlen($fila['cantor']) > 13){
+					$result[$key]['cantor'] = substr($fila['cantor'], 0, 11) . '...';
+				}
+				if($key > 0 && strlen($fila['nome_musica']) > 30){
+					$result[$key]['nome_musica'] = substr($fila['nome_musica'], 0, 27) . '...';
+				}
 			}
 			$result[$key]['codigo'] = (int)$result[$key]['codigo'];
 			$result[$key] = array_values($result[$key]);
 		}
-		$this->ajax->setSuccess($result);
+		$this->ajax->setSuccess(['t' => (int)$total_rows, 's' => $result]);
 	}
 
 	public function k_ended_video()

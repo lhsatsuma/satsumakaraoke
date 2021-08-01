@@ -19,6 +19,7 @@
 		<script type="text/javascript">
 			var app_url = '{$app_url}';
 			var karaokeURL = '{$karaokeURL}';
+			var host_fila = '{$host_fila}';
 		</script>
 	</head>
 	<body id="bodyKaraoke" style="color: white;background: url('{$app_url}images/karaoke_bg.gif')">
@@ -27,55 +28,20 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h6 class="modal-title" id="InitialModalLabel" style="color: black">Proteção anti-BOT</h6>
+						<h6 class="modal-title" id="InitialModalLabel" style="color: black">Escolha o tipo de tela</h6>
 					</div>
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-12 primary-row center">
-							<button class="btn btn-success" onclick="removeInitial()" >CLIQUE EM MIM</button>
+							<p><button class="btn btn-success" onclick="removeInitial()" >TELA COMPLETA</button></p>
+							<p><button class="btn btn-success" onclick="removeInitialOnlyFila()" >APENAS AS MUSICAS NA FILA</button></p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row m-0">
-			<div class="col-4">
-				<div class="row">
-					<div class="col-12 mt-2 mb-2 center karaokeLogo">
-						<img src="{$app_url}images/logo.png" style="width: 65%"/>
-					</div>
-				</div>
-				<div class="row" id="SongLists">
-					<div class="col-12 center">
-						<p><strong>Músicas na Fila:</strong></p>
-					</div>
-					<div class="col-12 h-75" id="SongListsDiv"></div>
-				</div>
-			</div>
-			<div class="col-8">
-				<div class="row">
-					<div class="col-12 center playingNowDiv" style="padding: 30px 0px 15px 0px">
-						<h4><span id="playingNow"></span></h4>
-						<div id="pausedDiv" class="center" style="display: none">
-							<h3>VIDEO PAUSADO!</h3>
-						</div>
-					</div>
-					<div class="col-12 center videoDiv">
-						<input type="hidden" id="songNowId" value=""/>
-						<video id="video" autoplay>
-							<source id="videoSrc" src="" type="video/mp4" />
-						</video>
-					</div>
-					<div class="col-12 center volumeDiv">
-						<h3>Volume: <span id="volumeSpan">100%</span></h3>
-					</div>
-				</div>
-			</div>
-			<div id="joinUsKaraoke" class="col-12 center">
-				<h1>Junte-se a nós no karaokê! Acesse <span class="b800">{$host_fila}</span></h1>
-			</div>
-		</div>
+		<div id="bdKaraoke" class="row m-0"></div>
 	</body>
 	<script type="text/javascript" src="{$app_url}jsManager/Admin/Musicas/karaoke.js?v={$ch_ver}"></script>
 </html>

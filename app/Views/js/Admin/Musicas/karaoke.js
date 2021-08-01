@@ -1,25 +1,15 @@
-var video = document.getElementById('video');
-video.onloadeddata = function() {
-	resizeVideo();
-};
-video.onpause = (event) => {
-	if(video.paused && video.src !== ""){
-		$('#pausedDiv').show();
-	}else{
-		$('#pausedDiv').hide();
-	}
-};
-var videoSrc = document.getElementById('videoSrc');
+
+var video = null;
+var videoSrc = null;
 var its_running_thread = false;
 var its_running_thread_list = false;
-video.addEventListener('ended',endedVideo,false);
 var last_volume = 1;
 var musicsLine = [];
 var keyListSong = null;
 var songNow = [];
-$(window).resize(() => {
-	resizeVideo();
-});
+var allScreen = 1;
+var numSongsList = 7;
+var shortName = true;
 $(document).ready(function(){
 	$('#InitialModal').modal('show');
 });
@@ -35,8 +25,58 @@ function resizeVideo()
 }
 function removeInitial()
 {
+	$('#bdKaraoke').html(`<div class="col-4">
+	<div class="row">
+		<div class="col-12 mt-2 mb-2 center karaokeLogo">
+			<img src="${app_url}images/logo.png" style="width: 65%"/>
+		</div>
+	</div>
+	<div class="row" id="SongLists">
+		<div class="col-12 center">
+			<p><strong>Músicas na Fila:</strong></p>
+		</div>
+		<div class="col-12 h-75" id="SongListsDiv"></div>
+	</div>
+</div>
+<div class="col-8">
+	<div class="row">
+		<div class="col-12 center playingNowDiv" style="padding: 30px 0px 15px 0px">
+			<h4><span id="playingNow"></span></h4>
+			<div id="pausedDiv" class="center" style="display: none">
+				<h3>VIDEO PAUSADO!</h3>
+			</div>
+		</div>
+		<div class="col-12 center videoDiv">
+			<input type="hidden" id="songNowId" value=""/>
+			<video id="video" autoplay>
+				<source id="videoSrc" src="" type="video/mp4" />
+			</video>
+		</div>
+		<div class="col-12 center volumeDiv">
+			<h3>Volume: <span id="volumeSpan">100%</span></h3>
+		</div>
+	</div>
+</div>
+<div id="joinUsKaraoke" class="col-12 center">
+	<h1>Cante com nós! Acesse <span class="b800">${host_fila}</span></h1>
+</div>`);
+	video = document.getElementById('video');
+	videoSrc = document.getElementById('videoSrc');
 	$('#InitialModal').modal('hide');
-
+	video.onloadeddata = function() {
+		resizeVideo();
+	};
+	video.onpause = (event) => {
+		if(video.paused && video.src !== ""){
+			$('#pausedDiv').show();
+		}else{
+			$('#pausedDiv').hide();
+		}
+	};
+	$(window).resize(() => {
+		resizeVideo();
+	});
+	video.addEventListener('ended',endedVideo,false);
 	handleAjax({
 		url: app_url+'Karaoke_ajax/k_get_thread_copy',
 		callback: (res) => {
@@ -57,6 +97,32 @@ function removeInitial()
 	});
 }
 
+function removeInitialOnlyFila()
+{
+	shortName = false;
+	numSongsList = 10;
+	$('#bdKaraoke').html(`
+	<div class="col-12">
+		<div class="row">
+			<div class="col-4 mt-2 mb-2 center karaokeLogo">
+				<img src="${app_url}images/logo.png" style="width: 65%"/>
+			</div>
+			<div class="col-8 mt-4 mb-2 left">
+				<h1>Cante com nós! Acesse <span class="b800">${host_fila}</span></h1>
+			</div>
+		</div>
+		<div class="row" id="SongLists">
+			<div class="col-12 center">
+				<h2><strong>Músicas na Fila:</strong></h2>
+			</div>
+			<div class="col-12 h-75 center" id="SongListsDiv"></div>
+		</div>
+	</div>`);
+	allScreen = 0;
+	$('#InitialModal').modal('hide');
+	getListSongs(false);
+}
+
 function getListSongs(dontRefresh)
 {
 	if(its_running_thread_list){
@@ -71,6 +137,10 @@ function getListSongs(dontRefresh)
 		  "Content-Type": "application/json",
 		  "X-Requested-With": "XMLHttpRequest"
 		},
+		data: JSON.stringify({
+			sh: shortName,
+			ct: numSongsList
+		}),
 		success: function(d){
 			
 		},
@@ -80,14 +150,16 @@ function getListSongs(dontRefresh)
 				if(r.status){
 					musicsLine = [];
 					songNow = [];
-					$.each(r.detail, (idx, ipt) =>{
+					$.each(r.detail.s, (idx, ipt) =>{
 						if(idx == 0){
-							songNow = ipt;
+							if(allScreen){
+								songNow = ipt;
+							}
 						}else{
 							musicsLine.push(ipt);
 						}
 					});
-					mountWaitList(dontRefresh);
+					mountWaitList(dontRefresh, r.detail.t);
 				}else{
 					console.log('Não foi possível buscar a lista de músicas na fila!');
 				}
@@ -104,26 +176,28 @@ function getListSongs(dontRefresh)
 	});
 }
 
-function mountWaitList(dontRefresh)
+function mountWaitList(dontRefresh, totalFound = 0)
 {
 	if(typeof dontRefresh == 'undefined'){ dontRefresh = false; }
 
 	$('#SongListsDiv').html('');
 	$.each(musicsLine, (idx, ipt) => {
-		if(idx < 7){
+		if(idx < numSongsList){
 			turn = idx + 1;
 			$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' | ['+ipt[2]+']'+ ipt[3]+'</p>');
 		}
 	});
-	if(musicsLine.length > 7){
-		let leftSongs = musicsLine.length - 7;
-		$('#SongListsDiv').append('<p>...Mais '+leftSongs+' música(s) na fila....</p>');
+	if(totalFound >= musicsLine.length){
+		let leftSongs = totalFound - musicsLine.length;
+		$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
 	}
 	if(!!songNow[1]){
 		$('#playingNow').html('<p>'+songNow[1]+' | ['+songNow[2]+'] '+ songNow[3]+'</p>');
-		$('#songNowId').val(songNow[0]);
-		if(video.src == app_url + 'musicas/karaoke' || video.src == "" || video.src !== karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4'){
-			getNextVideo();
+		if(allScreen){
+			$('#songNowId').val(songNow[0]);
+			if(video.src == app_url + 'musicas/karaoke' || video.src == "" || video.src !== karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4'){
+				getNextVideo();
+			}
 		}
 	}
 	its_running_thread_list = false;
