@@ -351,6 +351,7 @@ class Internal extends AdminBaseController
     {
         $returnVal = $type;
         switch($type){
+            case 'link':
             case 'file':
             case 'email':
             case 'telephone':

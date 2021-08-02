@@ -84,6 +84,14 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			'default' => 1,
 			'required' => true,
 		),
+		'last_ip' => array(
+			'lbl' => 'Último IP',
+			'type' => 'varchar',
+		),
+		'last_connected' => array(
+			'lbl' => 'Última vez conectado',
+			'type' => 'datetime',
+		),
 	);
 	
 	public function SearchLogin(){

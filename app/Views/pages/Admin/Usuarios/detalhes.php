@@ -29,6 +29,14 @@
 </div>
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		{$layout.datetime.last_connected}
+	</div>
+	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		{$layout.varchar.last_ip}
+	</div>
+</div>
+<div class="row">
+	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		{$layout.datetime.data_criacao}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

@@ -280,6 +280,13 @@ class Usuarios extends AdminBaseController
 		}
 		
 		$this->session->set('auth_user', $AuthUser);
+
+		$this->mdl->f = [];
+		$this->mdl->f['id'] = $exists['id'];
+		$this->mdl->f['last_ip'] = $this->request->getIPAddress();
+		$this->mdl->f['last_connected'] = date("Y-m-d H:i:s");
+		$this->mdl->auth_user_id = $exists['id'];
+		$this->mdl->saveRecord();
 		
 		rdct('/admin/usuarios/index');
 	}
