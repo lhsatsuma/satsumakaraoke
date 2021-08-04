@@ -73,13 +73,13 @@
 							<span>Músicas</span>
 							</a>
 						</li>
-						<li class="{if $breadcrumb.musicas_fila.topMusicas}active{/if}">
+						<li class="{if $breadcrumb.musicas_fila.topmusicas}active{/if}">
 							<a href="{$app_url}musicas_fila/topMusicas">
 							<i class="fas fa-music"></i>
 							<span>Músicas mais Tocadas</span>
 							</a>
 						</li>
-						<li class="{if $breadcrumb.usuarios.MeusDados}active{/if}">
+						<li class="{if $breadcrumb.usuarios.meusdados}active{/if}">
 							<a href="{$app_url}usuarios/MeusDados">
 							<i class="fas fa-user"></i>
 							<span>Meus Dados</span>
@@ -96,7 +96,7 @@
 						<li>
 							<a href="{$app_url}login/logout">
 							<i class="fas fa-power-off"></i>
-							<span>Logout</span>
+							<span>Sair</span>
 							</a>
 						</li>
 					</ul>

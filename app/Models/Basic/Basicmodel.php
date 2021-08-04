@@ -219,6 +219,7 @@ class Basicmodel extends Model
 						//VALUE ITS AN ARRAY, SO THERES OPERATOR
 						switch($value[0]){
 							case 'GREATHER_EQUAL':
+								$value[1] = $this->antiSqlInjection($value[1]);
 								$cond_value = " >= '{$value[1]}'";
 								break;
 							case 'IS_NULL':
@@ -228,6 +229,7 @@ class Basicmodel extends Model
 								$cond_value = " IS NOT NULL";
 								break;
 							case 'LESS_EQUAL':
+								$value[1] = $this->antiSqlInjection($value[1]);
 								$cond_value = " <= '{$value[1]}'";
 								break;
 							case 'LESS':
@@ -237,21 +239,32 @@ class Basicmodel extends Model
 								$cond_value = " > '{$value[1]}'";
 								break;
 							case 'BETWEEN':
+								$value[1] = $this->antiSqlInjection($value[1]);
+								$value[2] = $this->antiSqlInjection($value[2]);
 								$cond_value = " BETWEEN '{$value[1]}' AND '{$value[2]}'";
 								break;
 							case 'NOT IN':
-								$cond_value = " IN ('".implode("','", $value[1])."')";
+								foreach($value[1] as $kVal => $vVal){
+									$value[1][$kVal] = $this->antiSqlInjection($vVal);
+								}
+								$cond_value = " NOT IN ('".implode("','", $value[1])."')";
 								break;
 							case 'IN':
+								foreach($value[1] as $kVal => $vVal){
+									$value[1][$kVal] = $this->antiSqlInjection($vVal);
+								}
 								$cond_value = " IN ('".implode("','", $value[1])."')";
 								break;
 							case 'LIKE':
+								$value[1] = $this->antiSqlInjection($value[1]);
 								$cond_value = " LIKE '{$value[1]}'";
 								break;
 							case 'EQUAL':
+								$value[1] = $this->antiSqlInjection($value[1]);
 								$cond_value = " = '{$value[1]}'";
 								break;
 							case 'DIFF':
+								$value[1] = $this->antiSqlInjection($value[1]);
 								$cond_value = " <> '{$value[1]}'";
 								break;
 							default:
@@ -259,6 +272,7 @@ class Basicmodel extends Model
 								break;
 						}
 					}else{
+						$value = $this->antiSqlInjection($value);
 						$cond_value = " = '{$value}'"; //DEFAULT EQUAL
 					}
 					
@@ -758,6 +772,13 @@ class Basicmodel extends Model
         );
 
 		return $formatter->format(new \DateTime($value));
+	}
+
+	public function antiSqlInjection($val)
+	{
+		$val = str_replace("\\", "\\\\", $val);
+		$val = str_replace("'", "\\'", $val);
+		return $val;
 	}
 }
 ?>

@@ -220,19 +220,20 @@ class BaseController extends Controller
 		
 		if(count($this->uri) == 0){
 			//For cases like app_url/
-			$breadcrumb[$controllerName][$this->routes->methodName()] = 1;
+			$breadcrumb[$controllerName][strtolower($this->routes->methodName())] = 1;
 		}elseif(count($this->uri) == 1){
 			if($this->uri[0] == 'admin'){
 				//For cases like app_url/admin/
-				$breadcrumb['admin'][$this->routes->methodName()] = 1;
+				$breadcrumb['admin'][strtolower($this->routes->methodName())] = 1;
 			}else{
 				//For cases like app_url/home
-				$breadcrumb[$controllerName][$this->routes->methodName()] = 1;
+				$breadcrumb[$controllerName][strtolower($this->routes->methodName())] = 1;
 			}
 		}else{
 			//For cases like app_url/home/index/2/test
 			$temp = &$breadcrumb;
 			foreach($this->uri as $key) {
+				$key = strtolower($key);
 				$temp = &$temp[$key];
 			}
 			if($temp === null){

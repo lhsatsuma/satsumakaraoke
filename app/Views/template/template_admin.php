@@ -117,7 +117,7 @@
 						<li>
 							<a href="{$app_url}admin/login/logout">
 							<i class="fas fa-power-off"></i>
-							<span>Logout</span>
+							<span>Sair</span>
 							</a>
 						</li>
 					</ul>
