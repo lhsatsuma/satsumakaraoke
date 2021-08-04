@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"require": {
 		"php": "^7.2 || ^8.0",
-		"codeigniter4/framework": "~4",
+		"codeigniter4/framework": "~4.1",
 		"mpdf/mpdf": "~8.0",
 		"phpmailer/phpmailer": "^6.4",
 		"smarty/smarty": "~3.1",
