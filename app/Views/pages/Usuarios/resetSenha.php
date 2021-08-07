@@ -25,17 +25,41 @@
 				<div class="col-10 col-sm-8 col-md-6 col-xl-4 login-div">
 					<div id="header_logo"><img src="{$app_url}images/logo.png" /></div>
 					<div id="ERROR_LOGIN" class="required">{$login_msg}</div>
-					<form name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
-						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>
-						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
-						<p><button class="btn btn-info form-control" type="submit">Entrar</button></p>
-						<p><a href="javascript:void(0)" onclick="OpenModalReset()">Esqueci Minha Senha</a></p>
-						<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
-					</form>
+					<form id="resetSenha" method="post" action="{$app_url}login/save_fgt_pass" class="user" novalidate="novalidate" pb-autologin="true" autocomplete="off">
+					<div class="col-12 mx-auto">
+						<div class="box-login">
+							<input type="hidden" name="id" value="{$id}" />
+							<input type="hidden" name="hash" value="{$hash}" />
+							<div class="col-12 text-center">
+								<h3>Alteração de Senha</h3>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-1 mt-1 mx-auto" style="padding: 0px;max-width: 400px">
+									<p><input type="text" class="form-control" value="{$email}" disabled="true"/></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-1 mt-1 mx-auto" style="padding: 0px;max-width: 400px">
+									<p><input name="nova_senha" type="password" id="nova_senha" class="form-control" value="" placeholder="Nova Senha"/></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-1 mt-1 mx-auto" style="padding: 0px;max-width: 400px">
+									<p><input name="confirm_nova_senha" type="password" id="confirm_nova_senha" class="form-control" value="" placeholder="Confirme a Nova Senha"/></p>
+								</div>
+							</div>
+							<p class="text-center">
+								<button class="btn btn-success" type="button" pb-role="submit" onclick="ValidateForm('resetSenha')">ALTERAR</button>
+							</p>
+							<p id="links" class="text-center">
+								<a href="{$app_url}login">Voltar</a><br>
+							</p>
+						</div>
+					</div>
+				</form>
 				</div>
 			</div>
 		</div>
+	<script type="text/javascript" src="{$app_url}js/Usuarios/resetSenha.js?v={$ch_ver}"></script>
 	</body>
-	<script type="text/javascript" src="{$app_url}jsManager/Usuarios/login.js?v={$ch_ver}"></script>
 </html>

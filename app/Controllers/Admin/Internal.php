@@ -263,7 +263,7 @@ class Internal extends AdminBaseController
                     ||
                     (
                         !empty($options['default'])
-                        && $options['default'] !== $fieldInDB->default
+                        && $options['default'] != $fieldInDB->default
                     )
                 ){
                     //If table and field exists but there's something different, let's try an MODIFY COLUMN

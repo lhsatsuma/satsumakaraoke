@@ -206,4 +206,100 @@ class Usuarios extends BaseController
 		
 		rdct('/home');
 	}
+	
+	public function send_forget_pass()
+	{
+		$ajax = new \App\Libraries\Sys\AjaxLib($this->request);
+		$ajax->CheckIncoming();
+		$ajax->CheckRequired([
+			'email',
+		]);
+		$this->mdl->where['email'] = $ajax->body['email'];
+		$this->mdl->order_by['id'] = 'ASC';
+		$result = $this->mdl->search(1)[0];
+		if($result){
+			$this->mdl->fillF($result);
+			$sended = $this->mdl->sendForgetPass();
+			if($sended){
+				$ajax->setSuccess($this->mdl->f['email']);
+			}else{
+				$ajax->setError('1x001', 'Não foi possível enviar o email! Tente novamente.');
+			}
+		}else{
+			$ajax->setError('0x001', 'usuário não encontrado');
+		}
+	}
+	
+	public function fgt_rcv($id, $hash)
+	{
+		if(empty($id) || empty($hash)){
+			rdct('/home');
+		}
+		$this->mdl->f['id'] = $id;
+		$result = $this->mdl->get();
+		$valid = false;
+		if($result){
+			$this->mdl->fillF($result);
+			$valid = $this->mdl->validateHash($hash);
+		}
+		if($valid){
+			$this->data['id'] = $id;
+			$this->data['hash'] = $hash;
+			$this->data['email'] = $this->mdl->f['email'];
+			return $this->display($this->view->setData($this->data)->view('pages/Usuarios/resetSenha'));
+		}else{
+			//Caso deu algum erro, redirecionar para view de falha
+			$this->session->setFlashdata('login_msg', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
+			rdct('/login');
+		}
+	}
+	
+	public function save_fgt_pass()
+	{
+		$id = $this->request->getPost('id');
+		$hash = $this->request->getPost('hash');
+		
+		if(empty($this->request->getPost('nova_senha'))
+		|| empty($this->request->getPost('confirm_nova_senha'))
+		|| empty($id)
+		|| empty($hash)){
+			rdct('/home');
+		}
+		$this->mdl->f['id'] = $id;
+		$result = $this->mdl->get();
+		$valid = false;
+		if($result){
+			$this->mdl->fillF($result);
+			$valid = $this->mdl->validateHash($hash);
+		}
+		if($valid){
+			$nova = $this->request->getPost('nova_senha');
+			$confirm = $this->request->getPost('confirm_nova_senha');
+			$changedValid = true;
+			if($nova === $confirm){
+				
+				$changed = $this->mdl->changePass($nova);
+				if($changed){
+					$this->session->setFlashdata('login_msg', 'Senha alterada com sucesso! Você já pode fazer o login com a nova senha.');
+					rdct('/login');
+				}
+				$this->data['login_msg'] = 'Não foi possível alterar a senha! Tente novamente.';
+				$changedValid = false;
+			}else{
+				$this->data['login_msg'] = 'As senhas não conferem!';
+				$changedValid = false;
+			}
+			
+			if(!$changedValid){
+				$this->data['id'] = $id;
+				$this->data['hash'] = $hash;
+				$this->data['usuario'] = $this->mdl->f['usuario'];
+				return $this->display_template($this->view->setData($this->data)->view('pages/Usuarios/resetSenha'));
+			}
+		}else{
+			//Caso deu algum erro, redirecionar para view de falha
+			$this->session->setFlashdata('login_msg', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
+			rdct('/login');
+		}
+	}
 }

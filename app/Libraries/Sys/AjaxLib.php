@@ -56,8 +56,10 @@ class AjaxLib{
 	{
 		$this->data['status'] = 0;
 		$this->data['error_code'] = $code;
-		$this->data['error_msg'] = $code;
-		$this->data['detail'] = $moreArr;
+		$this->data['error_msg'] = $msg;
+		if(!is_null($moreArr)){
+			$this->data['detail'] = $moreArr;
+		}
 		$this->setAjax();
 	}
 	public function setAjax()

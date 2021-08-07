@@ -92,7 +92,17 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			'lbl' => 'Última vez conectado',
 			'type' => 'datetime',
 		),
+		'hash_esqueci_senha' => array(
+			'lbl' => 'Chave Esqueci Senha',
+			'type' => 'varchar',
+		),
+		'ultima_troca_senha' => array(
+			'lbl' => 'Data Última Troca de Senha',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
 	);
+	public $template_forget_pass = 'EsqueciMinhaSenha';
 	
 	public function SearchLogin(){
 		$this->helper->select('id');
@@ -107,6 +117,56 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			$this->RegisterLastError("Query search login failed: ");	
 		}
 		return false;
+	}
+	public function generateHashForget()
+	{
+		$this->f['hash_esqueci_senha'] = str_replace('=', '00XX00', base64_encode(date("Y-m-d H:i:s")));
+	}
+	public function decryptHashForget()
+	{
+		return base64_decode(str_replace('00XX00', '=', $this->f['hash_esqueci_senha']));
+	}
+	public function sendForgetPass()
+	{
+		if(empty($this->f['email'])){
+			return null;
+		}
+		$this->generateHashForget();
+		$mail = new \App\Libraries\Sys\SendEmail();
+		$mail->mailer->AddAddress($this->f['email']);
+		
+		$mail->subject = '[Satsuma Karaoke] Esqueci Minha Senha';
+		$mail->setBodyTemplate($this->template_forget_pass, $this->f);
+		
+		if($mail->send()){
+			$this->helper->where('id', $this->f['id']);
+			$this->helper->update(['hash_esqueci_senha' => $this->f['hash_esqueci_senha']]);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public function validateHash($hash)
+	{
+		if($this->f['hash_esqueci_senha'] == $hash){
+			$decrypted = $this->decryptHashForget();
+			$date1 = new \DateTime($decrypted);
+			$date2 = new \DateTime();
+			$diff = $date2->getTimestamp() - $date1->getTimestamp();
+			
+			if($diff < 86400){ //Max 24 horas para utilizar
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public function changePass($new)
+	{
+		$md5 = md5($new);
+		$this->helper->where('id', $this->f['id']);
+		$this->helper->update(['senha' => $md5, 'hash_esqueci_senha' => null, 'ultima_troca_senha' => date("Y-m-d H:i:s")]);
+		return true;
 	}
 }
 ?>

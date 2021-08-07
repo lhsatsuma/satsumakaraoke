@@ -31,8 +31,6 @@
 						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
 						<p><input class="button form-control" type="submit" value="Enviar"/></p>
-						<p><a href="javascript:void(0)" onclick="ForgetPassword()">Esqueci minha senha</a></p>
-						<p><a href="javascript:void(0)" onclick="CriarConta()">Criar Conta</a></p>
 					</form>
 				</div>
 			</div>

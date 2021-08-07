@@ -927,3 +927,10 @@ input[type=range] {
   #video{
 	  max-width: 100% !important;
   }
+  .swal2-icon.swal2-info{
+	  width: 2em !important;
+	  height: 2em !important;
+  }
+  .swal2-icon.swal2-info > .swal2-icon-content{
+	  font-size: 1.75em !important;
+  }

@@ -17,7 +17,6 @@ class SendEmail{
 				$this->mailCI->$k = $v;
 			}
 		}
-		$this->mailCI->SMTPCrypto = '';
 		
 		require_once(APPPATH . 'Libraries/PHPMailer/PHPMailer.php');
 		require_once(APPPATH.'Libraries/PHPMailer/PHPMailer.php');
@@ -33,14 +32,7 @@ class SendEmail{
 		$this->mailer->Password = $this->mailCI->SMTPPass;
 		$this->mailer->From = $this->mailCI->fromEmail;
 		$this->mailer->FromName = $this->mailCI->fromName;
-		$this->mailer->SMTPOptions = [
-			'ssl' => [
-				'verify_peer' => false,
-				'verify_peer_name' => false,
-				'allow_self_signed' => true,
-			],
-		];
-		$this->view = new \App\Libraries\Smarty\SmartyCI();
+		$this->view = new \App\Libraries\Sys\SmartyCI();
 		
 		$data = array(
 			'app_url' => base_url().'/',
