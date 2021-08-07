@@ -28,6 +28,9 @@ class SendEmail{
 		$this->mailer->Password = $this->mailCI->SMTPPass;
 		$this->mailer->From = $this->mailCI->fromEmail;
 		$this->mailer->FromName = $this->mailCI->fromName;
+		$this->mailer->Debugoutput = function($str, $level) {
+			log_message('debug', "$level: $str\n");
+		};
 		$this->view = new \App\Libraries\Sys\SmartyCI();
 		
 		$data = array(
