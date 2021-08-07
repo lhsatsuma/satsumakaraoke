@@ -6,6 +6,9 @@
 	<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 		<table style="COLOR: #333; font-family: Tahoma, Geneva, sans-serif;" cellpadding="0" cellspacing="0" width="699" align="center" border="0">
 			<tbody>
+				<tr>
+					<td><img src="{$app_url}images/logo.png" /></td>
+				</tr>
 				<tr bgcolor="#791c1e">
 					<td height="70" style="text-align:center"><span style="font-size: 16px;font-weight: bold;text-align:center;color: #fff">Esqueci Minha Senha</span></td>
 				</tr>
