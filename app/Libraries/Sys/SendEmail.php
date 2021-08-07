@@ -18,10 +18,6 @@ class SendEmail{
 			}
 		}
 		
-		require_once(APPPATH . 'Libraries/PHPMailer/PHPMailer.php');
-		require_once(APPPATH.'Libraries/PHPMailer/PHPMailer.php');
-        require_once(APPPATH.'Libraries/PHPMailer/SMTP.php');
-        require_once(APPPATH.'Libraries/PHPMailer/Exception.php');
 		$this->mailer = new \PHPMailer\PHPMailer\PHPMailer();
 		$this->mailer->IsSMTP(true);
 		$this->mailer->Host = $this->mailCI->SMTPHost;
