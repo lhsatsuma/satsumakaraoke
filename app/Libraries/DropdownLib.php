@@ -33,6 +33,10 @@ class DropdownLib extends \App\Libraries\Sys\DropdownLib{
 		'status_musicas_fila_list' => array(
 			'pendente' => 'Pendente',
 			'encerrado' => 'Encerrado',
+		),
+		'sim_nao' => array(
+			'sim' => 'Sim',
+			'nao' => 'Não',
 		)
 	);
 }

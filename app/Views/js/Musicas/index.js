@@ -13,8 +13,18 @@ function OpenModalSelected(id){
 	var row = $('tr[dt-r-id="'+id+'"]');
 	const codigo = row.find('th[dt-r-codigo]').attr('dt-r-codigo');
 	const nome = row.find('td[dt-r-nome]').attr('dt-r-nome');
+	const fvt = parseInt(row.attr('dt-r-fvt'));
 	$('#IdInsertModal').val(id);
 	$('#SelectedRowModalLabel').html('['+codigo+'] '+nome);
+
+	if(fvt == 2){
+		$('#itsFavorite').val('2');
+		$('#InsertFavoriteBtn').html('<i class="far fa-star"></i> Desfavoritar');
+	}else{
+		$('#itsFavorite').val('1');
+		$('#InsertFavoriteBtn').html('<i class="fas fa-star"></i> Favoritar');
+	}
+
 	$('#SelectedRowModal').modal('show');
 }
 $('#InsertFilaBtn').click(function(){
@@ -30,7 +40,40 @@ $('#InsertFilaBtn').click(function(){
 				callback: (res) => {
 					Swal.close();
 					Swal.fire({
-						title: 'Música inserida na fila com sucesso!',
+						title: 'Música adicionada na fila!',
+						text: '',
+						icon: 'success',
+						width: '400px',
+						showConfirmButton: false,
+						timer: 1000,
+						timerProgressBar: true
+					});
+				}
+			});
+		}
+	})
+});
+$('#InsertFavoriteBtn').click(function(){
+	$('#SelectedRowModal').modal('hide');
+	fireLoading({
+		didOpen: () => {
+			Swal.showLoading();
+			handleAjax({
+				url: app_url+'musicas/insert_favorite_ajax',
+				data: JSON.stringify({
+					id: $('#IdInsertModal').val(),
+					rmv: ($('#itsFavorite').val() == '2') ? true : false,
+				}),
+				callback: (res) => {
+					if($('#itsFavorite').val() == '2'){
+						$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '1');
+					}else{
+						$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '2');
+					}
+					console.log('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]');
+					Swal.close();
+					Swal.fire({
+						title: 'Música '+(($('#itsFavorite').val() == '2') ? 'removida' : 'adicionada')+' nos favoritos!',
 						text: '',
 						icon: 'success',
 						width: '400px',

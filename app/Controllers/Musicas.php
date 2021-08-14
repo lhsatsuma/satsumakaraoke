@@ -27,6 +27,7 @@ class Musicas extends BaseController
 			'codigo' => '',
 			'nome' => '',
 			'tipo' => '',
+			'fvt' => '',
 		);
 		
 		$initial_order = array(
@@ -46,12 +47,18 @@ class Musicas extends BaseController
 		);
 		
 		$this->PopulateFiltroPost($initial_filter, $initial_order);
-		
+
+		$key_join = ($this->filter['fvt']['value'] == 'sim') ? "musicas_favorites" : "LEFTJOIN_musicas_favorites";
+
+		$this->mdl->select = "musicas.*, CAST(codigo AS DECIMAL(10,2)) AS codigo_cast, IF(musicas_favorites.id IS NOT NULL, 2, 1) as favorite";
+		$this->mdl->join[$key_join] = "musicas.id = musicas_favorites.musica_id
+		AND musicas_favorites.usuario_criacao = '{$this->session->get('auth_user')['id']}'
+		AND musicas_favorites.deletado = 0";
+
 		$total_row = $this->mdl->total_rows();
 		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
-		
-		$this->mdl->select = "musicas.*, CAST(codigo AS DECIMAL(10,2)) AS codigo_cast";
 		$result = $this->mdl->search(20, $offset);
+
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
@@ -177,6 +184,45 @@ class Musicas extends BaseController
 		$musicas_fila_mdl->f['status'] = 'pendente';
 		$saved_record = $musicas_fila_mdl->saveRecord();
 		$AjaxLib->setSuccess($saved_record);
+	}
+	
+	public function insert_favorite_ajax()
+	{
 		
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
+		$AjaxLib->CheckIncoming();
+		
+		$required = array(
+			'id',
+		);
+		$AjaxLib->CheckRequired($required);
+		unset($required);
+		
+		$body_post = $AjaxLib->GetData();
+		
+		$mdl = new \App\Models\Musicas_favorites\Musicas_favoritesmodel();
+		
+		$this->mdl->f['id'] = $body_post['id'];
+		$result = $this->mdl->get();
+		if(!$result){
+			$AjaxLib->setError('2x001', 'registro não encontrado');
+		}
+		$mdl->f['musica_id'] = $result['id'];
+
+		if($body_post['rmv']){
+			$mdl->select = 'id';
+			$mdl->where['musica_id'] = $result['id'];
+			$mdl->where['usuario_criacao'] = $this->session->get('auth_user')['id'];
+			$results = $mdl->search(10);
+			foreach($results as $result){
+				$mdl->f = [];
+				$mdl->f['id'] = $result['id'];
+				$mdl->DeleteRecord();
+			}
+			$saved_record = true;
+		}else{
+			$saved_record = $mdl->saveRecord();
+		}
+		$AjaxLib->setSuccess($saved_record);
 	}
 }

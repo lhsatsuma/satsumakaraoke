@@ -326,13 +326,15 @@ class BaseController extends Controller
 					$condition = 'EQUAL';
 				}
 				
-				if(is_array($value)){
-					$this->mdl->where[$field] = ['IN', $value];
-				}elseif($value){
-					if($condition == 'LIKE'){
-						$value = '%'.$value.'%';
+				if(!$options['nondb']){
+					if(is_array($value)){
+						$this->mdl->where[$field] = ['IN', $value];
+					}elseif($value){
+						if($condition == 'LIKE'){
+							$value = '%'.$value.'%';
+						}
+						$this->mdl->where[$field] = [$condition, $value];
 					}
-					$this->mdl->where[$field] = [$condition, $value];
 				}
 				$this->data['search_'.$field] = $old_value;
 				$this->filter[$field] = array(

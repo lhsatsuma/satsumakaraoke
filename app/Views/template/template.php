@@ -107,11 +107,6 @@
 		<!-- sidebar-wrapper  -->
 		<main class="page-content">
 			<div class="container-fluid primary-container">
-				<div class="row">
-					<div class="col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 primary-row">
-						<div id="header_logo"><img src="{$app_url}images/logo.png" /></div>
-					</div>
-				</div>
 				<div class="box box-primary">
 					<div class="box-body">
 						<div class="row">

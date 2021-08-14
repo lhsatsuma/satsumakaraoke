@@ -88,6 +88,12 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			'parameter' => 'tipo_musica',
 			'required' => true,
 		),
+		'fvt' => array(
+			'nondb' => true,
+			'lbl' => 'Meus Favoritos',
+			'type' => 'dropdown',
+			'parameter' => 'sim_nao',
+		)
 	);
 	
 	function get_order_by()

@@ -324,6 +324,7 @@ class Basicmodel extends Model
 		}
 		if(!$this->force_deletado){
 			$return_string .= $c_where."{$this->table}.deletado = '0'";
+			$c_where = "\nAND ";
 			foreach($this->join as $table_name => $on){
 				if(strpos($table_name, ' AS ') !== false){
 					$new_table_name = explode(' AS ', $table_name);

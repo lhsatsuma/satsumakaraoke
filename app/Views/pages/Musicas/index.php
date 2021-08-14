@@ -16,7 +16,7 @@
 		</tr>
 		{else}
 		{foreach from=$records item=campos}
-		<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}">
+		<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}" dt-r-fvt="{$campos.favorite}">
 			<th class="col-2 col-xl-1" dt-r-codigo="{$campos.codigo}">{$campos.codigo}</th>
 			<td class="col-2 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
 			<td class="col-8 col-xl-10" dt-r-nome="{$campos.nome}">{$campos.nome}</td>
@@ -40,6 +40,7 @@
 {if !$bdOnly}
 <div class="modal fade" id="SelectedRowModal" tabindex="-1" role="dialog" aria-labelledby="SelectedRowModalLabel" aria-hidden="true">
 	<input type="hidden" id="IdInsertModal" />
+	<input type="hidden" id="itsFavorite" />
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -49,6 +50,9 @@
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
 						<button type="button" id="InsertFilaBtn" class="btn btn-success btn-bordered col-8">Colocar na Fila</button>
+					</div>
+					<div class="col-12 primary-row center">
+						<button type="button" id="InsertFavoriteBtn" class="btn btn-info btn-bordered col-8"><i class="fas fa-star"></i> Favoritar</button>
 					</div>
 				</div>
 				<div class="row margin-5">
