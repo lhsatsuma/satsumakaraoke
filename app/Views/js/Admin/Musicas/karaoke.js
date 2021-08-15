@@ -187,9 +187,8 @@ function mountWaitList(dontRefresh, totalFound = 0)
 			$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' | ['+ipt[2]+']'+ ipt[3]+'</p>');
 		}
 	});
-	console.log(totalFound, musicsLine.length);
-	if(totalFound > musicsLine.length){
-		let leftSongs = totalFound - musicsLine.length;
+	if(totalFound - 1 > musicsLine.length){
+		let leftSongs = totalFound - musicsLine.length - 1;
 		$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
 	}
 	if(!!songNow[1]){
