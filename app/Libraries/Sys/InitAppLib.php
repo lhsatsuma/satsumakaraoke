@@ -11,7 +11,7 @@ class InitAppLib
 	
 	public function __construct($need_login, $module_name)
 	{
-		$this->session = \Config\Services::session();
+		$this->session = getSession();
 		$this->url = current_url(true)->getSegments();
 		array_shift($this->uri);
 		$this->module = $module_name;

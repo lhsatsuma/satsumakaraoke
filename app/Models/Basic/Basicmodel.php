@@ -97,10 +97,10 @@ class Basicmodel extends Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->session = \Config\Services::session();
+		$this->session = getSession();
 		$this->helper = $this->db->table($this->table);
 		$this->dropdown = new \App\Libraries\DropdownLib();
-		$this->request = \Config\Services::request();
+		$this->request = getFormData();
 
 		if($this->session->get('auth_user')){
 			$this->auth_user_id = $this->session->get('auth_user')['id'];
@@ -179,15 +179,14 @@ class Basicmodel extends Model
 	function total_rows($debug = false)
 	{
         $result = 0;
+		$this->helper->resetQuery();
         $this->helper->select('COUNT('.$this->table.'.id) AS total');
 		$this->get_join();
         $this->get_where();
 		// $this->get_order_by();
 		try{
 			$result = $this->helper->get();
-			if($debug){
-				echo '<Pre>';var_dump((string)$this->db->getLastQuery());exit;
-			}
+			log_message('debug', (string)$this->db->getLastQuery());
 			return $result->getResult()[0]->total;
 		}catch(Exception $e){
 			if ($this->db->error()['message']) {
@@ -396,22 +395,16 @@ class Basicmodel extends Model
 		}
 		
 		$offset = ($page > 1) ? ($page - 1) * $limit : 0;
-		
+		$this->helper->resetQuery();
 		$this->helper->select($this->select);
 		$this->get_join();
 		
 		$this->get_where();
 		$this->get_order_by();
 		$this->get_group_by();
-
-		if($debug){
-			echo '<pre>';var_dump($this->helper->getCompiledSelect());exit;
-		}
+		log_message('debug', (string)$this->helper->getCompiledSelect());
 		try{
 			$q = $this->helper->get($limit, $offset);
-			if($debug){
-				echo '<Pre>';var_dump((string)$this->db->getLastQuery());exit;
-			}
 		
 			if($q->resultID->num_rows > 0){
 				return $q->getResult('array');

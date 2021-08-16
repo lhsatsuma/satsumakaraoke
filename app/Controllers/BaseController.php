@@ -19,7 +19,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['Sys_helper'];
+	protected $helpers = [];
 	
 	/*
 	@var array
@@ -124,7 +124,8 @@ class BaseController extends Controller
 	
 	public function __construct()
 	{
-		$this->session = \Config\Services::session();
+		helper('Sys_helper');
+		$this->session = getSession();
 		$this->uri = current_url(true)->getSegments();
 		$this->routes = \Config\Services::router();
 		$this->request = \Config\Services::request();

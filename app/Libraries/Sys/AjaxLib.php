@@ -24,7 +24,8 @@ class AjaxLib{
 		$this->body = $this->GetData();
 	}
 	public function CheckIncoming()
-	{	
+	{
+		log_message('debug', 'AJAX->CheckIncoming(): '.$this->request->getBody());
 		if(!$this->request->isAJAX()){
 			$this->setError('0x001', 'XMLHttpRequest não setado');
 		}
@@ -66,12 +67,18 @@ class AjaxLib{
 	{
 		global $AppVersion;
 		$encoded = json_encode($this->data, ((!$AppVersion->compress_output) ? JSON_PRETTY_PRINT : null));
+		$logLevel = 'debug';
+		if(!$this->data['status']){
+			$logLevel = 'info';
+		}
+		if(!empty($this->data) && strlen($encoded) == 0){
+			$logLevel = 'critical';
+		}
+		log_message($logLevel, 'AJAX->setAjax(): '. $encoded);
 		header('Content-Type: application/json');
 		header('Content-Length: '.strlen($encoded));
 		echo $encoded;
 		exit;
 	}
-	
-	
 }
 ?>

@@ -47,6 +47,9 @@ class JsManager extends BaseController
 		$ch_ver = GetCacheVersion();
         $cachePath = WRITEPATH . 'cache/js_min_'.md5(implode('_', $fileEx));
         $file_name = APPPATH.'Views/js/'.implode('/', $fileEx);
+		if(substr($file_name, -4) == '.map'){
+			return false;
+		}
 
 		if($AppVersion->compress_output){
 			//If dont exists cache file or original has been modified

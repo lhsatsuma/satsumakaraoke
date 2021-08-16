@@ -11,9 +11,9 @@ if(!function_exists('GetCacheVersion')){
 }
 if(!function_exists('rdct')){
 	function rdct($to){
-		$request = \Config\Services::request();
-		if($request->getPost('force_redirect_whatever')){
-			$to = $request->getPost('force_redirect_whatever');
+		$request = getFormData();
+		if($request['force_redirect_whatever']){
+			$to = $request['force_redirect_whatever'];
 		}
 		header('Location: '.$to);
 		exit;
@@ -240,9 +240,6 @@ if(!function_exists('xmlToArray')){
 		return json_decode($json,TRUE);
 	}
 }
-
-
-
 function getModules()
 {
 	$return = [];
@@ -281,5 +278,13 @@ function getFormData($key=null)
 		return $requestForm->getPostGet();
 	}
 	return $requestForm->getPostGet($key);
+}
+function getSession()
+{
+	global $sessionCI;
+	if(!$sessionCI){
+		$sessionCI = session();
+	}
+	return $sessionCI;
 }
 ?>

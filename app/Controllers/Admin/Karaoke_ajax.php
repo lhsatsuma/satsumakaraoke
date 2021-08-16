@@ -57,8 +57,8 @@ class Karaoke_ajax extends AdminBaseController
 				if(strlen($fila['cantor']) > 13){
 					$result[$key]['cantor'] = substr($fila['cantor'], 0, 11) . '...';
 				}
-				if($key > 0 && strlen($fila['nome_musica']) > 30){
-					$result[$key]['nome_musica'] = substr($fila['nome_musica'], 0, 27) . '...';
+				if($key > 0 && strlen($fila['nome_musica']) > 29){
+					$result[$key]['nome_musica'] = substr($fila['nome_musica'], 0, 26) . '...';
 				}
 			}
 			$result[$key]['codigo'] = (int)$result[$key]['codigo'];

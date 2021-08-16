@@ -17,8 +17,8 @@ class LayoutLib
 		$this->dropdown = new \App\Libraries\DropdownLib();
         $this->dropdown->values['modules_list'] = getModules();
 		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
-		$this->session = \Config\Services::session();
-		$this->request = \Config\Services::request();
+		$this->session = getSession();
+		$this->request = getFormData();
 		
 		$this->base_url = base_url().'/';
 	}

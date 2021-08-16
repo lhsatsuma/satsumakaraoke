@@ -50,6 +50,7 @@ class YoutubeLib
             ' / VERSÃO KARAOKÊ',
             ' with lyrics (with lead vocal)',
             ' (no lead vocal)',
+            ' (KARAOKE VERSION)',
             ' (Karaoke Version)',
             ' (Karaokê Version)',
             ' | Karaoke Version | KaraFun',
@@ -112,14 +113,14 @@ class YoutubeLib
 
     public function importUrl($url, $md5, $title)
     {
-        log_message('debug', "DOWNLOADING VIDEO: ".$url);
+        log_message('info', "DOWNLOADING VIDEO: ".$url);
         if(file_exists($this->upload_path . $md5.'.mp4')){
 			unlink($this->upload_path . $md5.'.mp4');
 		}
 		
 		$string = ("cd {$this->upload_path} && youtube-dl.exe " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
                   escapeshellarg($md5.".mp4"));
-        log_message('debug', "COMMAND: ".$string);
+        log_message('info', "COMMAND: ".$string);
 		$descriptorspec = array(
 		   0 => array("pipe", "r"),  // stdin
 		   1 => array("pipe", "w"),  // stdout
@@ -137,7 +138,7 @@ class YoutubeLib
         $ret = proc_close($process);
         
 		if(strpos($stdout, '[download] 100% of') !== false){
-            log_message('debug', "DOWNLOAD COMPLETED: ".$url);
+            log_message('info', "DOWNLOAD COMPLETED: ".$url);
 			return true;
 		}else{
             if(function_exists('log_message')){
