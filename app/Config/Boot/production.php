@@ -8,7 +8,8 @@
   | it and display a generic error message.
  */
 // ini_set('display_errors', '0');
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_STRICT);
+ini_set('display_errors', 0);
 
 /*
   |--------------------------------------------------------------------------
