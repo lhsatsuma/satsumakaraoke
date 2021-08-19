@@ -388,7 +388,7 @@ class Basicmodel extends Model
 		$this->helper->groupBy($this->group_by);
 	}
 	
-	function search($limit = 0, $page = 0, $debug = false)
+	function search($limit = 0, $page = 0)
 	{
 		if(!$limit){
 			$limit = 0;
@@ -402,10 +402,9 @@ class Basicmodel extends Model
 		$this->get_where();
 		$this->get_order_by();
 		$this->get_group_by();
-		log_message('debug', (string)$this->helper->getCompiledSelect());
 		try{
 			$q = $this->helper->get($limit, $offset);
-		
+			log_message('debug', (string)$this->db->getLastQuery());
 			if($q->resultID->num_rows > 0){
 				return $q->getResult('array');
 			}
