@@ -1,6 +1,7 @@
 function OpenModalReset()
 {
 	if(!$('input[name="email"]').val()){
+		addValidateError($('input[name="email"]'), 'Preencha o seu e-mail!', true);
 		Swal.fire({
 			title: 'Digite o seu email!',
 			text: '',
