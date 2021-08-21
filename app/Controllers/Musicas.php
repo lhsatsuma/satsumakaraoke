@@ -24,9 +24,9 @@ class Musicas extends BaseController
 
 
 		$initial_filter = array(
-			'musicas.codigo' => '',
-			'musicas.nome' => '',
-			'musicas.tipo' => '',
+			'codigo' => '',
+			'nome' => '',
+			'tipo' => '',
 			'fvt' => '',
 		);
 		
@@ -39,10 +39,10 @@ class Musicas extends BaseController
 			'use' => true,
 			'action' => base_url().'/musicas/index',
 			'generic_filter' => array(
-				'musicas.nome',
-				'musicas.codigo',
-				'musicas.origem',
-				'musicas.tipo'
+				'nome',
+				'codigo',
+				'origem',
+				'tipo'
 			),
 		);
 		

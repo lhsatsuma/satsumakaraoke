@@ -354,6 +354,9 @@ class BaseController extends Controller
 			$value = getFormData('search_generic_filter');
 			if($value){
 				foreach($this->filterLib_cfg['generic_filter'] as $key => $field){
+					if($this->fields_map[$field]['nondb']){
+						continue;
+					}
 					$key_where = "";
 					if(count($this->filterLib_cfg['generic_filter']) > 1){
 						if($key == 0){
