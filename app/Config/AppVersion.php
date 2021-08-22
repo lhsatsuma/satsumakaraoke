@@ -13,7 +13,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var string
 	 Sets cache version for jsManager/CSS/IMG files
 	 */
-	public $css = '20210822_v9';
+	public $css = '20210822_v10';
 	
 	/*
 	@var bool
@@ -40,6 +40,5 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 		parent::__construct();
 		ini_set('default_charset', 'UTF-8');
 		date_default_timezone_set('America/Recife');
-		// setlocale(LC_ALL, 'pt_BR.utf8');
 	}
 }

@@ -158,22 +158,35 @@ STYLE FOR App
 body,
 .modal-content {
 	background-color: #292929;
-	color: #f1f1f1;
+	color: #d0d0d0;
 }
 .form-control{
 	background-color: #5a5a5a;
+	border: 1px solid #888d92;
 }
 .form-control, .table{
-	color: #f1f1f1;
-	font-weight: 500;
+	color: #c5c5c5;
+	font-weight: 400;
 }
 .form-control:focus {
     background-color: #676767;
-	color: #f1f1f1;
-	font-weight: 500;
+	color: #d0d0d0;
+	font-weight: 400;
+	border-color: #6ea0d6;
 }
 .btn{
 	font-weight: 600;
+	color: #d0d0d0;
+}
+.btn-warning{
+	color: #292929;
+}
+.btn:hover{
+	color: #dcdcdc;
+}
+.btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled):active, .show>.btn-warning.dropdown-toggle{
+	background-color: #ab8000;
+	border-color: #ab8000;
 }
 
 .modal-header {
@@ -219,7 +232,7 @@ hr{
 }
 table.table-hover tbody tr:hover {
     background-color: #4e4e4e;
-	color: #f1f1f1;
+	color: #d0d0d0;
 }
 input.form-control[name="valor_total"]{
 	font-weight: bold;
@@ -233,7 +246,7 @@ input.form-control[name="valor_total"]{
 	border-bottom: 2px solid #dee2e6;
 	padding: 0.8rem 0 0.8rem 0.8rem;
 	margin-bottom: 5px;
-	background-color: #d8d8d8;
+	background-color: #d0d0d0;
 }
 .sidebar-brand p{
 	color: rgb(236, 236, 236);
