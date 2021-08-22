@@ -2,10 +2,10 @@
 
 return [
 	'pageNavigation'         => 'Navegação de páginas',
-	'first'                  => "<i class='fas fa-angle-left'></i>",
+	'first'                  => "<i class='fas fa-angle-double-left'></i>",
 	'previous'               => '<',
 	'next'                   => '>',
-	'last'                   => "<i class='fas fa-angle-right'></i>",
+	'last'                   => "<i class='fas fa-angle-double-right'></i>",
 	'older'                  => 'Mais antiga',
 	'newer'                  => 'Mais recente',
 	'invalidTemplate'        => '{0} não é um Pager template válido.',

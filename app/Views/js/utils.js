@@ -194,7 +194,7 @@ function ValidateForm(fm, elm)
 	$(f).find('input').each(function(){
 		$(this).removeClass('invalid-value');
 		let is_required = !!$(this).attr('required');
-		if($(this).attr('name') == 'senha_nova'){
+		if(is_required && $(this).attr('name') == 'senha_nova'){
 			if($(this).val() == ''
 			&& (!recordId || $('input[name="confirm_senha_nova"]').val() !== '')){
 				addValidateError(this, 'É necessário digitar uma nova senha.', true);
@@ -364,6 +364,11 @@ function ValidateForm(fm, elm)
 	//If form is valid, let's submit
 	
 	if(is_valid){
+		$(f).find('input[type="checkbox"]').each((idx, ipt) => {
+			let field = $(ipt).attr('name').replace('checkbox_', '');
+			let checked = ($(ipt).is(':checked') ? '1' : '0');
+			$(f).find('input[name="'+field+'"]').val(checked);
+		});
 		$('#'+fm).submit();
 	}else{
 		if(!!elm){

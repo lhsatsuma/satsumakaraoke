@@ -82,7 +82,6 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			'type' => 'dropdown',
 			'parameter' => 'tipo_usuario',
 			'default' => 1,
-			'required' => true,
 		),
 		'last_ip' => array(
 			'lbl' => 'Último IP',
@@ -100,6 +99,10 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			'lbl' => 'Data Última Troca de Senha',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
+		),
+		'dark_mode' => array(
+			'lbl' => 'Modo Escuro',
+			'type' => 'bool',
 		),
 	);
 	public $template_forget_pass = 'EsqueciMinhaSenha';

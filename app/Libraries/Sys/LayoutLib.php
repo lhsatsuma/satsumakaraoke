@@ -233,6 +233,7 @@ class LayoutLib
 		
 		$data = $this->MountDefaultData($field);
 		$data['value'] = ($selected) ? 'checked="true"' : '';
+		$data['value_hidden'] = ($selected) ? '1' : '0';
 		
 		return $this->smarty->setData($data)->view($tpl);
 	}

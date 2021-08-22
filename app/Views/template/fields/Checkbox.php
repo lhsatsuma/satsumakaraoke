@@ -1,2 +1,2 @@
 <label for="{$name}">{$label}</label>
-<p><input class="{if $error}invalid-value{/if}" type="checkbox" name="{$name}" {$value} {if $disabled}disabled="true"{/if}/>{if $error}<span class='validate-error required'>{$error}</span>{/if}</p>
+<p><input class="{if $error}invalid-value{/if}" type="checkbox" name="checkbox_{$name}" {$value} {if $disabled}disabled="true"{/if}/><input type="hidden" name="{$name}" value="{$value_hidden}"/>{if $error}<span class='validate-error required'>{$error}</span>{/if}</p>

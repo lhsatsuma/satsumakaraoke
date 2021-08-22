@@ -212,6 +212,9 @@ class Internal extends AdminBaseController
 
             /* Checking every field */
             foreach($mdl->fields_map as $field => $options){
+                if($options['nondb']){
+                    continue;
+                }
 
                 $fieldInDB = null;
                 $needUpdate = false;

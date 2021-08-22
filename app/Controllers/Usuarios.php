@@ -151,6 +151,9 @@ class Usuarios extends BaseController
 			$this->validation_errors = array(
 				'generic_error' => 'Dados atualizados com sucesso!',
 			);
+			$AuthUser = $this->mdl->get();
+	
+			$this->session->set('auth_user', $AuthUser);
 			$this->SetErrorValidatedForm(false);
 			rdct('/usuarios/MeusDados');
 		}else{

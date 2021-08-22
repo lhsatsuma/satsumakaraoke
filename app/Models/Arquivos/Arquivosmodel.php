@@ -49,6 +49,11 @@ class Arquivosmodel extends \App\Models\Basic\Basicmodel
 			'type' => 'varchar',
 			'max_length' => 255,
 		),
+		'deletado' => array(
+			'lbl' => 'Deletado',
+			'type' => 'bool',
+			'dont_load_layout' => true,
+		),
 		'data_criacao' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',

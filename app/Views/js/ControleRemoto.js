@@ -77,8 +77,7 @@ $('.controlbtns').click(function(){
 		}
 	});
 })
-$('#volumeRange').change(function(){
-	let domObj = $(this);
+document.getElementById('volumeRange').addEventListener('input', function() {
 	$('#volP').html($(this).val()+'%');
 	$.ajax({
 		'url': app_url+'Karaoke_ajax/k_set_thread',
