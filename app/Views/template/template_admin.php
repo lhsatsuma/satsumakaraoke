@@ -13,6 +13,9 @@
 		<link rel="stylesheet" href="{$app_url}css/jquery-ui.structure.min.css?v={$ch_ver}">
 		<link rel="stylesheet" href="{$app_url}css/jquery-ui.theme.min.css?v={$ch_ver}">
 		<link rel="stylesheet" href="{$app_url}css/default.css?v={$ch_ver}">
+		{if $auth_user.dark_mode}
+       		<link rel="stylesheet" href="{$app_url}css/dark.css?v={$ch_ver}">
+		{/if}
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-3.5.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>

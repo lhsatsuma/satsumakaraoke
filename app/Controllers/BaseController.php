@@ -370,7 +370,7 @@ class BaseController extends Controller
 					}else{
 						$key_where = 'BEGINENDORWHERE_';
 					}
-					$this->mdl->where[$key_where.$field] = ['LIKE', '%'.$value.'%'];
+					$this->mdl->where[$key_where.$this->mdl->table.'.'.$field] = ['LIKE', '%'.$value.'%'];
 				}
 			}
 		}

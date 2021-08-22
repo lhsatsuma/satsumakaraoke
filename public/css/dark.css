@@ -161,14 +161,14 @@ body,
 	color: #f1f1f1;
 }
 .form-control{
-	background-color: #9c9c9c;
+	background-color: #5a5a5a;
 }
 .form-control, .table{
 	color: #f1f1f1;
 	font-weight: 500;
 }
 .form-control:focus {
-    background-color: #ccc;
+    background-color: #676767;
 	color: #f1f1f1;
 	font-weight: 500;
 }
@@ -218,7 +218,8 @@ hr{
 	color: #007bff;
 }
 table.table-hover tbody tr:hover {
-    background-color: #dedede; 
+    background-color: #4e4e4e;
+	color: #f1f1f1;
 }
 input.form-control[name="valor_total"]{
 	font-weight: bold;
@@ -239,14 +240,8 @@ input.form-control[name="valor_total"]{
 	font-size: 1.3rem;
 	margin-top: 0.3rem;
 }
-.html-disabled{
-	display: block;
-    width: 100%;
-	background-color: #e9ecef;;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+.form-control:disabled, .form-control[readonly], .html-disabled{
+	background-color: #292929;
 }
 a:hover{
 	color: #0071ea;
