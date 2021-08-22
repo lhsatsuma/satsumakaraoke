@@ -13,7 +13,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var string
 	 Sets cache version for jsManager/CSS/IMG files
 	 */
-	public $css = '20210822_v8';
+	public $css = '20210822_v9';
 	
 	/*
 	@var bool
