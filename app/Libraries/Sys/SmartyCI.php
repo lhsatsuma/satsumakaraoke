@@ -44,8 +44,10 @@ class SmartyCI extends \Smarty
 		to:
 		parser->view('view_template.php');
 		*/
-		if(strtolower(substr($view, strlen($view) -4, 4)) !== '.php'){
-			$view .= '.php';
+		if(strtolower(substr($view, strlen($view) -4, 4)) !== '.tpl'){
+			$view .= '.tpl';
+		}elseif(strtolower(substr($view, strlen($view) -4, 4)) == 'php'){
+			$view = substr($view, -4).'.tpl';
 		}
 		
 		if(!$this->isCaching){
