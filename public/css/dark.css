@@ -64,7 +64,7 @@
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-	background: #31353D;
+	background: #1b1d21;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
@@ -157,7 +157,7 @@ STYLE FOR App
 
 body,
 .modal-content {
-	background-color: #292929;
+	background-color: #232323;
 	color: #d0d0d0;
 }
 .form-control{
@@ -185,8 +185,8 @@ body,
 	color: #dcdcdc;
 }
 .btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled):active, .show>.btn-warning.dropdown-toggle{
-	background-color: #ab8000;
-	border-color: #ab8000;
+	background-color: #c1940b;
+	border-color: #c1940b;
 }
 
 .modal-header {
@@ -196,7 +196,7 @@ body,
 .primary-container {
 	border-radius: 20px;
 	padding: 20px;
-	background-color: #3a3a3a;
+	background-color: #18191a;
 	min-height: 100%;
 }
 
@@ -205,18 +205,24 @@ body,
 }
 
 table {
-	border: 1px solid #ccc;
+	border: 1px solid #53575a;
+}
+.table thead th{
+	border: 1px solid #53575a;
 }
 
 .table-pagination .pagination li {
 	padding: 8px;
-    background-color: #e8e8e8;
+    background-color: #656565;
     border-radius: 10px;
     margin: 3px;
 }
 
 .table-pagination .pagination .active {
-	background-color: #d5d5d5;
+	background-color: #9e9e9e;
+}
+.table-pagination a{
+	
 }
 
 hr{
