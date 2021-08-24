@@ -50,7 +50,7 @@
 			<div class="sidebar-content">
 				<div class="sidebar-brand">
 					<div class="col-10">
-						<img src="{$app_url}images/logo.png" style="width: 100%" />
+						<a href="{$app_url}"><img src="{$app_url}images/logo.png" style="width: 100%" /></a>
 					</div>
 					<div class="col-2">
 						<div id="close-sidebar">
@@ -100,6 +100,15 @@
 							</a>
 						</li>
 						{/if}
+						<li>
+							<a href="javascript:void(0)">
+							<span>Tema escuro</span>
+							<label class="switch">
+							<input type="checkbox" checked>
+							<span class="slider round"></span>
+							</label>
+							</a>
+						</li>
 						<li>
 							<a href="{$app_url}login/logout">
 							<i class="fas fa-power-off"></i>
