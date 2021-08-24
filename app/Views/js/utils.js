@@ -704,3 +704,27 @@ document.getScrollTop = function() {
 document.setScrollTop = function(y) {
 	window.scrollTo(0, y);
 }
+
+function toggleDarkMode()
+{
+	let newValueDarkMode = null;
+	if($('#darkmodecss').length > 0){
+		$('#darkmodecss').remove();	
+		newValueDarkMode = 0;
+	}else{
+		$('head').append('<link id="darkmodecss" rel="stylesheet" href="'+app_url+'css/dark.css?v='+ch_ver+'">');
+		newValueDarkMode = 1;
+	}
+	handleAjax({
+		url: app_url+'ajax_requests/toogle_dark_mode',
+		data: JSON.stringify({
+			dark_mode: newValueDarkMode,
+		}),
+		callback: (res) => {
+
+		},
+		callbackError: (res) => {
+			console.log(res);
+		}
+	});
+}

@@ -1,11 +1,13 @@
 .page-wrapper .theme.chiller-theme {
 	background: #1e2229;
 }
+
 .sidebar-wrapper .sidebar-header .user-info .user-status i {
 	font-size: 8px;
 	margin-right: 4px;
 	color: #5cb85c;
 }
+
 .badge-sonar {
 	display: inline-block;
 	background: #980303;
@@ -28,6 +30,7 @@
 	height: 100%;
 	animation: sonar 1.5s infinite;
 }
+
 ::-webkit-scrollbar-thumb {
 	background: #525965;
 	border: 0px none #ffffff;
@@ -105,8 +108,8 @@
 	color: #ffffff;
 }
 
-.chiller-theme .sidebar-wrapper .sidebar-content > .sidebar-menu > ul > li:hover > a > i,
-.sidebar-submenu > ul > li:hover > a > i,
+.chiller-theme .sidebar-wrapper .sidebar-content>.sidebar-menu>ul>li:hover>a>i,
+.sidebar-submenu>ul>li:hover>a>i,
 .chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus+span {
 	color: #16c7ff;
@@ -138,13 +141,13 @@
 	border-right: none;
 }
 
-.sidebar-menu > ul > li.active > a,
-li.active > .sidebar-submenu > ul > li.active > a{
+.sidebar-menu>ul>li.active>a,
+li.active>.sidebar-submenu>ul>li.active>a {
 	color: #b8bfce;
 }
 
-.sidebar-menu > ul > li.active > a > i,
-li.active > .sidebar-submenu > ul > li.active > a > i{
+.sidebar-menu>ul>li.active>a>i,
+li.active>.sidebar-submenu>ul>li.active>a>i {
 	color: #16c7ff;
 	text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
 }
@@ -160,31 +163,41 @@ body,
 	background-color: #232323;
 	color: #d0d0d0;
 }
-.form-control{
+
+.form-control {
 	background-color: #5a5a5a;
 	border: 1px solid #888d92;
 }
-.form-control, .table{
+
+.form-control,
+.table {
 	color: #c5c5c5;
 	font-weight: 400;
 }
+
 .form-control:focus {
-    background-color: #676767;
+	background-color: #676767;
 	color: #d0d0d0;
 	font-weight: 400;
 	border-color: #6ea0d6;
 }
-.btn{
+
+.btn {
 	font-weight: 600;
 	color: #d0d0d0;
 }
-.btn-warning{
+
+.btn-warning {
 	color: #292929;
 }
-.btn:hover{
+
+.btn:hover {
 	color: #dcdcdc;
 }
-.btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled):active, .show>.btn-warning.dropdown-toggle{
+
+.btn-warning:not(:disabled):not(.disabled).active,
+.btn-warning:not(:disabled):not(.disabled):active,
+.show>.btn-warning.dropdown-toggle {
 	background-color: #c1940b;
 	border-color: #c1940b;
 }
@@ -207,67 +220,90 @@ body,
 table {
 	border: 1px solid #53575a;
 }
-.table thead th{
+
+.table thead th {
 	border: 1px solid #53575a;
 }
 
 .table-pagination .pagination li {
 	padding: 8px;
-    background-color: #656565;
-    border-radius: 10px;
-    margin: 3px;
+	background-color: #4e4e4e;
+	border-radius: 10px;
+	margin: 3px;
 }
 
 .table-pagination .pagination .active {
-	background-color: #9e9e9e;
+	background-color: #717171
 }
 
-hr{
-	border-top: 2px solid rgba(0,0,0,.1);
+hr {
+	border-top: 2px solid rgba(0, 0, 0, .1);
 }
 
-.invalid-value{
+.invalid-value {
 	border: 1px solid red;
 }
-.link-related-record > input:disabled{
+
+.link-related-record>input:disabled {
 	cursor: pointer;
 	color: #007bff;
 }
+
 table.table-hover tbody tr:hover {
-    background-color: #4e4e4e;
+	background-color: #4e4e4e;
 	color: #d0d0d0;
 }
-input.form-control[name="valor_total"]{
+
+input.form-control[name="valor_total"] {
 	font-weight: bold;
 	color: red;
 }
-#ControleRemotoModal div.center > span:hover{
+
+#ControleRemotoModal div.center>span:hover {
 	color: #888;
 }
-.panel-name{
+
+.panel-name {
 	border-top: 2px solid #dee2e6;
 	border-bottom: 2px solid #dee2e6;
 	padding: 0.8rem 0 0.8rem 0.8rem;
 	margin-bottom: 5px;
 	background-color: #d0d0d0;
 }
-.sidebar-brand p{
+
+.sidebar-brand p {
 	color: rgb(236, 236, 236);
 	font-size: 1.3rem;
 	margin-top: 0.3rem;
 }
-.form-control:disabled, .form-control[readonly], .html-disabled{
+
+.form-control:disabled,
+.form-control[readonly],
+.html-disabled {
 	background-color: #292929;
 }
-a:hover{
+
+a:hover {
 	color: #0071ea;
 }
-.close{
+
+.close {
 	color: #fff;
 }
-.swal2-popup{
+
+.swal2-popup {
 	background-color: #5a5a5a !important;
 }
-.swal2-popup .swal2-title, .swal2-html-container{
+
+.swal2-popup .swal2-title,
+.swal2-html-container {
 	color: #f1f1f1 !important;
+}
+
+a {
+	color: #5ca5ff;
+}
+
+.table-pagination a {
+	font-weight: 600;
 }

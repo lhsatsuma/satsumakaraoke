@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="{$app_url}css/bootstrap-datetimepicker.css?v={$ch_ver}">
         <link rel="stylesheet" href="{$app_url}css/default.css?v={$ch_ver}">
 		{if $auth_user.dark_mode}
-       		<link rel="stylesheet" href="{$app_url}css/dark.css?v={$ch_ver}">
+       		<link rel="stylesheet" id="darkmodecss" href="{$app_url}css/dark.css?v={$ch_ver}">
 		{/if}
 		
         <script src="{$app_url}jsManager/fontawesome.min.js?v={$ch_ver}"></script>
@@ -37,6 +37,7 @@
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
 		<script type="text/javascript">
 			var app_url = '{$app_url}';
+			var ch_ver = '{$ch_ver}';
 			var karaoke_url = '{$karaoke_url}';
 			var ajax_pagination = parseInt('{$ajax_pagination}');
 		</script>
@@ -100,12 +101,12 @@
 							</a>
 						</li>
 						{/if}
-						<li>
+						<li class="dark-mode-li">
 							<a href="javascript:void(0)">
-							<span>Tema escuro</span>
+							<i class="fas fa-moon"></i> <span>Tema escuro</span>
 							<label class="switch">
-							<input type="checkbox" checked>
-							<span class="slider round"></span>
+								<input type="checkbox" {if $auth_user.dark_mode}checked{/if} onclick="toggleDarkMode()">
+								<span class="slider round"></span>
 							</label>
 							</a>
 						</li>

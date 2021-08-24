@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="{$app_url}css/jquery-ui.theme.min.css?v={$ch_ver}">
 		<link rel="stylesheet" href="{$app_url}css/default.css?v={$ch_ver}">
 		{if $auth_user.dark_mode}
-       		<link rel="stylesheet" href="{$app_url}css/dark.css?v={$ch_ver}">
+       		<link rel="stylesheet" id="darkmodecss" href="{$app_url}css/dark.css?v={$ch_ver}">
 		{/if}
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-3.5.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
@@ -24,6 +24,7 @@
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
 		<script type="text/javascript">
 			var app_url = '{$app_url}';
+			var ch_ver = '{$ch_ver}';
 			var karaoke_url = '{$karaoke_url}';
 			var ajax_pagination = parseInt('{$ajax_pagination}');
 		</script>
@@ -37,7 +38,7 @@
 			<div class="sidebar-content">
 				<div class="sidebar-brand">
 					<div class="col-10">
-						<img src="{$app_url}images/logo.png" style="width: 100%" />
+						<a href="{$app_url}"><img src="{$app_url}images/logo.png" style="width: 100%" /></a>
 					</div>
 					<div class="col-2">
 						<div id="close-sidebar">
@@ -117,6 +118,15 @@
 								</div>
 							</li>
 						{/if}
+						<li class="dark-mode-li">
+							<a href="javascript:void(0)">
+							<i class="fas fa-moon"></i> <span>Tema escuro</span>
+							<label class="switch">
+								<input type="checkbox" {if $auth_user.dark_mode}checked{/if} onclick="toggleDarkMode()">
+								<span class="slider round"></span>
+							</label>
+							</a>
+						</li>
 						<li>
 							<a href="{$app_url}admin/login/logout">
 							<i class="fas fa-power-off"></i>

@@ -140,4 +140,27 @@ class Ajax_requests extends BaseController
 		
 		return $this->view->setData($this->data)->view('template/Lista_Registros_Ajax');
 	}
+
+	public function toogle_dark_mode()
+	{
+		$mdl = new \App\Models\Usuarios\Usuariosmodel();
+
+
+		$which_key = 'auth_user';
+		if($this->session->get('auth_user')['id']){
+			$mdl->f['id'] = $this->session->get('auth_user')['id'];
+		}elseif($this->session->get('auth_user_admin')['id']){
+			$which_key = 'auth_user_admin';
+			$mdl->f['id'] = $this->session->get('auth_user_admin')['id'];
+		}else{
+			$this->AjaxLib->setError('1x001', 'Usuário não identificado');
+		}
+
+		$mdl->f['dark_mode'] = $this->body['dark_mode'];
+		$mdl->saveRecord();
+		$AuthUser = $mdl->get();
+	
+		$this->session->set($which_key, $AuthUser);
+		$this->AjaxLib->setSuccess(true);
+	}
 }
