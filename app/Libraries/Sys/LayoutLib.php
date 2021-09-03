@@ -313,7 +313,7 @@ class LayoutLib
 			$return .= $c_return.'maxlength="'.$attrs['max_length'].'"';
 			$c_return = ' ';
 		}
-		if(!is_null($attrs['min_length'])){
+		if(!is_null($attrs['min_length']) && !$this->its_filter){
 			$return .= $c_return.'minlength="'.$attrs['min_length'].'"';
 			$c_return = ' ';
 		}

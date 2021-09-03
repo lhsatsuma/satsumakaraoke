@@ -91,8 +91,7 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 		'fvt' => array(
 			'nondb' => true,
 			'lbl' => 'Meus Favoritos',
-			'type' => 'dropdown',
-			'parameter' => 'sim_nao',
+			'type' => 'bool',
 		)
 	);
 	
