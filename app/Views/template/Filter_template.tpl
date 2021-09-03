@@ -17,7 +17,7 @@
 	<input type="hidden" name="order_by_order" value="{$order_by.order}" />
 	{if !empty($filters)}
 		<div class="modal fade" id="filtroFormAdvancedModal" tabindex="-1" role="dialog" aria-labelledby="filtroFormAdvancedModalTitle" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<h5 class="modal-title" id="filtroFormAdvancedModalTitle">Busca Avançada</h5>
