@@ -83,7 +83,7 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			'max_length' => 255,
 		),
 		'tipo' => array(
-			'lbl' => 'Tipo',
+			'lbl' => 'Idioma',
 			'type' => 'dropdown',
 			'parameter' => 'tipo_musica',
 			'required' => true,

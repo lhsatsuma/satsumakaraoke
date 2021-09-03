@@ -5,7 +5,7 @@
 	<thead>
 		<tr class="d-flex">
 			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">#</th>
-			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo</th>
+			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Idioma</th>
 			<th scope="col" class="ptr col-8 col-xl-10" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
 		</tr>
 	</thead>
@@ -98,7 +98,7 @@
 					<div class="col-12 margin-b-10">
 						<label for="ImportModalLink">Como funciona?</label>
 						<ul>
-							<li>Você pode buscar músicas através da caixa geral pesquisando por nome, cantor, codigo ou tipo.</li>
+							<li>Você pode buscar músicas através da caixa geral pesquisando por nome, cantor, codigo ou idioma.</li>
 							<li>Caso queira cantar uma música, clique sobre ela, e confirme se você deseja colocar na fila.</li>
 							<li>Automaticamente sua música estará na fila e você poderá acompanhar através da tela principal ou pelo menu "Músicas na Fila".</li>
 						</ul>
