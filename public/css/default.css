@@ -102,10 +102,6 @@ body {
 	left: 0px;
 }
 
-.page-wrapper.toggled .page-content {
-	padding-right: 40px;
-}
-
 @media screen and (min-width: 768px) {
 	.page-wrapper.toggled .page-content {
 		padding-left: 300px;
