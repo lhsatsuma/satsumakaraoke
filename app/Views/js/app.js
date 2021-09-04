@@ -60,7 +60,7 @@ function orderByFiltro()
 		$('th[dt-h-field="'+order_by_field+'"]').find('.icon-order-by').html(icon);
 	}
 }
-function ConfirmDeleteRecord(fm)
+function ConfirmdeleteRecord(fm)
 {
 	Swal.fire({
 		title: 'Deseja mesmo deletar este registro?',

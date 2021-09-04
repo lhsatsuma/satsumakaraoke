@@ -91,7 +91,7 @@ class Usuarios extends AdminBaseController
 		
 		if($this->mdl->f['deletado']){
 			if(!empty($this->mdl->f['id'])){
-				$deleted = $this->mdl->DeleteRecord();
+				$deleted = $this->mdl->deleteRecord();
 				if($deleted){
 					rdct('/admin/usuarios/index');
 				}

@@ -99,7 +99,7 @@ class Basicmodel extends Model
 		parent::__construct();
 		$this->session = getSession();
 		$this->helper = $this->db->table($this->table);
-		$this->dropdown = new \App\Libraries\DropdownLib();
+		$this->fields = new \App\Libraries\Sys\FieldsLib();
 		$this->request = getFormData();
 
 		if($this->session->get('auth_user')){
@@ -122,7 +122,7 @@ class Basicmodel extends Model
 		$query = $this->helper->get(1);
 		
 		if ($this->db->error()['message']) {
-			$this->RegisterLastError("Error fetching total rows: ");
+			$this->registerLastError("Error fetching total rows: ");
 			return null;
         }
 		
@@ -163,7 +163,7 @@ class Basicmodel extends Model
 		$helper2->where('id', $id);
 		$query = $helper2->get(1);
 		if ($this->db->error()['message']) {
-			$this->RegisterLastError("Error fetching total rows: ");
+			$this->registerLastError("Error fetching total rows: ");
 			return null;
         }
 		
@@ -190,7 +190,7 @@ class Basicmodel extends Model
 			return $result->getResult()[0]->total;
 		}catch(Exception $e){
 			if ($this->db->error()['message']) {
-				$this->RegisterLastError("Error fetching total rows: ");
+				$this->registerLastError("Error fetching total rows: ");
 				return false;
 			}
 		}
@@ -411,7 +411,7 @@ class Basicmodel extends Model
 			return array();
 		}catch(Exception $e){
 			if ($this->db->error()['message']) {
-				$this->RegisterLastError("Error fetching total rows: ");
+				$this->registerLastError("Error fetching total rows: ");
 				return null;
 			}
 		}
@@ -543,7 +543,7 @@ class Basicmodel extends Model
 					}
 					return $this->f;
 				}else{
-					$this->RegisterLastError("Query failed: ");
+					$this->registerLastError("Query failed: ");
 				}
 			}
 		}
@@ -603,7 +603,7 @@ class Basicmodel extends Model
 		}
 	}
 	
-	public function DeleteRecord()
+	public function deleteRecord()
 	{
 		if(isset($this->f['id']) && !empty($this->f['id'])){
 			$oldRecord = $this->get();
@@ -620,13 +620,13 @@ class Basicmodel extends Model
 				}
 				return true;
 			}else{
-				$this->RegisterLastError("Query failed: ");
+				$this->registerLastError("Query failed: ");
 			}
 		}
 		return false;
 	}
 	
-	public function RegisterLastError($msg, $log_error = true)
+	public function registerLastError($msg, $log_error = true)
 	{
 		if($log_error){
 			$msg .= (string)$this->db->getLastQuery(). ' | '.$this->db->error()['message'];
@@ -661,29 +661,29 @@ class Basicmodel extends Model
 			}elseif($value){
 				switch($options['type']){
 					case 'datetime':
-						$value = $this->formatDateTime($value);
+						$value = $this->fields->formatDateTime($value);
 						break;
 					case 'date':
-						$value = $this->formatDate($value);
+						$value = $this->fields->formatDate($value);
 						break;
 					case 'time':
-						$value = $this->formatTime($value);
+						$value = $this->fields->formatTime($value);
 						break;
 					case 'int':
-						$value = $this->formatInt($value);
+						$value = $this->fields->formatInt($value);
 						break;
 					case 'float':
 					case 'currency':
-						$value = $this->formatFloat($value, $options['parameter']['precision']);
+						$value = $this->fields->formatFloat($value, $options['parameter']['precision']);
 						break;
 					case 'bool':
 						$value = ($value) ? true : false;
 						break;
 					case 'dropdown':
-						$value = $this->formatDropdown($options['parameter'], $value);
+						$value = $this->fields->formatDropdown($options['parameter'], $value);
 						break;
 					case 'multidropdown':
-						$value = $this->formatMultidropdown($options['parameter'], $value);
+						$value = $this->fields->formatMultidropdown($options['parameter'], $value);
 						break;
 					case 'related':
 						if($this->table == 'arquivos' && $field == 'registro'){
@@ -715,56 +715,6 @@ class Basicmodel extends Model
 			}
 		}
 		return $record;
-	}
-	
-	public function formatFloat($value, $precision = 2)
-	{
-		return number_format($value, $precision, ',', '.');
-	}
-	
-	public function formatDate($value)
-	{
-		return date("d/m/Y", strtotime($value));
-	}
-	
-	public function formatDateTime($value)
-	{
-		return date("d/m/Y H:i", strtotime($value));
-	}
-	
-	public function formatTime($value)
-	{
-		$value = explode(':', $value);
-		return str_pad($value[0], 2, 0, STR_PAD_LEFT).':'.str_pad($value[1], 2, 0, STR_PAD_LEFT);
-	}
-	
-	public function formatInt($value)
-	{
-		$value = preg_replace('/\D/', '', $value);
-		return (int)$value;
-	}
-	
-	public function formatDropdown($which, $value)
-	{
-		return $this->dropdown->translate($which, $value);
-	}
-	
-	public function formatMultidropdown($which, $value)
-	{
-		return $this->dropdown->multitranslate($which, explode('|^|', $value));
-	}
-
-	public function formatDateExtend($value)
-	{
-        $formatter = new \IntlDateFormatter(
-            'pt_BR',
-			\IntlDateFormatter::LONG,
-			\IntlDateFormatter::NONE,
-			'America/Sao_Paulo',          
-			\IntlDateFormatter::GREGORIAN
-        );
-
-		return $formatter->format(new \DateTime($value));
 	}
 
 	public function antiSqlInjection($val)

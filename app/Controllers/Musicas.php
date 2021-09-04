@@ -217,7 +217,7 @@ class Musicas extends BaseController
 			foreach($results as $result){
 				$mdl->f = [];
 				$mdl->f['id'] = $result['id'];
-				$mdl->DeleteRecord();
+				$mdl->deleteRecord();
 			}
 			$saved_record = true;
 		}else{

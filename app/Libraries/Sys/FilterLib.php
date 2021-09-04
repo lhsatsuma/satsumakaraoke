@@ -80,7 +80,6 @@ class FilterLib
 		}
 		$this->layout = new \App\Libraries\Sys\LayoutLib($fields_map);
 		
-		
 		$types_layout = $this->layout->GetAllFieldsFilter($record);
 		$html = '';
 		

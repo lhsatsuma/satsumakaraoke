@@ -139,7 +139,7 @@ class Musicas extends AdminBaseController
 		$this->mdl->f['id'] = $this->body['id'];
 		$found = $this->mdl->get();
 		if($found){
-			$savedRecord = $this->mdl->DeleteRecord();
+			$savedRecord = $this->mdl->deleteRecord();
 			$this->ajax->setSuccess($savedRecord);
 		}else{
 			$this->ajax->setError('0x001', 'record not found');
