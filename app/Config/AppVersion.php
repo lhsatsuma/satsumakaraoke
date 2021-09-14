@@ -13,7 +13,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var string
 	 Sets cache version for jsManager/CSS/IMG files
 	 */
-	public $css = '20210911_v1';
+	public $css = '20210914_v1';
 	
 	/*
 	@var bool
@@ -27,7 +27,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var bool
 	Compress HTML to output
 	*/
-	public $compress_output = false;
+	public $compress_output = true;
 
 	public $VideosKaraokeURL = '';
 
