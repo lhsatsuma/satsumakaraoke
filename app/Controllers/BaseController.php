@@ -121,6 +121,8 @@ class BaseController extends Controller
 	);
 
 	protected $is_mobile = false;
+
+	public $js_vars = [];
 	
 	public function __construct()
 	{
@@ -145,6 +147,7 @@ class BaseController extends Controller
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		$this->base_url = base_url().'/';
+		$this->js_vars['app_url'] = $this->base_url;
 		
 		//Check dummy controller
 		if($this->dummy_controller === false){
@@ -218,17 +221,17 @@ class BaseController extends Controller
 		$breadcrumb = array();
 		
 		$controllerName = strtolower(str_replace('App\\Controllers\\', '', get_class($this)));
-		
+		$methodName = strtolower($this->routes->methodName());
 		if(count($this->uri) == 0){
 			//For cases like app_url/
-			$breadcrumb[$controllerName][strtolower($this->routes->methodName())] = 1;
+			$breadcrumb[$controllerName][$methodName] = 1;
 		}elseif(count($this->uri) == 1){
 			if($this->uri[0] == 'admin'){
 				//For cases like app_url/admin/
-				$breadcrumb['admin'][strtolower($this->routes->methodName())] = 1;
+				$breadcrumb['admin'][$methodName] = 1;
 			}else{
 				//For cases like app_url/home
-				$breadcrumb[$controllerName][strtolower($this->routes->methodName())] = 1;
+				$breadcrumb[$controllerName][$methodName] = 1;
 			}
 		}else{
 			//For cases like app_url/home/index/2/test
@@ -241,6 +244,8 @@ class BaseController extends Controller
 				$temp = 1;
 			}
 		}
+		$this->js_vars['_CTRL_NAME'] = explode('\\', $controllerName);
+		$this->js_vars['_ACTION_NAME'] = $methodName;
 		return $breadcrumb;
 	}
 	
@@ -254,7 +259,9 @@ class BaseController extends Controller
 		}elseif($this->session->getFlashdata('msg_type') == 'alert'){
 			$msg_type = 'alert';
 		}
-		$dataArr = array(
+		$this->js_vars['ajax_pagination'] = ($AppVersion->ajax_pagination ? true : false);
+		$this->js_vars['ch_ver'] = GetCacheVersion();
+		$this->data = array_merge(array(
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
 			'is_mobile' => $this->is_mobile,
@@ -267,10 +274,7 @@ class BaseController extends Controller
 			'breadcrumb' => $this->SetBreadCrumbArr(),
 			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
-			'ajax_pagination' => ($AppVersion->ajax_pagination ? true : false),
-		);
-		$this->view->setData($dataArr);
-		
+		));
 	}
 	
 	public function PopulatePost($encode = false)
@@ -434,12 +438,18 @@ class BaseController extends Controller
 		
 	}
 	
-	public function display_template($content)
+	private function display_template($content)
 	{
 		return $this->display($this->view->setData(array('content'=>$content))->view($this->template.'/'.$this->template_file));
 	}
+
+	public function setDataTPL()
+	{
+		$this->data['JS_VARS'] = $this->js_vars;
+		return $this->view->setData($this->data);
+	}
 	
-	public function display($content)
+	private function display($content)
 	{
 		global $AppVersion;
 		
@@ -457,9 +467,14 @@ class BaseController extends Controller
 		}
 	}
 	
-	public function displayNew($tpl)
+	public function displayNew($tpl, $template = true)
 	{
-		return $this->display_template($this->view->setData($this->data)->view($tpl));
+		$this->setDataTPL();
+		if($template){
+			return $this->display_template($this->view->view($tpl));
+		}else{
+			return $this->display($this->view->view($tpl));
+		}
 	}
 	
 	public function PopulateFromSaveData($result)

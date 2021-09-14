@@ -33,7 +33,7 @@ $('#InsertFilaBtn').click(function(){
 		didOpen: () => {
 			Swal.showLoading();
 			handleAjax({
-				url: app_url+'musicas/insert_fila_ajax',
+				url: _app_vars.app_url+'musicas/insert_fila_ajax',
 				data: JSON.stringify({
 					id: $('#IdInsertModal').val(),
 				}),
@@ -59,7 +59,7 @@ $('#InsertFavoriteBtn').click(function(){
 		didOpen: () => {
 			Swal.showLoading();
 			handleAjax({
-				url: app_url+'musicas/insert_favorite_ajax',
+				url: _app_vars.app_url+'musicas/insert_favorite_ajax',
 				data: JSON.stringify({
 					id: $('#IdInsertModal').val(),
 					rmv: ($('#itsFavorite').val() == '2') ? true : false,
@@ -110,7 +110,7 @@ $('#ImportModalLink').keyup(function(){
 			didOpen: () => {
 				swal.showLoading();
 				$.ajax({
-					'url': app_url+'musicas/CheckImportVideo',
+					'url': _app_vars.app_url+'musicas/CheckImportVideo',
 					dataType: 'json',
 					method: 'POST',
 					headers: {
@@ -150,7 +150,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').click(function(){
 		didOpen: () => {
 			swal.showLoading();
 			$.ajax({
-				'url': app_url+'musicas/ImportVideoUrl',
+				'url': _app_vars.app_url+'musicas/ImportVideoUrl',
 				dataType: 'json',
 				method: 'POST',
 				headers: {

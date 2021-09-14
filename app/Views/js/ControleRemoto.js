@@ -12,7 +12,7 @@ $('#volumeRange').val(100);
 function getLastVolume(needCheck = false)
 {
 	handleAjax({
-		url: app_url+'Karaoke_ajax/k_get_thread_copy',
+		url: _app_vars.app_url+'Karaoke_ajax/k_get_thread_copy',
 		dontfireError: true,
 		callback: (res) => {
 			if(res.detail !== null
@@ -47,7 +47,7 @@ $('.controlbtns').click(function(){
 	let domObj = $(this);
 	
 	$.ajax({
-		'url': app_url+'Karaoke_ajax/k_set_thread',
+		'url': _app_vars.app_url+'Karaoke_ajax/k_set_thread',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {
@@ -80,7 +80,7 @@ $('.controlbtns').click(function(){
 document.getElementById('volumeRange').addEventListener('input', function() {
 	$('#volP').html($(this).val()+'%');
 	$.ajax({
-		'url': app_url+'Karaoke_ajax/k_set_thread',
+		'url': _app_vars.app_url+'Karaoke_ajax/k_set_thread',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {

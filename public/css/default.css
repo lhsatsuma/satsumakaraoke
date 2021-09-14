@@ -136,7 +136,7 @@ body {
 }
 
 .page-wrapper.toggled #show-sidebar {
-	left: -40px;
+	display: none;
 }
 
 
@@ -777,6 +777,9 @@ input.form-control[name="valor_total"] {
 	.QuickGoToPage {
 		width: 10%;
 	}
+	#show-sidebar{
+		display: none;
+	}
 }
 
 @media (min-width: 801px) and (max-width: 1100px) {
@@ -791,6 +794,7 @@ input.form-control[name="valor_total"] {
 	.QuickGoToPage {
 		width: 20%;
 	}
+	
 }
 
 @media (min-width: 501px) and (max-width: 800px) {

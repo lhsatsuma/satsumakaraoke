@@ -11,10 +11,10 @@
 		<link rel="StyleSheet" href="{$app_url}css/fontawesome.min.css?v={$ch_ver}" type="text/css"  media="screen">
 		<link rel="StyleSheet" href="{$app_url}css/sweetalert2.min.css?v={$ch_ver}" type="text/css"  media="screen">
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-3.5.1.min.js?v={$ch_ver}"></script>
+		<script type="text/javascript">var _app_vars = {$JS_VARS};</script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
-		<script type="text/javascript">var app_url = '{$app_url}';</script>
 	</head>
 	<body>
 		<div class="container">

@@ -28,7 +28,7 @@ function removeInitial()
 	$('#bdKaraoke').html(`<div class="col-4">
 	<div class="row">
 		<div class="col-12 mt-2 mb-2 center karaokeLogo">
-			<img src="${app_url}images/logo.png" style="width: 65%"/>
+			<img src="${_app_vars.app_url}images/logo.png" style="width: 65%"/>
 		</div>
 	</div>
 	<div class="row" id="SongLists">
@@ -58,7 +58,7 @@ function removeInitial()
 	</div>
 </div>
 <div id="joinUsKaraoke" class="col-12 center">
-	<h1>Cante com nós! Acesse <span class="b800">${host_fila}</span></h1>
+	<h1>Cante com nós! Acesse <span class="b800">${_app_vars.host_fila}</span></h1>
 </div>`);
 	video = document.getElementById('video');
 	videoSrc = document.getElementById('videoSrc');
@@ -78,7 +78,7 @@ function removeInitial()
 	});
 	video.addEventListener('ended',endedVideo,false);
 	handleAjax({
-		url: app_url+'Karaoke_ajax/k_get_thread_copy',
+		url: _app_vars.app_url+'Karaoke_ajax/k_get_thread_copy',
 		callback: (res) => {
 			if(res.detail !== null
 				&& res.detail.volume !== null){
@@ -105,7 +105,7 @@ function removeInitialOnlyFila()
 	<div class="col-12">
 		<div class="row">
 			<div class="col-4 mt-2 mb-2 center karaokeLogo">
-				<img src="${app_url}images/logo.png" style="width: 65%"/>
+				<img src="${_app_vars.app_url}images/logo.png" style="width: 65%"/>
 			</div>
 			<div class="col-8 mt-4 mb-2 left">
 				<h1>Cante com nós! Acesse <span class="b800">${host_fila}</span></h1>
@@ -130,7 +130,7 @@ function getListSongs(dontRefresh)
 	}
 	its_running_thread_list = true;
 	$.ajax({
-		url: app_url+'admin/Karaoke_ajax/k_musics_list',
+		url: _app_vars.app_url+'admin/Karaoke_ajax/k_musics_list',
 		method: 'post',
 		dataType: 'json',
 		headers: {
@@ -168,7 +168,6 @@ function getListSongs(dontRefresh)
 			}
 		},
 		error: function(d){
-			console.log(d);
 			musicsLine = [];
 			songNow = [];
 			mountWaitList(dontRefresh);
@@ -195,7 +194,7 @@ function mountWaitList(dontRefresh, totalFound = 0)
 		$('#playingNow').html('<p>'+songNow[1]+' | ['+songNow[2]+'] '+ songNow[3]+'</p>');
 		if(allScreen){
 			$('#songNowId').val(songNow[0]);
-			if(video.src == app_url + 'musicas/karaoke' || video.src == "" || video.src !== karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4'){
+			if(video.src == _app_vars.app_url + 'musicas/karaoke' || video.src == "" || video.src !== _app_vars.karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4'){
 				getNextVideo();
 			}
 		}
@@ -214,9 +213,9 @@ function getThread()
 		return;
 	}
 	its_running_thread = true;
-	var wait_mil = 1500;
+	var wait_mil = 3000;
 	$.ajax({
-		'url': app_url+'admin/Karaoke_ajax/k_get_thread',
+		'url': _app_vars.app_url+'admin/Karaoke_ajax/k_get_thread',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {
@@ -248,7 +247,7 @@ function getThread()
 						let volumeAllFloat = volSpan / 100;
 						video.volume = volumeAllFloat;
 						last_volume = volumeAllFloat;
-						wait_mil = 200;
+						wait_mil = 1000;
 						$('#volumeSpan').html(volSpan + '%');
 						break;
 					case 'vol_down':
@@ -262,7 +261,7 @@ function getThread()
 						}
 						video.volume = volumeFloat;
 						last_volume = volumeFloat;
-						wait_mil = 200;
+						wait_mil = 1000;
 						$('#volumeSpan').html(volSpan + '%');
 						break;
 					case 'vol_up':
@@ -276,7 +275,7 @@ function getThread()
 						}
 						video.volume = volumeUpFloat;
 						last_volume = volumeUpFloat;
-						wait_mil = 200;
+						wait_mil = 1000;
 						$('#volumeSpan').html(volSpan + '%');
 						break;
 					case 'mute':
@@ -294,7 +293,7 @@ function getThread()
 						break;
 				}
 				handleAjax({
-					url: app_url+'admin/Karaoke_ajax/k_reset_thread',
+					url: _app_vars.app_url+'admin/Karaoke_ajax/k_reset_thread',
 					callback: (res) => {
 						its_running_thread = false;
 						setTimeout(function(){
@@ -318,7 +317,7 @@ function getThread()
 function getNextVideo()
 {
 	if(!!songNow[4]){
-		video.src = karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4';
+		video.src = _app_vars.karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4';
 		$('#pausedDiv').hide();
 	}
 }
@@ -328,7 +327,7 @@ function endedVideo(e)
 	video.src = "";
 	$('#playingNow').html('<p>&nbsp</p>');
 	$.ajax({
-		'url': app_url+'admin/Karaoke_ajax/k_ended_video',
+		'url': _app_vars.app_url+'admin/Karaoke_ajax/k_ended_video',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {

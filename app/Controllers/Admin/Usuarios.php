@@ -48,7 +48,7 @@ class Usuarios extends AdminBaseController
 		$this->data['records'] = $result;
 		$this->data['records_count'] = (count($result)) ? true : false;
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Usuarios/index'));
+		return $this->displayNew('pages/Admin/Usuarios/index');
 	}
 	
 	public function detalhes($id)
@@ -62,7 +62,7 @@ class Usuarios extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Usuarios/detalhes'));
+		return $this->displayNew('pages/Admin/Usuarios/detalhes');
 	}
 	
 	public function editar($id = null)
@@ -82,7 +82,7 @@ class Usuarios extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Usuarios/editar'));
+		return $this->displayNew('pages/Admin/Usuarios/editar');
 	}
 	
 	public function salvar()
@@ -173,7 +173,7 @@ class Usuarios extends AdminBaseController
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 		
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Usuarios/meusDados'));
+		return $this->displayNew('pages/Admin/Usuarios/meusDados');
 	}
 	
 	public function salvarMeusDados()
@@ -249,7 +249,7 @@ class Usuarios extends AdminBaseController
 			rdct('/admin/usuarios/index');
 		}
 		$this->data['login_msg'] = $this->session->getFlashdata('login_msg');
-		return $this->display($this->view->setData($this->data)->view('pages/Admin/Usuarios/login'));
+		return $this->displayNew('pages/Admin/Usuarios/login', false);
 	}
 	
 	public function logout()

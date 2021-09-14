@@ -33,14 +33,9 @@
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/popper.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/moment-with-locales.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap-datetimepicker.js?v={$ch_ver}"></script>
+		<script type="text/javascript">var _app_vars = {$JS_VARS};</script>
 		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
-		<script type="text/javascript">
-			var app_url = '{$app_url}';
-			var ch_ver = '{$ch_ver}';
-			var karaoke_url = '{$karaoke_url}';
-			var ajax_pagination = parseInt('{$ajax_pagination}');
-		</script>
 	</head>
 	<body>
 	<div class="page-wrapper chiller-theme {if !$is_mobile}toggled{/if}">

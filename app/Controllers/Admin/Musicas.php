@@ -48,7 +48,7 @@ class Musicas extends AdminBaseController
 		
 		$this->data['records'] = $result;
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Musicas/index'));
+		return $this->displayNew('pages/Admin/Musicas/index');
 	}
 	
 	public function detalhes($id)
@@ -62,7 +62,7 @@ class Musicas extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Musicas/detalhes'));
+		return $this->displayNew('pages/Admin/Musicas/detalhes');
 	}
 	
 	public function fixNomes($offset = 0)
@@ -95,7 +95,7 @@ class Musicas extends AdminBaseController
 		
 		$this->data['records'] = $result;
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Musicas/fixNomes'));
+		return $this->displayNew('pages/Admin/Musicas/fixNomes');
 	}
 
 	public function sanitanizeName()
@@ -150,17 +150,17 @@ class Musicas extends AdminBaseController
 	{
 		$this->data['title'] = 'Importar Músicas';
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Musicas/import'));
+		return $this->displayNew('pages/Admin/Musicas/import');
 	}
 
 	public function karaoke()
 	{
 		$version = new \Config\AppVersion();
 
-		$data = [
+		$this->js_vars = array_merge($this->js_vars, [
 			'karaokeURL' => ($version->VideosKaraokeURL) ? $version->VideosKaraokeURL : base_url().'/',
-			'host_fila' => ($version->host_fila) ? $version->host_fila : base_url().'/',
-		];
-		return $this->display($this->view->setData($data)->view('pages/Admin/Musicas/karaoke'));
+			'host_fila' => ($version->host_fila) ? $version->host_fila : base_url().'/'
+		]);
+		return $this->displayNew('pages/Admin/Musicas/karaoke', false);
 	}
 }

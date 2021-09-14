@@ -18,6 +18,9 @@ class Musicas_fila extends BaseController
 			'order' => 'DESC',
 		);
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
+
+		$total_row = $this->mdl->total_rows();
+		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
 		
 		$result = $this->mdl->search(20, $offset);
 		
@@ -46,7 +49,7 @@ class Musicas_fila extends BaseController
 			$this->data['icon_status_encerrado'] = $icon_search;
 		}
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Musicas_fila/index'));
+		return $this->displayNew('pages/Musicas_fila/index');
 	}
 
 	public function topMusicas()
@@ -66,6 +69,6 @@ class Musicas_fila extends BaseController
 		$this->data['records'] = $results;
 		
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Musicas_fila/topMusicas'));
+		return $this->displayNew('pages/Musicas_fila/topMusicas');
 	}
 }

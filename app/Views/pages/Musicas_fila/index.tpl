@@ -38,6 +38,18 @@
 		{/if}
 	</tbody>
 </table>
+<table class="table table-striped table-list table-pagination">
+	<tbody>
+		<tr>
+			<td>
+				<p>Ir para página: <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /><button type="button" class="btn btn-info" onclick="QuickGoToPage(this)">Ir</button></p>
+			</td>
+		</tr>
+		<tr>
+			<td>{$pagination}</td>
+		</tr>
+	</tbody>
+</table>
 {if !$bdOnly}
 <div class="modal fade" id="SelectedRowModal" tabindex="-1" role="dialog" aria-labelledby="SelectedRowModalLabel" aria-hidden="true">
 	<input type="hidden" id="IdInsertModal" />

@@ -42,7 +42,7 @@ class Usuarios extends BaseController
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 		
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Usuarios/meusDados'));
+		return $this->displayNew('pages/Usuarios/meusDados');
 	}
 	
 	public function createUser()
@@ -76,7 +76,7 @@ class Usuarios extends BaseController
 		}
 		$this->data['title'] = 'Criar Conta';
 		
-		return $this->display($this->view->setData($this->data)->view('pages/Usuarios/criarConta'));
+		return $this->displayNew('pages/Usuarios/criarConta', false);
 	}
 	
 	public function checkExistEmail()
@@ -171,7 +171,7 @@ class Usuarios extends BaseController
 			rdct('/home');
 		}
 		$this->data['login_msg'] = $this->session->getFlashdata('login_msg');
-		return $this->display($this->view->setData($this->data)->view('pages/Usuarios/login'));
+		return $this->displayNew('pages/Usuarios/login', false);
 	}
 	
 	public function logout()
@@ -249,7 +249,7 @@ class Usuarios extends BaseController
 			$this->data['id'] = $id;
 			$this->data['hash'] = $hash;
 			$this->data['email'] = $this->mdl->f['email'];
-			return $this->display($this->view->setData($this->data)->view('pages/Usuarios/resetSenha'));
+			return $this->displayNew('pages/Usuarios/resetSenha');
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha
 			$this->session->setFlashdata('login_msg', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
@@ -297,7 +297,7 @@ class Usuarios extends BaseController
 				$this->data['id'] = $id;
 				$this->data['hash'] = $hash;
 				$this->data['usuario'] = $this->mdl->f['usuario'];
-				return $this->display_template($this->view->setData($this->data)->view('pages/Usuarios/resetSenha'));
+				return $this->displayNew('pages/Usuarios/resetSenha');
 			}
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha

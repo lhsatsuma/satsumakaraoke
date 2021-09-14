@@ -8,7 +8,7 @@ function changeNameTo(elm)
             var newName = decodeURIComponent($(this).attr('dt-r-nome'));
             var oldName = decodeURIComponent($(this).attr('dt-r-nome'));
             $.ajax({
-                'url': app_url+'admin/musicas/sanitanizeName',
+                'url': _app_vars.app_url+'admin/musicas/sanitanizeName',
                 'method': 'post',
                 'dataType': 'json',
                 'async': false,
@@ -56,7 +56,7 @@ function changeNameToDel(elm)
     }).then((result) => {
         if(result.isConfirmed){
             $.ajax({
-                'url': app_url+'admin/musicas/fixNomesSaveDel',
+                'url': _app_vars.app_url+'admin/musicas/fixNomesSaveDel',
                 'method': 'post',
                 'dataType': 'json',
                 'async': false,
@@ -132,7 +132,7 @@ function saveChangeName(elm)
 }
 function ajaxSaveChanges(){
     $.ajax({
-		'url': app_url+'admin/musicas/fixNomesSave',
+		'url': _app_vars.app_url+'admin/musicas/fixNomesSave',
 		'method': 'post',
         'dataType': 'json',
         'async': false,

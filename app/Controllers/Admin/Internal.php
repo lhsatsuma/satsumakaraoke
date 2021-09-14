@@ -30,7 +30,7 @@ class Internal extends AdminBaseController
 	{
 		$this->data['title'] = 'Configurações internas da aplicação';
 		
-		return $this->display_template($this->view->setData($this->data)->view('pages/Admin/Internal/index'));
+		return $this->displayNew('pages/Admin/Internal/index');
 	}
 
     public function clearCache()

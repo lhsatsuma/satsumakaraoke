@@ -14,10 +14,8 @@
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
+		<script type="text/javascript">var _app_vars = {$JS_VARS};</script>
 		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
-		<script type="text/javascript">
-			var app_url = '{$app_url}';
-		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -29,7 +27,7 @@
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
 						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
-						<p><button class="btn btn-info form-control" type="submit">Entrar</button></p>
+						<p><button class="btn btn-outline-info btn-rounded form-control" type="submit">Entrar</button></p>
 						<p><a href="javascript:void(0)" onclick="OpenModalReset()">Esqueci Minha Senha</a></p>
 						<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
 					</form>

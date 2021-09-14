@@ -17,7 +17,7 @@
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
 		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 		<script type="text/javascript">
-			var app_url = '{$app_url}';
+			var _app_vars = {$JS_VARS};
 			var karaokeURL = '{$karaokeURL}';
 			var host_fila = '{$host_fila}';
 		</script>

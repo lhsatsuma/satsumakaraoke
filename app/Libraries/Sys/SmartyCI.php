@@ -65,10 +65,13 @@ class SmartyCI extends \Smarty
 			
 			$this->smarty->clearAllAssign();
 		}
-		
 		foreach ($data as $key => $value)
 		{
-			$this->assign($key, $value);
+			if($key == 'JS_VARS'){
+				$this->assign($key, 'JSON.parse(\''.json_encode($value).'\')');
+			}else{
+				$this->assign($key, $value);
+			}
 		}
 		
 		return $this;

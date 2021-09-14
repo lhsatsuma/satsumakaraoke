@@ -26,7 +26,7 @@ $('#newForm').find('.btn-success').click(function(){
         return;
     }
     $.ajax({
-		'url': app_url+'login/checkExistEmail',
+		'url': _app_vars.app_url+'login/checkExistEmail',
 		'method': 'post',
 		'dataType': 'json',
 		headers: {

@@ -206,6 +206,17 @@ body,
 	background-color: #636363;
 }
 
+
+
+.login-div {
+	text-align: center;
+	margin: 7% auto;
+	border: 2px solid #ccc;
+	border-radius: 20px;
+	padding: 20px;
+	background-color: #636363;
+}
+
 .primary-container {
 	border-radius: 20px;
 	padding: 20px;

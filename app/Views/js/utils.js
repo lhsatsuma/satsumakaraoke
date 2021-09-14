@@ -381,14 +381,14 @@ function setCepField(args = {})
 	CepFieldsCfg[args.elm] = args;
 	var elmCfg = CepFieldsCfg[args.elm];
 	
-	$(elmCfg.elm).css('width', '53%').after(' <button type="button" class="btn btn-info consulta-cep" id="consulta_cep_'+$(elmCfg.elm).attr('name')+'"><img class="loading-icon" src="'+app_url+'images/loading.gif" />buscar</button>');
+	$(elmCfg.elm).css('width', '53%').after(' <button type="button" class="btn btn-info consulta-cep" id="consulta_cep_'+$(elmCfg.elm).attr('name')+'"><img class="loading-icon" src="'+_app_vars.app_url+'images/loading.gif" />buscar</button>');
 	$('#consulta_cep_'+$(elmCfg.elm).attr('name')).click(function(){
 		if(!$(elmCfg.elm).val()){
 			return;
 		}
 		showLoadingIcon(this);
 		$.ajax({
-			"url": app_url+'ajax_requests/getCep',
+			"url": _app_vars.app_url+'ajax_requests/getCep',
 			"dataType": 'json',
 			"method": 'post',
 			headers: {
@@ -479,7 +479,7 @@ function GoToPage(elm, page)
 			action += '/'+page;
 		}
 
-		if(ajax_pagination && $('#filtroForm').parent().find('.tb-rst-fltr').length > 0){
+		if(_app_vars.ajax_pagination && $('#filtroForm').parent().find('.tb-rst-fltr').length > 0){
 			//Lets try to get Pagination with Ajax
 
 			let formData = new FormData(document.getElementById('filtroForm'));
@@ -540,7 +540,7 @@ function acceptCookies()
 
 function rdct_login()
 {
-	location.href = app_url+'login?rdct_url='+encodeURIComponent(document.URL);
+	location.href = _app_vars.app_url+'login?rdct_url='+encodeURIComponent(document.URL);
 }
 function hideShowFields(hideF, showF)
 {
@@ -705,26 +705,34 @@ document.setScrollTop = function(y) {
 	window.scrollTo(0, y);
 }
 
-function toggleDarkMode()
+function toggleDarkMode(setAjax = true)
 {
 	let newValueDarkMode = null;
 	if($('#darkmodecss').length > 0){
 		$('#darkmodecss').remove();	
-		newValueDarkMode = 0;
+		localStorage.dark_mode_active = 0;
 	}else{
-		$('head').append('<link id="darkmodecss" rel="stylesheet" href="'+app_url+'css/dark.css?v='+ch_ver+'">');
-		newValueDarkMode = 1;
+		$('head').append('<link id="darkmodecss" rel="stylesheet" href="'+_app_vars.app_url+'css/dark.css?v='+_app_vars.ch_ver+'">');
+		localStorage.dark_mode_active = 1;
 	}
-	handleAjax({
-		url: app_url+'ajax_requests/toogle_dark_mode',
-		data: JSON.stringify({
-			dark_mode: newValueDarkMode,
-		}),
-		callback: (res) => {
+	if(setAjax){
+		handleAjax({
+			url: _app_vars.app_url+'ajax_requests/toogle_dark_mode',
+			data: JSON.stringify({
+				dark_mode: localStorage.dark_mode_active,
+			}),
+			callback: (res) => {
 
-		},
-		callbackError: (res) => {
-			console.log(res);
-		}
-	});
+			},
+			callbackError: (res) => {
+				console.log(res);
+			}
+		});
+	}
+}
+if(_app_vars._CTRL_NAME[0] == 'usuarios' && _app_vars._ACTION_NAME == 'login'){
+	//Check if cached dark mode
+	if(localStorage.dark_mode_active){
+		toggleDarkMode(false);
+	}
 }

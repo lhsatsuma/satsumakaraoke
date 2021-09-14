@@ -13,7 +13,7 @@ function confirmInternal(action)
                 text: 'Estamos processando...',
                 didOpen: () => {
                     Swal.showLoading();
-                    location.href = app_url+'admin/internal/'+action;
+                    location.href = _app_vars.app_url+'admin/internal/'+action;
                 }
             });
         }
