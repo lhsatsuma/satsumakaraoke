@@ -3,7 +3,7 @@
 	<head>
 		<title>Error - Satsuma Karaoke</title>
 		<style type="text/css">
-			<?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(ROOTPATH . 'public/css/bootstrap.min.css')) ?>
+			<?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(ROOTPATH . 'public/cssManager/bootstrap.min.css')) ?>
 		</style>
 	</head>
 	<body>
