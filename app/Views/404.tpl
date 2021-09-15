@@ -6,10 +6,10 @@
 		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon" href="images/favicon.ico"/>
-		<link rel="stylesheet" href="/css/bootstrap.min.css?v=404NotFound">
-		<link rel="stylesheet" href="/css/default.css?v=404NotFound">
+		<link rel="stylesheet" href="/cssManager/bootstrap.min.css?v=404NotFound">
+		<link rel="stylesheet" href="/cssManager/default.css?v=404NotFound">
 		{if $auth_user.dark_mode}
-			<link rel="stylesheet" href="/css/dark.css?v=404NotFound">
+			<link rel="stylesheet" href="/cssManager/dark.css?v=404NotFound">
 		{/if}
 		<script language="javascript" type="text/javascript" src="/jsManager/jquery-3.5.1.min.js?v=404NotFound"></script>
 	</head>

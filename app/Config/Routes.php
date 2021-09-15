@@ -40,7 +40,7 @@ $routes->set404Override(function() {
 	$focus->SetView();
 	$focus->SetLayout();
 	$focus->SetInitialData();
-	return $focus->display($focus->view->view('404'));
+	return $focus->displayNew('404',false);
 });
 $routes->setAutoRoute(true);
 
@@ -62,6 +62,7 @@ $routes->add('/login', 'Usuarios::login');
 $routes->add('/login/(:any)', 'Usuarios::$1');
 
 $routes->add('/jsManager/(:any)', 'JsManager::get/$1');
+$routes->add('/cssManager/(:any)', 'cssManager::get/$1');
 
 /**
  * --------------------------------------------------------------------

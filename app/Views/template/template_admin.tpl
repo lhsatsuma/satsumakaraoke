@@ -7,14 +7,14 @@
 		<link rel="shortcut icon" href="{$app_url}images/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="{$app_url}images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon" href="images/favicon.ico"/>
-		<link rel="stylesheet" href="{$app_url}css/bootstrap.min.css?v={$ch_ver}">
-		<link rel="stylesheet" href="{$app_url}css/fontawesome-all.min.css?v={$ch_ver}">
-		<link rel="stylesheet" href="{$app_url}css/sweetalert2.min.css?v={$ch_ver}">
-		<link rel="stylesheet" href="{$app_url}css/jquery-ui.structure.min.css?v={$ch_ver}">
-		<link rel="stylesheet" href="{$app_url}css/jquery-ui.theme.min.css?v={$ch_ver}">
-		<link rel="stylesheet" href="{$app_url}css/default.css?v={$ch_ver}">
+		<link rel="stylesheet" href="{$app_url}cssManager/bootstrap.min.css?v={$ch_ver}">
+		<link rel="stylesheet" href="{$app_url}cssManager/fontawesome-all.min.css?v={$ch_ver}">
+		<link rel="stylesheet" href="{$app_url}cssManager/sweetalert2.min.css?v={$ch_ver}">
+		<link rel="stylesheet" href="{$app_url}cssManager/jquery-ui.structure.min.css?v={$ch_ver}">
+		<link rel="stylesheet" href="{$app_url}cssManager/jquery-ui.theme.min.css?v={$ch_ver}">
+		<link rel="stylesheet" href="{$app_url}cssManager/default.css?v={$ch_ver}">
 		{if $auth_user.dark_mode}
-       		<link rel="stylesheet" id="darkmodecss" href="{$app_url}css/dark.css?v={$ch_ver}">
+       		<link rel="stylesheet" id="darkmodecss" href="{$app_url}cssManager/dark.css?v={$ch_ver}">
 		{/if}
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-3.5.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>

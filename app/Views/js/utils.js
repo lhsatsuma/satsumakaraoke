@@ -712,7 +712,7 @@ function toggleDarkMode(setAjax = true)
 		$('#darkmodecss').remove();	
 		localStorage.dark_mode_active = 0;
 	}else{
-		$('head').append('<link id="darkmodecss" rel="stylesheet" href="'+_app_vars.app_url+'css/dark.css?v='+_app_vars.ch_ver+'">');
+		$('head').append('<link id="darkmodecss" rel="stylesheet" href="'+_app_vars.app_url+'cssManager/dark.css?v='+_app_vars.ch_ver+'">');
 		localStorage.dark_mode_active = 1;
 	}
 	if(setAjax){

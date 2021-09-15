@@ -3,12 +3,12 @@ namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class JsManager extends BaseController
+class CssManager extends BaseController
 {
 	public $data = array();
 	public $session;
 	public $parser;
-	public $module_name = 'JsManager';
+	public $module_name = 'CssManager';
 	public $dummy_controller = true;
 	
 	public function get(...$fileEx)
@@ -45,8 +45,8 @@ class JsManager extends BaseController
 
 
 		$ch_ver = GetCacheVersion();
-        $cachePath = WRITEPATH . 'cache/js_min_'.md5(implode('_', $fileEx));
-        $file_name = APPPATH.'Views/js/'.implode('/', $fileEx);
+        $cachePath = WRITEPATH . 'cache/css_min_'.md5(implode('_', $fileEx));
+        $file_name = APPPATH.'Views/css/'.implode('/', $fileEx);
 		if(substr($file_name, -4) == '.map'){
 			return false;
 		}
@@ -58,7 +58,7 @@ class JsManager extends BaseController
 				if(strstr($file_name, '.min.')){
 					$minifiedCode = file_get_contents($file_name);
 				}else{
-					$minifiedCode = \JShrink\Minifier::minify(file_get_contents($file_name));
+					$minifiedCode = file_get_contents($file_name);
 				}
 				file_put_contents($cachePath, "/*{$ch_ver}*/\n".$minifiedCode);
 			}
