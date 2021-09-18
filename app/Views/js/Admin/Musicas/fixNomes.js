@@ -154,6 +154,7 @@ function ajaxSaveChanges(){
 			if(!!r){
                 if(r.detail){
                     Swal.fire({
+                        backdrop:false,
                         scrollbarPadding: false,
                         returnFocus: false,
                         focusConfirm: false,

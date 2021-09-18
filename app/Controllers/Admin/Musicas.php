@@ -106,7 +106,7 @@ class Musicas extends AdminBaseController
 		$this->body = $this->ajax->GetData();
 
 		$ytLib = new \App\Libraries\YoutubeLib();
-		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->body['nome']), false));
+		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->body['nome'])));
 		
 	}
 
