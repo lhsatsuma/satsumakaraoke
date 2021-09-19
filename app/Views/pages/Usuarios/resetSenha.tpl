@@ -47,7 +47,7 @@
 								</div>
 							</div>
 							<p class="text-center">
-								<button class="btn btn-success" type="button" pb-role="submit" onclick="ValidateForm('resetSenha')">ALTERAR</button>
+								<button class="btn btn-outline-success btn-rounded" type="button" pb-role="submit" onclick="ValidateForm('resetSenha')">ALTERAR</button>
 							</p>
 							<p id="links" class="text-center">
 								<a href="{$app_url}login">Voltar</a><br>

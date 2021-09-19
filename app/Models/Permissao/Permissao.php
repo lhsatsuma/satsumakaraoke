@@ -56,5 +56,20 @@ class Permissao extends \App\Models\Basic\Basic
 		['nome', 'deletado'],
 		['cod_permissao', 'deletado']
 	];
+
+	public function before_save()
+	{
+		if(empty($this->f['cod_permissao'])){
+			$this->force_deletado = true;
+			$this->where = array();
+			$this->select = "MAX(CAST(cod_permissao as UNSIGNED))+1 as codigo_ult";
+			$number = $this->search(1);
+			$this->f['cod_permissao'] = $number[0]['codigo_ult'];
+			if(is_null($this->f['cod_permissao'])){
+				$this->f['cod_permissao'] = 1;
+			}
+			$this->force_deletado = false;
+		}
+	}
 }
 ?>

@@ -21,7 +21,7 @@
 					<h1>Oops!</h1>
 					<h2>Erro 404</h2>
 					<h3>A página ou arquivo não foi encontrado.</h3>
-					<a href="javascript:void(0)" onclick="window.history.go(-1)" class="btn btn-success">Clique aqui para voltar</a>
+					<a href="javascript:void(0)" onclick="window.history.go(-1)" class="btn btn-outline-success btn-rounded">Clique aqui para voltar</a>
 				</div>
 			</div>
 		</div>

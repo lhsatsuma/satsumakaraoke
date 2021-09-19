@@ -30,7 +30,7 @@ class FilterLib
 		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
 		$this->filters = $filters;
 		$this->request = $request;
-		// $this->SetExtBtn('new', '<a class="btn btn-success" href="#">Novo +</a>',
+		// $this->SetExtBtn('new', '<a class="btn btn-outline-success btn-rounded" href="#">Novo +</a>',
 	}
 	
 	public function SetExtBtn($name, $button){

@@ -11,7 +11,7 @@ function addEventRowData()
 addEventRowData();
 function OpenModalSelected(id){
 	var row = $('tr[dt-r-id="'+id+'"]');
-	const codigo = row.find('th[dt-r-codigo]').attr('dt-r-codigo');
+	const codigo = row.find('td[dt-r-codigo]').attr('dt-r-codigo');
 	const nome = row.find('td[dt-r-nome]').attr('dt-r-nome');
 	const fvt = parseInt(row.attr('dt-r-fvt'));
 	$('#IdInsertModal').val(id);

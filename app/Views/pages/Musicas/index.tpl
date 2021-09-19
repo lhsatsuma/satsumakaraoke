@@ -4,9 +4,8 @@
 <table class="table table-striped table-list tb-rst-fltr">
 	<thead>
 		<tr class="d-flex">
-			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">#</th>
 			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Idioma</th>
-			<th scope="col" class="ptr col-8 col-xl-10" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
+			<th scope="col" class="ptr col-8 col-xl-11" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,9 +16,8 @@
 		{else}
 		{foreach from=$records item=campos}
 		<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}" dt-r-fvt="{$campos.favorite}">
-			<th class="col-2 col-xl-1" dt-r-codigo="{$campos.codigo}">{$campos.codigo}</th>
 			<td class="col-2 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
-			<td class="col-8 col-xl-10" dt-r-nome="{$campos.nome}">{$campos.nome}</td>
+			<td class="col-8 col-xl-11" dt-r-nome="{$campos.nome}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.nome}</td>
 		</tr>
 		{/foreach}
 		{/if}
@@ -49,7 +47,7 @@
 			<div class="modal-body">
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
-						<button type="button" id="InsertFilaBtn" class="btn btn-success btn-bordered col-8">Colocar na Fila</button>
+						<button type="button" id="InsertFilaBtn" class="btn btn-outline-success btn-rounded btn-bordered col-8">Colocar na Fila</button>
 					</div>
 					<div class="col-12 primary-row center">
 						<button type="button" id="InsertFavoriteBtn" class="btn btn-info btn-bordered col-8"><i class="fas fa-star"></i> Favoritar</button>
@@ -57,7 +55,7 @@
 				</div>
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
-						<button type="button" class="btn btn-danger btn-bordered col-8" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-outline-danger btn-bordered col-8" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>
 			</div>
@@ -78,9 +76,9 @@
 					</div>
 					<div class="col-12 margin-b-10" id="ImportModalLinkTitleDiv"></div>
 					<div class="col-12">
-						<button class="btn btn-success margin-5" id="ImportMusicaButton">Importar</button>
+						<button class="btn btn-outline-success btn-rounded margin-5" id="ImportMusicaButton">Importar</button>
 						<button class="btn btn-info margin-5" id="ImportMusicaAndFilaButton">Importar e colocar na fila</button>
-						<button class="btn btn-warning margin-5" data-dismiss="modal">Cancelar</button>
+						<button class="btn btn-outline-warning btn-rounded margin-5" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>
 			</div>

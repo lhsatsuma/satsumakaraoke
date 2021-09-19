@@ -14,10 +14,16 @@ class Grupos extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 		),
 		'nome' => array(
-			'lbl' => 'Nome do Arquivo',
+			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'max_length' => 255,
 			'link_record' => true,
+			'required' => true,
+		),
+		'ativo' => array(
+			'lbl' => 'Ativo',
+			'type' => 'bool',
+			'default' => '1',
 		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
@@ -34,6 +40,9 @@ class Grupos extends \App\Models\Basic\Basic
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
 		'data_modificacao' => array(
 			'lbl' => 'Data Modificação',
@@ -45,11 +54,15 @@ class Grupos extends \App\Models\Basic\Basic
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
 	);
 	public $idx_table = [
 		['id', 'deletado'],
 		['nome', 'deletado'],
+		['ativo', 'deletado'],
 	];
 }
 ?>

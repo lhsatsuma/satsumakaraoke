@@ -24,7 +24,7 @@ https://www.youtube.com/watch?v=EWHP-lrzcQI&ab_channel=MuramatsuKaraoke
 	<tbody id="searchedLinks"></tbody>
 	<tfoot>
 		<tr>
-			<td colspan="4"><button type="button" class="btn btn-success" onclick="finallyImport()">Importar Músicas</button></td>
+			<td colspan="4"><button type="button" class="btn btn-outline-success btn-rounded" onclick="finallyImport()">Importar Músicas</button></td>
 		</tr>
 	</tfoot>
 </table>

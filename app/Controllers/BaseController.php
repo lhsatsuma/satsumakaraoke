@@ -123,6 +123,8 @@ class BaseController extends Controller
 	protected $is_mobile = false;
 
 	public $js_vars = [];
+
+	protected $ext_buttons = [];
 	
 	public function __construct()
 	{
@@ -429,7 +431,7 @@ class BaseController extends Controller
 	
 	public function ExtButtonsGenericFilters()
 	{
-		return array();
+		return $this->ext_buttons;
 	}
 	
 	public function GetPagination($total, $offset=0, $group = 'default')

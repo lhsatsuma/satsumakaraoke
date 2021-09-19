@@ -43,8 +43,8 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<button type="button" class="btn btn-success margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Atualizar</button>
-			<a href="{$app_url}home" class="btn btn-warning margin-5"><i class="fas fa-undo"></i> Cancelar</a>
+			<button type="button" class="btn btn-outline-success btn-rounded margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Atualizar</button>
+			<a href="{$app_url}home" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
 		</div>
 	</div>
 </form>

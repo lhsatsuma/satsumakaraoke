@@ -1010,12 +1010,14 @@ input[type=range]:focus::-ms-fill-upper {
 	max-width: 100% !important;
 }
 
-.swal2-icon.swal2-info {
+.swal2-icon.swal2-info,
+.swal2-icon.swal2-warning {
 	width: 2em !important;
 	height: 2em !important;
 }
 
-.swal2-icon.swal2-info>.swal2-icon-content {
+.swal2-icon.swal2-info>.swal2-icon-content,
+.swal2-icon.swal2-warning>.swal2-icon-content {
 	font-size: 1.75em !important;
 }
 

@@ -61,12 +61,12 @@
 			<div class="modal-body">
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
-						<button type="button" id="InsertFilaBtn" class="btn btn-success btn-bordered col-8">Colocar na Fila novamente</button>
+						<button type="button" id="InsertFilaBtn" class="btn btn-outline-success btn-rounded btn-bordered col-8">Colocar na Fila novamente</button>
 					</div>
 				</div>
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
-						<button type="button" class="btn btn-danger btn-bordered col-8" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-outline-danger btn-bordered col-8" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>
 			</div>

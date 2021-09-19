@@ -78,7 +78,7 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<button class="btn btn-success" type="button" onclick="saveChangeName(this)"><img class="loading-icon" src="{$app_url}images/loading.gif" /> <i class="fas fa-save"></i> Salvar</button></p>
+						<button class="btn btn-outline-success btn-rounded" type="button" onclick="saveChangeName(this)"><img class="loading-icon" src="{$app_url}images/loading.gif" /> <i class="fas fa-save"></i> Salvar</button></p>
 					</div>
 				</div>
 			</div>
