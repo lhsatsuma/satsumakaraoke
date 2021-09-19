@@ -104,6 +104,24 @@
 											<span>Usuários</span>
 											</a>
 										</li>
+										<li class="{if $breadcrumb.admin.grupos}active{/if}" >
+											<a href="{$app_url}admin/grupos/index">
+											<i class="fas fa-users-cog"></i>
+											<span>Grupos</span>
+											</a>
+										</li>
+										<li class="{if $breadcrumb.admin.permissao}active{/if}" >
+											<a href="{$app_url}admin/permissao/index">
+											<i class="fas fa-users-cog"></i>
+											<span>Permissão</span>
+											</a>
+										</li>
+										<li class="{if $breadcrumb.admin.permissao_grupo}active{/if}" >
+											<a href="{$app_url}admin/permissao_grupo/index">
+											<i class="fas fa-users-cog"></i>
+											<span>Permissões do Grupo</span>
+											</a>
+										</li>
 										<li class="{if $breadcrumb.admin.internal}active{/if}" >
 											<a href="{$app_url}admin/internal/index">
 											<i class="fas fa-list"></i>

@@ -42,7 +42,7 @@ class Usuarios extends AdminBaseController
 		$total_row = $this->mdl->total_rows();
 		$this->GetPagination($total_row, $offset);
 		
-		$result = $this->mdl->search(20, $offset);
+		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;

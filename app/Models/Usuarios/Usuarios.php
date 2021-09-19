@@ -1,7 +1,7 @@
 <?php
 namespace App\Models\Usuarios;
 
-class Usuariosmodel extends \App\Models\Basic\Basicmodel
+class Usuarios extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'usuarios';
@@ -36,7 +36,7 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
+				'model' => 'Admin/Usuarios/Usuarios',
 				'link_detail' => 'admin/usuarios/detalhes/',
 			),
 			'dont_load_layout' => true,
@@ -52,7 +52,7 @@ class Usuariosmodel extends \App\Models\Basic\Basicmodel
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
+				'model' => 'Admin/Usuarios/Usuarios',
 				'link_detail' => 'admin/usuarios/detalhes/',
 			),
 			'dont_load_layout' => true,

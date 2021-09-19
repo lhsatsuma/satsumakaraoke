@@ -1,7 +1,7 @@
 <?php
 namespace App\Models\Arquivos;
 
-class Arquivosmodel extends \App\Models\Basic\Basicmodel
+class Arquivos extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'arquivos';
@@ -77,6 +77,11 @@ class Arquivosmodel extends \App\Models\Basic\Basicmodel
 			'dont_load_layout' => true,
 		),
 	);
+	public $idx_table = [
+		['id', 'deletado'],
+		['nome', 'deletado'],
+		['tipo', 'deletado'],
+	];
 	
 	public function get()
 	{
@@ -95,31 +100,10 @@ class Arquivosmodel extends \App\Models\Basic\Basicmodel
 			$this->fields_map['registro']['parameter'] = [];
 			
 			switch($this->fields_map['registro']['table']){
-				case 'instrutores':
-					$this->fields_map['registro']['parameter'] = [
-						'url' => null,
-						'model' => 'Instrutores/Instrutoresmodel',
-						'link_detail' => 'admin/instrutores/detalhes/',
-					];
-					break;
-				case 'apostilas':
-					$this->fields_map['registro']['parameter'] = [
-						'url' => null,
-						'model' => 'Apostilas/Apostilasmodel',
-						'link_detail' => 'admin/apostilas/detalhes/',
-					];
-					break;
-				case 'academicos':
-					$this->fields_map['registro']['parameter'] = [
-						'url' => null,
-						'model' => 'Academicos/Academicosmodel',
-						'link_detail' => 'admin/academicos/detalhes/',
-					];
-					break;
 				default:
 					$this->fields_map['registro']['parameter'] = [
 						'url' => null,
-						'model' => 'Arquivos/Arquivosmodel',
+						'model' => 'Arquivos/Arquivos',
 						'link_detail' => 'admin/arquivos/detalhes/',
 					];
 					break;

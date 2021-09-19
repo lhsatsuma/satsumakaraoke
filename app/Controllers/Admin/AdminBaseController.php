@@ -27,12 +27,12 @@ class AdminBaseController extends \App\Controllers\BaseController
 	public function SetMdl()
 	{
 		//Admin Model
-		$namespace_call = '\\App\\Models\\Admin\\'.$this->module_name.'\\'.$this->module_name.'model';
+		$namespace_call = '\\App\\Models\\Admin\\'.$this->module_name.'\\'.$this->module_name;
 		if(class_exists($namespace_call)){
 			$this->mdl = new $namespace_call();
 		}else{
 			//If don't find Admin Model, let's try to call default of BaseController
-			$namespace_call = ($this->ns_model) ? $this->ns_model : '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name.'model';
+			$namespace_call = ($this->ns_model) ? $this->ns_model : '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name;
 			if(class_exists($namespace_call)){
 				$this->mdl = new $namespace_call();
 			}

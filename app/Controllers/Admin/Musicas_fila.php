@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Musicas_fila extends AdminBaseController
 {
-	public $module_name = 'Musicas_fila';
+	public $module_name = 'MusicasFila';
 
 	public function index($offset=0)
 	{
@@ -19,7 +19,7 @@ class Musicas_fila extends AdminBaseController
 		);
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
 		
-		$result = $this->mdl->search(20, $offset);
+		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		
 		$result = $this->mdl->formatRecordsView($result);
 		foreach($result as $key => $fields){
@@ -68,7 +68,7 @@ class Musicas_fila extends AdminBaseController
 		
 		$body_post = $AjaxLib->GetData();
 		
-		$musicas_mdl = new \App\Models\Musicas\Musicasmodel();
+		$musicas_mdl = new \App\Models\Musicas\Musicas();
 		
 		$musicas_mdl->f['id'] = $body_post['id'];
 		$result = $musicas_mdl->get();

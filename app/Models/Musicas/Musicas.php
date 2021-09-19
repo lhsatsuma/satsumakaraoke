@@ -1,7 +1,7 @@
 <?php
 namespace App\Models\Musicas;
 
-class Musicasmodel extends \App\Models\Basic\Basicmodel
+class Musicas extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'musicas';
@@ -36,7 +36,7 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
+				'model' => 'Admin/Usuarios/Usuarios',
 				'link_detail' => 'admin/usuarios/detalhes/',
 			),
 			'dont_load_layout' => true,
@@ -52,7 +52,7 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
+				'model' => 'Admin/Usuarios/Usuarios',
 				'link_detail' => 'admin/usuarios/detalhes/',
 			),
 			'dont_load_layout' => true,
@@ -94,6 +94,11 @@ class Musicasmodel extends \App\Models\Basic\Basicmodel
 			'type' => 'bool',
 		)
 	);
+	public $idx_table = [
+		['id', 'deletado'],
+		['nome', 'deletado'],
+		['tipo', 'deletado']
+	];
 	
 	function get_order_by()
 	{

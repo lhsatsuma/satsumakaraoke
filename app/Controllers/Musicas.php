@@ -22,6 +22,7 @@ class Musicas extends BaseController
 	{
 		$this->data['title'] = 'Músicas';
 
+		$this->pager_cfg['per_page'] = 40;
 
 		$initial_filter = array(
 			'codigo' => '',
@@ -56,7 +57,7 @@ class Musicas extends BaseController
 
 		$total_row = $this->mdl->total_rows();
 		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
-		$result = $this->mdl->search(20, $offset);
+		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 
 		$result = $this->mdl->formatRecordsView($result);
 		
@@ -78,7 +79,7 @@ class Musicas extends BaseController
 		
 		$body_post = $AjaxLib->GetData();
 		
-		$this->mdl = new \App\Models\Musicas\Musicasmodel();
+		$this->mdl = new \App\Models\Musicas\Musicas();
 
 
 		$ytLib = new \App\Libraries\YoutubeLib();
@@ -143,7 +144,7 @@ class Musicas extends BaseController
 		if($body_post['auto_fila']){
 			$return_data['auto_fila'] = true;
 			
-			$musicas_fila_mdl = new \App\Models\Musicas_fila\Musicas_filamodel();
+			$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
 			$musicas_fila_mdl->f['nome'] = $return_data['saved_record']['nome'];
 			$musicas_fila_mdl->f['musica_id'] = $return_data['saved_record']['id'];
 			$musicas_fila_mdl->f['status'] = 'pendente';
@@ -172,7 +173,7 @@ class Musicas extends BaseController
 		
 		$body_post = $AjaxLib->GetData();
 		
-		$musicas_fila_mdl = new \App\Models\Musicas_fila\Musicas_filamodel();
+		$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
 		
 		$this->mdl->f['id'] = $body_post['id'];
 		$result = $this->mdl->get();
@@ -199,7 +200,7 @@ class Musicas extends BaseController
 		
 		$body_post = $AjaxLib->GetData();
 		
-		$mdl = new \App\Models\Musicas_favorites\Musicas_favoritesmodel();
+		$mdl = new \App\Models\MusicasFavorites\MusicasFavorites();
 		
 		$this->mdl->f['id'] = $body_post['id'];
 		$result = $this->mdl->get();

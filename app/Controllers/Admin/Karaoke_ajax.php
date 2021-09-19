@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Karaoke_ajax extends AdminBaseController
 {
-	public $module_name = 'Musicas_fila';
+	public $module_name = 'MusicasFila';
 
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
@@ -14,7 +14,7 @@ class Karaoke_ajax extends AdminBaseController
 		$this->ajax->CheckIncoming();
 		
 		$this->body = $this->ajax->GetData();
-		$this->mdl = new \App\Models\Musicas_fila\Musicas_filamodel();
+		$this->mdl = new \App\Models\MusicasFila\MusicasFila();
 	}
 
 	public function index()

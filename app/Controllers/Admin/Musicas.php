@@ -43,7 +43,7 @@ class Musicas extends AdminBaseController
 		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
 		
 		$this->mdl->select = "musicas.*, CAST(codigo AS DECIMAL(10,2)) AS codigo_cast";
-		$result = $this->mdl->search(20, $offset);
+		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
@@ -90,7 +90,7 @@ class Musicas extends AdminBaseController
 		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
 		
 		$this->mdl->select = "musicas.*, CAST(codigo AS DECIMAL(10,2)) AS codigo_cast";
-		$result = $this->mdl->search(20, $offset);
+		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;

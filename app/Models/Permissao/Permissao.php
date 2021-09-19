@@ -1,12 +1,11 @@
 <?php
-namespace App\Models\Musicas_fila;
+namespace App\Models\Permissao;
 
-class Musicas_filamodel extends \App\Models\Basic\Basicmodel
+class Permissao extends \App\Models\Basic\Basic
 {
 	public $db;
-	public $table = 'musicas_fila';
+	public $table = 'permissao';
 	public $f = array();
-	public $id_by_name = true;
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'ID',
@@ -15,11 +14,14 @@ class Musicas_filamodel extends \App\Models\Basic\Basicmodel
 			'dont_load_layout' => true,
 		),
 		'nome' => array(
-			'lbl' => 'Nome',
+			'lbl' => 'Nome da Permissão',
 			'type' => 'varchar',
-			'required' => true,
-			'min_length' => 2,
 			'max_length' => 255,
+			'link_record' => true,
+		),
+		'cod_permissao' => array(
+			'lbl' => 'Código da Permissão',
+			'type' => 'int',
 		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
@@ -35,11 +37,6 @@ class Musicas_filamodel extends \App\Models\Basic\Basicmodel
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
-				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
-				'link_detail' => 'admin/usuarios/detalhes/',
-			),
 			'dont_load_layout' => true,
 		),
 		'data_modificacao' => array(
@@ -51,28 +48,13 @@ class Musicas_filamodel extends \App\Models\Basic\Basicmodel
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
-				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
-				'link_detail' => 'admin/usuarios/detalhes/',
-			),
 			'dont_load_layout' => true,
 		),
-		'musica_id' => array(
-			'lbl' => 'Música ID',
-			'type' => 'related',
-			'required' => true,
-			'table' => 'musicas',
-			'validations' => 'required',
-		),
-		'status' => array(
-			'lbl' => 'Origem',
-			'type' => 'dropdown',
-			'len' => 255,
-			'parameter' => 'status_musicas_fila_list',
-			'required' => true,
-			'validations' => 'required|max_length[255]',		
-		),
 	);
+	public $idx_table = [
+		['id', 'deletado'],
+		['nome', 'deletado'],
+		['cod_permissao', 'deletado']
+	];
 }
 ?>

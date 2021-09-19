@@ -159,7 +159,7 @@ class Internal extends AdminBaseController
         Delete files from upload where doenst exist on database
         */
 
-        $model = new \App\Models\Arquivos\Arquivosmodel();
+        $model = new \App\Models\Arquivos\Arquivos();
 
         $files = scan_dir(ROOTPATH . 'public/uploads/');
         $total_files = count($files);
@@ -306,9 +306,13 @@ class Internal extends AdminBaseController
                 
                 $previousField = $field;
             }
-
             if(!$tableExists){
-                $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."PRIMARY KEY (id)<br />) ENGINE = InnoDB;<br/>CREATE INDEX idx_id_del ON {$mdl->table} (id, deletado);<br />CREATE INDEX idx_name_del ON {$mdl->table} (nome, deletado);";
+                $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."PRIMARY KEY (id)<br />) ENGINE = InnoDB;";
+            }
+
+            foreach($mdl->idx_table as $keyIdx => $fieldsIdx){
+                $sqlIdx = $mdl->getIdxSQL($keyIdx);
+                $sqlRepair .= ($sqlIdx) ? "<br />".$sqlIdx : '';
             }
         }
         $msg_return = "Reconstrução do banco de dados verificado!";
@@ -326,7 +330,7 @@ class Internal extends AdminBaseController
     public function reorderMusics()
     {
         ini_set('max_execution_time', 0);
-        $model = new \App\Models\Musicas\Musicasmodel();
+        $model = new \App\Models\Musicas\Musicas();
         $model->select = "id, nome";
         $model->order_by['TRIM(nome)'] = 'ASC';
 
@@ -335,7 +339,7 @@ class Internal extends AdminBaseController
         $codigo = 1;
 
         foreach($results as $result){
-            $modelUpdate = new \App\Models\Musicas\Musicasmodel();
+            $modelUpdate = new \App\Models\Musicas\Musicas();
             $modelUpdate->f['id'] = $result['id'];
             $modelUpdate->f['codigo'] = $codigo;
             $modelUpdate->saveRecord();

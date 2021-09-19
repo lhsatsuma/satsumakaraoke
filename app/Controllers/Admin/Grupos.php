@@ -1,9 +1,9 @@
 <?php
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
-class Musicas_fila extends BaseController
+class Grupos extends AdminBaseController
 {
-	public $module_name = 'MusicasFila';
+	public $module_name = 'Grupos';
 
 	public function index($offset=0)
 	{
@@ -18,14 +18,13 @@ class Musicas_fila extends BaseController
 			'order' => 'DESC',
 		);
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
-
-		$total_row = $this->mdl->total_rows();
-		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
 		
 		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		
 		$result = $this->mdl->formatRecordsView($result);
-		
+		foreach($result as $key => $fields){
+			$result[$key]['ordem'] = $key + 1;
+		}
 		$this->data['records'] = $result;
 		
 		
@@ -40,6 +39,8 @@ class Musicas_fila extends BaseController
 		
 		$this->data['color_status_pendente'] = 'success';
 		$this->data['icon_status_pendente'] = '';
+		$this->data['color_status_encerrado'] = 'success';
+		$this->data['icon_status_encerrado'] = '';
 		
 		if($this->filter['status']['value'] == 'pendente'){
 			$this->data['color_status_pendente'] = 'warning';
@@ -51,24 +52,37 @@ class Musicas_fila extends BaseController
 		
 		return $this->displayNew('pages/Musicas_fila/index');
 	}
-
-	public function topMusicas()
+	
+	public function cancelar_ajax()
 	{
-		$this->data['title'] = 'Top Músicas Mais Tocadas';
 		
-		$this->mdl->select = "count(*) as total, musica_id";
-		$this->mdl->group_by = 'musica_id';
-		$this->mdl->order_by['count(*)'] = 'DESC';
-		$results = $this->mdl->search(10, 0);
-		foreach($results as $key => $result){
-			if($result['total'] < 2){
-				unset($results[$key]);
-			}
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
+		$AjaxLib->CheckIncoming();
+		
+		
+		$required = array(
+			'id',
+		);
+		$AjaxLib->CheckRequired($required);
+		unset($required);
+		
+		$body_post = $AjaxLib->GetData();
+		
+		$musicas_mdl = new \App\Models\Musicas\Musicas();
+		
+		$musicas_mdl->f['id'] = $body_post['id'];
+		$result = $musicas_mdl->get();
+		if(!$result){
+			$AjaxLib->setError('2x001', 'registro não encontrado');
 		}
-		$results = $this->mdl->formatRecordsView($results);
-		$this->data['records'] = $results;
 		
 		
-		return $this->displayNew('pages/Musicas_fila/topMusicas');
+		$this->mdl->f['nome'] = $result['nome'];
+		$this->mdl->f['usuario_criacao'] = $this->session->get('auth_user')['id'];
+		$this->mdl->f['musica_id'] = $result['id'];
+		$this->mdl->f['status'] = 'pendente';
+		$saved_record = $this->mdl->saveRecord();
+		$AjaxLib->setSuccess($saved_record);
+		
 	}
 }

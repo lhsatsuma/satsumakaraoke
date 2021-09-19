@@ -1,12 +1,11 @@
 <?php
-namespace App\Models\Musicas_favorites;
+namespace App\Models\Grupos;
 
-class Musicas_favoritesmodel extends \App\Models\Basic\Basicmodel
+class Grupos extends \App\Models\Basic\Basic
 {
 	public $db;
-	public $table = 'musicas_favorites';
+	public $table = 'grupos';
 	public $f = array();
-	public $id_by_name = true;
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'ID',
@@ -15,11 +14,10 @@ class Musicas_favoritesmodel extends \App\Models\Basic\Basicmodel
 			'dont_load_layout' => true,
 		),
 		'nome' => array(
-			'lbl' => 'Nome',
+			'lbl' => 'Nome do Arquivo',
 			'type' => 'varchar',
-			'required' => true,
-			'min_length' => 2,
 			'max_length' => 255,
+			'link_record' => true,
 		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
@@ -35,11 +33,6 @@ class Musicas_favoritesmodel extends \App\Models\Basic\Basicmodel
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
-				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
-				'link_detail' => 'admin/usuarios/detalhes/',
-			),
 			'dont_load_layout' => true,
 		),
 		'data_modificacao' => array(
@@ -51,20 +44,12 @@ class Musicas_favoritesmodel extends \App\Models\Basic\Basicmodel
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
-				'url' => null,
-				'model' => 'Admin/Usuarios/Usuariosmodel',
-				'link_detail' => 'admin/usuarios/detalhes/',
-			),
 			'dont_load_layout' => true,
 		),
-		'musica_id' => array(
-			'lbl' => 'Música ID',
-			'type' => 'related',
-			'required' => true,
-			'table' => 'musicas',
-			'validations' => 'required',
-		),
 	);
+	public $idx_table = [
+		['id', 'deletado'],
+		['nome', 'deletado'],
+	];
 }
 ?>

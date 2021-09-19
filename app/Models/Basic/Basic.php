@@ -3,8 +3,9 @@ namespace App\Models\Basic;
 
 use CodeIgniter\Model;
 use Exception;
+use phpDocumentor\Reflection\DocBlock\Tags\Example;
 
-class Basicmodel extends Model
+class Basic extends Model
 {
 	/*
 	Table name for this model
@@ -559,7 +560,7 @@ class Basicmodel extends Model
 				$value = $this->request->getFile($field);
 				if($value && $value->isValid() && !$value->hasMoved()){
 					if($this->table != 'arquivos'){
-						$arquivos = new \App\Models\Arquivos\Arquivosmodel();
+						$arquivos = new \App\Models\Arquivos\Arquivos();
 						if($this->f[$field]){
 							$arquivos->f['id'] = $this->f[$field];
 							$result = $arquivos->get();
@@ -699,7 +700,7 @@ class Basicmodel extends Model
 						break;
 					case 'file':
 						if($this->table !== 'arquivos' && $value){
-							$arquivosmdl = new \App\Models\Arquivos\Arquivosmodel();
+							$arquivosmdl = new \App\Models\Arquivos\Arquivos();
 							$arquivosmdl->f['id'] = $value;
 							$result = $arquivosmdl->get();
 							$field_nome = $field.'_nome';
@@ -723,5 +724,46 @@ class Basicmodel extends Model
 		$val = str_replace("'", "\\'", $val);
 		return $val;
 	}
+
+	public function getIdxTable($idxName)
+	{
+		try{
+			$q = $this->db->query("SHOW index FROM {$this->table} WHERE key_name = '{$idxName}'");
+			if(is_object($q->resultID)){
+				return $q->resultID->num_rows;
+			}
+		}catch(Exception $e){
+			
+		}
+		return 0;
+	}
+
+    public function getIdxSQL(int $key)
+    {
+		if(!isset($this->idx_table[$key])){
+			return '';
+		}
+		$sqlRepair = "CREATE INDEX ";
+		$idxSql = '';
+		foreach($this->idx_table[$key] as $fieldIdx){
+			$fieldIdx = str_replace('_', '', $fieldIdx);
+			$idxSql .= ($idxSql) ? '_'.substr($fieldIdx, 0, 4) : substr($fieldIdx, 0, 4);
+		}
+		$idxSql .= $key;
+		if($this->getIdxTable($idxSql)){
+			return '';
+		}
+		$sqlRepair .= $idxSql;
+
+		$sqlRepair .= " ON {$this->table} (";
+		$idxSql = '';
+		foreach($this->idx_table[$key] as $fieldIdx){
+			$idxSql .= ($idxSql) ? ', '.$fieldIdx : $fieldIdx;
+		}
+
+		$sqlRepair .= $idxSql .' );';
+
+		return $sqlRepair;
+    }
 }
 ?>

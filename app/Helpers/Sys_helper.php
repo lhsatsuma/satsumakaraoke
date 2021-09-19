@@ -249,9 +249,9 @@ function getModules()
 		/* Check if dir has an model and it's not basicmodel */
 		if(is_dir(APPPATH . 'Models/'.$dir)
 		&& $dir !== 'Basic'
-		&& file_exists(APPPATH . 'Models/'.$dir.'/'.$dir.'model.php')){
+		&& file_exists(APPPATH . 'Models/'.$dir.'/'.$dir.'.php')){
 
-			$modelCall = '\\App\\Models\\'.$dir.'\\'.$dir.'model';
+			$modelCall = '\\App\\Models\\'.$dir.'\\'.$dir;
 			$ns = new $modelCall();
 			$return[$modelCall] = $ns->model_name;
 		}

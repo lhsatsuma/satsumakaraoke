@@ -107,7 +107,7 @@ class Ajax_requests extends BaseController
 		}
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/produtos_estoque/index',
+			'action' => base_url().'/admin/home/index',
 			'generic_filter' => array(),
 			'id_filter' => $this->body['id'],
 			'template_name' => 'template/Filter_template_ajax',
@@ -143,7 +143,7 @@ class Ajax_requests extends BaseController
 
 	public function toogle_dark_mode()
 	{
-		$mdl = new \App\Models\Usuarios\Usuariosmodel();
+		$mdl = new \App\Models\Usuarios\Usuarios();
 
 
 		$which_key = 'auth_user';

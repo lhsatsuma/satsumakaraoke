@@ -171,7 +171,7 @@ class BaseController extends Controller
 	public function SetMdl()
 	{
 		//Let's call for MDL (model) for short code in Controllers
-		$namespace_call = ($this->ns_model) ? $this->ns_model : '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name.'model';
+		$namespace_call = ($this->ns_model) ? $this->ns_model : '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name;
 		if(class_exists($namespace_call)){
 			$this->mdl = new $namespace_call();
 		}
@@ -263,6 +263,7 @@ class BaseController extends Controller
 		}
 		$this->js_vars['ajax_pagination'] = ($AppVersion->ajax_pagination ? true : false);
 		$this->js_vars['ch_ver'] = GetCacheVersion();
+		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
 		$this->data = array_merge(array(
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),

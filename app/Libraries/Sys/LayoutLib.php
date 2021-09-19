@@ -202,7 +202,7 @@ class LayoutLib
 		$data = $this->MountDefaultData($field);
 		
 		if(!empty($selected)){
-			$arquivos = new \App\Models\Arquivos\Arquivosmodel();
+			$arquivos = new \App\Models\Arquivos\Arquivos();
 			$arquivos->where['arquivo'] = $selected;
 			$result = $arquivos->search(1,0)[0];
 			if($result){
