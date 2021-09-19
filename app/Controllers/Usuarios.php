@@ -84,12 +84,10 @@ class Usuarios extends BaseController
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
-		$ajaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
+		$ajaxLib = new \App\Libraries\Sys\AjaxLib();
 		$ajaxLib->CheckIncoming();
 
-		$body = $ajaxLib->GetData();
-
-		$this->mdl->where['email'] = $body['chkEmail'];
+		$this->mdl->where['email'] = $ajaxLib->body['chkEmail'];
 
 		$founded = $this->mdl->search(1);
 
@@ -212,11 +210,8 @@ class Usuarios extends BaseController
 	
 	public function send_forget_pass()
 	{
-		$ajax = new \App\Libraries\Sys\AjaxLib($this->request);
-		$ajax->CheckIncoming();
-		$ajax->CheckRequired([
-			'email',
-		]);
+		$ajax = new \App\Libraries\Sys\AjaxLib(['email']);
+		
 		$this->mdl->where['email'] = $ajax->body['email'];
 		$this->mdl->order_by['id'] = 'ASC';
 		$result = $this->mdl->search(1)[0];

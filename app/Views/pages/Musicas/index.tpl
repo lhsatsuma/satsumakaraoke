@@ -27,7 +27,7 @@
 	<tbody>
 		<tr>
 			<td>
-				<p>Ir para página: <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /><button type="button" class="btn btn-info" onclick="QuickGoToPage(this)">Ir</button></p>
+				<p>Ir para página: <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /><button type="button" class="btn btn-outline-info btn-rounded" onclick="QuickGoToPage(this)">Ir</button></p>
 			</td>
 		</tr>
 		<tr>
@@ -50,7 +50,7 @@
 						<button type="button" id="InsertFilaBtn" class="btn btn-outline-success btn-rounded btn-bordered col-8">Colocar na Fila</button>
 					</div>
 					<div class="col-12 primary-row center">
-						<button type="button" id="InsertFavoriteBtn" class="btn btn-info btn-bordered col-8"><i class="fas fa-star"></i> Favoritar</button>
+						<button type="button" id="InsertFavoriteBtn" class="btn btn-outline-info btn-rounded btn-bordered col-8"><i class="fas fa-star"></i> Favoritar</button>
 					</div>
 				</div>
 				<div class="row margin-5">
@@ -77,7 +77,7 @@
 					<div class="col-12 margin-b-10" id="ImportModalLinkTitleDiv"></div>
 					<div class="col-12">
 						<button class="btn btn-outline-success btn-rounded margin-5" id="ImportMusicaButton">Importar</button>
-						<button class="btn btn-info margin-5" id="ImportMusicaAndFilaButton">Importar e colocar na fila</button>
+						<button class="btn btn-outline-info btn-rounded margin-5" id="ImportMusicaAndFilaButton">Importar e colocar na fila</button>
 						<button class="btn btn-outline-warning btn-rounded margin-5" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>
@@ -118,7 +118,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-outline-info btn-rounded" data-dismiss="modal">Fechar</button>
 			</div>
 		</div>
 	</div>

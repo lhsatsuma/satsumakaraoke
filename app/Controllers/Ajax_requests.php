@@ -14,7 +14,7 @@ class Ajax_requests extends BaseController
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
-		$this->AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
+		$this->AjaxLib = new \App\Libraries\Sys\AjaxLib();
 		$this->AjaxLib->CheckIncoming();
 		
 		$this->body = $this->AjaxLib->GetData();

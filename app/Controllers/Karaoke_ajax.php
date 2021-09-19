@@ -10,10 +10,8 @@ class Karaoke_ajax extends BaseController
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
-		$this->ajax = new \App\Libraries\Sys\AjaxLib($this->request);
+		$this->ajax = new \App\Libraries\Sys\AjaxLib();
 		$this->ajax->CheckIncoming();
-		
-		$this->body = $this->ajax->GetData();
 	}
 
 	public function index()
@@ -30,12 +28,12 @@ class Karaoke_ajax extends BaseController
 	public function k_set_thread()
 	{
 
-		if(empty($this->body['action'])){
+		if(empty($this->ajax->body['action'])){
 			$this->ajax->setError('1x001', 'action not found');
 		}
 		$data_encode = [
-			'action' => $this->body['action'],
-			'valueTo' => (int)$this->body['valueTo'],
+			'action' => $this->ajax->body['action'],
+			'valueTo' => (int)$this->ajax->body['valueTo'],
 		];
 
 		$encoded = json_encode($data_encode);

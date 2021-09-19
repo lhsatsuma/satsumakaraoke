@@ -42,7 +42,7 @@
 	<tbody>
 		<tr>
 			<td>
-				<p>Ir para página: <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /><button type="button" class="btn btn-info" onclick="QuickGoToPage(this)">Ir</button></p>
+				<p>Ir para página: <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /><button type="button" class="btn btn-outline-info btn-rounded" onclick="QuickGoToPage(this)">Ir</button></p>
 			</td>
 		</tr>
 		<tr>

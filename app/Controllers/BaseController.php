@@ -465,7 +465,7 @@ class BaseController extends Controller
 			$content = str_replace(array("    ", "\t", "\n", "\r"), "", $content);
 		}
 		if($this->request->getGet('bdOnly')){
-			$Ajax = new \App\Libraries\Sys\AjaxLib($this->request);
+			$Ajax = new \App\Libraries\Sys\AjaxLib();
 			$Ajax->setSuccess($content);
 		}else{
 			return $content;

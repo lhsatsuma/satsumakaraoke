@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=EWHP-lrzcQI&ab_channel=MuramatsuKaraoke
 		</textarea>
 	</div>
 	<div class="col-12 mt-2">
-		<button type="button" class="btn btn-info searchLinks">Procurar</button>
+		<button type="button" class="btn btn-outline-info btn-rounded searchLinks">Procurar</button>
 	</div>
 </div>
 

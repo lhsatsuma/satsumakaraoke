@@ -71,5 +71,20 @@ class Permissao extends \App\Models\Basic\Basic
 			$this->force_deletado = false;
 		}
 	}
+
+	public function getAllPermissao(string $grupo)
+	{
+		if($grupo){
+			$this->select = "permissao.id, permissao.nome, permissao.cod_permissao, permissao_grupo.id as permissao_grupo_id";
+			$this->join['LEFTJOIN_permissao_grupo'] = 'permissao.id = permissao_grupo.permissao';
+			$this->where['permissao_grupo.grupo'] = $this->f['id'];
+			$this->order_by['permissao.cod_permissao'] = 'ASC';
+			return $this->search();
+			
+		}
+
+
+		return [];
+	}
 }
 ?>

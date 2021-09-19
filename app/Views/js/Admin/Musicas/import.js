@@ -31,7 +31,7 @@ function ajaxNextSearch()
                     <td class="col-2 col-xl-2"><input type="text" class="form-control importLink_Link importLink_Link${linksDone}" value="${links[linksDone]}" readonly ln="${linksDone}"/><input type="hidden" class="form-control importLink_MD5${linksDone}" value="" /></td>
                     <td class="col-2 col-xl-1"><select class="form-control importLink_Tipo${linksDone}"><option value="N/A">N/A</option><option value="INT">INT</option><option value="BRL">BRL</option><option value="ESP">ESP</option><option value="JPN">JPN</option><option value="OTR">OTR</option></select></td>
                     <td class="col-6 col-xl-6"><input type="text" class="form-control importLink_Name${linksDone}" /></td>
-                    <td class="col-2 col-xl-2"><button type="button" class="btn btn-info importLink_InvertLine${linksDone}" onclick="inverterLine(${linksDone})">Inverter Nome/Cantor</button></td>
+                    <td class="col-2 col-xl-2"><button type="button" class="btn btn-outline-info btn-rounded importLink_InvertLine${linksDone}" onclick="inverterLine(${linksDone})">Inverter Nome/Cantor</button></td>
                     <td class="col-2 col-xl-1 importLink_Status${linksDone}"></td>
                 </tr>`);
             },

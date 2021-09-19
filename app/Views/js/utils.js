@@ -381,7 +381,7 @@ function setCepField(args = {})
 	CepFieldsCfg[args.elm] = args;
 	var elmCfg = CepFieldsCfg[args.elm];
 	
-	$(elmCfg.elm).css('width', '53%').after(' <button type="button" class="btn btn-info consulta-cep" id="consulta_cep_'+$(elmCfg.elm).attr('name')+'"><img class="loading-icon" src="'+_app_vars.app_url+'images/loading.gif" />buscar</button>');
+	$(elmCfg.elm).css('width', '53%').after(' <button type="button" class="btn btn-outline-info btn-rounded consulta-cep" id="consulta_cep_'+$(elmCfg.elm).attr('name')+'"><img class="loading-icon" src="'+_app_vars.app_url+'images/loading.gif" />buscar</button>');
 	$('#consulta_cep_'+$(elmCfg.elm).attr('name')).click(function(){
 		if(!$(elmCfg.elm).val()){
 			return;

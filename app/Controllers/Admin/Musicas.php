@@ -100,28 +100,24 @@ class Musicas extends AdminBaseController
 
 	public function sanitanizeName()
 	{
-		$this->ajax = new \App\Libraries\Sys\AjaxLib($this->request);
+		$this->ajax = new \App\Libraries\Sys\AjaxLib();
 		$this->ajax->CheckIncoming();
 		$this->ajax->CheckRequired(['nome']);
-		$this->body = $this->ajax->GetData();
 
 		$ytLib = new \App\Libraries\YoutubeLib();
-		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->body['nome'])));
+		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->ajax->body['nome'])));
 		
 	}
 
 	public function fixNomesSave()
 	{
-		$this->ajax = new \App\Libraries\Sys\AjaxLib($this->request);
-		$this->ajax->CheckIncoming();
-		$this->ajax->CheckRequired(['id', 'newNome', 'tipo']);
-		$this->body = $this->ajax->GetData();
+		$this->ajax = new \App\Libraries\Sys\AjaxLib(['id', 'newNome', 'tipo']);
 
-		$this->mdl->f['id'] = $this->body['id'];
+		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();
 		if($found){
-			$this->mdl->f['nome'] = $this->body['newNome'];
-			$this->mdl->f['tipo'] = $this->body['tipo'];
+			$this->mdl->f['nome'] = $this->ajax->body['newNome'];
+			$this->mdl->f['tipo'] = $this->ajax->body['tipo'];
 			$savedRecord = $this->mdl->saveRecord();
 			$this->ajax->setSuccess($savedRecord);
 		}else{
@@ -131,12 +127,9 @@ class Musicas extends AdminBaseController
 
 	public function fixNomesSaveDel()
 	{
-		$this->ajax = new \App\Libraries\Sys\AjaxLib($this->request);
-		$this->ajax->CheckIncoming();
-		$this->ajax->CheckRequired(['id']);
-		$this->body = $this->ajax->GetData();
+		$this->ajax = new \App\Libraries\Sys\AjaxLib(['id']);
 
-		$this->mdl->f['id'] = $this->body['id'];
+		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();
 		if($found){
 			$savedRecord = $this->mdl->deleteRecord();

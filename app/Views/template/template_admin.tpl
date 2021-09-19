@@ -91,7 +91,7 @@
 							</div>
 						</li>
 						{if $auth_user_admin.tipo == 99 OR $auth_user.tipo == 99}
-							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal}active{/if}">
+							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.permissao}active{/if}">
 								<a href="#">
 									<i class="fas fa-list"></i>
 									<span>Administração</span>

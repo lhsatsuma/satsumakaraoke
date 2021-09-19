@@ -56,21 +56,11 @@ class Musicas_fila extends AdminBaseController
 	public function cancelar_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
-		$AjaxLib->CheckIncoming();
-		
-		
-		$required = array(
-			'id',
-		);
-		$AjaxLib->CheckRequired($required);
-		unset($required);
-		
-		$body_post = $AjaxLib->GetData();
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['id']);
 		
 		$musicas_mdl = new \App\Models\Musicas\Musicas();
 		
-		$musicas_mdl->f['id'] = $body_post['id'];
+		$musicas_mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $musicas_mdl->get();
 		if(!$result){
 			$AjaxLib->setError('2x001', 'registro não encontrado');

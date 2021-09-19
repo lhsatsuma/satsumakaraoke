@@ -10,10 +10,9 @@ class Karaoke_ajax extends AdminBaseController
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
-		$this->ajax = new \App\Libraries\Sys\AjaxLib($this->request);
+		$this->ajax = new \App\Libraries\Sys\AjaxLib();
 		$this->ajax->CheckIncoming();
 		
-		$this->body = $this->ajax->GetData();
 		$this->mdl = new \App\Models\MusicasFila\MusicasFila();
 	}
 
@@ -48,12 +47,12 @@ class Karaoke_ajax extends AdminBaseController
 		$this->mdl->order_by["musicas_fila.data_criacao"] = "ASC";
 
 		$total_rows = $this->mdl->total_rows();
-		$result = $this->mdl->search(($this->body['ct']) ? $this->body['ct'] : 10);
+		$result = $this->mdl->search(($this->ajax->body['ct']) ? $this->ajax->body['ct'] : 10);
 		if(is_null($result)){
 			$this->ajax->setError('0x001', 'Error retrieving list of musics');
 		}
 		foreach($result as $key => $fila){
-			if($this->body['sh']){
+			if($this->ajax->body['sh']){
 				if(strlen($fila['cantor']) > 13){
 					$result[$key]['cantor'] = substr($fila['cantor'], 0, 11) . '...';
 				}
@@ -69,7 +68,7 @@ class Karaoke_ajax extends AdminBaseController
 
 	public function k_ended_video()
 	{
-		$this->mdl->f['id'] = $this->body['id'];
+		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$result = $this->mdl->get();
 		if(!$result){
 			$this->ajax->setError('1x001', 'id not found');

@@ -137,8 +137,26 @@ class Basic extends Model
 	{
 		//Procurar o registro ativo
 		$this->where['id'] = ['EQUAL', $this->f['id']];
-		$this->where['status'] = ['EQUAL', 'ativo'];
+		if($this->fields_map['status']){
+			$this->where['status'] = 'ativo';
+		}
 		return $this->search(1)[0];
+	}
+
+	public function getAtivos($select = null, $limit = 0)
+	{
+		//Procurar o registro ativo
+
+		if($select){
+			$this->select = $select;
+		}
+		
+		if($this->fields_map['status']){
+			$this->where['status'] = 'ativo';
+		}elseif($this->fields_map['ativo']){
+			$this->where['ativo'] = '1';
+		}
+		return $this->search($limit);
 	}
 	
 	/*

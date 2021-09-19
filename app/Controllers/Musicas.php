@@ -68,37 +68,28 @@ class Musicas extends BaseController
 	
 	public function CheckImportVideo()
 	{
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
-		$AjaxLib->CheckIncoming();
-		
-		$required = array(
-			'link',
-		);
-		$AjaxLib->CheckRequired($required);
-		unset($required);
-		
-		$body_post = $AjaxLib->GetData();
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link']);
 		
 		$this->mdl = new \App\Models\Musicas\Musicas();
 
 
 		$ytLib = new \App\Libraries\YoutubeLib();
-		$body_post['link'] = trim($body_post['link']);
+		$AjaxLib->body['link'] = trim($AjaxLib->body['link']);
 
 
-		if(strpos($body_post['link'], 'https://youtu.be/') !== false){
-			$body_post['link'] = 'https://www.youtube.com/watch?v='.str_replace('https://youtu.be/', '', $body_post['link']);
+		if(strpos($AjaxLib->body['link'], 'https://youtu.be/') !== false){
+			$AjaxLib->body['link'] = 'https://www.youtube.com/watch?v='.str_replace('https://youtu.be/', '', $AjaxLib->body['link']);
 		}
 
 
-		$videoID = explode("?v=", $body_post['link'])[1];
-		$videoMD5 = md5(explode("?v=", $body_post['link'])[1]);
+		$videoID = explode("?v=", $AjaxLib->body['link'])[1];
+		$videoMD5 = md5(explode("?v=", $AjaxLib->body['link'])[1]);
 		$dataInfo = $ytLib->getInfo($videoID);
 		if(!$dataInfo['md5']){
 			$AjaxLib->setError('0x001', 'Link inválido!');
 		}
-		if(isset($body_post['len_link'])){
-			$dataInfo['len_link'] = $body_post['len_link'];
+		if(isset($AjaxLib->body['len_link'])){
+			$dataInfo['len_link'] = $AjaxLib->body['len_link'];
 		}
 		$AjaxLib->setSuccess($dataInfo);
 	}
@@ -106,18 +97,7 @@ class Musicas extends BaseController
 	public function ImportVideoUrl()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
-		$AjaxLib->CheckIncoming();
-		
-		$required = array(
-			'link',
-			'md5',
-			'title',
-		);
-		$AjaxLib->CheckRequired($required);
-		unset($required);
-		
-		$body_post = $AjaxLib->GetData();
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link','md5','title']);
 		
 		$return_data = array(
 			'exists' => false,
@@ -126,22 +106,22 @@ class Musicas extends BaseController
 			'saved_record' => array(),
 			'auto_fila' => false,
 			'saved_fila' => array(),
-			'len_link' => $body_post['len_link']
+			'len_link' => $AjaxLib->body['len_link']
 		);
 		
 		$ytLib = new \App\Libraries\YoutubeLib();
 
-		$downloaded = $ytLib->importUrl($body_post['link'], $body_post['md5'], $body_post['title']);
+		$downloaded = $ytLib->importUrl($AjaxLib->body['link'], $AjaxLib->body['md5'], $AjaxLib->body['title']);
 
 		if(!$downloaded){
 			$AjaxLib->setError('3x002', 'Não foi possível realizar o download do vídeo! Entre em contato com o administrador!', $return_data);
 		}
 		
-		$return_data = $this->mdl->force_save($body_post['link'], $body_post['md5'], $body_post['title'], $body_post['tipo']);
+		$return_data = $this->mdl->force_save($AjaxLib->body['link'], $AjaxLib->body['md5'], $AjaxLib->body['title'], $AjaxLib->body['tipo']);
 		
 		$return_data['downloaded'] = $downloaded;
 
-		if($body_post['auto_fila']){
+		if($AjaxLib->body['auto_fila']){
 			$return_data['auto_fila'] = true;
 			
 			$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
@@ -151,8 +131,8 @@ class Musicas extends BaseController
 			$return_data['saved_fila'] = $musicas_fila_mdl->saveRecord();
 		}
 
-		if(isset($body_post['len_link'])){
-			$return_data['len_link'] = $body_post['len_link'];
+		if(isset($AjaxLib->body['len_link'])){
+			$return_data['len_link'] = $AjaxLib->body['len_link'];
 		}
 		
 		$AjaxLib->setSuccess($return_data);
@@ -161,21 +141,11 @@ class Musicas extends BaseController
 	public function insert_fila_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
-		$AjaxLib->CheckIncoming();
-		
-		
-		$required = array(
-			'id',
-		);
-		$AjaxLib->CheckRequired($required);
-		unset($required);
-		
-		$body_post = $AjaxLib->GetData();
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['id']);
 		
 		$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
 		
-		$this->mdl->f['id'] = $body_post['id'];
+		$this->mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $this->mdl->get();
 		if(!$result){
 			$AjaxLib->setError('2x001', 'registro não encontrado');
@@ -189,27 +159,18 @@ class Musicas extends BaseController
 	public function insert_favorite_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib($this->request);
-		$AjaxLib->CheckIncoming();
-		
-		$required = array(
-			'id',
-		);
-		$AjaxLib->CheckRequired($required);
-		unset($required);
-		
-		$body_post = $AjaxLib->GetData();
+		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['id']);
 		
 		$mdl = new \App\Models\MusicasFavorites\MusicasFavorites();
 		
-		$this->mdl->f['id'] = $body_post['id'];
+		$this->mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $this->mdl->get();
 		if(!$result){
 			$AjaxLib->setError('2x001', 'registro não encontrado');
 		}
 		$mdl->f['musica_id'] = $result['id'];
 
-		if($body_post['rmv']){
+		if($AjaxLib->body['rmv']){
 			$mdl->select = 'id';
 			$mdl->where['musica_id'] = $result['id'];
 			$mdl->where['usuario_criacao'] = $this->session->get('auth_user')['id'];

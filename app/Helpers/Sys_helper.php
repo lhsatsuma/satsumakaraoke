@@ -287,4 +287,17 @@ function getSession()
 	}
 	return $sessionCI;
 }
-?>
+function hasPermission($cod)
+{
+	global $permissao;
+
+	$per_cached = getSession()->get('PERM_CACHE')[$cod];
+	if($per_cached){
+		return $per_cached;
+	}
+	if(!$permissao){
+		$permissao = new \App\Models\Permissao\Permissao();
+	}
+
+	
+}

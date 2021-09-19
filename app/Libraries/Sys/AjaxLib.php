@@ -18,10 +18,15 @@ class AjaxLib{
 	public $request;
 	public $body;
 	
-	public function __construct($req)
+	public function __construct(Array $required = null)
 	{
-		$this->request = $req;
+		$this->request = \Config\Services::request();
 		$this->body = $this->GetData();
+
+		if($required){
+			$this->CheckIncoming();
+			$this->CheckRequired($required);
+		}
 	}
 	public function CheckIncoming()
 	{
@@ -35,9 +40,8 @@ class AjaxLib{
 	}
 	public function CheckRequired(Array $fields = array())
 	{
-		$body_data = $this->GetData();
 		foreach($fields as $field){
-			if(empty($body_data[$field])){
+			if(empty($this->body[$field])){
 				$this->setError('1x001', $field.' não identificado');
 			}
 		}
