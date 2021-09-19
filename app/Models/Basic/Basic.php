@@ -746,9 +746,13 @@ class Basic extends Model
 	public function getIdxTable($idxName)
 	{
 		try{
-			$q = $this->db->query("SHOW index FROM {$this->table} WHERE key_name = '{$idxName}'");
-			if(is_object($q->resultID)){
-				return $q->resultID->num_rows;
+			$tablesList = $this->listTables();
+            $tableExists = in_array($this->table, $tablesList);
+			if($tableExists){
+				$q = $this->db->query("SHOW index FROM {$this->table} WHERE key_name = '{$idxName}'");
+				if(is_object($q->resultID)){
+					return $q->resultID->num_rows;
+				}
 			}
 		}catch(Exception $e){
 			
