@@ -259,14 +259,14 @@ function getModules()
 	}
 	return $return;
 }
-function getFormData($key=null)
+function getFormData($key=null, $raw = false)
 {
 	global $requestForm;
 	if(!$requestForm){
 		$requestForm = \Config\Services::request();
 	}
 	$rawInput = $requestForm->getBody();
-	if($rawInput){
+	if($rawInput && $raw){
 		$decoded = json_decode($rawInput, true);
 		if($key === null){
 			return $decoded;
@@ -296,8 +296,9 @@ function hasPermission($cod)
 		return $per_cached;
 	}
 	if(!$permissao){
-		$permissao = new \App\Models\Permissao\Permissao();
+		$permissao = new \App\Models\PermissaoGrupo\PermissaoGrupo();
 	}
 
+	$permissao->hasPermission();
 	
 }

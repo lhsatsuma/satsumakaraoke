@@ -33,44 +33,31 @@ class Permissao_grupo extends AdminBaseController
 
 	public function procurarPermissoes()
 	{
+		$ajaxLib = new \App\Libraries\Sys\AjaxLib(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
-		$permissao->getAllPermissao('1');
+		$permissoes = $permissao->getAllPermissao('1');
 		
+		$ajaxLib->setSuccess($permissoes);
 	}
 	
 	public function salvar()
 	{
-		$this->PopulatePost();
-		
-		if($this->mdl->f['deletado']){
-			if(!empty($this->mdl->f['id'])){
-				$deleted = $this->mdl->deleteRecord();
-				if($deleted){
-					rdct('/admin/grupos/index');
-				}
-				$this->validation_errors = array(
-					'generic_error' => 'Não foi possível deletar o registro, tente novamente.',
-				);
-				$this->SetErrorValidatedForm(false);
-				rdct('/admin/grupos/editar/'.$this->mdl->f['id']);
+		$postdata = getFormData();
+		foreach($postdata['permissao'] as $perm_id => $saved_id){
+			$this->mdl->f = [];
+			if($saved_id){
+				$this->mdl->f['id'] = $saved_id;
 			}
-			rdct('/admin/grupos/editar');
-		}
-		
-		if(!$this->ValidateFormPost()){
-			$this->SetErrorValidatedForm();
-			rdct('/admin/grupos/editar/'.$this->mdl->f['id']);
-		}
+			$this->mdl->f['grupo'] = $postdata['grupo'];
+			$this->mdl->f['permissao'] = $perm_id;
 
-		$saved = $this->mdl->saveRecord();
-		if($saved){
-			rdct('/admin/grupos/detalhes/'.$this->mdl->f['id']);
-		}else{
-			$this->validation_errors = array(
-				'generic_error' => $this->mdl->last_error,
-			);
-			$this->SetErrorValidatedForm();
-			rdct('/admin/grupos/editar/'.$this->mdl->f['id']);
+			if(!$postdata['permissao_checked'][$perm_id] && $saved_id){
+				$this->mdl->deleteRecord();
+			}elseif($postdata['permissao_checked'][$perm_id] && !$saved_id){
+				$this->mdl->saveRecord();
+			}
 		}
+		$this->session->setFlashdata('msg', 'Permissões salvas com sucesso');
+		rdct('/admin/permissao_grupo/index/');
 	}
 }

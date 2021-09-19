@@ -365,9 +365,11 @@ function ValidateForm(fm, elm)
 	
 	if(is_valid){
 		$(f).find('input[type="checkbox"]').each((idx, ipt) => {
-			let field = $(ipt).attr('name').replace('checkbox_', '');
-			let checked = ($(ipt).is(':checked') ? '1' : '0');
-			$(f).find('input[name="'+field+'"]').val(checked);
+			if($(ipt).attr('name')){
+				let field = $(ipt).attr('name').replace('checkbox_', '');
+				let checked = ($(ipt).is(':checked') ? '1' : '0');
+				$(f).find('input[name="'+field+'"]').val(checked);
+			}
 		});
 		$('#'+fm).submit();
 	}else{
@@ -577,6 +579,15 @@ function fireLoading(args = {}){
     };
     argsFire = $.extend(argsFire, args);
     fireAndClose(argsFire);
+}
+
+function fireAjaxLoading(args = {}){
+	fireLoading({
+		didOpen: () => {
+			Swal.showLoading();
+			handleAjax(args);
+		}
+	});
 }
 function fireErrorGeneric(msg = null){
 	let argsFire = {

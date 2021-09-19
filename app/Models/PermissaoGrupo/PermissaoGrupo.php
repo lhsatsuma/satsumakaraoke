@@ -64,5 +64,14 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 		['id', 'deletado'],
 		['nome', 'deletado'],
 	];
+
+	public function hasPermission($grupo, $cod)
+	{
+		$this->select = "id, permissao.cod_permissao, permissao.nome";
+		$this->join['permissao'] = 'permissao.id = permissao_grupo.permissao';
+		$this->where['grupo'] = $grupo;
+
+		return $this->search(1)[0];
+	}
 }
 ?>

@@ -18,7 +18,6 @@ class Permissao extends AdminBaseController
 		
 		$initial_filter = array(
 			'nome' => '',
-			'ativo' => '1',
 		);
 		$initial_order_by = array(
 			'field' => 'data_criacao',

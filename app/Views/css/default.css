@@ -715,6 +715,7 @@ hr {
 
 input[type="checkbox"] {
 	zoom: 1.5;
+	vertical-align: middle;
 }
 
 .p-form {
