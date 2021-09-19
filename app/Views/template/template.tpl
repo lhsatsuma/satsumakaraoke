@@ -49,7 +49,7 @@
 				</div>
 				<div class="sidebar-menu">
 					<ul>
-						{if $auth_user.tipo >= 80}
+						{if $perms.cod_5}
 						<li>
 							<a href="javascript:void(0)" id="ControleRemotoButton">
 							<i class="fas fa-location-arrow"></i>
@@ -81,7 +81,7 @@
 							<span>Meus Dados</span>
 							</a>
 						</li>
-						{if $auth_user.tipo == 99}
+						{if $perms.cod_9}
 						<li>
 							<a href="{$app_url}admin/usuarios/index">
 							<i class="fas fa-users"></i>
@@ -126,7 +126,7 @@
 		<!-- page-content" -->
 		</div>
 		<!-- page-wrapper -->
-		{if $auth_user.tipo >= 80}
+		{if $perms.cod_5}
 		<div class="modal fade" id="ControleRemotoModal" tabindex="-1" role="dialog" aria-labelledby="ControleRemotoModalLabel" aria-hidden="true">
 			<input type="hidden" id="IdInsertModal" />
 			<div class="modal-dialog modal-sm modal-dialog-centered" role="document">

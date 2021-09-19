@@ -25,7 +25,7 @@ class BaseController extends Controller
 	@var array
 	An array for pass data in view parser
 	*/
-	public $data;
+	public $data = [];
 	
 	/*
 	@var string
@@ -141,6 +141,7 @@ class BaseController extends Controller
 				$this->is_mobile = true;
 			}
 		}
+		$this->setPermData([5, 7, 9]);
 	}
 	
 	/**
@@ -266,7 +267,7 @@ class BaseController extends Controller
 		$this->js_vars['ajax_pagination'] = ($AppVersion->ajax_pagination ? true : false);
 		$this->js_vars['ch_ver'] = GetCacheVersion();
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
-		$this->data = array_merge(array(
+		$dataNew = array(
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
 			'is_mobile' => $this->is_mobile,
@@ -279,7 +280,12 @@ class BaseController extends Controller
 			'breadcrumb' => $this->SetBreadCrumbArr(),
 			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
-		));
+		);
+		if($this->data){
+			$this->data = array_merge($this->data, $dataNew);
+		}else{
+			$this->data = $dataNew;
+		}
 	}
 	
 	public function PopulatePost($encode = false)
@@ -587,5 +593,17 @@ class BaseController extends Controller
 	public function setMsgData($type, $msg){
 		$this->session->setFlashdata('msg_type', $type);
 		$this->session->setFlashdata('msg', $msg);
+	}
+
+	public function setPermData($cods)
+	{
+		if(is_array($cods)){
+			foreach($cods as $cod){
+				$this->data['perms']['cod_'.$cod] = hasPermission($cod);
+			}
+		}elseif(is_int($cods)){
+			$this->data['perms']['cod_'.$cods] = hasPermission($cods);
+		}
+		return true;
 	}
 }

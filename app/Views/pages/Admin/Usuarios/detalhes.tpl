@@ -11,7 +11,7 @@
 		{$layout.dropdown.status}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.dropdown.tipo}
+		{$layout.related.tipo}
 	</div>
 </div>
 <div class="row">
@@ -56,8 +56,10 @@
 		{$layout.related.usuario_modificacao}
 	</div>
 </div>
+{if $perm.cod_2}
 <div class="row">
 	<div class="col-12">
 		<a href="{$app_url}admin/usuarios/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>
 	</div>
 </div>
+{/if}

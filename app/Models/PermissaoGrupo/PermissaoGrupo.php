@@ -6,13 +6,12 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 	public $db;
 	public $table = 'permissao_grupo';
 	public $f = array();
-	public $id_by_name = true;
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'ID',
-			'type' => 'varchar',
-			'max_length' => 36,
+			'type' => 'int',
 			'dont_load_layout' => true,
+			'dont_generate' => true,
 		),
 		'permissao' => array(
 			'lbl' => 'Permissão',
@@ -25,12 +24,6 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 			'type' => 'related',
 			'table' => 'grupos',
 			'dont_load_layout' => true,
-		),
-		'nome' => array(
-			'lbl' => 'Nome do Arquivo',
-			'type' => 'varchar',
-			'max_length' => 255,
-			'link_record' => true,
 		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
@@ -62,15 +55,16 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 	);
 	public $idx_table = [
 		['id', 'deletado'],
-		['nome', 'deletado'],
+		['permissao', 'grupo', 'deletado'],
+		['grupo', 'deletado'],
 	];
 
-	public function hasPermission($grupo, $cod)
+	public function hasPermission($cod, $grupo)
 	{
-		$this->select = "id, permissao.cod_permissao, permissao.nome";
+		$this->select = "permissao_grupo.id";
 		$this->join['permissao'] = 'permissao.id = permissao_grupo.permissao';
-		$this->where['grupo'] = $grupo;
-
+		$this->where['permissao_grupo.grupo'] = $grupo;
+		$this->where['permissao.cod_permissao'] = $cod;
 		return $this->search(1)[0];
 	}
 }

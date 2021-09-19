@@ -50,12 +50,14 @@
 							<span>Ir para o Site</span>
 							</a>
 						</li>
-						<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
-							<a href="{$app_url}admin/musicas/karaoke" target="_blank">
-							<i class="fas fa-music"></i>
-							<span>Karaokê</span>
-							</a>
-						</li>
+						{if $perms.cod_6}
+							<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
+								<a href="{$app_url}admin/musicas/karaoke" target="_blank">
+								<i class="fas fa-music"></i>
+								<span>Karaokê</span>
+								</a>
+							</li>
+						{/if}
 						<li class="{if $breadcrumb.admin.musicas_fila}active{/if}">
 							<a href="{$app_url}admin/musicas_fila/index">
 							<i class="fas fa-list"></i>
@@ -90,7 +92,7 @@
 								</ul>
 							</div>
 						</li>
-						{if $auth_user_admin.tipo == 99 OR $auth_user.tipo == 99}
+						{if $perms.cod_9}
 							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.permissao}active{/if}">
 								<a href="#">
 									<i class="fas fa-list"></i>
@@ -98,36 +100,46 @@
 								</a>
 								<div class="sidebar-submenu"> 
 									<ul>
+										{if $perms.cod_1}
 										<li class="{if $breadcrumb.admin.usuarios}active{/if}" >
 											<a href="{$app_url}admin/usuarios/index">
 											<i class="fas fa-users"></i>
 											<span>Usuários</span>
 											</a>
 										</li>
-										<li class="{if $breadcrumb.admin.grupos}active{/if}" >
-											<a href="{$app_url}admin/grupos/index">
-											<i class="fas fa-users-cog"></i>
-											<span>Grupos</span>
-											</a>
-										</li>
+										{/if}
+										{if $perms.cod_10}
+											<li class="{if $breadcrumb.admin.grupos}active{/if}" >
+												<a href="{$app_url}admin/grupos/index">
+												<i class="fas fa-users-cog"></i>
+												<span>Grupos</span>
+												</a>
+											</li>
+										{/if}
+										{if $perms.cod_13}
 										<li class="{if $breadcrumb.admin.permissao}active{/if}" >
 											<a href="{$app_url}admin/permissao/index">
 											<i class="fas fa-users-cog"></i>
 											<span>Permissão</span>
 											</a>
 										</li>
+										{/if}
+										{if $perms.cod_16}
 										<li class="{if $breadcrumb.admin.permissao_grupo}active{/if}" >
 											<a href="{$app_url}admin/permissao_grupo/index">
 											<i class="fas fa-users-cog"></i>
 											<span>Permissões do Grupo</span>
 											</a>
 										</li>
-										<li class="{if $breadcrumb.admin.internal}active{/if}" >
-											<a href="{$app_url}admin/internal/index">
-											<i class="fas fa-list"></i>
-											<span>Utilidades</span>
-											</a>
-										</li>
+										{/if}
+										{if $perms.cod_4}
+											<li class="{if $breadcrumb.admin.internal}active{/if}" >
+												<a href="{$app_url}admin/internal/index">
+												<i class="fas fa-list"></i>
+												<span>Utilidades</span>
+												</a>
+											</li>
+										{/if}
 									</ul>
 								</div>
 							</li>

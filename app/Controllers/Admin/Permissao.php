@@ -14,6 +14,8 @@ class Permissao extends AdminBaseController
 
 	public function index($offset = 0)
 	{
+		hasPermission(13, true);
+
 		$this->data['title'] = 'Lista de Permissões';
 		
 		$initial_filter = array(
@@ -49,6 +51,8 @@ class Permissao extends AdminBaseController
 	
 	public function detalhes($id = null)
 	{
+		hasPermission(13, true);
+
 		$this->data['title'] = 'Detalhes da Permissão';
 		
 		$this->mdl->f['id'] = $id;
@@ -60,12 +64,16 @@ class Permissao extends AdminBaseController
 		$this->data['record'] = $result;
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
+
+		$this->setPermData(14);
 		
 		return $this->displayNew('pages/admin/Permissao/detalhes');
 	}
 	
 	public function editar($id = null)
 	{
+		hasPermission(14, true);
+
 		$this->data['title'] = ($id) ? 'Editar Permissão' : 'Criar Permissão';
 		
 		$result = array();
@@ -80,6 +88,8 @@ class Permissao extends AdminBaseController
 		$this->data['record'] = $result;
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
+
+		$this->setPermData(15);
 		
 		return $this->displayNew('pages/admin/Permissao/editar');
 	}

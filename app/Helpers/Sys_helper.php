@@ -287,11 +287,19 @@ function getSession()
 	}
 	return $sessionCI;
 }
-function hasPermission($cod)
+function hasPermission($cod, $rdct = false, $grupo = null)
 {
 	global $permissao;
 
-	$per_cached = getSession()->get('PERM_CACHE')[$cod];
+	if(is_null($grupo)){
+		$grupo = getSession()->get('auth_user')['tipo'];
+	}
+
+	if(is_null($grupo)){
+		$grupo = getSession()->get('auth_user_admin')['tipo'];
+	}
+
+	$per_cached = getSession()->get('PERM_CACHE_'.$cod.'_'.$grupo);
 	if($per_cached){
 		return $per_cached;
 	}
@@ -299,6 +307,24 @@ function hasPermission($cod)
 		$permissao = new \App\Models\PermissaoGrupo\PermissaoGrupo();
 	}
 
-	$permissao->hasPermission();
-	
+	$hasPermission = $permissao->hasPermission($cod, $grupo);
+
+	if($hasPermission){
+		getSession()->set('PERM_CACHE_'.$cod.'_'.$grupo, $hasPermission['id']);
+	}else{
+		if($rdct){
+			rdctForbbiden();
+		}
+	}
+
+	return $hasPermission;
+}
+function rdctForbbiden()
+{
+	$focus = new \App\Controllers\BaseController();
+	$focus->SetSysLib();
+	$focus->SetView();
+	$focus->SetLayout();
+	$focus->SetInitialData();
+	echo $focus->displayNew('403', false);exit;
 }

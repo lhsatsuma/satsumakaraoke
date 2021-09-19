@@ -43,7 +43,7 @@ class Ajax_requests extends BaseController
 			$mdl->where = $this->body['custom_where'];
 		}else{
 			$mdl->where = array(
-				'nome' => $this->body['search_param'],
+				'nome' => ['LIKE', $this->body['search_param'].'%'],
 			);
 		}
 		$results = $mdl->search(5);

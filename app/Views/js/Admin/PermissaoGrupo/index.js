@@ -23,7 +23,7 @@ $('#grupos').change(() => {
                     let sideTd = (idx % 2 == 1) ? 'direitaSide' : 'esquerdaSide';
                     html += `<td scope="col" class="col-5">
                         <input type="hidden" name="permissao[${ipt.id}]" value="${value_permissao}" />
-                        ${ipt.nome}
+                        [${ipt.cod_permissao}] ${ipt.nome}
                     </td>
                     <td scope="col"class="col-1  ${sideTd}">
                         <input type="checkbox" name="permissao_checked[${ipt.id}]" ${checked} />

@@ -4,7 +4,6 @@
 <table class="table table-responsive-xl table-striped table-list tb-rst-fltr">
 	<thead>
 		<tr>
-			<th scope="col" class="ptr" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo</th>
 			<th scope="col" class="ptr" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
 			<th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="email" onclick="OrderByFiltro('email')">Email</th>
 			<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
@@ -16,7 +15,6 @@
 	{if !empty($records)}
 		{foreach from=$records item=campos}
 			<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/usuarios/detalhes/{$campos.id}'">
-				<td dt-r-tipo="{$campos.tipo}">{$campos.tipo}</td>
 				<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
 				<td class="d-none d-md-table-cell" dt-r-email="{$campos.email}"> {$campos.email} </td>
 				<td dt-r-status="{$campos.status}">{$campos.status}</td>

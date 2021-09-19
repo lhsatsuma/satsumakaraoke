@@ -78,10 +78,13 @@ class Usuarios extends \App\Models\Basic\Basic
 			'required' => true,
 		),
 		'tipo' => array(
-			'lbl' => 'Tipo',
-			'type' => 'dropdown',
-			'parameter' => 'tipo_usuario',
-			'default' => 1,
+			'lbl' => 'Grupo',
+			'type' => 'related',
+			'table' => 'grupos',
+			'parameter' => array(
+				'model' => 'Grupos/Grupos',
+				'link_detail' => 'admin/grupos/detalhes/',
+			),
 		),
 		'last_ip' => array(
 			'lbl' => 'Último IP',

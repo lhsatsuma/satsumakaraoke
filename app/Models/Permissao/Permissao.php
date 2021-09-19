@@ -9,9 +9,9 @@ class Permissao extends \App\Models\Basic\Basic
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'ID',
-			'type' => 'varchar',
-			'max_length' => 36,
+			'type' => 'int',
 			'dont_load_layout' => true,
+			'dont_generate' => true,
 		),
 		'nome' => array(
 			'lbl' => 'Nome da Permissão',
@@ -59,7 +59,7 @@ class Permissao extends \App\Models\Basic\Basic
 
 	public function before_save()
 	{
-		if(empty($this->f['cod_permissao'])){
+		if(empty($this->f['cod_permissao']) && empty($this->f['id'])){
 			$this->force_deletado = true;
 			$this->where = array();
 			$this->select = "MAX(CAST(cod_permissao as UNSIGNED))+1 as codigo_ult";
@@ -75,11 +75,15 @@ class Permissao extends \App\Models\Basic\Basic
 	public function getAllPermissao(string $grupo)
 	{
 		if($grupo){
+			$this->force_deletado = true;
 			$this->select = "permissao.id, permissao.nome, permissao.cod_permissao, permissao_grupo.id as permissao_grupo_id";
-			$this->join['LEFTJOIN_permissao_grupo'] = 'permissao.id = permissao_grupo.permissao';
+			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)";
+			$this->where['permissao.deletado'] = '0';
 			$this->where['permissao_grupo.grupo'] = $this->f['id'];
 			$this->order_by['permissao.cod_permissao'] = 'ASC';
-			return $this->search();
+			$results = $this->search();
+			$this->force_deletado = true;
+			return $results;
 			
 		}
 

@@ -9,9 +9,9 @@ class Grupos extends \App\Models\Basic\Basic
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'ID',
-			'type' => 'varchar',
-			'max_length' => 36,
+			'type' => 'int',
 			'dont_load_layout' => true,
+			'dont_generate' => true,
 		),
 		'nome' => array(
 			'lbl' => 'Nome',

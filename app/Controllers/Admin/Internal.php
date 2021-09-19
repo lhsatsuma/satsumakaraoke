@@ -10,13 +10,7 @@ class Internal extends AdminBaseController
     public function __construct()
     {
         parent::__construct();
-        if(($this->session->get('auth_user_admin') && $this->session->get('auth_user_admin')['tipo'] != 99)
-        || ($this->session->get('auth_user')['tipo'] && $this->session->get('auth_user')['tipo'] != 99)){
-            header('HTTP/1.0 403 Forbbiden');
-            echo '<p>Acesso Negado!</p>';
-            echo '<p><a href="'.base_url().'">Voltar para Página Inicial</a></p>';
-            exit;
-        }
+        hasPermission(4, true);
     }
 	
 	public function ExtButtonsGenericFilters()
@@ -271,13 +265,15 @@ class Internal extends AdminBaseController
                 ){
                     //If table and field exists but there's something different, let's try an MODIFY COLUMN
                     $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."ALTER TABLE {$mdl->table} MODIFY COLUMN {$field} {$typeDB}";
+                    if($options['dont_generate']){
+                        $sqlRepair .= " NOT NULL AUTO_INCREMENT";
+                    }
                     $needUpdate = true;
                 }
 
                 if($needUpdate){
                     /* If field needs to update, let's make the definitions of */
-                    if($maxLength){
-                        if($options['type'] == 'currency'){
+                    if($maxLength){if($options['type'] == 'currency'){
                             $sqlRepair .= '('.$maxLength.','.$options['parameter']['precision'].')';
                         }elseif($options['type'] == 'float'){
                             $sqlRepair .= '('.$maxLength.','.$options['parameter']['precision'].')';

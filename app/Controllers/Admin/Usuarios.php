@@ -17,6 +17,7 @@ class Usuarios extends AdminBaseController
 	
 	public function index($offset = 0)
 	{
+		hasPermission(1, true);
 		$this->data['title'] = 'Lista de Usuários';
 		
 		$initial_filter = array(
@@ -53,6 +54,7 @@ class Usuarios extends AdminBaseController
 	
 	public function detalhes($id)
 	{
+		hasPermission(1, true);
 		$this->data['title'] = 'Detalhes do Usuário';
 		
 		$this->mdl->f['id'] = $id;
@@ -61,12 +63,15 @@ class Usuarios extends AdminBaseController
 		$this->data['record'] = $result;
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
+
+		$this->setPermData(2);
 		
 		return $this->displayNew('pages/Admin/Usuarios/detalhes');
 	}
 	
 	public function editar($id = null)
 	{
+		hasPermission(2, true);
 		$this->data['title'] = ($id) ? 'Editar Usuário' : 'Criar Usuário';
 		
 		$result = array();
@@ -81,6 +86,8 @@ class Usuarios extends AdminBaseController
 		$this->data['record'] = $result;
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
+
+		$this->setPermData(3);
 		
 		return $this->displayNew('pages/Admin/Usuarios/editar');
 	}
@@ -274,7 +281,8 @@ class Usuarios extends AdminBaseController
 		
 		$this->mdl->f['id'] = $exists['id'];
 		$AuthUser = $this->mdl->get();
-		if((int)$AuthUser['tipo'] < 99){
+		
+		if(!hasPermission(9, $AuthUser['tipo'])){
 			$this->session->setFlashdata('login_msg', 'Accesso negado! Entre em contato com o administrador.');
 			rdct('/admin/login');
 		}

@@ -14,6 +14,8 @@ class Permissao_grupo extends AdminBaseController
 
 	public function index($offset = 0)
 	{
+		hasPermission(16, true);
+
 		$this->data['title'] = 'Lista de Permissão por Grupo';
 	
 		$grupos = new \App\Models\Grupos\Grupos();
@@ -33,6 +35,8 @@ class Permissao_grupo extends AdminBaseController
 
 	public function procurarPermissoes()
 	{
+		hasPermission(16, true);
+		
 		$ajaxLib = new \App\Libraries\Sys\AjaxLib(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
 		$permissoes = $permissao->getAllPermissao('1');
@@ -42,6 +46,8 @@ class Permissao_grupo extends AdminBaseController
 	
 	public function salvar()
 	{
+		hasPermission(16, true);
+		
 		$postdata = getFormData();
 		foreach($postdata['permissao'] as $perm_id => $saved_id){
 			$this->mdl->f = [];
