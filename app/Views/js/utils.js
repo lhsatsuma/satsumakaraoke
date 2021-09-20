@@ -741,8 +741,13 @@ function toggleDarkMode(setAjax = true)
 		});
 	}
 }
-if(_app_vars._CTRL_NAME[0] == 'usuarios' && _app_vars._ACTION_NAME == 'login'){
+console.log(_app_vars._CTRL_NAME[0]);
+console.log(_app_vars._ACTION_NAME);
+if((_app_vars._CTRL_NAME[0] == 'usuarios' ||
+_app_vars._CTRL_NAME[0] == 'admin' ) &&
+_app_vars._ACTION_NAME == 'login'){
 	//Check if cached dark mode
+	console.log(localStorage.dark_mode_active);
 	if(localStorage.dark_mode_active){
 		toggleDarkMode(false);
 	}

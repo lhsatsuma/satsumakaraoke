@@ -244,10 +244,16 @@ class Internal extends AdminBaseController
                 if(!$tableExists){
                     //If table don't exists, just put field and type
                     $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."{$field} {$typeDB}";
+                    if($options['dont_generate']){
+                        $sqlRepair .= " NOT NULL AUTO_INCREMENT";
+                    }
                     $needUpdate = true;
                 }elseif($tableExists && !$fieldInDB){
                     //If table exists but field don't, let's try an ADD COLUMN
                     $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."ALTER TABLE {$mdl->table} ADD {$field} {$typeDB}";
+                    if($options['dont_generate']){
+                        $sqlRepair .= " NOT NULL AUTO_INCREMENT";
+                    }
                     $needUpdate = true;
                     $isAdd = true;
                 }elseif(

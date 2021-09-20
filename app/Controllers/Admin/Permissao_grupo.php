@@ -21,12 +21,14 @@ class Permissao_grupo extends AdminBaseController
 		$grupos = new \App\Models\Grupos\Grupos();
 		$gruposAtivos = $grupos->getAtivos('id, nome');
 
+		$gruposArr = [];
 		foreach($gruposAtivos as $key => $val){
 			unset($gruposAtivos[$key]);
-			$gruposAtivos[$val['id']] = $val['nome'];
+			$gruposArr[$val['id']] = $val['nome'];
 		}
+		unset($gruposAtivos);
 		$DropdownLib = new \App\Libraries\Sys\DropdownLib();
-		$DropdownLib->values['gruposAtivos'] = $gruposAtivos;
+		$DropdownLib->values['gruposAtivos'] = $gruposArr;
 
 		$this->data['gruposAtivos'] = $DropdownLib->GetDropdownHTML('gruposAtivos');
 		
@@ -39,7 +41,7 @@ class Permissao_grupo extends AdminBaseController
 		
 		$ajaxLib = new \App\Libraries\Sys\AjaxLib(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
-		$permissoes = $permissao->getAllPermissao('1');
+		$permissoes = $permissao->getAllPermissao($ajaxLib->body['grupo_id']);
 		
 		$ajaxLib->setSuccess($permissoes);
 	}

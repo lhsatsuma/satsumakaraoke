@@ -77,17 +77,16 @@ class Permissao extends \App\Models\Basic\Basic
 		if($grupo){
 			$this->force_deletado = true;
 			$this->select = "permissao.id, permissao.nome, permissao.cod_permissao, permissao_grupo.id as permissao_grupo_id";
-			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)";
+			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao
+			AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)
+			AND permissao_grupo.grupo = '{$grupo}'";
 			$this->where['permissao.deletado'] = '0';
-			$this->where['permissao_grupo.grupo'] = $this->f['id'];
 			$this->order_by['permissao.cod_permissao'] = 'ASC';
 			$results = $this->search();
 			$this->force_deletado = true;
 			return $results;
 			
 		}
-
-
 		return [];
 	}
 }
