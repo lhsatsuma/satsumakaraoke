@@ -10,7 +10,7 @@ class Musicas extends BaseController
 	{
 		$extBtns = [];
 		$extBtns['helpSongs'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#helpSongsModal"><i class="fas fa-info"></i></button>';
-		if(hasPermission(14)){
+		if(hasPermission(9, 'r')){
 			$extBtns['import'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i> Importar</button>';
 		}
 
@@ -67,7 +67,7 @@ class Musicas extends BaseController
 	
 	public function CheckImportVideo()
 	{
-		hasPermission(14,true);
+		hasPermission(9, 'r', true);
 		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link']);
 		
 		$this->mdl = new \App\Models\Musicas\Musicas();
@@ -96,7 +96,7 @@ class Musicas extends BaseController
 	
 	public function ImportVideoUrl()
 	{
-		hasPermission(14,true);
+		hasPermission(9, 'r', true);
 		
 		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link','md5','title']);
 		

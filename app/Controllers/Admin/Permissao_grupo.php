@@ -7,7 +7,7 @@ class Permissao_grupo extends AdminBaseController
 
 	public function index($offset = 0)
 	{
-		hasPermission(12, true);
+		hasPermission(4, 'r', true);
 
 		$this->data['title'] = 'Lista de Permissão por Grupo';
 	
@@ -30,7 +30,7 @@ class Permissao_grupo extends AdminBaseController
 
 	public function procurarPermissoes()
 	{
-		hasPermission(12, true);
+		hasPermission(4, 'r', true);
 		
 		$ajaxLib = new \App\Libraries\Sys\AjaxLib(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
@@ -41,9 +41,10 @@ class Permissao_grupo extends AdminBaseController
 	
 	public function salvar()
 	{
-		hasPermission(12, true);
+		hasPermission(4, 'r', true);
 		
 		$postdata = getFormData();
+
 		foreach($postdata['permissao'] as $perm_id => $saved_id){
 			$this->mdl->f = [];
 			if($saved_id){
@@ -52,11 +53,19 @@ class Permissao_grupo extends AdminBaseController
 			$this->mdl->f['grupo'] = $postdata['grupo'];
 			$this->mdl->f['permissao'] = $perm_id;
 
-			if(!$postdata['permissao_checked'][$perm_id] && $saved_id){
+			$nivel = 0;
+			$nivel += ($postdata['permissao_checked'][$perm_id]['r']) ? 4 : 0;
+			$nivel += ($postdata['permissao_checked'][$perm_id]['w']) ? 2 : 0;
+			$nivel += ($postdata['permissao_checked'][$perm_id]['d']) ? 1 : 0;
+
+			$this->mdl->f['nivel'] = $nivel;
+			
+			if($nivel == 0 && $saved_id){
 				$this->mdl->deleteRecord();
-			}elseif($postdata['permissao_checked'][$perm_id] && !$saved_id){
+			}else{
 				$this->mdl->saveRecord();
 			}
+			$this->session->remove('PERM_CACHE_'.$perm_id.'_'.$this->mdl->f['grupo']);
 		}
 		$this->session->setFlashdata('msg', 'Permissões salvas com sucesso');
 		rdct('/admin/permissao_grupo/index/');

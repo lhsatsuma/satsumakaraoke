@@ -14,7 +14,7 @@ class Permissao extends AdminBaseController
 
 	public function index($offset = 0)
 	{
-		hasPermission(9, true);
+		hasPermission(3, 'r', true);
 
 		$this->data['title'] = 'Lista de Permissões';
 		
@@ -51,7 +51,7 @@ class Permissao extends AdminBaseController
 	
 	public function detalhes($id = null)
 	{
-		hasPermission(9, true);
+		hasPermission(3, 'r', true);
 
 		$this->data['title'] = 'Detalhes da Permissão';
 		
@@ -65,14 +65,14 @@ class Permissao extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
 
-		$this->setPermData(10);
+		$this->setPermData(3);
 		
 		return $this->displayNew('pages/admin/Permissao/detalhes');
 	}
 	
 	public function editar($id = null)
 	{
-		hasPermission(10, true);
+		hasPermission(3, 'w', true);
 
 		$this->data['title'] = ($id) ? 'Editar Permissão' : 'Criar Permissão';
 		
@@ -96,13 +96,13 @@ class Permissao extends AdminBaseController
 	
 	public function salvar()
 	{
-		hasPermission(10, true);
+		hasPermission(3, 'w', true);
 
 		$this->PopulatePost();
 		
 		if($this->mdl->f['deletado']){
 			if(!empty($this->mdl->f['id'])){
-				hasPermission(11, true);
+				hasPermission(3, 'd', true);
 				$deleted = $this->mdl->deleteRecord();
 				if($deleted){
 					rdct('/admin/permissao/index');

@@ -67,7 +67,7 @@ class Musicas extends AdminBaseController
 	
 	public function fixNomes($offset = 0)
 	{
-		hasPermission(13, true);
+		hasPermission(9, 'w', true);
 		$this->data['title'] = 'Arrumar Nomes de Músicas';
 		
 		$initial_order = array(
@@ -112,7 +112,7 @@ class Musicas extends AdminBaseController
 
 	public function fixNomesSave()
 	{
-		hasPermission(13, true);
+		hasPermission(9, 'w', true);
 		$this->ajax = new \App\Libraries\Sys\AjaxLib(['id', 'newNome', 'tipo']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
@@ -129,7 +129,7 @@ class Musicas extends AdminBaseController
 
 	public function fixNomesSaveDel()
 	{
-		hasPermission(13, true);
+		hasPermission(9, 'w', true);
 		$this->ajax = new \App\Libraries\Sys\AjaxLib(['id']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
@@ -144,7 +144,7 @@ class Musicas extends AdminBaseController
 
 	public function import()
 	{
-		hasPermission(13, true);
+		hasPermission(9, 'w', true);
 		$this->data['title'] = 'Importar Músicas';
 		
 		return $this->displayNew('pages/Admin/Musicas/import');
@@ -152,7 +152,7 @@ class Musicas extends AdminBaseController
 
 	public function karaoke()
 	{
-		hasPermission(6, true);
+		hasPermission(8, 'r', true);
 		$version = new \Config\AppVersion();
 
 		$this->js_vars = array_merge($this->js_vars, [

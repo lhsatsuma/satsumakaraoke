@@ -50,7 +50,7 @@
 							<span>Ir para o Site</span>
 							</a>
 						</li>
-						{if $perms.cod_15}
+						{if $perms.cod_8.r}
 							<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
 								<a href="{$app_url}admin/musicas/karaoke" target="_blank">
 								<i class="fas fa-music"></i>
@@ -92,7 +92,7 @@
 								</ul>
 							</div>
 						</li>
-						{if $perms.cod_5}
+						{if $perms.cod_4.r}
 							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.permissao}active{/if}">
 								<a href="#">
 									<i class="fas fa-list"></i>
@@ -100,7 +100,7 @@
 								</a>
 								<div class="sidebar-submenu"> 
 									<ul>
-										{if $perms.cod_1}
+										{if $perms.cod_1.r}
 										<li class="{if $breadcrumb.admin.usuarios}active{/if}" >
 											<a href="{$app_url}admin/usuarios/index">
 											<i class="fas fa-users"></i>
@@ -108,7 +108,7 @@
 											</a>
 										</li>
 										{/if}
-										{if $perms.cod_6}
+										{if $perms.cod_2.r}
 											<li class="{if $breadcrumb.admin.grupos}active{/if}" >
 												<a href="{$app_url}admin/grupos/index">
 												<i class="fas fa-users-cog"></i>
@@ -116,7 +116,7 @@
 												</a>
 											</li>
 										{/if}
-										{if $perms.cod_9}
+										{if $perms.cod_3.r}
 										<li class="{if $breadcrumb.admin.permissao}active{/if}" >
 											<a href="{$app_url}admin/permissao/index">
 											<i class="fas fa-users-cog"></i>
@@ -124,7 +124,7 @@
 											</a>
 										</li>
 										{/if}
-										{if $perms.cod_12}
+										{if $perms.cod_4.r}
 										<li class="{if $breadcrumb.admin.permissao_grupo}active{/if}" >
 											<a href="{$app_url}admin/permissao_grupo/index">
 											<i class="fas fa-users-cog"></i>
@@ -132,7 +132,7 @@
 											</a>
 										</li>
 										{/if}
-										{if $perms.cod_4}
+										{if $perms.cod_6.r}
 											<li class="{if $breadcrumb.admin.internal}active{/if}" >
 												<a href="{$app_url}admin/internal/index">
 												<i class="fas fa-list"></i>
@@ -167,11 +167,6 @@
 		<!-- sidebar-wrapper  -->
 		<main class="page-content">
 			<div class="container-fluid primary-container">
-				<div class="row">
-					<div class="col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 primary-row">
-						<div id="header_logo"><img src="{$app_url}images/logo.png" /></div>
-					</div>
-				</div>
 				<div class="box box-primary">
 					<div class="box-body">
 						<div class="row">

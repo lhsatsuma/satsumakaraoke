@@ -10,7 +10,7 @@ class Internal extends AdminBaseController
     public function __construct()
     {
         parent::__construct();
-        hasPermission(4, true);
+        hasPermission(6, 'r', true);
     }
 	
 	public function ExtButtonsGenericFilters()

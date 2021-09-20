@@ -28,7 +28,7 @@ class InitAppLib
 	public function CheckAccessAdmin()
 	{
 		if(!empty($this->session->get('auth_user'))){
-			return hasPermission(9, false, $this->session->get('auth_user')['tipo']);
+			return hasPermission(4, 'r', false, $this->session->get('auth_user')['tipo']);
 		}
 		return false;
 	}

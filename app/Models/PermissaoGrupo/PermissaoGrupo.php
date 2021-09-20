@@ -25,6 +25,12 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 			'table' => 'grupos',
 			'dont_load_layout' => true,
 		),
+		'nivel' => array(
+			'lbl' => 'Nível',
+			'type' => 'int',
+			'required' => true,
+			'dont_load_layout' => true,
+		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
 			'type' => 'bool',
@@ -61,7 +67,7 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 
 	public function hasPermission($cod, $grupo)
 	{
-		$this->select = "permissao_grupo.id";
+		$this->select = "permissao_grupo.id, permissao_grupo.nivel";
 		$this->join['permissao'] = 'permissao.id = permissao_grupo.permissao';
 		$this->where['permissao_grupo.grupo'] = $grupo;
 		$this->where['permissao.cod_permissao'] = $cod;

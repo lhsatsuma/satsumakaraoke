@@ -11,13 +11,21 @@
 {/if}
 <form id="PermissaoGrupoForm" method="post" action="{$app_url}admin/permissao_grupo/salvar">
 	<p><select id="grupos" name="grupo" class="form-control" required>{$gruposAtivos}</select></p>
-	<table class="table table-responsive-xl table-striped table-list mt-5">
+	<table class="table table-responsive-sm table-striped table-list mt-5">
 		<thead>
 			<tr class="d-flex">
-				<th scope="col" class="col-5">Permissão</th>
-				<th scope="col" class="col-1">Habilitado <input type="checkbox" onclick="togglePermissoes('esquerda', this)" /></th>
-				<th scope="col" class="col-5">Permissão</th>
-				<th scope="col" class="col-1">Habilitado <input type="checkbox" onclick="togglePermissoes('direita', this)" /></th>
+				<th scope="col" class="col-4">Permissão</th>
+				<th scope="col" class="col-2 text-center">
+					R: <input type="checkbox" onclick="togglePermissoes('esquerda', this, 'r')" />
+					W: <input type="checkbox" onclick="togglePermissoes('esquerda', this, 'w')" />
+					D: <input type="checkbox" onclick="togglePermissoes('esquerda', this, 'd')" />
+				</th>
+				<th scope="col" class="col-4">Permissão</th>
+				<th scope="col" class="col-2 text-center">
+					R: <input type="checkbox" onclick="togglePermissoes('direita', this, 'r')" />
+					W: <input type="checkbox" onclick="togglePermissoes('direita', this, 'w')" />
+					D: <input type="checkbox" onclick="togglePermissoes('direita', this, 'd')" />
+				</th>
 			</tr>
 		</thead>
 		<tbody id="tbodyPermissaoGrupo">

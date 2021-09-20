@@ -48,7 +48,7 @@
 		<div class="col-12">
 			<button type="button" class="btn btn-outline-success btn-rounded margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Salvar</button>
 			<a href="{$app_url}admin/usuarios/index" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
-			{if $record.id && $perms.cod_3}
+			{if $record.id && $perms.cod_1.d}
 				<button type="button" class="btn btn-outline-danger margin-5" onclick="ConfirmdeleteRecord('EditarForm')"><i class="fas fa-trash"></i> Deletar</button>
 			{/if}
 		</div>

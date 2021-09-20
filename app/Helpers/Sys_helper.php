@@ -1,5 +1,8 @@
 <?php
 /* ALL FUNCTIONS WITH NO CLASS GOES HERE */
+
+use phpDocumentor\Reflection\DocBlock\Tags\Example;
+
 if(!isset($GLOBALS['AppVersion'])){
 	$GLOBALS['AppVersion'] = new \Config\AppVersion();
 }
@@ -291,41 +294,72 @@ function getSession()
 	}
 	return $sessionCI;
 }
-function hasPermission($cod, $rdct = false, $grupo = null)
+function hasPermission(int $cod, string $nivel_need = null, bool $rdct = false, int $grupo = null)
 {
 	global $permissao;
 
 	if(is_null($grupo)){
-		$grupo = getSession()->get('auth_user')['tipo'];
+		$grupo = (int)getSession()->get('auth_user')['tipo'];
 	}
 
 	if(is_null($grupo)){
-		$grupo = getSession()->get('auth_user_admin')['tipo'];
+		$grupo = (int)getSession()->get('auth_user_admin')['tipo'];
 	}
 
-	if($grupo == '1'){
-		return 'OK|FIXED';
-	}
-
-	$per_cached = getSession()->get('PERM_CACHE_'.$cod.'_'.$grupo);
-	if($per_cached){
-		return $per_cached;
-	}
-	if(!$permissao){
-		$permissao = new \App\Models\PermissaoGrupo\PermissaoGrupo();
-	}
-
-	$hasPermission = $permissao->hasPermission($cod, $grupo);
-
-	if($hasPermission){
-		getSession()->set('PERM_CACHE_'.$cod.'_'.$grupo, $hasPermission['id']);
+	if($grupo == 1){
+		$permissions = [
+			'r' => 1,
+			'd' => 1,
+			'w' => 1,
+		];
 	}else{
-		if($rdct){
-			rdctForbbiden();
+		$permissions = getSession()->get('PERM_CACHE_'.$cod.'_'.$grupo);
+		if(is_null($permissions)){
+			if(!$permissao){
+				$permissao = new \App\Models\PermissaoGrupo\PermissaoGrupo();
+			}
+			$levelPermission = $permissao->hasPermission($cod, $grupo)['nivel'];
+
+			$level = $levelPermission;
+			$permissions = [
+				'r' => 0,
+				'd' => 0,
+				'w' => 0,
+			];
+			$level -= 4;
+			if($level < 0){
+				$level = $levelPermission;
+			}else{
+				$levelPermission -= 4;
+				$permissions['r'] = 1;
+			}
+
+			$level -= 2;
+			if($level < 0){
+				$level = $levelPermission;
+			}else{
+				$levelPermission -= 2;
+				$permissions['w'] = 1;
+			}
+			$level -= 1;
+			if($level < 0){
+				$level = $levelPermission;
+			}else{
+				$levelPermission -= 1;
+				$permissions['d'] = 1;
+			}
+
+			getSession()->set('PERM_CACHE_'.$cod.'_'.$grupo, $permissions);
 		}
 	}
+	if(is_null($nivel_need)){
+		return $permissions;
+	}
+	if(!$permissions[$nivel_need] && $rdct){
+		rdctForbbiden();
+	}
 
-	return $hasPermission;
+	return $permissions[$nivel_need];
 }
 function rdctForbbiden()
 {

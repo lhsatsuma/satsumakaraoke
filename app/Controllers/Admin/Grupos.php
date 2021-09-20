@@ -14,7 +14,7 @@ class Grupos extends AdminBaseController
 
 	public function index($offset = 0)
 	{
-		hasPermission(6, true);
+		hasPermission(2, 'r', true);
 		$this->data['title'] = 'Lista de Grupos';
 		
 		$initial_filter = array(
@@ -51,7 +51,7 @@ class Grupos extends AdminBaseController
 	
 	public function detalhes($id = null)
 	{
-		hasPermission(6, true);
+		hasPermission(2, 'r', true);
 
 		$this->data['title'] = 'Detalhes do Grupo';
 		
@@ -65,14 +65,14 @@ class Grupos extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
 
-		$this->setPermData(11);
+		$this->setPermData(2);
 		
 		return $this->displayNew('pages/Admin/Grupos/detalhes');
 	}
 	
 	public function editar($id = null)
 	{
-		hasPermission(7, true);
+		hasPermission(2, 'w', true);
 
 		$this->data['title'] = ($id) ? 'Editar Grupo' : 'Criar Grupo';
 		
@@ -89,20 +89,20 @@ class Grupos extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 
-		$this->setPermData(8);
+		$this->setPermData(2);
 		
 		return $this->displayNew('pages/Admin/Grupos/editar');
 	}
 	
 	public function salvar()
 	{
-		hasPermission(7, true);
+		hasPermission(2, 'w', true);
 
 		$this->PopulatePost();
 		
 		if($this->mdl->f['deletado']){
 			if(!empty($this->mdl->f['id'])){
-				hasPermission(8, true);
+				hasPermission(2, 'd', true);
 
 				$deleted = $this->mdl->deleteRecord();
 				if($deleted){

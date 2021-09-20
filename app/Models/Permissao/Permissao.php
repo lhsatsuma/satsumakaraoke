@@ -76,7 +76,7 @@ class Permissao extends \App\Models\Basic\Basic
 	{
 		if($grupo){
 			$this->force_deletado = true;
-			$this->select = "permissao.id, permissao.nome, permissao.cod_permissao, permissao_grupo.id as permissao_grupo_id";
+			$this->select = "permissao.id, permissao.nome, permissao.cod_permissao, permissao_grupo.id as permissao_grupo_id, permissao_grupo.nivel";
 			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao
 			AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)
 			AND permissao_grupo.grupo = '{$grupo}'";
@@ -84,6 +84,13 @@ class Permissao extends \App\Models\Basic\Basic
 			$this->order_by['permissao.cod_permissao'] = 'ASC';
 			$results = $this->search();
 			$this->force_deletado = true;
+
+			foreach($results as $key => $result){
+				$results[$key]['id'] = (int)$result['id'];
+				$results[$key]['cod_permissao'] = (int)$result['cod_permissao'];
+				$results[$key]['permissao_grupo_id'] = (int)$result['permissao_grupo_id'];
+				$results[$key]['nivel'] = (int)$result['nivel'];
+			}
 			return $results;
 			
 		}

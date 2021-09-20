@@ -56,7 +56,7 @@
 		{$layout.related.usuario_modificacao}
 	</div>
 </div>
-{if $perms.cod_2}
+{if $perms.cod_1.w}
 <div class="row">
 	<div class="col-12">
 		<a href="{$app_url}admin/usuarios/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>

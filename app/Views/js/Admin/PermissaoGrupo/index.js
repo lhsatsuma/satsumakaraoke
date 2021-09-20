@@ -12,8 +12,6 @@ $('#grupos').change(() => {
                     let html = '';
                     let close = false;
                     res.detail.forEach((ipt, idx) => {
-                        let checked = (ipt.permissao_grupo_id) ? 'checked="checked"': '';
-
                         let value_permissao = (ipt.permissao_grupo_id) ? ipt.permissao_grupo_id: '';
                         if(close){
                             html += "\n</tr>";
@@ -22,12 +20,42 @@ $('#grupos').change(() => {
                             html += "\n<tr class='d-flex'>";
                         }
                         let sideTd = (idx % 2 == 1) ? 'direitaSide' : 'esquerdaSide';
-                        html += `<td scope="col" class="col-5">
+                        
+                        let nivel = ipt.nivel;
+                        let has_r = '';
+                        let has_w = '';
+                        let has_d = '';
+
+                        nivel -= 4;
+                        if(nivel < 0){
+                            nivel = ipt.nivel;
+                        }else{
+                            ipt.nivel -= 4;
+                            has_r = 'checked="true"';
+                        }
+
+                        nivel -= 2;
+                        if(nivel < 0){
+                            nivel = ipt.nivel;
+                        }else{
+                            ipt.nivel -= 2;
+                            has_w = 'checked="true"';
+                        }
+                        nivel -= 1;
+                        if(nivel < 0){
+                            nivel = ipt.nivel;
+                        }else{
+                            ipt.nivel -= 1;
+                            has_d = 'checked="true"';
+                        }
+                        html += `<td scope="col" class="col-4">
                             <input type="hidden" name="permissao[${ipt.id}]" value="${value_permissao}" />
                             [${ipt.cod_permissao}] ${ipt.nome}
                         </td>
-                        <td scope="col"class="col-1  ${sideTd}">
-                            <input type="checkbox" name="permissao_checked[${ipt.id}]" ${checked} />
+                        <td scope="col"class="col-2 text-center ${sideTd}">
+                            R: <input type="checkbox" name="permissao_checked[${ipt.id}][r]" permission="r" ${has_r} />
+                            W: <input type="checkbox" name="permissao_checked[${ipt.id}][w]" permission="w" ${has_w} />
+                            D: <input type="checkbox" name="permissao_checked[${ipt.id}][d]" permission="d" ${has_d} />
                         </td>`;
 
                         if(idx % 2 == 1 && idx > 0){
@@ -46,9 +74,9 @@ $('#grupos').change(() => {
         });
     }
 });
-function togglePermissoes(side, dom)
+function togglePermissoes(side, dom, per)
 {
-    $('.'+side+'Side > input').each((idx, ipt) => {
+    $('.'+side+'Side > input[permission="'+per+'"]').each((idx, ipt) => {
         if(!$(dom).is(':checked')){
             $(ipt).prop('checked', false);
         }else{
