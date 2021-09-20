@@ -50,6 +50,7 @@ class Usuarios extends BaseController
 		$this->PopulatePost();
 		$this->mdl->where['email'] = getFormData('email');
 		$this->mdl->f['status'] = 'ativo';
+		$this->mdl->f['tipo'] = '2'; //Regular
 		$founded = $this->mdl->search(1);
 
 		if(getFormData('senha') !== getFormData('senha_repeat')
