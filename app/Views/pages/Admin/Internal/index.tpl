@@ -27,6 +27,10 @@
             <td>Reconstruir campos no Banco de Dados</td>
             <td>Reconstruir campos de acordo com os models e as definições do campo.(<span class="required">ATENÇÃO:</span> Experimental... Talvez não funcione corretamente, faça um backup antes).</td>
         </tr>
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('reconstructDBComplete')">
+            <td>Reconstruir campos no Banco de Dados Completo</td>
+            <td>Reconstruir campos de acordo com os models e as definições do campo.(<span class="required">ATENÇÃO:</span> Experimental... Talvez não funcione corretamente, faça um backup antes).</td>
+        </tr>
         <tr class="ptr r-dt-slct" onclick="confirmInternal('deleteArquivos')">
             <td>Deletar arquivos não existentes no banco de dados</td>
             <td>Deleta os arquivos físicos que não possuem vínculo ao banco de dados (apenas da pasta upload).</td>

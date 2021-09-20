@@ -108,6 +108,11 @@ class Usuarios extends \App\Models\Basic\Basic
 			'type' => 'bool',
 		),
 	);
+	public $idx_table = [
+		['id', 'deletado'],
+		['tipo','deletado'],
+	];
+	
 	public $template_forget_pass = 'EsqueciMinhaSenha';
 	
 	public function SearchLogin(){

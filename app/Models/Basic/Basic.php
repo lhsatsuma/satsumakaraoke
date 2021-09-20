@@ -760,7 +760,7 @@ class Basic extends Model
 		return 0;
 	}
 
-    public function getIdxSQL(int $key)
+    public function getIdxSQL(int $key, $complete = false)
     {
 		if(!isset($this->idx_table[$key])){
 			return '';
@@ -772,8 +772,10 @@ class Basic extends Model
 			$idxSql .= ($idxSql) ? '_'.substr($fieldIdx, 0, 4) : substr($fieldIdx, 0, 4);
 		}
 		$idxSql .= $key;
-		if($this->getIdxTable($idxSql)){
-			return '';
+		if(!$complete){
+			if($this->getIdxTable($idxSql)){
+				return '';
+			}
 		}
 		$sqlRepair .= $idxSql;
 

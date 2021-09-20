@@ -178,7 +178,7 @@ class Internal extends AdminBaseController
         rdct('/admin/internal/index');
     }
 
-    public function reconstructDB()
+    public function reconstructDB($complete = false)
     {
         /*
         Reconstruct database with models definitions
@@ -188,7 +188,7 @@ class Internal extends AdminBaseController
         getModules();
         $models = getModules();
         $sqlRepair = '';
-        $tablesList = $model->listTables();
+        $tablesList = (!$complete) ? $model->listTables() : [];
         foreach($models as $className => $name){
 
             $mdl = new $className();
@@ -311,9 +311,8 @@ class Internal extends AdminBaseController
             if(!$tableExists){
                 $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."PRIMARY KEY (id)<br />) ENGINE = InnoDB;";
             }
-
             foreach($mdl->idx_table as $keyIdx => $fieldsIdx){
-                $sqlIdx = $mdl->getIdxSQL($keyIdx);
+                $sqlIdx = $mdl->getIdxSQL($keyIdx, $complete);
                 $sqlRepair .= ($sqlIdx) ? "<br />".$sqlIdx : '';
             }
         }
@@ -323,10 +322,14 @@ class Internal extends AdminBaseController
         }else{
             $msg_return .= "<br/>Nada a se fazer...";
         }
-        
         $this->setMsgData('success', $msg_return);
         rdct('/admin/internal/index');
         exit;
+    }
+
+    public function reconstructDBComplete()
+    {
+        $this->reconstructDB(true);
     }
 
     public function reorderMusics()
