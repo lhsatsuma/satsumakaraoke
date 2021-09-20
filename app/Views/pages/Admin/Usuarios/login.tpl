@@ -30,7 +30,7 @@
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
 						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
-						<p><button class="btn btn-outline-info btn-rounded" type="submit">Conectar</button></p>
+						<p><button class="btn form-control btn-outline-info btn-rounded" type="submit">Conectar</button></p>
 					</form>
 				</div>
 			</div>

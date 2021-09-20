@@ -29,8 +29,8 @@
 						<p><input name="email" type="text" id="email" class="form-control" value="" placeholder="Email" autocomplete="off"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha" autocomplete="off"/></p>
 						<p><input name="senha_repeat" type="password" id="senha_repeat" class="form-control" value="" placeholder="Repita a Senha" autocomplete="off"/></p>
-						<p><button type="button" class="btn form-control btn-success" ><img class="loading-icon" src="{$app_url}images/loading.gif" style="display: none;cursor: disabled;width: 1rem;margin-right: 11px;"/> Cadastrar</button></p>
-						<p><button type="button" class="btn form-control btn-info" onclick="location.href='{$app_url}login'"> Voltar</button></p>
+						<p><button type="button" class="btn form-control btn-outline-success btn-rounded" ><img class="loading-icon" src="{$app_url}images/loading.gif" style="display: none;cursor: disabled;width: 1rem;margin-right: 11px;"/> Cadastrar</button></p>
+						<p><button type="button" class="btn form-control btn-outline-info btn-rounded" onclick="location.href='{$app_url}login'"> Voltar</button></p>
 					</form>
 				</div>
 			</div>
