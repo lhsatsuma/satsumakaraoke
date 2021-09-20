@@ -19,7 +19,7 @@ class SendEmail{
 		}
 		
 		$this->mailer = new \PHPMailer\PHPMailer\PHPMailer();
-		$this->mailer->IsSMTP(true);
+		$this->mailer->IsSMTP();
 		$this->mailer->Host = $this->mailCI->SMTPHost;
 		$this->mailer->Port = $this->mailCI->SMTPPort;
 		$this->mailer->SMTPAuth = true;
@@ -28,6 +28,7 @@ class SendEmail{
 		$this->mailer->Password = $this->mailCI->SMTPPass;
 		$this->mailer->From = $this->mailCI->fromEmail;
 		$this->mailer->FromName = $this->mailCI->fromName;
+		$this->mailer->SMTPDebug = 3;
 		$this->mailer->Debugoutput = function($str, $level) {
 			log_message('debug', "$level: $str\n");
 		};
@@ -48,6 +49,11 @@ class SendEmail{
 		$this->mailer->IsHTML(true); // Define que o e-mail será enviado como HTML
 		$this->mailer->Subject  = $this->subject; // Assunto da mensagem
 		$this->mailer->Body = $this->body;
+
+		$sended = $this->mailer->Send();
+		if(!$sended){
+			log_message('error', 'Error sending email: '.$this->mailer->ErrorInfo);
+		}
 		return $this->mailer->Send();
 	}
 	

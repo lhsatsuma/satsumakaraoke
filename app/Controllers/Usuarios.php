@@ -240,7 +240,7 @@ class Usuarios extends BaseController
 			$this->data['id'] = $id;
 			$this->data['hash'] = $hash;
 			$this->data['email'] = $this->mdl->f['email'];
-			return $this->displayNew('pages/Usuarios/resetSenha');
+			return $this->displayNew('pages/Usuarios/resetSenha', false);
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha
 			$this->setMsgData('error', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
@@ -277,10 +277,10 @@ class Usuarios extends BaseController
 					$this->setMsgData('success', 'Senha alterada com sucesso! Você já pode fazer o login com a nova senha.');
 					rdct('/login');
 				}
-				$this->data['login_msg'] = 'Não foi possível alterar a senha! Tente novamente.';
+				$this->setMsgData('error', 'Não foi possível alterar a senha! Tente novamente.');
 				$changedValid = false;
 			}else{
-				$this->data['login_msg'] = 'As senhas não conferem!';
+				$this->setMsgData('error', 'As senhas não conferem!');
 				$changedValid = false;
 			}
 			
@@ -288,7 +288,8 @@ class Usuarios extends BaseController
 				$this->data['id'] = $id;
 				$this->data['hash'] = $hash;
 				$this->data['usuario'] = $this->mdl->f['usuario'];
-				return $this->displayNew('pages/Usuarios/resetSenha');
+				return $this->displayNew('pages/Usuarios/resetSenha', false);
+				rdct('/login/fgt_rcv/'.$hash);
 			}
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha
