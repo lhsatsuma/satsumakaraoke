@@ -260,9 +260,9 @@ class BaseController extends Controller
 		//Initial data for view, assuming this it's gonna be used in all pages
 		$msg_type = '';
 		if($this->session->getFlashdata('msg_type') == 'success'){
-			$msg_type = 'msg-success';
-		}elseif($this->session->getFlashdata('msg_type') == 'alert'){
-			$msg_type = 'alert';
+			$msg_type = 'success';
+		}elseif($this->session->getFlashdata('msg_type') == 'error'){
+			$msg_type = 'error';
 		}
 		$this->js_vars['ajax_pagination'] = ($AppVersion->ajax_pagination ? true : false);
 		$this->js_vars['ch_ver'] = GetCacheVersion();

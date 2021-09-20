@@ -104,10 +104,7 @@ class Grupos extends AdminBaseController
 				if($deleted){
 					rdct('/admin/grupos/index');
 				}
-				$this->validation_errors = array(
-					'generic_error' => 'Não foi possível deletar o registro, tente novamente.',
-				);
-				$this->SetErrorValidatedForm(false);
+				$this->setMsgData('error', 'Não foi possível deletar o registro, tente novamente.');
 				rdct('/admin/grupos/editar/'.$this->mdl->f['id']);
 			}
 			rdct('/admin/grupos/editar');
@@ -122,10 +119,7 @@ class Grupos extends AdminBaseController
 		if($saved){
 			rdct('/admin/grupos/detalhes/'.$this->mdl->f['id']);
 		}else{
-			$this->validation_errors = array(
-				'generic_error' => $this->mdl->last_error,
-			);
-			$this->SetErrorValidatedForm();
+			$this->setMsgData('error', $this->mdl->last_error);
 			rdct('/admin/grupos/editar/'.$this->mdl->f['id']);
 		}
 	}

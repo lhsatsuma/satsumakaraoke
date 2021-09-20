@@ -1093,3 +1093,11 @@ input:checked+.slider:before {
 	cursor: default;
 	color: #e5e5e5 !important;
 }
+.msg-type-success{
+	color: #28a745;
+	font-size: 1.1rem;
+}
+.msg-type-error{
+	color: red;
+	font-size: 1.1rem;
+}

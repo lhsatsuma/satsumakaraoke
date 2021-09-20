@@ -22,7 +22,9 @@
 			<div class="row">
 				<div class="col-10 col-sm-8 col-md-6 col-xl-4 login-div">
 					<div id="header_logo"><img src="{$app_url}images/logo.png" /></div>
-					<div id="ERROR_LOGIN" class="required">{$login_msg}</div>
+					{if $msg_type}
+						<div id="ERROR_LOGIN" class="msg-type-{$msg_type}">{$msg}</div>
+					{/if}
 					<form name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
 						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>

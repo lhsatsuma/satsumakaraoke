@@ -102,10 +102,7 @@ class Usuarios extends AdminBaseController
 				if($deleted){
 					rdct('/admin/usuarios/index');
 				}
-				$this->validation_errors = array(
-					'generic_error' => 'Não foi possível deletar o registro, tente novamente.',
-				);
-				$this->SetErrorValidatedForm(false);
+				$this->setMsgData('error', 'Não foi possível deletar o registro, tente novamente.');
 				rdct('/admin/usuarios/editar/'.$this->mdl->f['id']);
 			}
 			rdct('/admin/usuarios/editar');
@@ -154,10 +151,7 @@ class Usuarios extends AdminBaseController
 		if($saved){
 			rdct('/admin/usuarios/index');
 		}else{
-			$this->validation_errors = array(
-				'generic_error' => $this->mdl->last_error,
-			);
-			$this->SetErrorValidatedForm();
+			$this->setMsgData('error', $this->mdl->last_error);
 			rdct('/admin/usuarios/editar/'.getFormData('id'));
 		}
 	}
@@ -236,16 +230,13 @@ class Usuarios extends AdminBaseController
 			$AuthUser['email'] = $saved['email'];
 			$AuthUser['senha'] = $saved['senha'];
 			$this->session->set('auth_user', $AuthUser);
-			$this->validation_errors = array(
-				'generic_error' => 'Dados atualizados com sucesso!',
-			);
-			$this->SetErrorValidatedForm(false);
+
+			$this->setMsgData('sucess', 'Dados atualizados com sucesso!');
 			rdct('/admin/usuarios/MeusDados');
 		}else{
-			$this->validation_errors = array(
-				'generic_error' => $this->mdl->last_error,
-			);
-			$this->SetErrorValidatedForm();
+
+			$this->setMsgData('error', $this->mdl->last_error);
+			
 			rdct('/admin/admin/usuarios/MeusDados');
 		}
 	}
@@ -275,7 +266,7 @@ class Usuarios extends AdminBaseController
 		}
 		$exists = $this->mdl->SearchLogin();
 		if(!$exists){
-			$this->session->setFlashdata('login_msg', 'Login ou senha inválido(s)');
+			$this->setMsgData('error', 'Login ou senha inválido(s)');
 			rdct('/admin/login');
 		}
 		
@@ -283,7 +274,7 @@ class Usuarios extends AdminBaseController
 		$AuthUser = $this->mdl->get();
 		
 		if(!hasPermission(9, $AuthUser['tipo'])){
-			$this->session->setFlashdata('login_msg', 'Accesso negado! Entre em contato com o administrador.');
+			$this->setMsgData('error', 'Accesso negado! Entre em contato com o administrador.');
 			rdct('/admin/login');
 		}
 		

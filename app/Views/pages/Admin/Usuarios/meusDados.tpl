@@ -1,7 +1,7 @@
-{if $save_data_errors.generic_error}
-<div class="row">
+{if $msg_type}
+<div class="row msg-type-{$msg_type}">
 	<div class="col-12">
-		<p class="required">{$save_data_errors.generic_error}</p>
+		<p>{$msg}</p>
 	</div>
 </div>
 {/if}

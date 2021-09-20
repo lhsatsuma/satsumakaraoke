@@ -9,6 +9,8 @@ class Karaoke_ajax extends AdminBaseController
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
+
+		hasPermission(6, true);
 		
 		$this->ajax = new \App\Libraries\Sys\AjaxLib();
 		$this->ajax->CheckIncoming();

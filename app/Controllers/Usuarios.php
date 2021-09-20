@@ -60,11 +60,11 @@ class Usuarios extends BaseController
 		$saved = $this->mdl->saveRecord();
 		// $saved = false;
 		if($saved){
-			$this->session->setFlashdata('login_msg', 'Conta criado com sucesso!');
+			$this->setMsgData('success', 'Conta criado com sucesso!');
 			rdct('/login');
 		}else{
 			$this->SetErrorValidatedForm();
-			$this->session->setFlashdata('login_msg', 'Erro ao criar a conta! Tente novamente.');
+			$this->setMsgData('error', 'Erro ao criar a conta! Tente novamente.');
 			rdct('/login/criarConta');
 		}
 	}
@@ -146,18 +146,14 @@ class Usuarios extends BaseController
 		}
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			$this->validation_errors = array(
-				'generic_error' => 'Dados atualizados com sucesso!',
-			);
+			$this->setMsgData('success', 'Dados atualizados com sucesso!');
 			$AuthUser = $this->mdl->get();
 	
 			$this->session->set('auth_user', $AuthUser);
 			$this->SetErrorValidatedForm(false);
 			rdct('/usuarios/MeusDados');
 		}else{
-			$this->validation_errors = array(
-				'generic_error' => $this->mdl->last_error,
-			);
+			$this->setMsgData('error', $this->mdl->last_error);
 			$this->SetErrorValidatedForm();
 			rdct('/usuarios/MeusDados');
 		}
@@ -168,7 +164,6 @@ class Usuarios extends BaseController
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
-		$this->data['login_msg'] = $this->session->getFlashdata('login_msg');
 		return $this->displayNew('pages/Usuarios/login', false);
 	}
 	
@@ -189,7 +184,7 @@ class Usuarios extends BaseController
 		}
 		$exists = $this->mdl->SearchLogin();
 		if(!$exists){
-			$this->session->setFlashdata('login_msg', 'Login ou senha inválido(s)');
+			$this->setMsgData('error', 'Login ou senha inválido(s)');
 			rdct('/login');
 		}
 		
@@ -247,7 +242,7 @@ class Usuarios extends BaseController
 			return $this->displayNew('pages/Usuarios/resetSenha');
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha
-			$this->session->setFlashdata('login_msg', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
+			$this->setMsgData('error', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
 			rdct('/login');
 		}
 	}
@@ -278,7 +273,7 @@ class Usuarios extends BaseController
 				
 				$changed = $this->mdl->changePass($nova);
 				if($changed){
-					$this->session->setFlashdata('login_msg', 'Senha alterada com sucesso! Você já pode fazer o login com a nova senha.');
+					$this->setMsgData('success', 'Senha alterada com sucesso! Você já pode fazer o login com a nova senha.');
 					rdct('/login');
 				}
 				$this->data['login_msg'] = 'Não foi possível alterar a senha! Tente novamente.';
@@ -296,7 +291,7 @@ class Usuarios extends BaseController
 			}
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha
-			$this->session->setFlashdata('login_msg', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
+			$this->setMsgData('error', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
 			rdct('/login');
 		}
 	}

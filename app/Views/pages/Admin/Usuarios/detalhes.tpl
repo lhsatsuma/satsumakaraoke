@@ -1,7 +1,7 @@
-{if $save_data_errors.generic_error}
-<div class="row">
+{if $msg_type}
+<div class="row msg-type-{$msg_type}">
 	<div class="col-12">
-		<p class="required">{$save_data_errors.generic_error}</p>
+		<p>{$msg}</p>
 	</div>
 </div>
 {/if}
@@ -56,7 +56,7 @@
 		{$layout.related.usuario_modificacao}
 	</div>
 </div>
-{if $perm.cod_2}
+{if $perms.cod_2}
 <div class="row">
 	<div class="col-12">
 		<a href="{$app_url}admin/usuarios/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>

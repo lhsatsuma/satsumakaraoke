@@ -148,6 +148,7 @@ class Musicas extends AdminBaseController
 
 	public function karaoke()
 	{
+		hasPermission(6, true);
 		$version = new \Config\AppVersion();
 
 		$this->js_vars = array_merge($this->js_vars, [
