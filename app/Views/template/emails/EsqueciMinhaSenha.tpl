@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=windows-1252">
-		<title>Satsuma Karaoke</title>
+		<title>Esqueci Minha Senha - {$sys_title}</title>
 	</head>
 	<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 		<table style="COLOR: #333; font-family: Tahoma, Geneva, sans-serif;" cellpadding="0" cellspacing="0" width="699" align="center" border="0">

@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 	<head>
-		<title>Error - Satsuma Karaoke</title>
+		<title>Error - {$sys_title}</title>
 		<style type="text/css">
 			<?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(ROOTPATH . 'public/cssManager/bootstrap.min.css')) ?>
 		</style>

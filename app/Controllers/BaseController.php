@@ -274,6 +274,7 @@ class BaseController extends Controller
 			'msg' => $this->session->getFlashdata('msg'),
 			'msg_type' => $msg_type,
 			'title' => '',
+			'sys_title' => GetTitle(),
 			'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
 			'auth_user' => $this->session->get('auth_user'),
 			'auth_user_admin' => $this->session->get('auth_user_admin'),

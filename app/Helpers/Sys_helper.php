@@ -8,6 +8,10 @@ if(!function_exists('GetCacheVersion')){
 		global $AppVersion;
 		return ($AppVersion->enc_md5) ? md5($AppVersion->css) : $AppVersion->css;
 	}
+	function GetTitle(){
+		global $AppVersion;
+		return $AppVersion->title;
+	}
 }
 if(!function_exists('rdct')){
 	function rdct($to){

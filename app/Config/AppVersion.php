@@ -21,6 +21,8 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 if sets false its gonna be like ?v=20200912_v1
 	 */
 	public $enc_md5 = true;
+
+	public $title = 'Sistema';
 	
 	
 	/*

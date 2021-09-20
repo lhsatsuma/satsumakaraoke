@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 	<head>
-		<title>404 - Satsuma Karaokê</title>
+		<title>404 - {$sys_title}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="initial-scale=1">
 		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
