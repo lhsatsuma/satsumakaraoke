@@ -14,7 +14,7 @@ class Grupos extends AdminBaseController
 
 	public function index($offset = 0)
 	{
-		hasPermission(10, true);
+		hasPermission(6, true);
 		$this->data['title'] = 'Lista de Grupos';
 		
 		$initial_filter = array(
@@ -51,7 +51,7 @@ class Grupos extends AdminBaseController
 	
 	public function detalhes($id = null)
 	{
-		hasPermission(10, true);
+		hasPermission(6, true);
 
 		$this->data['title'] = 'Detalhes do Grupo';
 		
@@ -72,7 +72,7 @@ class Grupos extends AdminBaseController
 	
 	public function editar($id = null)
 	{
-		hasPermission(11, true);
+		hasPermission(7, true);
 
 		$this->data['title'] = ($id) ? 'Editar Grupo' : 'Criar Grupo';
 		
@@ -89,7 +89,7 @@ class Grupos extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 
-		$this->setPermData(12);
+		$this->setPermData(8);
 		
 		return $this->displayNew('pages/Admin/Grupos/editar');
 	}

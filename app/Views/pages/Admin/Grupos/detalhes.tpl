@@ -38,7 +38,7 @@
 		</div>
 	</div>
 </form>
-{if $perms.cod_11}
+{if $perms.cod_7}
 <div class="row">
 	<div class="col-12">
 		<a href="{$app_url}admin/grupos/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>

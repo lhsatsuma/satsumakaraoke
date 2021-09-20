@@ -299,6 +299,10 @@ function hasPermission($cod, $rdct = false, $grupo = null)
 		$grupo = getSession()->get('auth_user_admin')['tipo'];
 	}
 
+	if($grupo == '1'){
+		return 'OK|FIXED';
+	}
+
 	$per_cached = getSession()->get('PERM_CACHE_'.$cod.'_'.$grupo);
 	if($per_cached){
 		return $per_cached;

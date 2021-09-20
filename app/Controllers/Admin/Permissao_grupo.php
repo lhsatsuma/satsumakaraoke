@@ -4,17 +4,10 @@ namespace App\Controllers\Admin;
 class Permissao_grupo extends AdminBaseController
 {
 	public $module_name = 'PermissaoGrupo';
-	
-	public function ExtButtonsGenericFilters()
-	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/grupos/editar">Novo +</a>';
-
-		return parent::ExtButtonsGenericFilters();
-	}
 
 	public function index($offset = 0)
 	{
-		hasPermission(16, true);
+		hasPermission(12, true);
 
 		$this->data['title'] = 'Lista de Permissão por Grupo';
 	
@@ -37,7 +30,7 @@ class Permissao_grupo extends AdminBaseController
 
 	public function procurarPermissoes()
 	{
-		hasPermission(16, true);
+		hasPermission(12, true);
 		
 		$ajaxLib = new \App\Libraries\Sys\AjaxLib(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
@@ -48,7 +41,7 @@ class Permissao_grupo extends AdminBaseController
 	
 	public function salvar()
 	{
-		hasPermission(16, true);
+		hasPermission(12, true);
 		
 		$postdata = getFormData();
 		foreach($postdata['permissao'] as $perm_id => $saved_id){

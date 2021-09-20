@@ -10,7 +10,7 @@ class Musicas extends BaseController
 	{
 		$extBtns = [];
 		$extBtns['helpSongs'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#helpSongsModal"><i class="fas fa-info"></i></button>';
-		if(hasPermission(7)){
+		if(hasPermission(14)){
 			$extBtns['import'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i> Importar</button>';
 		}
 
