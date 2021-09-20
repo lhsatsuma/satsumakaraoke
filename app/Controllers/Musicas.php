@@ -67,6 +67,7 @@ class Musicas extends BaseController
 	
 	public function CheckImportVideo()
 	{
+		hasPermission(14,true);
 		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link']);
 		
 		$this->mdl = new \App\Models\Musicas\Musicas();
@@ -95,6 +96,7 @@ class Musicas extends BaseController
 	
 	public function ImportVideoUrl()
 	{
+		hasPermission(14,true);
 		
 		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link','md5','title']);
 		

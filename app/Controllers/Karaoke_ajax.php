@@ -7,6 +7,8 @@ class Karaoke_ajax extends BaseController
 
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
+		hasPermission(16,true);
+
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
@@ -27,7 +29,6 @@ class Karaoke_ajax extends BaseController
 
 	public function k_set_thread()
 	{
-
 		if(empty($this->ajax->body['action'])){
 			$this->ajax->setError('1x001', 'action not found');
 		}

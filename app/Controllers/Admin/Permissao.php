@@ -96,10 +96,13 @@ class Permissao extends AdminBaseController
 	
 	public function salvar()
 	{
+		hasPermission(10, true);
+
 		$this->PopulatePost();
 		
 		if($this->mdl->f['deletado']){
 			if(!empty($this->mdl->f['id'])){
+				hasPermission(11, true);
 				$deleted = $this->mdl->deleteRecord();
 				if($deleted){
 					rdct('/admin/permissao/index');

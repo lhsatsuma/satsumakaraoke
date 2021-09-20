@@ -94,10 +94,14 @@ class Usuarios extends AdminBaseController
 	
 	public function salvar()
 	{
+		hasPermission(2, true);
+
 		$this->PopulatePost();
 		
 		if($this->mdl->f['deletado']){
 			if(!empty($this->mdl->f['id'])){
+				hasPermission(3, true);
+				
 				$deleted = $this->mdl->deleteRecord();
 				if($deleted){
 					rdct('/admin/usuarios/index');
