@@ -105,7 +105,7 @@ class Soap
 			$result = null;
 			try{
 				$result = $this->client->__call($method, $data);
-			}catch(SoapFault $fault){
+			}catch(\SoapFault $fault){
 				$valid_soap = false;
 				$this->data['request_body'] = $this->client->__getLastRequest();
 				$this->data['request_headers'] = $this->client->__getLastRequestHeaders();
