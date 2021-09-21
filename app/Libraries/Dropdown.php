@@ -1,7 +1,6 @@
 <?php
 namespace App\Libraries;
 
-
 class Dropdown extends \App\Libraries\Sys\Dropdown{
 	/*
 	ARRAY OF DROPDOWN VALUES

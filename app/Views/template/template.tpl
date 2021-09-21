@@ -17,6 +17,9 @@
 		{if $auth_user.dark_mode}
        		<link rel="stylesheet" id="darkmodecss" href="{$app_url}cssManager/dark.css?v={$ch_ver}" lazyload="1">
 		{/if}
+        <script language="javascript" type="text/javascript">
+			localStorage.dark_mode_active = {$auth_user.dark_mode};
+		</script>
         <script src="{$app_url}jsManager/fontawesome.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-3.5.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>

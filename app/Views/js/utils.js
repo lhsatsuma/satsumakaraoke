@@ -749,7 +749,6 @@ if((
 	) ||
 	_app_vars._ACTION_NAME == 'criarconta'){
 	//Check if cached dark mode
-	console.log(localStorage.dark_mode_active);
 	if(localStorage.dark_mode_active){
 		toggleDarkMode(false);
 	}
