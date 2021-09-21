@@ -89,6 +89,6 @@ class CssManager extends BaseController
 				'role_access' => array(),
 			);
 		}
-		$this->SetSysLib(); //Checking session if necessary
+		$this->SetSys(); //Checking session if necessary
 	}
 }

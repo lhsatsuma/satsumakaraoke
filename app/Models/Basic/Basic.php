@@ -100,7 +100,7 @@ class Basic extends Model
 		parent::__construct();
 		$this->session = getSession();
 		$this->helper = $this->db->table($this->table);
-		$this->fields = new \App\Libraries\Sys\FieldsLib();
+		$this->fields = new \App\Libraries\Sys\Fields();
 		$this->request = getFormData();
 
 		if($this->session->get('auth_user')){

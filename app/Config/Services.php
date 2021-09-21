@@ -29,6 +29,6 @@ class Services extends CoreServices
 			$view = static::renderer();
 		}
 
-		return new \App\Libraries\Sys\PagerLib($config, $view);
+		return new \App\Libraries\Sys\Pager($config, $view);
 	}
 }

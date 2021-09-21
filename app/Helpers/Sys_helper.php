@@ -364,7 +364,7 @@ function hasPermission(int $cod, string $nivel_need = null, bool $rdct = false, 
 function rdctForbbiden()
 {
 	$focus = new \App\Controllers\BaseController();
-	$focus->SetSysLib();
+	$focus->SetSys();
 	$focus->SetView();
 	$focus->SetLayout();
 	$focus->SetInitialData();

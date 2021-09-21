@@ -55,7 +55,7 @@ class Soap
 		$this->client = new \SoapClient($urlEffective, $dataClient);
 		
 		if(!empty($this->headers)){
-			$headers[] = new \SoapHeader($this->headers);
+			$headers[] = new \SoapHeader('SoapNamespace', $this->headers);
 			$this->client->__setSoapHeaders($headers);
 		}
 		

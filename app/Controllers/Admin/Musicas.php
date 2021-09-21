@@ -101,11 +101,11 @@ class Musicas extends AdminBaseController
 
 	public function sanitanizeName()
 	{
-		$this->ajax = new \App\Libraries\Sys\AjaxLib();
+		$this->ajax = new \App\Libraries\Sys\Ajax();
 		$this->ajax->CheckIncoming();
 		$this->ajax->CheckRequired(['nome']);
 
-		$ytLib = new \App\Libraries\YoutubeLib();
+		$ytLib = new \App\Libraries\Youtube();
 		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->ajax->body['nome'])));
 		
 	}
@@ -113,7 +113,7 @@ class Musicas extends AdminBaseController
 	public function fixNomesSave()
 	{
 		hasPermission(9, 'w', true);
-		$this->ajax = new \App\Libraries\Sys\AjaxLib(['id', 'newNome', 'tipo']);
+		$this->ajax = new \App\Libraries\Sys\Ajax(['id', 'newNome', 'tipo']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();
@@ -130,7 +130,7 @@ class Musicas extends AdminBaseController
 	public function fixNomesSaveDel()
 	{
 		hasPermission(9, 'w', true);
-		$this->ajax = new \App\Libraries\Sys\AjaxLib(['id']);
+		$this->ajax = new \App\Libraries\Sys\Ajax(['id']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();

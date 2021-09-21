@@ -13,7 +13,7 @@ ERRORS CODE:
 */
 namespace App\Libraries\Sys;
 
-class AjaxLib{
+class Ajax{
 	public $data = array();
 	public $request;
 	public $body;

@@ -2,7 +2,7 @@
 namespace App\Libraries;
 
 
-class DropdownLib extends \App\Libraries\Sys\DropdownLib{
+class Dropdown extends \App\Libraries\Sys\Dropdown{
 	/*
 	ARRAY OF DROPDOWN VALUES
 	*/

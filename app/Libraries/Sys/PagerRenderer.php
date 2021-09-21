@@ -1,15 +1,15 @@
 <?php
 namespace App\Libraries\Sys;
 
-class PagerRendererLib extends \CodeIgniter\Pager\PagerRenderer
+class PagerRenderer extends \CodeIgniter\Pager\PagerRenderer
 {
 	
-	public function GetFirstPageNumber()
+	public function GetFirstPageNumber() : int
 	{
 		return 1;
 	}
 	
-	public function GetLastPageNumber()
+	public function GetLastPageNumber() : int
 	{
 		return $this->pageCount;
 	}

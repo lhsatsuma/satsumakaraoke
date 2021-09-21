@@ -1,7 +1,7 @@
 <?php
 namespace App\Libraries\Sys;
 
-class LayoutLib
+class Layout
 {
 	//Sets fields maps because i can get from another controller or model
 	public $fields_map = array();
@@ -14,7 +14,7 @@ class LayoutLib
 	{
 		//Nothing to do for now
 		$this->fields_map = $fields_map;
-		$this->dropdown = new \App\Libraries\DropdownLib();
+		$this->dropdown = new \App\Libraries\Dropdown();
         $this->dropdown->values['modules_list'] = getModules();
 		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
 		$this->session = getSession();

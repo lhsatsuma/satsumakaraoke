@@ -20,7 +20,7 @@ class Permissao_grupo extends AdminBaseController
 			$gruposArr[$val['id']] = $val['nome'];
 		}
 		unset($gruposAtivos);
-		$DropdownLib = new \App\Libraries\Sys\DropdownLib();
+		$DropdownLib = new \App\Libraries\Sys\Dropdown();
 		$DropdownLib->values['gruposAtivos'] = $gruposArr;
 
 		$this->data['gruposAtivos'] = $DropdownLib->GetDropdownHTML('gruposAtivos');
@@ -32,7 +32,7 @@ class Permissao_grupo extends AdminBaseController
 	{
 		hasPermission(4, 'r', true);
 		
-		$ajaxLib = new \App\Libraries\Sys\AjaxLib(['grupo_id']);
+		$ajaxLib = new \App\Libraries\Sys\Ajax(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
 		$permissoes = $permissao->getAllPermissao($ajaxLib->body['grupo_id']);
 		

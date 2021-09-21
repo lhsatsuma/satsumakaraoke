@@ -47,7 +47,7 @@ return preg_replace($regex, '$1', $str);
 
     }
 }
-class YoutubeLib
+class Youtube
 {
     public $upload_path = ROOTPATH . 'public/uploads/VIDEOSKARAOKE/';
 

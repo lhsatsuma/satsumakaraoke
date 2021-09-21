@@ -1,7 +1,7 @@
 <?php
 namespace App\Libraries\Sys;
 
-class FilterLib
+class Filter
 {
 	
 	/* Filter fields and propertys */
@@ -40,7 +40,7 @@ class FilterLib
 	public function display()
 	{
 		if(empty($this->action)){
-			throw new Exception('action filter is undefined');
+			throw new \Exception('action filter is undefined');
 		}
 		$tpl = (($this->template) ? $this->template.'/' : '').$this->template_name;
 		
@@ -78,7 +78,7 @@ class FilterLib
 				$this->has_icon_advanced_filter = true;
 			}
 		}
-		$this->layout = new \App\Libraries\Sys\LayoutLib($fields_map);
+		$this->layout = new \App\Libraries\Sys\Layout($fields_map);
 		
 		$types_layout = $this->layout->GetAllFieldsFilter($record);
 		$html = '';

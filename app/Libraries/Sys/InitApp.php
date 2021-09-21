@@ -1,7 +1,7 @@
 <?php
 namespace App\Libraries\Sys;
 
-class InitAppLib
+class InitApp
 {
 	private $url;
 	private $session;

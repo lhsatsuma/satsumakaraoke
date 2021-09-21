@@ -12,7 +12,7 @@ class Karaoke_ajax extends AdminBaseController
 
 		hasPermission(8, 'r', true);
 		
-		$this->ajax = new \App\Libraries\Sys\AjaxLib();
+		$this->ajax = new \App\Libraries\Sys\Ajax();
 		$this->ajax->CheckIncoming();
 		
 		$this->mdl = new \App\Models\MusicasFila\MusicasFila();

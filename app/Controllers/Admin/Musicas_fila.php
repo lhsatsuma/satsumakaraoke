@@ -56,7 +56,7 @@ class Musicas_fila extends AdminBaseController
 	public function cancelar_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['id']);
+		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
 		
 		$musicas_mdl = new \App\Models\Musicas\Musicas();
 		

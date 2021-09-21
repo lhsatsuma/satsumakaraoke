@@ -6,7 +6,7 @@ Por: Luis Henrique Minoru Satsuma
 Otimizado para PHP 7.1
 */
 namespace App\Libraries\Sys;
-class CurlLib{
+class Curl{
 	public $base_url = '';
 	private $headers = array();
 	private $data = array();
@@ -74,7 +74,6 @@ class CurlLib{
 	public function call($method, $data=null, $ext_url=null){
 		//Reset var for the request
 		$this->data = array();
-		$this->ch = null;
 		
 		//Checking if method its allowed
 		if(!in_array(strtolower($method), $this->GetOption('methods_allowed'))){

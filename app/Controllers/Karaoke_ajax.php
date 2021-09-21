@@ -12,7 +12,7 @@ class Karaoke_ajax extends BaseController
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
-		$this->ajax = new \App\Libraries\Sys\AjaxLib();
+		$this->ajax = new \App\Libraries\Sys\Ajax();
 		$this->ajax->CheckIncoming();
 	}
 

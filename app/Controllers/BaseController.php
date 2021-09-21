@@ -157,7 +157,7 @@ class BaseController extends Controller
 		//Check dummy controller
 		if($this->dummy_controller === false){
 			
-			$this->SetSysLib();
+			$this->SetSys();
 			$this->SetMdl();
 			$this->SetView();
 			$this->SetLayout();
@@ -180,10 +180,10 @@ class BaseController extends Controller
 		}
 	}
 	
-	public function SetSysLib()
+	public function SetSys()
 	{
 		//Initialize all system vars for models and session data
-		$this->sysLib = new \App\Libraries\Sys\InitAppLib($this->access_cfg['needs_login'], $this->module_name);
+		$this->sysLib = new \App\Libraries\Sys\InitApp($this->access_cfg['needs_login'], $this->module_name);
 		$this->CheckSysAccess();
 	}
 	
@@ -215,7 +215,7 @@ class BaseController extends Controller
 	public function SetLayout()
 	{
 		
-		$this->layout = new \App\Libraries\Sys\LayoutLib($this->mdl->fields_map);
+		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map);
 		$this->layout->template = $this->template;
 	}
 	public function SetBreadCrumbArr()
@@ -421,7 +421,7 @@ class BaseController extends Controller
 	
 	public function GenerateGenericFilter()
 	{
-		$this->filterLib = new \App\Libraries\Sys\FilterLib($this->request, $this->filter);
+		$this->filterLib = new \App\Libraries\Sys\Filter($this->request, $this->filter);
 		$this->filterLib->action = $this->filterLib_cfg['action'];
 		$this->filterLib->generic_filter = $this->filterLib_cfg['generic_filter'];
 		$this->filterLib->id_filter = $this->filterLib_cfg['id_filter'];
@@ -472,7 +472,7 @@ class BaseController extends Controller
 			$content = str_replace(array("    ", "\t", "\n", "\r"), "", $content);
 		}
 		if($this->request->getGet('bdOnly')){
-			$Ajax = new \App\Libraries\Sys\AjaxLib();
+			$Ajax = new \App\Libraries\Sys\Ajax();
 			$Ajax->setSuccess($content);
 		}else{
 			return $content;

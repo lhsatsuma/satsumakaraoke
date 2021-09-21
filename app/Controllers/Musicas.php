@@ -68,12 +68,12 @@ class Musicas extends BaseController
 	public function CheckImportVideo()
 	{
 		hasPermission(9, 'r', true);
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link']);
+		$AjaxLib = new \App\Libraries\Sys\Ajax(['link']);
 		
 		$this->mdl = new \App\Models\Musicas\Musicas();
 
 
-		$ytLib = new \App\Libraries\YoutubeLib();
+		$ytLib = new \App\Libraries\Youtube();
 		$AjaxLib->body['link'] = trim($AjaxLib->body['link']);
 
 
@@ -98,7 +98,7 @@ class Musicas extends BaseController
 	{
 		hasPermission(9, 'r', true);
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['link','md5','title']);
+		$AjaxLib = new \App\Libraries\Sys\Ajax(['link','md5','title']);
 		
 		$return_data = array(
 			'exists' => false,
@@ -110,7 +110,7 @@ class Musicas extends BaseController
 			'len_link' => $AjaxLib->body['len_link']
 		);
 		
-		$ytLib = new \App\Libraries\YoutubeLib();
+		$ytLib = new \App\Libraries\Youtube();
 
 		$downloaded = $ytLib->importUrl($AjaxLib->body['link'], $AjaxLib->body['md5'], $AjaxLib->body['title']);
 
@@ -142,7 +142,7 @@ class Musicas extends BaseController
 	public function insert_fila_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['id']);
+		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
 		
 		$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
 		
@@ -160,7 +160,7 @@ class Musicas extends BaseController
 	public function insert_favorite_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\AjaxLib(['id']);
+		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
 		
 		$mdl = new \App\Models\MusicasFavorites\MusicasFavorites();
 		

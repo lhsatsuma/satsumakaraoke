@@ -1,12 +1,14 @@
 <?php
 namespace App\Libraries\Sys;
 
-class PagerLib extends \CodeIgniter\Pager\Pager
+use CodeIgniter\Pager\Exceptions\PagerException;
+
+class Pager extends \CodeIgniter\Pager\Pager
 {
 	
 	protected function displayLinks(string $group, string $template): string
 	{
-		$pager = new PagerRendererLib($this->getDetails($group));
+		$pager = new PagerRenderer($this->getDetails($group));
 
 		if (! array_key_exists($template, $this->config->templates))
 		{

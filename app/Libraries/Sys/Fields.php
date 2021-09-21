@@ -1,11 +1,11 @@
 <?php
 namespace App\Libraries\Sys;
 
-class FieldsLib
+class Fields
 {
 	public function __construct()
 	{
-		$this->dropdown = new \App\Libraries\DropdownLib();
+		$this->dropdown = new \App\Libraries\Dropdown();
 	}
 	
 	public function formatDBValues($type, $value)
