@@ -7,7 +7,25 @@ class Dropdown
 	ARRAY OF DROPDOWN VALUES
 	*/
 	
-	public $values = array();
+	public $values = array(
+		'ativo_inativo_list' => array(
+			'ativo' => 'Ativo',
+			'inativo' => 'Inativo',		
+		),
+		'status_usuario_list' => array(
+			'ativo' => 'Ativo',
+			'inativo' => 'Inativo',
+			'bloqueado' => 'Bloqueado',	
+		),
+		'sim_nao' => array(
+			'sim' => 'Sim',
+			'nao' => 'Não',
+		),
+	);
+	public function __construct()
+	{
+		//Nothing to do for now
+	}
 	
 	public function GetDropdown($what)
 	{
