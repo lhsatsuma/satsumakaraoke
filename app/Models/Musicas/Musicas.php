@@ -116,7 +116,7 @@ class Musicas extends \App\Models\Basic\Basic
         return true;
 	}
 
-	public function before_save()
+	public function before_save(string $operation = null)
 	{
 		if($this->f['nome']){
 			$this->f['nome'] = trim($this->f['nome']);

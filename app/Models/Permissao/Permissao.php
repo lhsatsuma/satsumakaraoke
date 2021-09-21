@@ -57,7 +57,7 @@ class Permissao extends \App\Models\Basic\Basic
 		['cod_permissao', 'deletado']
 	];
 
-	public function before_save()
+	public function before_save(string $operation = null)
 	{
 		if(empty($this->f['cod_permissao']) && empty($this->f['id'])){
 			$this->force_deletado = true;

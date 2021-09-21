@@ -59,6 +59,8 @@ class Usuarios extends AdminBaseController
 		
 		$this->mdl->f['id'] = $id;
 		$result = $this->mdl->get();
+		$result['timezone'] = $this->mdl->preference->getValor('timezone_user', $this->mdl->f['id']);
+
 		$result = $this->mdl->formatRecordsView($result);
 		$this->data['record'] = $result;
 		
@@ -153,7 +155,7 @@ class Usuarios extends AdminBaseController
 		}
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			rdct('/admin/usuarios/index');
+			rdct('/admin/usuarios/detalhes/'.$this->mdl->f['id']);
 		}else{
 			$this->setMsgData('error', $this->mdl->last_error);
 			rdct('/admin/usuarios/editar/'.getFormData('id'));

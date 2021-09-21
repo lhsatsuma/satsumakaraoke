@@ -81,6 +81,7 @@ class Usuarios extends \App\Models\Basic\Basic
 			'lbl' => 'Grupo',
 			'type' => 'related',
 			'table' => 'grupos',
+			'required' => true,
 			'parameter' => array(
 				'model' => 'Grupos/Grupos',
 				'link_detail' => 'admin/grupos/detalhes/',
@@ -107,13 +108,34 @@ class Usuarios extends \App\Models\Basic\Basic
 			'lbl' => 'Modo Escuro',
 			'type' => 'bool',
 		),
+		'timezone' => array(
+			'nondb' => true,
+			'lbl' => 'Fuso Horário',
+			'type' => 'dropdown',
+			'parameter' => 'timezones_availables',
+		),
 	);
 	public $idx_table = [
 		['id', 'deletado'],
 		['tipo','deletado'],
 	];
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->preference = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
+	}
 	
 	public $template_forget_pass = 'EsqueciMinhaSenha';
+
+	public function after_save(string $operation = null)
+	{
+		if($operation == 'delete'){
+			$this->preference->delPref(null, $this->f['id']);
+		}elseif($this->f['timezone'] || $operation == 'insert'){
+			$this->preference->setPref('timezone_user', (($this->f['timezone']) ? $this->f['timezone'] : date_default_timezone_get()), $this->f['id']);
+		}
+	}
 	
 	public function SearchLogin(){
 		$this->helper->select('id');

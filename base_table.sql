@@ -96,6 +96,7 @@ CREATE TABLE permissao_grupo (
 id int NOT NULL AUTO_INCREMENT,
 permissao varchar(36),
 grupo varchar(36),
+nivel int,
 deletado tinyint(1),
 data_criacao datetime,
 usuario_criacao varchar(36),
@@ -106,6 +107,20 @@ PRIMARY KEY (id)
 CREATE INDEX id_dele0 ON permissao_grupo (id, deletado );
 CREATE INDEX perm_grup_dele1 ON permissao_grupo (permissao, grupo, deletado );
 CREATE INDEX grup_dele2 ON permissao_grupo (grupo, deletado );
+CREATE TABLE preferencias_usuario (
+id varchar(36),
+nome varchar(255),
+valor text,
+deletado tinyint(1),
+data_criacao datetime,
+usuario_criacao varchar(36),
+data_modificacao datetime,
+usuario_modificacao varchar(36),
+PRIMARY KEY (id)
+) ENGINE = InnoDB;
+CREATE INDEX id_dele0 ON preferencias_usuario (id, deletado );
+CREATE INDEX usua_dele1 ON preferencias_usuario (usuario_criacao, deletado );
+CREATE INDEX usua_nome_dele2 ON preferencias_usuario (usuario_criacao, nome, deletado );
 CREATE TABLE usuarios (
 id varchar(36),
 nome varchar(255),
@@ -134,18 +149,12 @@ CREATE INDEX tipo_dele1 ON usuarios (tipo, deletado );
 */
 
 INSERT INTO permissao (id, nome, cod_permissao, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
-(1, 'Visualizar Usuário', 1, 0, '2021-09-19 01:04:59', 'asd-1s1s-3bnmvhj', '2021-09-19 13:32:29', 'asd-1s1s-3bnmvhj'),
-(2, 'Editar Usuário', 2, 0, '2021-09-19 01:05:07', 'asd-1s1s-3bnmvhj', '2021-09-19 01:05:07', 'asd-1s1s-3bnmvhj'),
-(3, 'Deletar Usuário', 3, 0, '2021-09-19 01:05:16', 'asd-1s1s-3bnmvhj', '2021-09-19 01:05:16', 'asd-1s1s-3bnmvhj'),
-(4, 'Admin - Utilidades', 4, 0, '2021-09-19 01:05:36', 'asd-1s1s-3bnmvhj', '2021-09-19 01:05:36', 'asd-1s1s-3bnmvhj'),
-(5, 'Painel Admin', 5, 0, '2021-09-19 13:08:00', 'asd-1s1s-3bnmvhj', NULL, NULL),
-(6, 'Grupos', 6, 0, '2021-09-19 13:58:00', 'asd-1s1s-3bnmvhj', '2021-09-19 13:58:00', 'asd-1s1s-3bnmvhj'),
-(7, 'Editar Grupos', 7, 0, '2021-09-19 14:07:04', 'asd-1s1s-3bnmvhj', '2021-09-19 14:18:51', 'asd-1s1s-3bnmvhj'),
-(8, 'Excluir Grupos', 8, 0, '2021-09-19 14:19:01', 'asd-1s1s-3bnmvhj', '2021-09-19 14:19:01', 'asd-1s1s-3bnmvhj'),
-(9, 'Permissão', 9, 0, '2021-09-19 14:19:08', 'asd-1s1s-3bnmvhj', '2021-09-19 20:14:14', 'asd-1s1s-3bnmvhj'),
-(10, 'Editar Permissão', 10, 0, '2021-09-19 14:19:14', 'asd-1s1s-3bnmvhj', '2021-09-19 20:14:23', 'asd-1s1s-3bnmvhj'),
-(11, 'Excluir Permissão', 11, 0, '2021-09-19 14:19:21', 'asd-1s1s-3bnmvhj', '2021-09-19 20:14:31', 'asd-1s1s-3bnmvhj'),
-(12, 'Atualizar Permissões do Grupo', 12, 0, '2021-09-19 14:20:58', 'asd-1s1s-3bnmvhj', '2021-09-19 14:20:58', 'asd-1s1s-3bnmvhj');
+(1, 'Cadastro de Usuários', 1, 0, '2021-09-20 17:21:37', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:37', 'asd-1s1s-3bnmvhj'),
+(2, 'Cadastro de Grupos', 2, 0, '2021-09-20 17:21:48', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:48', 'asd-1s1s-3bnmvhj'),
+(3, 'Cadastro de Permissões', 3, 0, '2021-09-20 17:21:55', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:55', 'asd-1s1s-3bnmvhj'),
+(4, 'Permissões do Grupo', 4, 0, '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj'),
+(5, 'Painel Admin', 5, 0, '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj'),
+(6, 'Admin - Utilidades', 6, 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj');
 
 INSERT INTO grupos (id, nome, ativo, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
 (1, 'Administrador do Sistema', 1, 0, '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj', '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj'),

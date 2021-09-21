@@ -30,6 +30,9 @@ class Usuarios extends BaseController
 		$this->mdl->f['id'] = $this->session->get('auth_user')['id'];
 		
 		$result = $this->mdl->get();
+
+		$result['timezone'] = $this->mdl->preference->getValor('timezone_user');
+
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$save_data = $this->session->getFlashdata('save_data');

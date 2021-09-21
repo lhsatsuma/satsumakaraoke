@@ -37,7 +37,8 @@ class DropdownLib extends \App\Libraries\Sys\DropdownLib{
 		'sim_nao' => array(
 			'sim' => 'Sim',
 			'nao' => 'Não',
-		)
+		),
+		'timezones_availables' => array(),
 	);
 }
 ?>

@@ -186,9 +186,9 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="{$app_url}jsManager/ControleRemoto.js?v={$ch_ver}"></script>
 		{/if}
 	</body>
-	<script type="text/javascript" src="{$app_url}jsManager/ControleRemoto.js?v={$ch_ver}"></script>
 </html>
 {else}
 {$content}

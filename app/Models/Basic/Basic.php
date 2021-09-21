@@ -93,7 +93,7 @@ class Basic extends Model
 	public $fetched = array();
 	
 
-	private $auth_user_id;
+	public  $auth_user_id;
 
 	public function __construct()
 	{
@@ -436,13 +436,13 @@ class Basic extends Model
 		}
 	}
 	
-	public function before_save()
+	public function before_save(string $operation = null)
 	{
 		//Nothing to do in base
 		return true;
 	}
 	
-	public function after_save()
+	public function after_save(string $operation = null)
 	{
 		//Nothing to do in base
 		return true;
@@ -499,29 +499,35 @@ class Basic extends Model
 	}
 	public function saveRecord($execute_logics = true)
 	{
+		if(!empty($fOld['id']) && !$this->new_with_id){
+			$operationHook = 'update';
+		}else{
+			$operationHook = 'insert';
+		}
 		if($execute_logics){
-			$returnBefore = $this->before_save();
+			$returnBefore = $this->before_save($operationHook);
 			if($returnBefore !== false){
+				$fOld = $this->f;
 				foreach($this->fields_map as $field => $options){
-					if($options['dont_save']){
-						unset($this->f[$field]);
+					if($options['dont_save'] || $options['nondb']){
+						unset($fOld[$field]);
 						continue;
 					}
-					$value = (isset($this->f[$field])) ? $this->f[$field] : null;
-					if(isset($this->f[$field]) && in_array($options['type'], ['date', 'datetime']) && empty($value)){
-						$this->f[$field] = null;
+					$value = (isset($fOld[$field])) ? $fOld[$field] : null;
+					if(isset($fOld[$field]) && in_array($options['type'], ['date', 'datetime']) && empty($value)){
+						$fOld[$field] = null;
 					}elseif(!is_null($value)){
-						$this->f[$field] = $this->formatDBValues($options['type'], $value);
+						$fOld[$field] = $this->formatDBValues($options['type'], $value);
 					}
 				}
-				if(!empty($this->f['id']) && !$this->new_with_id){
-					$this->f['data_modificacao'] = date("Y-m-d H:i:s");
-					$this->f['usuario_modificacao'] = $this->auth_user_id;
-					$this->helper->where('id', $this->f['id']);
-					$executed = $this->helper->update($this->f);
+				if(!empty($fOld['id']) && !$this->new_with_id){
+					$fOld['data_modificacao'] = date("Y-m-d H:i:s");
+					$fOld['usuario_modificacao'] = $this->auth_user_id;
+					$this->helper->where('id', $fOld['id']);
+					$executed = $this->helper->update($fOld);
 				}else{
-					if(empty($this->f['id'])){
-						if(empty($this->f['nome']) && $this->id_by_name){
+					if(empty($fOld['id'])){
+						if(empty($fOld['nome']) && $this->id_by_name){
 							/*
 							Let's mount "nome" field as an INT AUTO INCREMENT
 							*/
@@ -535,31 +541,45 @@ class Basic extends Model
 							if(!empty($this->min_number_name) && $codigo < $this->min_number_name){
 								$codigo = $this->min_number_name;
 							}
-							$this->f['nome'] = $codigo;
+							$fOld['nome'] = $codigo;
 						}
 						if(!$this->fields_map['id']['dont_generate']){
-							$this->f['id'] = create_guid();
+							$fOld['id'] = create_guid();
 						}
 					}
-					$this->f['data_criacao'] = date("Y-m-d H:i:s");
-					$this->f['usuario_criacao'] = $this->auth_user_id;
-					$this->f['data_modificacao'] = date("Y-m-d H:i:s");
-					$this->f['usuario_modificacao'] = $this->auth_user_id;
-					$this->f['deletado'] = false;
-					$executed = $this->helper->insert($this->f);
+					if(!isset($fOld['data_criacao'])){
+						$fOld['data_criacao'] = date("Y-m-d H:i:s");
+					}
+					if(!isset($fOld['usuario_criacao'])){
+						$fOld['usuario_criacao'] = $this->auth_user_id;
+					}
+					
+					if(!isset($fOld['data_modificacao'])){
+						$fOld['data_modificacao'] = date("Y-m-d H:i:s");
+					}
+					
+					if(!isset($fOld['usuario_modificacao'])){
+						$fOld['usuario_modificacao'] = $this->auth_user_id;
+					}
+					$fOld['deletado'] = false;
+					$executed = $this->helper->insert($fOld);
 					
 					//If ID it's an AUTO INCREMENT column, let's get the inserted ID
-					if(empty($this->f['id']) && $this->fields_map['id']['dont_generate']){
-						$this->f['id'] = $this->insertID();
+					if(empty($fOld['id']) && $this->fields_map['id']['dont_generate']){
+						$fOld['id'] = $this->insertID();
 					}
 				}
 				if($executed &&
 				!$this->db->error()['message']){
 					/* CHECK IF HAS FILES TO CREATE AND NEEDS TO EXECUTE AFTER_SAVE */
+
+					$this->f = array_merge($this->f, $fOld);
+					
 					if($execute_logics){
 						$this->checkUploadFiles();
-						$this->after_save();
+						$this->after_save($operationHook);
 					}
+
 					return $this->f;
 				}else{
 					$this->registerLastError("Query failed: ");
@@ -626,6 +646,8 @@ class Basic extends Model
 	{
 		if(isset($this->f['id']) && !empty($this->f['id'])){
 			$oldRecord = $this->get();
+
+			$this->before_save('delete');
 			$updateDeleted['deletado'] = true;
 			$updateDeleted['data_modificacao'] = date("Y-m-d H:i:s");
 			$updateDeleted['usuario_modificacao'] = $this->auth_user_id;
@@ -637,6 +659,8 @@ class Basic extends Model
 				if($oldRecord['arquivo']){
 					unlink(ROOTPATH . 'public/uploads/'.$oldRecord['arquivo']);
 				}
+
+				$this->after_save('delete');
 				return true;
 			}else{
 				$this->registerLastError("Query failed: ");

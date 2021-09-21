@@ -17,6 +17,10 @@ class DropdownLib
 	public function GetMultiDropdownHTML($what, $selected_val = null)
 	{
 		$html = '';
+
+		if($what == 'timezones_availables' && empty($this->values[$what])){
+			$this->values[$what] = $this->generate_timezone_list();
+		}
 		
 		if(is_null($selected_val) || $selected_val == ''){
 			$selected_blank = (is_null($selected_val) || empty($selected_val)) ? 'selected="selected"' : '';
@@ -35,6 +39,9 @@ class DropdownLib
 	
 	public function GetDropdownHTML($what, $selected_val = null)
 	{
+		if($what == 'timezones_availables' && empty($this->values[$what])){
+			$this->values[$what] = $this->generate_timezone_list();
+		}
 		$html = '';
 		if(is_null($selected_val) || $selected_val == ''){
 			$selected_blank = (is_null($selected_val) || $selected_val == '') ? 'selected="selected"' : '';
@@ -84,6 +91,42 @@ class DropdownLib
 		}else{
 			return $value;
 		}
+	}
+
+	private function generate_timezone_list()
+	{
+		static $regions = array(
+			\DateTimeZone::AMERICA,
+		);
+	
+		$timezones = array();
+		foreach( $regions as $region )
+		{
+			$timezones = array_merge( $timezones, \DateTimeZone::listIdentifiers( $region ) );
+		}
+	
+		$timezone_offsets = array();
+		foreach( $timezones as $timezone )
+		{
+			$tz = new \DateTimeZone($timezone);
+			$timezone_offsets[$timezone] = $tz->getOffset(new \DateTime);
+		}
+	
+		// sort timezone by offset
+		asort($timezone_offsets);
+	
+		$timezone_list = array();
+		foreach( $timezone_offsets as $timezone => $offset )
+		{
+			$offset_prefix = $offset < 0 ? '-' : '+';
+			$offset_formatted = gmdate( 'H:i', abs($offset) );
+	
+			$pretty_offset = "UTC${offset_prefix}${offset_formatted}";
+	
+			$timezone_list[$timezone] = "(${pretty_offset}) $timezone";
+		}
+	
+		return $timezone_list;
 	}
 	
 }
