@@ -158,9 +158,9 @@
 						<li class="dark-mode-li">
 							<a href="javascript:void(0)">
 							<i class="fas fa-moon"></i> <span>Tema escuro</span>
-							<label class="switch">
+							<label class="switch-dark-mode">
 								<input type="checkbox" {if $auth_user.dark_mode}checked{/if} onclick="toggleDarkMode()">
-								<span class="slider round"></span>
+								<span class="slider-dark-mode round-dark-mode"></span>
 							</label>
 							</a>
 						</li>

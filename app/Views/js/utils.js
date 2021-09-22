@@ -378,6 +378,26 @@ function ValidateForm(fm, elm)
 		}
 	}
 }
+function switchCheckbox(name)
+{
+	$('#checkbox_'+name+', .slider-for-'+name).on('change click', (e) => {
+		let field = '';
+		let checked = 0;
+		if(e.handleObj.type == 'click'){
+			field = $(e.currentTarget).attr('class').replace('slider round slider-for-', '');
+			checked = ((!$('input[name="checkbox_'+field+'"]').is(':checked')) ? 1 : 0);
+		}else{
+			field = $(this).attr('name').replace('checkbox_', '');
+			checked = ((!$(this).is(':checked')) ? 1 : 0);
+		}
+		$('#'+field).val(checked);
+		if(checked){
+			$('input[name="checkbox_'+field+'"]').attr('checked', true);
+		}else{
+			$('input[name="checkbox_'+field+'"]').removeAttr('checked');
+		}
+	});
+}
 function setCepField(args = {})
 {
 	CepFieldsCfg[args.elm] = args;

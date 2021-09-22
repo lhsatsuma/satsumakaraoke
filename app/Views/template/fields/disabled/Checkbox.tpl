@@ -1,2 +1,2 @@
 <label for="{$name}">{$label}</label>
-<p><input type="checkbox" name="{$name}" {$value} disabled="true"/></p>
+<p><label class="switch"><input type="checkbox" name="{$name}" {$value} disabled="true"/><span class="slider round slider-for-{$name}" name="checkbox_{$name}"></span></label></p>

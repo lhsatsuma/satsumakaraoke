@@ -265,11 +265,6 @@ table.table-hover tbody tr:hover {
 	color: #d0d0d0;
 }
 
-input.form-control[name="valor_total"] {
-	font-weight: bold;
-	color: red;
-}
-
 #ControleRemotoModal div.center>span:hover {
 	color: #888;
 }

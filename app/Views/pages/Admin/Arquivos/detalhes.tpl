@@ -51,10 +51,10 @@
 		{$layout.related.usuario_modificacao}
 	</div>
 </div>
-<div class="row">
-	<div class="col-12">
-		{if empty($record.registro)}
-		<a href="{$app_url}admin/arquivos/editar/{$record.id}" class="btn btn-success margin-5"><i class="fas fa-edit"></i> Editar</a>
-		{/if}
+{if $perms.cod_7.w}
+	<div class="row">
+		<div class="col-12">
+			<a href="{$app_url}admin/arquivos/editar/{$record.id}" class="btn btn-success margin-5"><i class="fas fa-edit"></i> Editar</a>
+		</div>
 	</div>
-</div>
+{/if}
