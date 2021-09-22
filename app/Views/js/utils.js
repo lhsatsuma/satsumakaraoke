@@ -371,7 +371,7 @@ function ValidateForm(fm, elm)
 				$(f).find('input[name="'+field+'"]').val(checked);
 			}
 		});
-		$('#'+fm).submit();
+		$('#'+fm).trigger('submit');
 	}else{
 		if(!!elm){
 			hideLoadingIcon(elm);
@@ -390,11 +390,11 @@ function switchCheckbox(name)
 			field = $(this).attr('name').replace('checkbox_', '');
 			checked = ((!$(this).is(':checked')) ? 1 : 0);
 		}
-		$('#'+field).val(checked);
+		$('input[name="'+field+'"]').val(checked);
 		if(checked){
-			$('input[name="checkbox_'+field+'"]').attr('checked', true);
+			$('input[name="checkbox_'+field+'"]').prop('checked');
 		}else{
-			$('input[name="checkbox_'+field+'"]').removeAttr('checked');
+			$('input[name="checkbox_'+field+'"]').removeProp('checked');
 		}
 	});
 }
