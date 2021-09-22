@@ -4,7 +4,7 @@
 <table class="table table-responsive-xl table-striped table-list tb-rst-fltr">
 	<thead>
 		<tr>
-			<th scope="col" class="ptr" dt-h-field="cod_permissao" onclick="OrderByFiltro('cod_permissao')">Cód. Permissão</th>
+			<th scope="col" class="ptr" dt-h-field="id" onclick="OrderByFiltro('id')">Cód. Permissão</th>
 			<th scope="col" class="ptr" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
 			<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação</th>
 			<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="data_modificacao" onclick="OrderByFiltro('data_modificacao')">Data Modificação</th>
@@ -14,7 +14,7 @@
 	{if !empty($records)}
 		{foreach from=$records item=campos}
 			<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/permissao/detalhes/{$campos.id}'">
-				<td dt-r-cod_permissao="{$campos.cod_permissao}">{$campos.cod_permissao}</td>
+				<td dt-r-id="{$campos.id}">{$campos.id}</td>
 				<td dt-r-nome="{$campos.nome}">{$campos.nome}</td>
 				<td class="d-none d-xl-table-cell" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
 				<td class="d-none d-lg-table-cell" dt-r-data_modificacao="{$campos.data_modificacao}">{$campos.data_modificacao}</td>

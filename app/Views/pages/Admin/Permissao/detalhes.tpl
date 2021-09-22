@@ -10,7 +10,7 @@
 	<input type="hidden" name="deletado" value="{$record.deletado}" />
 	<div class="row">
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			{$layout.int.cod_permissao}
+			{$layout.int.id}
 		</div>
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 			{$layout.varchar.nome}

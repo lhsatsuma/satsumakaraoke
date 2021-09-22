@@ -318,3 +318,13 @@ a {
 .table-pagination a {
 	font-weight: 600;
 }
+.form-control::placeholder{
+	color: #8c99a5;
+}
+.btn-outline-warning{
+	border-color: #ab8001;
+}
+.btn-outline-warning:hover{
+	background-color: #ab8001;
+	border-color: #ab8001;
+}

@@ -141,7 +141,7 @@ class BaseController extends Controller
 				$this->is_mobile = true;
 			}
 		}
-		$this->setPermData([5, 7, 9]);
+		$this->setPermData([5, 1001, 1003]);
 	}
 	
 	/**

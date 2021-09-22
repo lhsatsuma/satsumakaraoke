@@ -7,7 +7,7 @@ class Karaoke_ajax extends BaseController
 
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
-		hasPermission(7, 'r', true);
+		hasPermission(1001, 'r', true);
 
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);

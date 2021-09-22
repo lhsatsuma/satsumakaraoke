@@ -53,7 +53,7 @@
 							<span>Ir para o Site</span>
 							</a>
 						</li>
-						{if $perms.cod_8.r}
+						{if $perms.cod_1002.r}
 							<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
 								<a href="{$app_url}admin/musicas/karaoke" target="_blank">
 								<i class="fas fa-music"></i>
@@ -96,13 +96,21 @@
 							</div>
 						</li>
 						{if $perms.cod_4.r}
-							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.permissao}active{/if}">
+							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.permissao OR $breadcrumb.admin.arquivos}active{/if}">
 								<a href="#">
 									<i class="fas fa-list"></i>
 									<span>Administração</span>
 								</a>
 								<div class="sidebar-submenu"> 
 									<ul>
+										{if $perms.cod_7.r}
+										<li class="{if $breadcrumb.admin.arquivos}active{/if}" >
+											<a href="{$app_url}admin/arquivos/index">
+											<i class="fas fa-users"></i>
+											<span>Arquivos</span>
+											</a>
+										</li>
+										{/if}
 										{if $perms.cod_1.r}
 										<li class="{if $breadcrumb.admin.usuarios}active{/if}" >
 											<a href="{$app_url}admin/usuarios/index">

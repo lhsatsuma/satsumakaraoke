@@ -21,6 +21,11 @@ class Dropdown
 			'sim' => 'Sim',
 			'nao' => 'Não',
 		),
+		'tipo_acesso' => array(
+			'public' => 'Público',
+			'privado' => 'Privado',		
+			'admin' => 'Apenas Admin',		
+		),
 	);
 	public function __construct()
 	{

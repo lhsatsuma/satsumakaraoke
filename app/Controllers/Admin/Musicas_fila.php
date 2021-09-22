@@ -50,7 +50,7 @@ class Musicas_fila extends AdminBaseController
 			$this->data['icon_status_encerrado'] = $icon_search;
 		}
 		
-		return $this->displayNew('pages/Musicas_fila/index');
+		return $this->displayNew('pages/Admin/Musicas_fila/index');
 	}
 	
 	public function cancelar_ajax()

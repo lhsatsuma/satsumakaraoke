@@ -70,7 +70,7 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 		$this->select = "permissao_grupo.id, permissao_grupo.nivel";
 		$this->join['permissao'] = 'permissao.id = permissao_grupo.permissao';
 		$this->where['permissao_grupo.grupo'] = $grupo;
-		$this->where['permissao.cod_permissao'] = $cod;
+		$this->where['permissao.id'] = $cod;
 		return $this->search(1)[0];
 	}
 }

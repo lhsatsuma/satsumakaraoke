@@ -52,7 +52,7 @@
 				</div>
 				<div class="sidebar-menu">
 					<ul>
-						{if $perms.cod_7.r}
+						{if $perms.cod_1001.r}
 						<li>
 							<a href="javascript:void(0)" id="ControleRemotoButton">
 							<i class="fas fa-location-arrow"></i>

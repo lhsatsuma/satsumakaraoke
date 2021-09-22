@@ -101,7 +101,7 @@ class Basic extends Model
 		$this->session = getSession();
 		$this->helper = $this->db->table($this->table);
 		$this->fields = new \App\Libraries\Sys\Fields();
-		$this->request = getFormData();
+		getFormData();
 
 		if($this->session->get('auth_user')){
 			$this->auth_user_id = $this->session->get('auth_user')['id'];
@@ -592,10 +592,11 @@ class Basic extends Model
 	
 	public function checkUploadFiles()
 	{
+		global $requestForm;
 		$update = [];
 		foreach($this->fields_map as $field => $attrs){
 			if($attrs['type'] == 'file'){
-				$value = $this->request->getFile($field);
+				$value = $requestForm->getFile($field);
 				if($value && $value->isValid() && !$value->hasMoved()){
 					if($this->table != 'arquivos'){
 						$arquivos = new \App\Models\Arquivos\Arquivos();

@@ -22,8 +22,8 @@ class Permissao extends AdminBaseController
 			'nome' => '',
 		);
 		$initial_order_by = array(
-			'field' => 'data_criacao',
-			'order' => 'DESC',
+			'field' => 'id',
+			'order' => 'ASC',
 		);
 		
 		$this->filterLib_cfg = array(
@@ -89,7 +89,7 @@ class Permissao extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 
-		$this->setPermData(11);
+		$this->setPermData(3);
 		
 		return $this->displayNew('pages/admin/Permissao/editar');
 	}

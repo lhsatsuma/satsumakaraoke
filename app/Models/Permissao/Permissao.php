@@ -19,10 +19,6 @@ class Permissao extends \App\Models\Basic\Basic
 			'max_length' => 255,
 			'link_record' => true,
 		),
-		'cod_permissao' => array(
-			'lbl' => 'Código da Permissão',
-			'type' => 'int',
-		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
 			'type' => 'bool',
@@ -53,41 +49,24 @@ class Permissao extends \App\Models\Basic\Basic
 	);
 	public $idx_table = [
 		['id', 'deletado'],
-		['nome', 'deletado'],
-		['cod_permissao', 'deletado']
+		['nome', 'deletado']
 	];
-
-	public function before_save(string $operation = null)
-	{
-		if(empty($this->f['cod_permissao']) && empty($this->f['id'])){
-			$this->force_deletado = true;
-			$this->where = array();
-			$this->select = "MAX(CAST(cod_permissao as UNSIGNED))+1 as codigo_ult";
-			$number = $this->search(1);
-			$this->f['cod_permissao'] = $number[0]['codigo_ult'];
-			if(is_null($this->f['cod_permissao'])){
-				$this->f['cod_permissao'] = 1;
-			}
-			$this->force_deletado = false;
-		}
-	}
 
 	public function getAllPermissao(string $grupo)
 	{
 		if($grupo){
 			$this->force_deletado = true;
-			$this->select = "permissao.id, permissao.nome, permissao.cod_permissao, permissao_grupo.id as permissao_grupo_id, permissao_grupo.nivel";
+			$this->select = "permissao.id, permissao.nome, permissao_grupo.id as permissao_grupo_id, permissao_grupo.nivel";
 			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao
 			AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)
 			AND permissao_grupo.grupo = '{$grupo}'";
 			$this->where['permissao.deletado'] = '0';
-			$this->order_by['permissao.cod_permissao'] = 'ASC';
+			$this->order_by['permissao.id'] = 'ASC';
 			$results = $this->search();
 			$this->force_deletado = true;
 
 			foreach($results as $key => $result){
 				$results[$key]['id'] = (int)$result['id'];
-				$results[$key]['cod_permissao'] = (int)$result['cod_permissao'];
 				$results[$key]['permissao_grupo_id'] = (int)$result['permissao_grupo_id'];
 				$results[$key]['nivel'] = (int)$result['nivel'];
 			}

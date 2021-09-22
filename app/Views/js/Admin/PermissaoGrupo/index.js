@@ -50,7 +50,7 @@ $('#grupos').change(() => {
                         }
                         html += `<td scope="col" class="col-4">
                             <input type="hidden" name="permissao[${ipt.id}]" value="${value_permissao}" />
-                            [${ipt.cod_permissao}] ${ipt.nome}
+                            [${ipt.id}] ${ipt.nome}
                         </td>
                         <td scope="col"class="col-2 text-center ${sideTd}">
                             R: <input type="checkbox" name="permissao_checked[${ipt.id}][r]" permission="r" ${has_r} />

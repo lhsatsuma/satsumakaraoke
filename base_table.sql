@@ -148,13 +148,14 @@ CREATE INDEX tipo_dele1 ON usuarios (tipo, deletado );
 * END OF BASE TABLES 
 */
 
-INSERT INTO permissao (id, nome, cod_permissao, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
-(1, 'Cadastro de Usuários', 1, 0, '2021-09-20 17:21:37', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:37', 'asd-1s1s-3bnmvhj'),
-(2, 'Cadastro de Grupos', 2, 0, '2021-09-20 17:21:48', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:48', 'asd-1s1s-3bnmvhj'),
-(3, 'Cadastro de Permissões', 3, 0, '2021-09-20 17:21:55', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:55', 'asd-1s1s-3bnmvhj'),
-(4, 'Permissões do Grupo', 4, 0, '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj'),
-(5, 'Painel Admin', 5, 0, '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj'),
-(6, 'Admin - Utilidades', 6, 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj');
+INSERT INTO permissao (id, nome, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
+(1, 'Cadastro de Usuários', 0, '2021-09-20 17:21:37', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:37', 'asd-1s1s-3bnmvhj'),
+(2, 'Cadastro de Grupos', 0, '2021-09-20 17:21:48', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:48', 'asd-1s1s-3bnmvhj'),
+(3, 'Cadastro de Permissões', 0, '2021-09-20 17:21:55', 'asd-1s1s-3bnmvhj', '2021-09-20 17:21:55', 'asd-1s1s-3bnmvhj'),
+(4, 'Permissões do Grupo', 0, '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj'),
+(5, 'Painel Admin', 0, '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj'),
+(6, 'Admin - Utilidades', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj'),
+(7, 'Cadastro de Arquivos', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj');
 
 INSERT INTO grupos (id, nome, ativo, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
 (1, 'Administrador do Sistema', 1, 0, '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj', '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj'),
