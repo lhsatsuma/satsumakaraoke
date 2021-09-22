@@ -26,6 +26,7 @@ class Dropdown
 			'privado' => 'Privado',		
 			'admin' => 'Apenas Admin',		
 		),
+		'timezones_availables' => array(),
 	);
 	public function __construct()
 	{

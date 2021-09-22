@@ -407,7 +407,7 @@ class Basic extends Model
 		$this->helper->groupBy($this->group_by);
 	}
 	
-	function search($limit = 0, $page = 0)
+	function search(int $limit = 0, int $page = 0)
 	{
 		if(!$limit){
 			$limit = 0;
@@ -579,7 +579,7 @@ class Basic extends Model
 						$this->checkUploadFiles();
 						$this->after_save($operationHook);
 					}
-
+					$this->new_with_id = false;
 					return $this->f;
 				}else{
 					$this->registerLastError("Query failed: ");

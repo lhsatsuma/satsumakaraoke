@@ -21,7 +21,6 @@ class Dropdown extends \App\Libraries\Sys\Dropdown{
 				'pendente' => 'Pendente',
 				'encerrado' => 'Encerrado',
 			),
-			'timezones_availables' => array(),
 		);
 		$this->values = array_merge($this->values, $new_values);
 	}
