@@ -67,7 +67,7 @@ function removeInitial()
 		resizeVideo();
 	};
 	video.onpause = (event) => {
-		if(video.paused && video.src !== ""){
+		if(video.paused && video.src !== "" && video.duration != video.currentTime){
 			$('#pausedDiv').show();
 		}else{
 			$('#pausedDiv').hide();
