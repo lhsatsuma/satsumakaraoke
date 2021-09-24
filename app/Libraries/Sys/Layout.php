@@ -137,6 +137,10 @@ class Layout
 
 		$parameter['selector'] = 'textarea[name="'.$field.'"]';
 		$parameter['language'] = 'pt_BR';
+		if($this->session->get('auth_user')['dark_mode']){
+			$parameter['skin'] = "oxide-dark";
+			$parameter['content_css'] = "dark";
+		}
 		$data['parameter'] = json_encode($parameter, JSON_PRETTY_PRINT);
 
 		return $this->smarty->setData($data)->view($tpl);

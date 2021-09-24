@@ -66,16 +66,25 @@ class Fields
 	
 	public function formatDate($value)
 	{
+		if(strpos($value, '/') !== false){
+			return $value;
+		}
 		return date("d/m/Y", strtotime($value));
 	}
 	
 	public function formatDateTime($value)
 	{
+		if(strpos($value, '/') !== false){
+			return $value;
+		}
 		return date("d/m/Y H:i", strtotime($value));
 	}
 	
 	public function formatTime($value)
 	{
+		if(strpos($value, '/') !== false){
+			return $value;
+		}
 		$value = explode(':', $value);
 		return str_pad($value[0], 2, 0, STR_PAD_LEFT).':'.str_pad($value[1], 2, 0, STR_PAD_LEFT);
 	}

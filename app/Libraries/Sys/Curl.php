@@ -19,6 +19,7 @@ class Curl{
 		'ssl' => false,
 		'ssl_version' => 3,
 		'timeout' => 10,
+		'header' => false,
 		'connect_timeout' => 10,
 		'http_code_accept' => array(
 			200, //OK
@@ -71,7 +72,7 @@ class Curl{
 	{
 		$this->headers = [];
 	}
-	public function call($method, $data=null, $ext_url=null){
+	public function call(string $method, $data=null, $ext_url=null){
 		//Reset var for the request
 		$this->data = array();
 		
@@ -89,7 +90,7 @@ class Curl{
 			}
 			if(strtolower($method) == 'get'){
 				if(!empty($data)){
-					$url .= '?'.http_build_query($data);
+					$url .= (strpos($ext_url, '?') === false) ? '?'.http_build_query($data) : http_build_query($data);
 				}
 				curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, "GET");
 				$this->InitCurl($url);
@@ -106,6 +107,7 @@ class Curl{
 					}
 					curl_setopt($this->ch, CURLOPT_POSTFIELDS, $data);
 				}
+				log_message('debug', '[CURL]['.$method.'][DATA] '.var_export($data, true));
 			}
 			return $this->ExecuteCurl();
 		}else{
@@ -116,17 +118,20 @@ class Curl{
 		$this->ch = curl_init();
 		curl_setopt($this->ch, CURLOPT_URL, $url);
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($this->ch, CURLOPT_HEADER, true);
+		curl_setopt($this->ch, CURLOPT_HEADER, $this->GetOption('header'));
 		curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->GetHeaders()); 
+		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->GetHeaders());
 		curl_setopt($this->ch,CURLOPT_TIMEOUT, $this->GetOption('timeout'));
 		/* Check SSL of URL called*/
 		if($this->GetOption('ssl')){
 			curl_setopt($this->ch, CURLOPT_SSLVERSION, $this->GetOption('ssl_version'));
+		}else{
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
 		}
 		$this->Auth();
+		log_message('debug', '[CURL][URL] '.$url);
+		log_message('debug', '[CURL][HEADERS] '.var_export($this->GetHeaders(), true));
 		return $this->ch;
 	}
 	private function ExecuteCurl(){
@@ -140,6 +145,7 @@ class Curl{
 		$this->data['header_size'] = $header_size;
 		$this->data['response'] = $result;
 		curl_close($this->ch);
+		log_message('debug', '[CURL][RESPONSE] ['.$http_code.'] '.var_export($result, true));
 		return $this->set_data($http_code, 'cURL executed successfully');
 	}
 	private function Auth(){
@@ -156,13 +162,18 @@ class Curl{
 	}
 	private function set_data($error_code, $msg){
 		if($error_code == 0){
-			$return_data = array(
+			$this->data = array(
 				'status' => false,
 				'msg' => $msg,
 			);
 		}else{
-			$header = substr($this->data['response'], 0, $this->data['header_size']);
-			$body = substr($this->data['response'], $this->data['header_size']);
+			if($this->GetOption('header')){
+				$header = substr($this->data['response'], 0, $this->data['header_size']);
+				$body = substr($this->data['response'], $this->data['header_size']);
+			}else{
+				$header = null;
+				$body = $this->data['response'];
+			}
 			if($this->GetOption['response_json'] === true){
 				$body = json_decode($body, true);
 			}

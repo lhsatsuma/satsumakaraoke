@@ -366,7 +366,7 @@ class Basic extends Model
 		if(!empty($return_string)){
 			$this->helper->where($return_string);
 		}
-        return true;
+        return $return_string;
     }
 	
 	function get_order_by()
@@ -384,7 +384,7 @@ class Basic extends Model
 			$comp = ', ';
 		}
 		$this->helper->orderBy($return_string);
-        return true;
+        return $return_string;
     }
 	
 	function get_join()
@@ -405,6 +405,7 @@ class Basic extends Model
 	function get_group_by()
 	{
 		$this->helper->groupBy($this->group_by);
+		return $this->group_by;
 	}
 	
 	function search(int $limit = 0, int $page = 0)

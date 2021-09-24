@@ -1,21 +1,23 @@
 {if !$bdOnly}
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 	<head>
 		<title>{$title} - {$sys_title}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="initial-scale=1">
+		<meta charset=UTF-8>
 		<link rel="shortcut icon" href="{$app_url}images/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="{$app_url}images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon" href="images/favicon.ico"/>
-		<link rel="stylesheet" href="{$app_url}cssManager/bootstrap.min.css?v={$ch_ver}" lazyload="1">
-		<link rel="stylesheet" href="{$app_url}cssManager/fontawesome-all.min.css?v={$ch_ver}" lazyload="1">
-		<link rel="stylesheet" href="{$app_url}cssManager/sweetalert2.min.css?v={$ch_ver}" lazyload="1">
-		<link rel="stylesheet" href="{$app_url}cssManager/jquery-ui.structure.min.css?v={$ch_ver}" lazyload="1">
-		<link rel="stylesheet" href="{$app_url}cssManager/jquery-ui.theme.min.css?v={$ch_ver}" lazyload="1">
-		<link rel="stylesheet" href="{$app_url}cssManager/bootstrap-datetimepicker.css?v={$ch_ver}" lazyload="1">
-        <link rel="stylesheet" href="{$app_url}cssManager/default.css?v={$ch_ver}" lazyload="1">
+		<link rel="stylesheet" href="{$app_url}cssManager/bootstrap.min.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
+		<link rel="stylesheet" href="{$app_url}cssManager/fontawesome-all.min.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
+		<link rel="stylesheet" href="{$app_url}cssManager/sweetalert2.min.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
+		<link rel="stylesheet" href="{$app_url}cssManager/jquery-ui.structure.min.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
+		<link rel="stylesheet" href="{$app_url}cssManager/jquery-ui.theme.min.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
+		<link rel="stylesheet" href="{$app_url}cssManager/bootstrap-datetimepicker.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
+        <link rel="stylesheet" href="{$app_url}cssManager/default.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
 		{if $auth_user.dark_mode}
-       		<link rel="stylesheet" id="darkmodecss" href="{$app_url}cssManager/dark.css?v={$ch_ver}" lazyload="1">
+       		<link rel="stylesheet" id="darkmodecss" href="{$app_url}cssManager/dark.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
 		{/if}
         <script language="javascript" type="text/javascript">
 			localStorage.dark_mode_active = {$auth_user.dark_mode};
@@ -24,6 +26,7 @@
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
+		<script src="https://cdn.tiny.cloud/1/gkma8l0v7mxj6bd7bono39z4l7bzq7k29vt4yp3ja81e67db/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 		<script type="text/javascript">var _app_vars = {$JS_VARS};</script>
 		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>

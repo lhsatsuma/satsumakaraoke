@@ -69,7 +69,7 @@ class CssManager extends BaseController
 
 		/* Return to controller action */
         if(file_exists($cachePath)){
-            return ['nome' => basename($file_name), 'mimetype' => 'text/javascript', 'path' => $cachePath];
+            return ['nome' => basename($file_name), 'mimetype' => 'text/css', 'path' => $cachePath];
         }
 		return false;
 	}
