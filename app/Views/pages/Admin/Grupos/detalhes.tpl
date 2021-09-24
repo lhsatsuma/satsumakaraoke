@@ -39,9 +39,9 @@
 	</div>
 </form>
 {if $perms.cod_2.w}
-<div class="row">
-	<div class="col-12">
-		<a href="{$app_url}admin/grupos/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>
+	<div class="row">
+		<div class="col-12">
+			<a href="{$app_url}admin/grupos/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>
+		</div>
 	</div>
-</div>
 {/if}

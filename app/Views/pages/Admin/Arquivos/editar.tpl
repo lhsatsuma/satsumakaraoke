@@ -23,14 +23,14 @@
 	</div>
     <div class="row">
         <div class="col-12">
-            <button type="button" class="btn btn-success margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Salvar</button>
+            <button type="button" class="btn btn-outline-success btn-rounded margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Salvar</button>
             {if $record.id}
-                <a href="{$app_url}admin/arquivos/detalhes/{$record.id}" class="btn btn-warning margin-5"><i class="fas fa-undo"></i> Cancelar</a>
+                <a href="{$app_url}admin/arquivos/detalhes/{$record.id}" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
 				{if $perms.cod_7.d}
 					<button type="button" class="btn btn-outline-danger margin-5" onclick="ConfirmdeleteRecord('EditarForm')"><i class="fas fa-trash"></i> Deletar</button>
 				{/if}
             {else}
-                <a href="{$app_url}admin/arquivos/index" class="btn btn-warning margin-5"><i class="fas fa-undo"></i> Cancelar</a>
+                <a href="{$app_url}admin/arquivos/index" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
             {/if}
         </div>
     </div>
