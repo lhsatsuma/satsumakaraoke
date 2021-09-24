@@ -20,7 +20,7 @@ class Ajax_requests extends BaseController
 		$this->body = $this->AjaxLib->GetData();
 	}
 	
-	public function index($offset = 0)
+	public function index(int $offset = 0)
 	{
 		echo 'not implemented';exit;
 	}

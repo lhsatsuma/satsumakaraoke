@@ -448,7 +448,7 @@ class Basic extends Model
 		//Nothing to do in base
 		return true;
 	}
-	public function formatDBValues($type, $value)
+	public function formatDBValues(string $type, $value)
 	{
 		switch($type){
 			case 'date':
@@ -671,7 +671,7 @@ class Basic extends Model
 		return false;
 	}
 	
-	public function registerLastError($msg, $log_error = true)
+	public function registerLastError(string $msg, bool $log_error = true)
 	{
 		if($log_error){
 			$msg .= (string)$this->db->getLastQuery(). ' | '.$this->db->error()['message'];
@@ -680,7 +680,7 @@ class Basic extends Model
 		$this->last_error = (string)$this->db->getLastQuery(). ' | '.$this->db->error()['message'];
 	}
 	
-	public function formatRecordsView($result, $ignore_raw = false)
+	public function formatRecordsView($result, bool $ignore_raw = false)
 	{
 		if($result){
 			if($result[0]){
@@ -694,7 +694,7 @@ class Basic extends Model
 		}
 		return $result;
 	}
-	public function formatSingleRecordView($record, $ignore_raw = false){
+	public function formatSingleRecordView($record, bool $ignore_raw = false){
 		$record = (array) $record;
 		foreach($this->fields_map as $field => $options){
 			$value = $record[$field];
@@ -769,7 +769,7 @@ class Basic extends Model
 		return $val;
 	}
 
-	public function getIdxTable($idxName)
+	public function getIdxTable(string $idxName)
 	{
 		try{
 			$tablesList = $this->listTables();

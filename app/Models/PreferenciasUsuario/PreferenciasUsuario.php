@@ -71,7 +71,7 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 		['usuario_criacao', 'nome', 'deletado'],
 	];
 
-	public function getPref($nome, $user = null)
+	public function getPref(string $nome, string $user = null)
 	{
 		$this->select = "id, nome, valor";
 		$this->where['nome'] = $nome;
@@ -83,12 +83,12 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 		return $this->search(1)[0];
 	}
 
-	public function getValor($nome, $user = null)
+	public function getValor(string $nome, string $user = null)
 	{
 		return $this->getPref($nome, $user)['valor'];
 	}
 
-	public function setPref($nome, $valor, $user = null)
+	public function setPref(string $nome, $valor, string $user = null)
 	{
 		$alreadySaved = $this->getPref($nome, $user);
 		$this->f = [];
@@ -101,7 +101,7 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 		return $this->saveRecord();
 	}
 
-	public function delPref($nome=null, $user = null)
+	public function delPref(string $nome=null, string $user = null)
 	{
 		$this->select = "id";
 		if($nome){

@@ -179,7 +179,7 @@ class Usuarios extends \App\Models\Basic\Basic
 			return false;
 		}
 	}
-	public function validateHash($hash)
+	public function validateHash(string $hash)
 	{
 		if($this->f['hash_esqueci_senha'] == $hash){
 			$decrypted = $this->decryptHashForget();

@@ -65,7 +65,7 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 		['grupo', 'deletado'],
 	];
 
-	public function hasPermission($cod, $grupo)
+	public function hasPermission(int $cod, int $grupo)
 	{
 		$this->select = "permissao_grupo.id, permissao_grupo.nivel";
 		$this->join['permissao'] = 'permissao.id = permissao_grupo.permissao';

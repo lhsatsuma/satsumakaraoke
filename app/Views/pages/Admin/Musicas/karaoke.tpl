@@ -14,13 +14,13 @@
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
-		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
-		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 		<script type="text/javascript">
 			var _app_vars = {$JS_VARS};
 			var karaokeURL = '{$karaokeURL}';
 			var host_fila = '{$host_fila}';
 		</script>
+		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
+		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 	</head>
 	<body id="bodyKaraoke" style="color: white;background: url('{$app_url}images/karaoke_bg.gif')">
 		<div class="modal fade" id="InitialModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="InitialModalLabel" aria-hidden="true">

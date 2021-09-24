@@ -132,7 +132,7 @@
 		<!-- page-content" -->
 		</div>
 		<!-- page-wrapper -->
-		{if $perms.cod_7.r}
+		{if $perms.cod_1001.r}
 		<div class="modal fade" id="ControleRemotoModal" tabindex="-1" role="dialog" aria-labelledby="ControleRemotoModalLabel" aria-hidden="true">
 			<input type="hidden" id="IdInsertModal" />
 			<div class="modal-dialog modal-sm modal-dialog-centered" role="document">

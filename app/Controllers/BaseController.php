@@ -291,7 +291,7 @@ class BaseController extends Controller
 		}
 	}
 	
-	public function PopulatePost($encode = false)
+	public function PopulatePost(bool $encode = false)
 	{
 		//Just a generic function for populate all mdl->f with incoming post
 		foreach($this->mdl->fields_map as $field => $options){

@@ -123,7 +123,7 @@ class Musicas extends \App\Models\Basic\Basic
 		}
 	}
 	
-	function force_save($link, $md5, $title, $tipo)
+	function force_save(string $link, string $md5, string $title, string $tipo)
 	{
 		$this->where = array(
 			'md5' => $md5,

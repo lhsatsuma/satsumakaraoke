@@ -128,7 +128,7 @@ class Youtube
 		return $data;
     }
 
-    public function importUrl($url, $md5, $title)
+    public function importUrl($url, $md5)
     {
         log_message('info', "DOWNLOADING VIDEO: ".$url);
         if(file_exists($this->upload_path . $md5.'.mp4')){
