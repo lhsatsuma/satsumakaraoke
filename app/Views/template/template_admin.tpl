@@ -98,11 +98,11 @@
 								</ul>
 							</div>
 						</li>
-						{if $perms.cod_4.r}
-							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.internal OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.permissao OR $breadcrumb.admin.arquivos}active{/if}">
+						{if $perms.cod_7.r OR $perms.cod_1.r OR $perms.cod_2.r OR $perms.cod_3.r}
+							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao OR $breadcrumb.admin.arquivos}active{/if}">
 								<a href="#">
 									<i class="fas fa-list"></i>
-									<span>Administração</span>
+									<span>Cadastros</span>
 								</a>
 								<div class="sidebar-submenu"> 
 									<ul>
@@ -135,6 +135,26 @@
 											<a href="{$app_url}admin/permissao/index">
 											<i class="fas fa-users-cog"></i>
 											<span>Permissão</span>
+											</a>
+										</li>
+										{/if}
+									</ul>
+								</div>
+							</li>
+						{/if}
+						{if $perms.cod_4.r OR $perms.cod_6.r OR $perms.cod_8.r}
+							<li class="sidebar-dropdown {if $breadcrumb.admin.internal OR $breadcrumb.admin.parametros}active{/if}">
+								<a href="#">
+									<i class="fas fa-list"></i>
+									<span>Administração</span>
+								</a>
+								<div class="sidebar-submenu"> 
+									<ul>
+										{if $perms.cod_4.r}
+										<li class="{if $breadcrumb.admin.parametros}active{/if}" >
+											<a href="{$app_url}admin/parametros/index">
+											<i class="fas fa-users-cog"></i>
+											<span>Parâmetros do Sistema</span>
 											</a>
 										</li>
 										{/if}

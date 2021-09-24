@@ -1,6 +1,11 @@
 $('#grupos').change(() => {
     $('#tbodyPermissaoGrupo').html('');
     if($('#grupos').val()){
+        if($('#grupos').val() == '1'){
+            $('#grupos').after('<p class="required" id="grupo1required">Todas as permissões para este grupo são permitidas automaticamente.</p>');
+        }else{
+            $('#grupo1required').remove();
+        }
         fireAjaxLoading({
             url: _app_vars.app_url+'admin/permissao_grupo/procurarPermissoes',
             text: 'Estamos buscando as permissões para este grupo...',

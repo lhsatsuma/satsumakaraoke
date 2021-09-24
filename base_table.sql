@@ -155,7 +155,8 @@ INSERT INTO permissao (id, nome, deletado, data_criacao, usuario_criacao, data_m
 (4, 'Permissões do Grupo', 0, '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:05', 'asd-1s1s-3bnmvhj'),
 (5, 'Painel Admin', 0, '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj'),
 (6, 'Admin - Utilidades', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj'),
-(7, 'Cadastro de Arquivos', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj');
+(7, 'Cadastro de Arquivos', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj'),
+(8, 'Cadastro de Parâmetros', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj');
 
 INSERT INTO grupos (id, nome, ativo, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
 (1, 'Administrador do Sistema', 1, 0, '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj', '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj'),

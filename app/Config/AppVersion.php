@@ -36,6 +36,10 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	public $host_fila = '';
 
 	public $ajax_pagination = true;
+
+	public $template = 'template';
+	public $template_file = 'template';
+	public $template_file_admin = 'template_admin';
 	
 	public function __construct()
 	{

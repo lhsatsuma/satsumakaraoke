@@ -189,8 +189,9 @@ class Internal extends AdminBaseController
         $models = getModules();
         $sqlRepair = '';
         $tablesList = (!$complete) ? $model->listTables() : [];
-        foreach($models as $className => $name){
 
+        foreach($models as $className => $name){
+            $sqlRepairTable = '';
             $mdl = new $className();
 
             $tableExists = in_array($mdl->table, $tablesList);
@@ -201,7 +202,7 @@ class Internal extends AdminBaseController
                 $fieldsDB = $mdl->getFieldData($mdl->table);
             }else{
                 $fieldsDB = [];
-                $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."CREATE TABLE {$mdl->table} (";
+                $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."CREATE TABLE {$mdl->table} (";
             }
 
             /* Checking every field */
@@ -227,7 +228,6 @@ class Internal extends AdminBaseController
                 /* Get the type of field for database */
                 $typeDB = $this->getTypeFieldDB($options['type']);
 
-
                 /* Sets the max_length property accordingly to model definition */
                 if($options['type'] == 'int'){
                     $maxLength = ($options['max_length'] > $this->getMaxLengthFieldDB('int') || !isset($options['max_length'])) ? $this->getMaxLengthFieldDB('int') : $options['max_length'];
@@ -243,16 +243,16 @@ class Internal extends AdminBaseController
                 
                 if(!$tableExists){
                     //If table don't exists, just put field and type
-                    $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."{$field} {$typeDB}";
+                    $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."{$field} {$typeDB}";
                     if($options['dont_generate']){
-                        $sqlRepair .= " NOT NULL AUTO_INCREMENT";
+                        $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
                     }
                     $needUpdate = true;
                 }elseif($tableExists && !$fieldInDB){
                     //If table exists but field don't, let's try an ADD COLUMN
-                    $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."ALTER TABLE {$mdl->table} ADD {$field} {$typeDB}";
+                    $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."ALTER TABLE {$mdl->table} ADD {$field} {$typeDB}";
                     if($options['dont_generate']){
-                        $sqlRepair .= " NOT NULL AUTO_INCREMENT";
+                        $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
                     }
                     $needUpdate = true;
                     $isAdd = true;
@@ -270,9 +270,9 @@ class Internal extends AdminBaseController
                     )
                 ){
                     //If table and field exists but there's something different, let's try an MODIFY COLUMN
-                    $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."ALTER TABLE {$mdl->table} MODIFY COLUMN {$field} {$typeDB}";
+                    $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."ALTER TABLE {$mdl->table} MODIFY COLUMN {$field} {$typeDB}";
                     if($options['dont_generate']){
-                        $sqlRepair .= " NOT NULL AUTO_INCREMENT";
+                        $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
                     }
                     $needUpdate = true;
                 }
@@ -280,45 +280,68 @@ class Internal extends AdminBaseController
                 if($needUpdate){
                     /* If field needs to update, let's make the definitions of */
                     if($maxLength){if($options['type'] == 'currency'){
-                            $sqlRepair .= '('.$maxLength.','.$options['parameter']['precision'].')';
+                            $sqlRepairTable .= '('.$maxLength.','.$options['parameter']['precision'].')';
                         }elseif($options['type'] == 'float'){
-                            $sqlRepair .= '('.$maxLength.','.$options['parameter']['precision'].')';
+                            $sqlRepairTable .= '('.$maxLength.','.$options['parameter']['precision'].')';
                         }elseif($typeDB !== 'datetime' && $typeDB !== 'bool'){
-                            $sqlRepair .= '('.$maxLength.')';
+                            $sqlRepairTable .= '('.$maxLength.')';
                         }
                     }
                     if(isset($options['default']) && $typeDB == 'tinyint'){
-                        $sqlRepair .= ' DEFAULT '. (($options['default']) ? "TRUE" : "FALSE");
+                        $sqlRepairTable .= ' DEFAULT '. (($options['default']) ? "TRUE" : "FALSE");
                     }elseif($options['default']){
-                        $sqlRepair .= ' DEFAULT '.(is_string($options['default']) ? "'{$options['default']}'" : $options['default']);
+                        $sqlRepairTable .= ' DEFAULT '.(is_string($options['default']) ? "'{$options['default']}'" : $options['default']);
                     }
 
                     if($tableExists && $isAdd && $previousField){
                         //Insert field after previousField in model definition if possibly
-                        $sqlRepair .= " AFTER ".$previousField.";";
+                        $sqlRepairTable .= " AFTER ".$previousField.";";
                     }elseif($tableExists && $isAdd){
                         //Insert field in first of the table
-                        $sqlRepair .= " FIRST;";
+                        $sqlRepairTable .= " FIRST;";
                     }elseif(!$tableExists){
-                        $sqlRepair .= ",";
+                        $sqlRepairTable .= ",";
                     }else{
-                        $sqlRepair .= ";";
+                        $sqlRepairTable .= ";";
                     }
                 }
                 
                 $previousField = $field;
             }
             if(!$tableExists){
-                $sqlRepair .= (($sqlRepair) ? "<br />" : "") ."PRIMARY KEY (id)<br />) ENGINE = InnoDB;";
+                $pks_fields = ($mdl->pks_table) ? implode(', ',$mdl->pks_table) : 'id';
+                $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."PRIMARY KEY ({$pks_fields})<br />) ENGINE = InnoDB;";
             }
+            $sqlRepairIdx = '';
             foreach($mdl->idx_table as $keyIdx => $fieldsIdx){
                 $sqlIdx = $mdl->getIdxSQL($keyIdx, $complete);
-                $sqlRepair .= ($sqlIdx) ? "<br />".$sqlIdx : '';
+                $sqlRepairIdx .= ($sqlIdx) ? "<br />".$sqlIdx : '';
+            }
+            if($sqlRepairIdx){
+                $sqlRepairTable .= "<br /><br />-- SQL INDEX FOR TABLE {$mdl->table}".$sqlRepairIdx;
+            }
+            if($sqlRepairTable){
+                if($sqlRepair){
+                    $sqlRepair .= "<br /><br />";
+                }
+                $sqlRepair .= "/*<br />SQL FOR TABLE {$mdl->table}<br />*/<br />".$sqlRepairTable;
             }
         }
         $msg_return = "Reconstrução do banco de dados verificado!";
         if($sqlRepair){
-            $msg_return .= "<br/>Execute o SQL abaixo para que as alterações sejam feitas:<br /><hr /><p>{$sqlRepair}</p><hr />";
+            $msg_return .= "<br/>
+                Execute o SQL abaixo para que as alterações sejam feitas:
+                <br />
+                <hr />
+                <p>
+                    <textarea id='sqlRepair' class='form-control' rows='20'>{$sqlRepair}</textarea>
+                </p>
+                <p>
+                    <button type='button' class='btn btn-outline-success btn-rounded' onclick=\"$('#sqlRepair').select();document.execCommand('copy');\">Copiar</button>
+                </p>
+                <script type='text/javascript'>
+                    $('#sqlRepair').val($('#sqlRepair').val().replace(/<br *\\/?>/gi, '\\n'));
+                </script><hr />";
         }else{
             $msg_return .= "<br/>Nada a se fazer...";
         }

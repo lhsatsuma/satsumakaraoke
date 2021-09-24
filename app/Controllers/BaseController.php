@@ -115,8 +115,6 @@ class BaseController extends Controller
 		'action' => '',
 		'generic_filter' => array(
 			'nome',
-			'email',
-		
 		),
 	);
 
@@ -142,6 +140,10 @@ class BaseController extends Controller
 			}
 		}
 		$this->setPermData([5, 1001, 1003]);
+
+		global $AppVersion;
+		$this->template = $AppVersion->template;
+		$this->template_file = $AppVersion->template_file;
 	}
 	
 	/**

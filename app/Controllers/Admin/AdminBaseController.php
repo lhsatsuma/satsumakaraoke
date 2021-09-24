@@ -29,6 +29,9 @@ class AdminBaseController extends \App\Controllers\BaseController
 		parent::__construct();
 
 		$this->setPermData([1,2,3,4,5,6,7,1001,1002,1003]);
+
+		global $AppVersion;
+		$this->template_file = $AppVersion->template_file_admin;
 	}
 
 	public function SetMdl()

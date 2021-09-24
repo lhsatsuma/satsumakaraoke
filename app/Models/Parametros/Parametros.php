@@ -1,10 +1,10 @@
 <?php
-namespace App\Models\Permissao;
+namespace App\Models\Parametros;
 
-class Permissao extends \App\Models\Basic\Basic
+class Parametros extends \App\Models\Basic\Basic
 {
 	public $db;
-	public $table = 'permissao';
+	public $table = 'parametros';
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
@@ -14,10 +14,20 @@ class Permissao extends \App\Models\Basic\Basic
 			'dont_generate' => true,
 		),
 		'nome' => array(
-			'lbl' => 'Nome da Permissão',
+			'lbl' => 'Nome do Parâmetro',
 			'type' => 'varchar',
 			'max_length' => 255,
 			'link_record' => true,
+		),
+		'codigo' => array(
+			'lbl' => 'Código',
+			'type' => 'varchar',
+			'max_length' => 255,
+		),
+		'valor' => array(
+			'lbl' => 'Valor Parâmetro',
+			'type' => 'varchar',
+			'max_length' => 255,
 		),
 		'deletado' => array(
 			'lbl' => 'Deletado',
@@ -68,7 +78,7 @@ class Permissao extends \App\Models\Basic\Basic
 			foreach($results as $key => $result){
 				$results[$key]['id'] = (int)$result['id'];
 				$results[$key]['permissao_grupo_id'] = (int)$result['permissao_grupo_id'];
-				$results[$key]['nivel'] = ($grupo == 1) ? 7 : (int)$result['nivel'];
+				$results[$key]['nivel'] = (int)$result['nivel'];
 			}
 			return $results;
 			
