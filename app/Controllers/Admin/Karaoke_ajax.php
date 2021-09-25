@@ -55,14 +55,14 @@ class Karaoke_ajax extends AdminBaseController
 			$this->ajax->setError('0x001', 'Error retrieving list of musics');
 		}
 		foreach($result as $key => $fila){
-			if(is_bool($this->ajax->body['sh'])){
+			if((int) $this->ajax->body['sh'] == 1){
 				if(strlen($fila['cantor']) > 13){
 					$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
 				}
 				if(strlen($fila['nome_musica']) > 29){
 					$result[$key]['nome_musica'] = mb_substr($fila['nome_musica'], 0, 26) . '...';
 				}
-			}elseif(is_int($this->ajax->body['sh'])){
+			}elseif((int)$this->ajax->body['sh'] > 1){
 				$total_len = $fila['cantor'].$fila['nome_musica'];
 				if(strlen($total_len) > $this->ajax->body['sh'] - 3){
 					$result[$key]['nome_musica'] = mb_substr($fila['nome_musica'], 0, $this->ajax->body['sh'] - strlen($fila['cantor'])) . '...';

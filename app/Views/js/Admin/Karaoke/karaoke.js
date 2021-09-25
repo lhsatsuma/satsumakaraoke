@@ -114,7 +114,7 @@ class KaraokeJS{
 		handleAjax({
 			url: karaoke.url+'k_musics_list',
 			data: {
-				sh: false,
+				sh: 0,
 				ct: 1,
 				of: 0,
 			},
@@ -200,13 +200,7 @@ class KaraokeJS{
 	}
 	resizeVideo()
 	{
-		let windowTotalHeight = window.innerHeight;
-	
-		let window70Height = (windowTotalHeight * 65) / 100;
-		let videoHeight = video.videoHeight;
-	
-		let videoHeightPerc = (videoHeight * 100) / windowTotalHeight;
-		$('#video').css('height', window70Height);
+		$('#video').css('height', $('.videoDiv').css('height'));
 	}
 
 	mountWaitList(dontRefresh = false)

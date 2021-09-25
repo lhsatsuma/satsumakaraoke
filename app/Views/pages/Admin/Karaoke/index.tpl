@@ -36,8 +36,9 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-12 primary-row center">
-							<p><button class="btn btn-outline-success btn-rounded" onclick="karaoke.removeInitial(1)" >TELA COMPLETA</button></p>
-							<p><button class="btn btn-outline-success btn-rounded" onclick="karaoke.removeInitial(3)" >APENAS AS MUSICAS NA FILA</button></p>
+							<p><button class="btn btn-outline-success btn-rounded" onclick="karaoke.removeInitial(1)" >1- TELA COMPLETA</button></p>
+							<p><button class="btn btn-outline-info btn-rounded" onclick="karaoke.removeInitial(2)" >2- APENAS VIDEO</button></p>
+							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(3)" >APENAS AS MUSICAS NA FILA</button></p>
 							</div>
 						</div>
 					</div>
