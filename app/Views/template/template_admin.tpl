@@ -32,7 +32,7 @@
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
 	</head>
 	<body>
-		<div class="page-wrapper chiller-theme toggled">
+		<div class="page-wrapper chiller-theme {if !$is_mobile}toggled{/if}">
 		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
 		<i class="fas fa-bars"></i>
 		</a>

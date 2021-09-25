@@ -1,28 +1,30 @@
 {if !$bdOnly}
 {$filter_template}
 {/if}
-<table class="table table-striped table-list tb-rst-fltr">
-	<thead>
-		<tr class="d-flex">
-			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Idioma</th>
-			<th scope="col" class="ptr col-8 col-xl-11" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
-		</tr>
-	</thead>
-	<tbody>
-		{if empty($records)}
-		<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
-			<td colspan="2">Nenhuma música encontrada!</td>
-		</tr>
-		{else}
-		{foreach from=$records item=campos}
-		<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}" dt-r-fvt="{$campos.favorite}">
-			<td class="col-2 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
-			<td class="col-8 col-xl-11" dt-r-nome="{$campos.nome}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.nome}</td>
-		</tr>
-		{/foreach}
-		{/if}
-	</tbody>
-</table>
+<div class="table-responsive">
+	<table class="table table-striped table-list tb-rst-fltr">
+		<thead>
+			<tr class="d-flex">
+				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Idioma</th>
+				<th scope="col" class="ptr col-9 col-xl-11" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
+			</tr>
+		</thead>
+		<tbody>
+			{if empty($records)}
+			<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
+				<td colspan="2">Nenhuma música encontrada!</td>
+			</tr>
+			{else}
+			{foreach from=$records item=campos}
+			<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}" dt-r-fvt="{$campos.favorite}">
+				<td class="col-3 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
+				<td class="col-9 col-xl-11" dt-r-nome="{$campos.nome}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.nome}</td>
+			</tr>
+			{/foreach}
+			{/if}
+		</tbody>
+	</table>
+</div>
 <table class="table table-striped table-list table-pagination">
 	<tbody>
 		<tr>

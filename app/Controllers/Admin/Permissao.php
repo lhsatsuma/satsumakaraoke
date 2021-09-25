@@ -46,7 +46,7 @@ class Permissao extends AdminBaseController
 		$this->data['records'] = $result;
 		$this->data['records_count'] = (count($result)) ? true : false;
 		
-		return $this->displayNew('pages/admin/Permissao/index');
+		return $this->displayNew('pages/Admin/Permissao/index');
 	}
 	
 	public function detalhes($id = null)
@@ -67,7 +67,7 @@ class Permissao extends AdminBaseController
 
 		$this->setPermData(3);
 		
-		return $this->displayNew('pages/admin/Permissao/detalhes');
+		return $this->displayNew('pages/Admin/Permissao/detalhes');
 	}
 	
 	public function editar($id = null)
@@ -91,7 +91,7 @@ class Permissao extends AdminBaseController
 
 		$this->setPermData(3);
 		
-		return $this->displayNew('pages/admin/Permissao/editar');
+		return $this->displayNew('pages/Admin/Permissao/editar');
 	}
 	
 	public function salvar()

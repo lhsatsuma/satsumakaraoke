@@ -12,33 +12,36 @@
 	<input type="hidden" name="order_by_field" value="{$order_by_field}" />
 	<input type="hidden" name="order_by_order" value="{$order_by_order}" />
 </form>
-<table class="table table-responsive-xl table-striped table-list">
-	<thead>
-		<tr>
-			<th scope="col" class="ptr" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário</th>
-			<th scope="col" class="ptr" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome</th>
-			<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
-			<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data</th>
-		</tr>
-	</thead>
-	<tbody>
-		{if empty($records)}
-		<tr>
-			<td colspan="4">Nenhuma música na fila encontrada!</td>
-		</tr>
-		{else}
-		{foreach from=$records item=campos}
-		<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
-			<input type="hidden" dt-r-musica_id="{$campos.musica_id}" />
-			<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
-			<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
-			<td dt-r-status="{$campos.status}">{$campos.status}</td>
-			<td class="d-none d-lg-table-cell" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
-		</tr>
-		{/foreach}
-		{/if}
-	</tbody>
-</table>
+
+<div class="table-responsive">
+	<table class="table table-striped table-list">
+		<thead>
+			<tr>
+				<th scope="col" class="ptr" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário</th>
+				<th scope="col" class="ptr" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome</th>
+				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data</th>
+			</tr>
+		</thead>
+		<tbody>
+			{if empty($records)}
+			<tr>
+				<td colspan="4">Nenhuma música na fila encontrada!</td>
+			</tr>
+			{else}
+			{foreach from=$records item=campos}
+			<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
+				<input type="hidden" dt-r-musica_id="{$campos.musica_id}" />
+				<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
+				<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
+				<td dt-r-status="{$campos.status}">{$campos.status}</td>
+				<td class="d-none d-lg-table-cell" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
+			</tr>
+			{/foreach}
+			{/if}
+		</tbody>
+	</table>
+</div>
 <table class="table table-striped table-list table-pagination">
 	<tbody>
 		<tr>
