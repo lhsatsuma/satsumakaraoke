@@ -16,7 +16,7 @@ class Arquivos extends AdminBaseController
 	{
 		$extBtns = [];
 		if(hasPermission(7, 'w')){
-			$extBtns['new'] = '<a class="btn btn-success" href="'.$this->base_url.'admin/arquivos/editar">Novo +</a>';
+			$extBtns['new'] = '<a class="btn btn-outline-success" href="'.$this->base_url.'admin/arquivos/editar">Novo +</a>';
 		}
 
 		return $extBtns;
