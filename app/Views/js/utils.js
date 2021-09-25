@@ -743,7 +743,6 @@ document.setScrollTop = function(y) {
 
 function toggleDarkMode(setAjax = true)
 {
-	let newValueDarkMode = null;
 	if($('#darkmodecss').length > 0){
 		$('#darkmodecss').remove();	
 		localStorage.dark_mode_active = 0;
@@ -774,7 +773,7 @@ if((
 	) ||
 	_app_vars._ACTION_NAME == 'criarconta'){
 	//Check if cached dark mode
-	if(localStorage.dark_mode_active){
+	if(localStorage.dark_mode_active == '1'){
 		toggleDarkMode(false);
 	}
 }
