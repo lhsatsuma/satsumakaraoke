@@ -1,6 +1,5 @@
 
 var video = null;
-var videoSrc = null;
 var its_running_thread = false;
 var its_running_thread_list = false;
 var last_volume = 1;
@@ -61,7 +60,6 @@ function removeInitial()
 	<h1>Cante com nós! Acesse <span class="b800">${_app_vars.host_fila}</span></h1>
 </div>`);
 	video = document.getElementById('video');
-	videoSrc = document.getElementById('videoSrc');
 	$('#InitialModal').modal('hide');
 	video.onloadeddata = function() {
 		resizeVideo();

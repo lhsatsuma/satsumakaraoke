@@ -413,8 +413,11 @@ class Basic extends Model
 		if(!$limit){
 			$limit = 0;
 		}
-		
-		$offset = ($page > 1) ? ($page - 1) * $limit : 0;
+		if(!$this->page_as_offset){
+			$offset = ($page > 1) ? ($page - 1) * $limit : 0;
+		}else{
+			$offset = $page;
+		}
 		$this->helper->resetQuery();
 		$this->helper->select($this->select);
 		$this->get_join();

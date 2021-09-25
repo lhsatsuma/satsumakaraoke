@@ -58,7 +58,7 @@
 						</li>
 						{if $perms.cod_1002.r}
 							<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
-								<a href="{$app_url}admin/musicas/karaoke" target="_blank">
+								<a href="{$app_url}admin/karaoke/index" target="_blank">
 								<i class="fas fa-music"></i>
 								<span>Karaokê</span>
 								</a>

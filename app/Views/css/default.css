@@ -770,7 +770,9 @@ input.form-control[name="valor_total"] {
 
 	#playingNow,
 	#SongLists,
-	#SongListsDiv p {
+	#SongListsDiv p,
+	#SongListsDiv2 p,
+	#SongListsDivCenter p {
 		font-size: 1.5em;
 		font-weight: 600;
 	}
@@ -787,7 +789,9 @@ input.form-control[name="valor_total"] {
 
 	#playingNow,
 	#SongLists,
-	#SongListsDiv p {
+	#SongListsDiv p,
+	#SongListsDiv2 p,
+	#SongListsDivCenter p {
 		font-size: 1.2em;
 		font-weight: 600;
 	}
@@ -802,7 +806,9 @@ input.form-control[name="valor_total"] {
 
 	#playingNow,
 	#SongLists,
-	#SongListsDiv p {
+	#SongListsDiv p,
+	#SongListsDiv2 p,
+	#SongListsDivCenter p {
 		font-size: 1em;
 		font-weight: 600;
 	}
@@ -814,9 +820,7 @@ input.form-control[name="valor_total"] {
 
 @media (max-width: 500px) {
 
-	#playingNow,
-	#SongLists,
-	#SongListsDiv p {
+	#playingNow{
 		font-size: 1em;
 		font-weight: 600;
 	}
@@ -824,6 +828,16 @@ input.form-control[name="valor_total"] {
 	.QuickGoToPage {
 		width: 37%;
 	}
+}
+
+#SongLists,
+#SongListsDiv p,
+#SongListsDiv2 p,
+#SongListsDivCenter p {
+	white-space: nowrap;
+}
+#SongListsDiv2{
+	border-left: 2px solid #ccc;
 }
 
 #ControleRemotoModal div.center>span:hover {

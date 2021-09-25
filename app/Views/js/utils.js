@@ -657,7 +657,7 @@ function handleAjax(args){
             if(!!d.status && d.detail){
                 args.callback(d);
             }else{
-				if(!args.dontfireError){
+				if(!args.dontFireError){
 					fireErrorGeneric();
 				}
                 if(!!args.callbackError){
@@ -670,16 +670,18 @@ function handleAjax(args){
         },
         error: function(d){
             let r = d.responseJSON;
-            if(!!r && !!r.detail){
-                fireAndClose({
-                    title:'Ops! Algo deu errado!',
-                    html: r.detail,
-                    icon: 'error',
-                    allowOutsideClick: false,
-                });
-            }else{
-                fireErrorGeneric();
-            }
+			if(!args.dontFireError){
+				if(!!r && !!r.detail){
+					fireAndClose({
+						title:'Ops! Algo deu errado!',
+						html: r.detail,
+						icon: 'error',
+						allowOutsideClick: false,
+					});
+				}else{
+					fireErrorGeneric();
+				}
+			}
             if(!!args.callbackError){
                 args.callbackError(d);
             }
@@ -688,6 +690,9 @@ function handleAjax(args){
             }
         }
     }
+	if(typeof args.data == 'object'){
+		args.data = JSON.stringify(args.data);
+	}
     argsFire = $.extend(argsFire, args);
     $.ajax(argsFire);
 }

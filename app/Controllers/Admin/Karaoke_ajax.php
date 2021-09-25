@@ -49,17 +49,23 @@ class Karaoke_ajax extends AdminBaseController
 		$this->mdl->order_by["musicas_fila.data_criacao"] = "ASC";
 
 		$total_rows = $this->mdl->total_rows();
-		$result = $this->mdl->search(($this->ajax->body['ct']) ? $this->ajax->body['ct'] : 10);
+		$this->mdl->page_as_offset = true;
+		$result = $this->mdl->search(($this->ajax->body['ct']) ? $this->ajax->body['ct'] : 10, ($this->ajax->body['of']) ? (int)$this->ajax->body['of'] : 0);
 		if(is_null($result)){
 			$this->ajax->setError('0x001', 'Error retrieving list of musics');
 		}
 		foreach($result as $key => $fila){
-			if($this->ajax->body['sh']){
+			if(is_bool($this->ajax->body['sh'])){
 				if(strlen($fila['cantor']) > 13){
-					$result[$key]['cantor'] = substr($fila['cantor'], 0, 11) . '...';
+					$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
 				}
-				if($key > 0 && strlen($fila['nome_musica']) > 29){
-					$result[$key]['nome_musica'] = substr($fila['nome_musica'], 0, 26) . '...';
+				if(strlen($fila['nome_musica']) > 29){
+					$result[$key]['nome_musica'] = mb_substr($fila['nome_musica'], 0, 26) . '...';
+				}
+			}elseif(is_int($this->ajax->body['sh'])){
+				$total_len = $fila['cantor'].$fila['nome_musica'];
+				if(strlen($total_len) > $this->ajax->body['sh'] - 3){
+					$result[$key]['nome_musica'] = mb_substr($fila['nome_musica'], 0, $this->ajax->body['sh'] - strlen($fila['cantor'])) . '...';
 				}
 			}
 			$result[$key]['codigo'] = (int)$result[$key]['codigo'];
@@ -79,5 +85,13 @@ class Karaoke_ajax extends AdminBaseController
 		$this->mdl->f['id'] = $result['id'];
 		$this->mdl->f['status'] = 'encerrado';
 		$this->mdl->saveRecord();
+		$this->ajax->setSuccess();
+	}
+
+	public function k_get_body()
+	{
+		$this->data['karaokeURL'] = getValorParametro('karaoke_url_videos');
+		$this->data['host_fila'] = getValorParametro('karaoke_url_host');
+		$this->ajax->setSuccess($this->displayNew('pages/Admin/Karaoke/k_body_'.$this->ajax->body['id'], false));
 	}
 }
