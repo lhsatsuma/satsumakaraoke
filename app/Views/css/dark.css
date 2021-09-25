@@ -326,3 +326,9 @@ a {
 	background-color: #ab8001;
 	border-color: #ab8001;
 }
+.btn-outline-success, .btn-outline-info, .btn-outline-secondary, .btn-outline-primary, .btn-outline-warning{
+	font-weight: 500;
+}
+.btn-outline-warning{
+	color: #252525;
+}
