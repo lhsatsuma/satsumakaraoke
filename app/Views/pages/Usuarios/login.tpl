@@ -33,6 +33,7 @@
 						<p><a href="javascript:void(0)" onclick="OpenModalReset()">Esqueci Minha Senha</a></p>
 						<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
 					</form>
+					<p class="versao-sistema">Versão {$app_ver} | {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>

@@ -734,7 +734,7 @@ input[type="checkbox"] {
 
 #filtroForm>.form-inline>button.btn-rounded>.fa-filter,
 .extra-btns .fa-info {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 }
 
 .link-related-record>input:disabled {
@@ -1178,4 +1178,5 @@ input:checked+.slider-dark-mode:before {
 .versao-sistema{
 	font-size: 0.7rem;
 	text-align: center;
+	margin: 0;
 }

@@ -32,6 +32,7 @@
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
 						<p><button class="btn width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
 					</form>
+					<p class="versao-sistema">Versão {$app_ver} | {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>
