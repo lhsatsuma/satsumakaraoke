@@ -153,11 +153,14 @@ class Musicas extends AdminBaseController
 	public function karaoke()
 	{
 		hasPermission(1002, 'r', true);
-		$version = new \Config\AppVersion();
+
+		$videosKaraoke = getValorParametro('karaoke_url_videos');
+		$hostFila = getValorParametro('karaoke_url_host');
+
 
 		$this->js_vars = array_merge($this->js_vars, [
-			'karaokeURL' => ($version->VideosKaraokeURL) ? $version->VideosKaraokeURL : base_url().'/',
-			'host_fila' => ($version->host_fila) ? $version->host_fila : base_url().'/'
+			'karaokeURL' => ($videosKaraoke) ? $videosKaraoke : base_url().'/',
+			'host_fila' => ($hostFila) ? $hostFila : base_url().'/'
 		]);
 		return $this->displayNew('pages/Admin/Musicas/karaoke', false);
 	}

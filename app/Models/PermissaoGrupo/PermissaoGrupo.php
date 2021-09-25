@@ -17,12 +17,14 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 			'lbl' => 'Permissão',
 			'type' => 'related',
 			'table' => 'permissao',
+			'required' => true,
 			'dont_load_layout' => true,
 		),
 		'grupo' => array(
 			'lbl' => 'Grupo',
 			'type' => 'related',
 			'table' => 'grupos',
+			'required' => true,
 			'dont_load_layout' => true,
 		),
 		'nivel' => array(

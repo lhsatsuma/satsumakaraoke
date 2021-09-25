@@ -143,7 +143,7 @@
 							</li>
 						{/if}
 						{if $perms.cod_4.r OR $perms.cod_6.r OR $perms.cod_8.r}
-							<li class="sidebar-dropdown {if $breadcrumb.admin.internal OR $breadcrumb.admin.parametros}active{/if}">
+							<li class="sidebar-dropdown {if $breadcrumb.admin.internal OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.parametros}active{/if}">
 								<a href="#">
 									<i class="fas fa-list"></i>
 									<span>Administração</span>
@@ -192,6 +192,9 @@
 							<i class="fas fa-power-off"></i>
 							<span>Sair</span>
 							</a>
+						</li>
+						<li class="versao-sistema">
+							Versão {$app_ver} | {$ch_ver_org}
 						</li>
 					</ul>
 				</div>

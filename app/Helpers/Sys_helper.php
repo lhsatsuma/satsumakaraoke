@@ -370,3 +370,16 @@ function rdctForbbiden()
 	$focus->SetInitialData();
 	echo $focus->displayNew('403', false);exit;
 }
+function getValorParametro(string $cod)
+{
+	global $parametros;
+	$parametro_valor = getSession()->get('PARAM_CACHE_'.$cod);
+	if(is_null($parametro_valor)){
+		if(!$parametros){
+			$parametros = new \App\Models\Parametros\Parametros();
+		}
+		$parametro_valor = $parametros->getValorParametro($cod)['valor'];
+		getSession()->set('PARAM_CACHE_'.$cod, $parametro_valor);
+	}
+	return $parametro_valor;
+}

@@ -13,7 +13,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var string
 	 Sets cache version for jsManager/CSS/IMG files
 	 */
-	public $css = '20210923_v1';
+	public $css = '20210924.1';
 	
 	/*
 	@var bool
@@ -31,10 +31,6 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	*/
 	public $compress_output = true;
 
-	public $VideosKaraokeURL = '';
-
-	public $host_fila = '';
-
 	public $ajax_pagination = true;
 
 	public $template = 'template';
@@ -45,6 +41,5 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	{
 		parent::__construct();
 		ini_set('default_charset', 'UTF-8');
-		date_default_timezone_set('America/Recife');
 	}
 }

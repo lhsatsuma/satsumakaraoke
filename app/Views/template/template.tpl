@@ -110,6 +110,9 @@
 							<span>Sair</span>
 							</a>
 						</li>
+						<li class="versao-sistema">
+							Versão {$app_ver} | {$ch_ver_org}
+						</li>
 					</ul>
 				</div>
 				<!-- sidebar-menu  -->

@@ -267,11 +267,14 @@ class BaseController extends Controller
 			$msg_type = 'error';
 		}
 		$this->js_vars['ajax_pagination'] = ($AppVersion->ajax_pagination ? true : false);
+		$this->js_vars['app_version'] = $AppVersion->version;
 		$this->js_vars['ch_ver'] = GetCacheVersion();
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
 		$dataNew = array(
 			'app_url' => base_url().'/',
+			'app_ver' => $AppVersion->app,
 			'ch_ver' => GetCacheVersion(),
+			'ch_ver_org' => $AppVersion->css,
 			'is_mobile' => $this->is_mobile,
 			'msg' => $this->session->getFlashdata('msg'),
 			'msg_type' => $msg_type,

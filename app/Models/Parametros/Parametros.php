@@ -17,11 +17,13 @@ class Parametros extends \App\Models\Basic\Basic
 			'lbl' => 'Nome do Parâmetro',
 			'type' => 'varchar',
 			'max_length' => 255,
+			'required' => true,
 			'link_record' => true,
 		),
 		'codigo' => array(
 			'lbl' => 'Código',
 			'type' => 'varchar',
+			'required' => true,
 			'max_length' => 255,
 		),
 		'valor' => array(
@@ -59,31 +61,21 @@ class Parametros extends \App\Models\Basic\Basic
 	);
 	public $idx_table = [
 		['id', 'deletado'],
-		['nome', 'deletado']
+		['codigo', 'deletado']
 	];
 
-	public function getAllPermissao(string $grupo)
+	public function getValorParametro(string $cod)
 	{
-		if($grupo){
-			$this->force_deletado = true;
-			$this->select = "permissao.id, permissao.nome, permissao_grupo.id as permissao_grupo_id, permissao_grupo.nivel";
-			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao
-			AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)
-			AND permissao_grupo.grupo = '{$grupo}'";
-			$this->where['permissao.deletado'] = '0';
-			$this->order_by['permissao.id'] = 'ASC';
-			$results = $this->search();
-			$this->force_deletado = true;
+		$this->select = "valor";
+		$this->where['codigo'] = $cod;
+		return $this->search(1)[0];
+	}
 
-			foreach($results as $key => $result){
-				$results[$key]['id'] = (int)$result['id'];
-				$results[$key]['permissao_grupo_id'] = (int)$result['permissao_grupo_id'];
-				$results[$key]['nivel'] = (int)$result['nivel'];
-			}
-			return $results;
-			
+	public function after_save(?string $operation = null)
+	{
+		if($this->f['codigo']){
+			getSession()->remove('PARAM_CACHE_'.$this->f['codigo']);
 		}
-		return [];
 	}
 }
 ?>

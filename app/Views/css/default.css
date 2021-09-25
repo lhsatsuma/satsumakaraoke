@@ -1175,3 +1175,7 @@ input:checked+.slider-dark-mode:before {
 .btn-outline-warning{
 	color: #252525;
 }
+.versao-sistema{
+	font-size: 0.7rem;
+	text-align: center;
+}

@@ -17,6 +17,7 @@ class Permissao extends \App\Models\Basic\Basic
 			'lbl' => 'Nome da Permissão',
 			'type' => 'varchar',
 			'max_length' => 255,
+			'required' => true,
 			'link_record' => true,
 		),
 		'deletado' => array(

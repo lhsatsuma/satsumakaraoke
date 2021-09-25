@@ -25,12 +25,12 @@
 		<div class="col-12">
 			<button type="button" class="btn btn-outline-success btn-rounded margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Salvar</button>
 			{if $record.id}
-				<a href="{$app_url}admin/grupos/index" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
-			{else}
 				<a href="{$app_url}admin/grupos/detalhes/{$record.id}" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
-			{/if}
-			{if $record.id && $perms.cod_2.d}
-				<button type="button" class="btn btn-outline-danger margin-5" onclick="ConfirmdeleteRecord('EditarForm')"><i class="fas fa-trash"></i> Deletar</button>
+				{if $perms.cod_2.d}
+					<button type="button" class="btn btn-outline-danger margin-5" onclick="ConfirmdeleteRecord('EditarForm')"><i class="fas fa-trash"></i> Deletar</button>
+				{/if}
+			{else}
+				<a href="{$app_url}admin/grupos/index" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
 			{/if}
 		</div>
 	</div>
