@@ -1,3 +1,6 @@
+/*
+SQL FOR TABLE arquivos
+*/
 CREATE TABLE arquivos (
 id varchar(36),
 nome varchar(255),
@@ -14,9 +17,15 @@ data_modificacao datetime,
 usuario_modificacao varchar(36),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE arquivos
 CREATE INDEX id_dele0 ON arquivos (id, deletado );
 CREATE INDEX nome_dele1 ON arquivos (nome, deletado );
 CREATE INDEX tipo_dele2 ON arquivos (tipo, deletado );
+
+/*
+SQL FOR TABLE grupos
+*/
 CREATE TABLE grupos (
 id int NOT NULL AUTO_INCREMENT,
 nome varchar(255),
@@ -28,9 +37,15 @@ data_modificacao datetime,
 usuario_modificacao varchar(36),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE grupos
 CREATE INDEX id_dele0 ON grupos (id, deletado );
 CREATE INDEX nome_dele1 ON grupos (nome, deletado );
 CREATE INDEX ativ_dele2 ON grupos (ativo, deletado );
+
+/*
+SQL FOR TABLE musicas
+*/
 CREATE TABLE musicas (
 id varchar(36),
 nome varchar(255),
@@ -46,9 +61,15 @@ md5 varchar(255),
 tipo varchar(255),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE musicas
 CREATE INDEX id_dele0 ON musicas (id, deletado );
 CREATE INDEX nome_dele1 ON musicas (nome, deletado );
 CREATE INDEX tipo_dele2 ON musicas (tipo, deletado );
+
+/*
+SQL FOR TABLE musicas_favorites
+*/
 CREATE TABLE musicas_favorites (
 id varchar(36),
 nome varchar(255),
@@ -60,9 +81,15 @@ usuario_modificacao varchar(36),
 musica_id varchar(36),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE musicas_favorites
 CREATE INDEX id_dele0 ON musicas_favorites (id, deletado );
 CREATE INDEX nome_dele1 ON musicas_favorites (nome, deletado );
 CREATE INDEX usua_dele2 ON musicas_favorites (usuario_criacao, deletado );
+
+/*
+SQL FOR TABLE musicas_fila
+*/
 CREATE TABLE musicas_fila (
 id varchar(36),
 nome varchar(255),
@@ -75,13 +102,20 @@ musica_id varchar(36),
 status varchar(255),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE musicas_fila
 CREATE INDEX id_dele0 ON musicas_fila (id, deletado );
 CREATE INDEX nome_dele1 ON musicas_fila (nome, deletado );
 CREATE INDEX stat_dele2 ON musicas_fila (status, deletado );
-CREATE TABLE permissao (
+
+/*
+SQL FOR TABLE parametros
+*/
+CREATE TABLE parametros (
 id int NOT NULL AUTO_INCREMENT,
 nome varchar(255),
-cod_permissao int,
+codigo varchar(255),
+valor varchar(255),
 deletado tinyint(1),
 data_criacao datetime,
 usuario_criacao varchar(36),
@@ -89,9 +123,32 @@ data_modificacao datetime,
 usuario_modificacao varchar(36),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE parametros
+CREATE INDEX id_dele0 ON parametros (id, deletado );
+CREATE INDEX codi_dele1 ON parametros (codigo, deletado );
+
+/*
+SQL FOR TABLE permissao
+*/
+CREATE TABLE permissao (
+id int NOT NULL AUTO_INCREMENT,
+nome varchar(255),
+deletado tinyint(1),
+data_criacao datetime,
+usuario_criacao varchar(36),
+data_modificacao datetime,
+usuario_modificacao varchar(36),
+PRIMARY KEY (id)
+) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE permissao
 CREATE INDEX id_dele0 ON permissao (id, deletado );
 CREATE INDEX nome_dele1 ON permissao (nome, deletado );
-CREATE INDEX codp_dele2 ON permissao (cod_permissao, deletado );
+
+/*
+SQL FOR TABLE permissao_grupo
+*/
 CREATE TABLE permissao_grupo (
 id int NOT NULL AUTO_INCREMENT,
 permissao varchar(36),
@@ -104,9 +161,15 @@ data_modificacao datetime,
 usuario_modificacao varchar(36),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE permissao_grupo
 CREATE INDEX id_dele0 ON permissao_grupo (id, deletado );
 CREATE INDEX perm_grup_dele1 ON permissao_grupo (permissao, grupo, deletado );
 CREATE INDEX grup_dele2 ON permissao_grupo (grupo, deletado );
+
+/*
+SQL FOR TABLE preferencias_usuario
+*/
 CREATE TABLE preferencias_usuario (
 id varchar(36),
 nome varchar(255),
@@ -118,9 +181,15 @@ data_modificacao datetime,
 usuario_modificacao varchar(36),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE preferencias_usuario
 CREATE INDEX id_dele0 ON preferencias_usuario (id, deletado );
 CREATE INDEX usua_dele1 ON preferencias_usuario (usuario_criacao, deletado );
 CREATE INDEX usua_nome_dele2 ON preferencias_usuario (usuario_criacao, nome, deletado );
+
+/*
+SQL FOR TABLE usuarios
+*/
 CREATE TABLE usuarios (
 id varchar(36),
 nome varchar(255),
@@ -140,6 +209,8 @@ ultima_troca_senha datetime,
 dark_mode tinyint(1),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE usuarios
 CREATE INDEX id_dele0 ON usuarios (id, deletado );
 CREATE INDEX tipo_dele1 ON usuarios (tipo, deletado );
 
