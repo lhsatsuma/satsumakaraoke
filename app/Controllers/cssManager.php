@@ -59,6 +59,10 @@ class CssManager extends BaseController
 					$minifiedCode = file_get_contents($file_name);
 				}else{
 					$minifiedCode = file_get_contents($file_name);
+					//replace all new lines and spaces
+					$minifiedCode = str_replace("\r\n", " ", $minifiedCode);
+					$minifiedCode = str_replace("\t", " ", $minifiedCode);
+					$minifiedCode = preg_replace("/([0-9]*px(?!;))/", "$1 ", $minifiedCode);
 				}
 				file_put_contents($cachePath, "/*{$ch_ver}*/\n".$minifiedCode);
 			}
