@@ -19,6 +19,7 @@ class Basic extends Model
 	public $group_by = array();
 	public $last_error = '';
 	public $id_by_name = false;
+	public $page_as_offset = false;
 	
 	//If have ID and you know that it doesn't exists on database, set's this with true
 	public $new_with_id = false;

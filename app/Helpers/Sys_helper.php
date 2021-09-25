@@ -272,8 +272,8 @@ function getFormData($key=null, $raw = false)
 	if(!$requestForm){
 		$requestForm = \Config\Services::request();
 	}
-	$rawInput = $requestForm->getBody();
-	if($rawInput && $raw){
+	if($requestForm->isAJAX()){
+		$rawInput = $requestForm->getBody();
 		$decoded = json_decode($rawInput, true);
 		if($key === null){
 			return $decoded;

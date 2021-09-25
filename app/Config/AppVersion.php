@@ -29,7 +29,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var bool
 	Compress HTML to output
 	*/
-	public $compress_output = false;
+	public $compress_output = true;
 
 	public $ajax_pagination = true;
 
