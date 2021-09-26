@@ -1,7 +1,7 @@
 function addEventRowData()
 {
 	$('.r-dt-slct').each(function(){
-		$(this).click(function(){
+		$(this).on('click', () =>{
 			OpenModalSelected($(this).attr('dt-r-id'));
 		});
 		
@@ -27,7 +27,7 @@ function OpenModalSelected(id){
 
 	$('#SelectedRowModal').modal('show');
 }
-$('#InsertFilaBtn').click(function(){
+$('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireLoading({
 		didOpen: () => {
@@ -53,7 +53,7 @@ $('#InsertFilaBtn').click(function(){
 		}
 	})
 });
-$('#InsertFavoriteBtn').click(function(){
+$('#InsertFavoriteBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireLoading({
 		didOpen: () => {
@@ -140,7 +140,7 @@ $('#ImportModalLink').keyup(function(){
 		});
 	}
 }).change();
-$('#ImportMusicaButton, #ImportMusicaAndFilaButton').click(function(){
+$('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', () =>{
 	if($(this).prop('disabled') || !$('#ImportModalLinkTitle').length || !$('#ImportModalLinkMD5').length){
 		return;
 	}
@@ -185,7 +185,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').click(function(){
 								timer: 1000,
 								timerProgressBar: true,
 								didClose: () => {
-									$('#filtroForm').submit();
+									$('#filtroForm').trigger('submit');
 								}
 							});
 						}else{

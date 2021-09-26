@@ -5,15 +5,15 @@ var hasToggleMenu = $(window).width() < 1439;
 $(document).ready(function(){
 	
 	/* SIDEBAR JS */
-	$(".sidebar-dropdown > a").click(function() {
+	$(".sidebar-dropdown > a").on('click', (e) => {
 		$(".sidebar-submenu").slideUp(200);
-		if ($(this).parent().hasClass("active")) {
+		if ($(e.currentTarget).parent().hasClass("active")) {
 			$(".sidebar-dropdown").removeClass("active");
-			$(this).parent().removeClass("active");
+			$(e.currentTarget).parent().removeClass("active");
 		} else {
 			$(".sidebar-dropdown").removeClass("active");
-			$(this).next(".sidebar-submenu").slideDown(200);
-			$(this).parent().addClass("active");
+			$(e.currentTarget).next(".sidebar-submenu").slideDown(200);
+			$(e.currentTarget).parent().addClass("active");
 		}
 	});
 	$(window).resize(function(){
@@ -26,14 +26,14 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#close-sidebar, .page-content").click(function() {
+	$("#close-sidebar, .page-content").on('click', () => {
 		hasToggleMenu = false;
 		if($(".page-wrapper").hasClass("toggled") && $(window).width() < 1439){
 			$(".page-wrapper").removeClass("toggled");
 			hasToggleMenu = true;
 		}
 	});
-	$("#show-sidebar").click(function() {
+	$("#show-sidebar").on('click', () => {
 		$(".page-wrapper").addClass("toggled");
 	});
 	
@@ -74,7 +74,7 @@ function ConfirmdeleteRecord(fm)
 	}).then((result) => {
 		if(result.isConfirmed){
 			$('#'+fm).find('input[name="deletado"]:first').val('1');
-			$('#'+fm).submit();
+			$('#'+fm).trigger('submit');
 		}
 	});
 }
@@ -83,7 +83,7 @@ function clearFiltroForm()
 	$('#filtroForm').find('input, select').each(function(){
 		$(this).val('');
 	});
-	$('#filtroForm').submit();
+	$('#filtroForm').trigger('submit');
 }
 function OrderByFiltro(field)
 {
@@ -99,7 +99,7 @@ function OrderByFiltro(field)
 	}
 	$('#filtroForm').find('input[name="order_by_field"]').val(field);
 	$('#filtroForm').find('input[name="order_by_order"]').val(new_order);
-	$('#filtroForm').submit();
+	$('#filtroForm').trigger('submit');
 }
 function OrderByFiltroSubpanel(id_subpanel, field)
 {

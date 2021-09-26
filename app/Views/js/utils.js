@@ -14,6 +14,9 @@ function validateEmail(email)
 }
 function showLoadingIcon(elm)
 {
+	if(!$(elm).find('.loading-icon').length){
+		$(elm).append(` <img class="loading-icon" src="${_app_vars.app_url}images/loading.gif" />`);
+	}
     $(elm).find('.loading-icon').show();
 	$(elm).prop('disabled', true).css('cursor', 'not-allowed');
 }
@@ -404,11 +407,11 @@ function setCepField(args = {})
 	var elmCfg = CepFieldsCfg[args.elm];
 	
 	$(elmCfg.elm).css('width', '53%').after(' <button type="button" class="btn btn-outline-info btn-rounded consulta-cep" id="consulta_cep_'+$(elmCfg.elm).attr('name')+'"><img class="loading-icon" src="'+_app_vars.app_url+'images/loading.gif" />buscar</button>');
-	$('#consulta_cep_'+$(elmCfg.elm).attr('name')).click(function(){
+	$('#consulta_cep_'+$(elmCfg.elm).attr('name')).on('click', (e) =>{
 		if(!$(elmCfg.elm).val()){
 			return;
 		}
-		showLoadingIcon(this);
+		showLoadingIcon(e.currentTarget);
 		$.ajax({
 			"url": _app_vars.app_url+'ajax_requests/getCep',
 			"dataType": 'json',
@@ -470,7 +473,7 @@ function addValidateError(ipt, msg, override = false)
 	}else{
 		$(ipt).after("<p class='validate-error required'>"+msg_error+"</p>");
 	}
-	$(ipt).addClass('invalid-value').focus();
+	$(ipt).addClass('invalid-value').trigger('focus');
 }
 function rmvValidateError()
 {
@@ -539,7 +542,7 @@ function GoToPage(elm, page)
 			});
 		}else{
 			$('#filtroForm').attr('action', action);
-			$('#filtroForm').submit();
+			$('#filtroForm').trigger('submit');
 		}
 	}else{
 		location.href = $(elm).attr('og_loc');
@@ -629,7 +632,7 @@ function fireWarning(msg = null){
         icon: 'warning',
         allowOutsideClick: false,
 		didOpen: () => {
-			$('.swal2-confirm').focus();
+			$('.swal2-confirm').trigger('focus');
 		}
     });
 }
@@ -640,7 +643,7 @@ function fireInfo(msg = null){
         icon: 'info',
         allowOutsideClick: false,
 		didOpen: () => {
-			$('.swal2-confirm').focus();
+			$('.swal2-confirm').trigger('focus');
 		}
     });
 }
@@ -655,12 +658,14 @@ function handleAjax(args){
 		},
         success: function(d){
             if(!!d.status && d.detail){
-                args.callback(d);
+				if(typeof args.callback == 'function'){
+                	args.callback(d);
+				}
             }else{
 				if(!args.dontFireError){
 					fireErrorGeneric();
 				}
-                if(!!args.callbackError){
+                if(typeof args.callbackError == 'function'){
                     args.callbackError(d);
                 }
             }

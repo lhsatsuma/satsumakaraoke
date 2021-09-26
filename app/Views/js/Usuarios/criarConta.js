@@ -1,7 +1,7 @@
 var fields = {'nome': 'Nome', 'email': 'Email', 'senha': 'Senha', 'senha_repeat': 'Repita a Senha'};
 
-$('#newForm').find('.btn-success').click(function(){
-    showLoadingIcon(this);
+$('#newForm').find('.btn-success').on('click', (e) =>{
+    showLoadingIcon(e.currentTarget);
     $('.validate-error').remove();
     let data = {};
     let validated = true;
@@ -22,7 +22,7 @@ $('#newForm').find('.btn-success').click(function(){
         }
     }
     if(!validated){
-        hideLoadingIcon(this);
+        hideLoadingIcon(e.currentTarget);
         return;
     }
     $.ajax({
@@ -46,11 +46,11 @@ $('#newForm').find('.btn-success').click(function(){
                     if(r.detail){
                         if(r.detail.exists){
                             $('#email').after("<p class='validate-error required'>Já existe um usuário com este email cadastrado!</p>");
-                            $('#email').focus();
+                            $('#email').trigger('focus');
                             hideLoadingIcon(this);
                             validated = false;
                         }else{
-                            $('#newForm').submit();
+                            $('#newForm').trigger('submit');
                         }
                     }
 				}

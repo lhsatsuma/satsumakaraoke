@@ -1,33 +1,33 @@
-$('#SearchByAssigned').click(function(){
+$('#SearchByAssigned').on('click', () =>{
 	if($('#search_usuario_criacao').val() == '|ASSIGNED_ONLY|'){
 		$('#search_usuario_criacao').val('');
 	}else{
 		$('#search_usuario_criacao').val('|ASSIGNED_ONLY|');
 	}
-	$('#filtroForm').submit();
+	$('#filtroForm').trigger('submit');
 });
-$('#SearchByPendente').click(function(){
+$('#SearchByPendente').on('click', () =>{
 	if($('#search_status').val() == 'pendente'){
 		$('#search_status').val('');
 	}else{
 		$('#search_status').val('pendente');
 	}
-	$('#filtroForm').submit();
+	$('#filtroForm').trigger('submit');
 });
-$('#SearchByEncerrados').click(function(){
+$('#SearchByEncerrados').on('click', () =>{
 	if($('#search_status').val() == 'encerrado'){
 		$('#search_status').val('');
 	}else{
 		$('#search_status').val('encerrado');
 	}
-	$('#filtroForm').submit();
+	$('#filtroForm').trigger('submit');
 });
 
 function addEventRowData()
 {
 	$('.r-dt-slct').each(function(){
-		$(this).click(function(){
-			OpenModalSelected($(this).attr('dt-r-id'));
+		$(this).on('click', (e) =>{
+			OpenModalSelected($(e.currentTarget).attr('dt-r-id'));
 		});
 	});
 }
@@ -40,7 +40,7 @@ function OpenModalSelected(id){
 	$('#SelectedRowModalLabel').html(nome);
 	$('#SelectedRowModal').modal('show');
 }
-$('#InsertFilaBtn').click(function(){
+$('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireLoading({
 		didOpen: () => {

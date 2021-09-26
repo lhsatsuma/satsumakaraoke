@@ -84,7 +84,7 @@ function changeNameToDel(elm)
                                 timerProgressBar: true,
                                 didClose: () => {
                                     //Nothing
-                                    $('#filtroForm').submit();
+                                    $('#filtroForm').trigger('submit');
                                 }
                             });
                         }else{
@@ -182,7 +182,7 @@ function ajaxSaveChanges(){
 	});
 }
 
-$('#changeByTraco').click(function(){
+$('#changeByTraco').on('click', () =>{
     let oldVal = $('#changeRowNewNome').val();
     let exploded = [];
     

@@ -1,5 +1,5 @@
 var isControleOpen = false;
-$('#ControleRemotoButton').click(function(){
+$('#ControleRemotoButton').on('click', () =>{
 	getLastVolume();
 	isControleOpen = true;
 	if(hasToggleMenu){
@@ -14,11 +14,15 @@ function getLastVolume(needCheck = false)
 	handleAjax({
 		url: _app_vars.app_url+'Karaoke_ajax/k_get_thread_copy',
 		dontfireError: true,
+		beforeSend: (res) => {
+			showLoadingIcon($('#ControleRemotoModalLabel'));
+		},
 		callback: (res) => {
 			if(res.detail !== null
 				&& res.detail.volume !== null){
 				$('#volumeRange').val(res.detail.volume);
 				$('#volP').html(res.detail.volume+'%');
+				hideLoadingIcon($('#ControleRemotoModalLabel'));
 				if(needCheck){
 					checkControleOpen();
 				}
@@ -43,38 +47,21 @@ getLastVolume();
 checkControleOpen();
 
 
-$('.controlbtns').click(function(){
-	let domObj = $(this);
-	
-	$.ajax({
-		'url': _app_vars.app_url+'Karaoke_ajax/k_set_thread',
-		'method': 'post',
-		'dataType': 'json',
-		headers: {
-		  "Content-Type": "application/json",
-		  "X-Requested-With": "XMLHttpRequest"
+$('.controlbtns').on('click', (e) => {
+	let domObj = $(e.currentTarget);
+	$(domObj).trigger('focusout');
+
+	handleAjax({
+		url: _app_vars.app_url+'Karaoke_ajax/k_set_thread',
+		data: {
+			action: $(domObj).attr('data-val'),
 		},
-		data: JSON.stringify({
-			'action': domObj.attr('data-val'),
-		}),
-		success: function(d){
-			
+		beforeSend: () => {
+			showLoadingIcon($('#ControleRemotoModalLabel'));
 		},
-		complete: function(d){
-			var r = d.responseJSON;
-			if(!!r){
-				if(r.status){
-					//Everything ok with Thread
-				}else{
-					console.log('Não foi possível buscar a lista de músicas na fila!');
-				}
-			}else{
-				console.log('Não foi possível buscar a lista de músicas na fila!');
-			}
+		callback: (res) =>{
+			hideLoadingIcon($('#ControleRemotoModalLabel'));
 		},
-		error: function(d){
-			console.log(d);
-		}
 	});
 })
 document.getElementById('volumeRange').addEventListener('input', function() {
