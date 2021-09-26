@@ -30,8 +30,8 @@
 				{$modal_filter_advanced}
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+				<button type="button" class="btn btn-outline-secondary btn-rounded" data-dismiss="modal"><i class="fas fa-times"></i> Fechar</button>
+				<button type="submit" class="btn btn-outline-primary btn-rounded"><i class="fas fa-search"></i> Buscar</button>
 			  </div>
 			</div>
 		  </div>

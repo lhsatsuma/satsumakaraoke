@@ -29,9 +29,9 @@
 				{$modal_filter_advanced}
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-				<button type="button" class="btn btn-outline-warning btn-rounded" onclick="clearFiltroForm()">Resetar</button>
-				<button type="button" class="btn btn-primary" onclick="ValidateForm('filtroForm', this)"><i class="fas fa-search"></i> Buscar</button>
+				<button type="button" class="btn btn-outline-secondary btn-rounded" data-dismiss="modal"><i class="fas fa-times"></i> Fechar</button>
+				<button type="button" class="btn btn-outline-warning btn-rounded" onclick="clearFiltroForm()"><i class="fas fa-undo"></i> Resetar</button>
+				<button type="button" class="btn btn-outline-primary btn-rounded" onclick="ValidateForm('filtroForm', this)"><i class="fas fa-search"></i> Buscar</button>
 			  </div>
 			</div>
 		  </div>
