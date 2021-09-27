@@ -21,6 +21,11 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
+			{$layout.text.descricao}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
 			<hr />
 		</div>
 	</div>

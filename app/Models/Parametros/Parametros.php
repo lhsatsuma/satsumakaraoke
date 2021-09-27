@@ -26,6 +26,11 @@ class Parametros extends \App\Models\Basic\Basic
 			'required' => true,
 			'max_length' => 255,
 		),
+		'descricao' => array(
+			'lbl' => 'Descrição',
+			'type' => 'text',
+			'rows' => 10,
+		),
 		'valor' => array(
 			'lbl' => 'Valor Parâmetro',
 			'type' => 'varchar',

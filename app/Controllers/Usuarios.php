@@ -50,6 +50,9 @@ class Usuarios extends BaseController
 	
 	public function createUser()
 	{
+		if(!getValorParametro('enable_create_user_login')){
+			rdctForbbiden();
+		}
 		$this->PopulatePost();
 		$this->mdl->where['email'] = getFormData('email');
 		$this->mdl->f['status'] = 'ativo';
@@ -75,6 +78,9 @@ class Usuarios extends BaseController
 	
 	public function criarConta()
 	{
+		if(!getValorParametro('enable_create_user_login')){
+			rdctForbbiden();
+		}
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
@@ -168,6 +174,7 @@ class Usuarios extends BaseController
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
+		$this->data['enabled_create_user'] = getValorParametro('enable_create_user_login');
 		return $this->displayNew('pages/Usuarios/login', false);
 	}
 	

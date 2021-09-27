@@ -114,6 +114,14 @@ class Usuarios extends \App\Models\Basic\Basic
 			'type' => 'dropdown',
 			'parameter' => 'timezones_availables',
 		),
+		'telefone' => array(
+			'lbl' => 'Telefone',
+			'type' => 'telephone',
+		),
+		'celular' => array(
+			'lbl' => 'Celular',
+			'type' => 'celphone',
+		),
 	);
 	public $idx_table = [
 		['id', 'deletado'],
