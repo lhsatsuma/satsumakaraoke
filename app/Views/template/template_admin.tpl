@@ -85,13 +85,13 @@
 									</li>
 									<li class="{if $breadcrumb.admin.musicas.import}active{/if}" >
 										<a href="{$app_url}admin/musicas/import">
-										<i class="fas fa-list"></i>
+										<i class="fas fa-upload"></i>
 										<span>Importar Músicas</span>
 										</a>
 									</li>
 									<li class="{if $breadcrumb.admin.musicas.fixNomes}active{/if}" >
 										<a href="{$app_url}admin/musicas/fixNomes">
-										<i class="fas fa-list"></i>
+										<i class="fas fa-tools"></i>
 										<span>Arrumar Nomes Músicas</span>
 										</a>
 									</li>
@@ -109,7 +109,7 @@
 										{if $perms.cod_7.r}
 										<li class="{if $breadcrumb.admin.arquivos}active{/if}" >
 											<a href="{$app_url}admin/arquivos/index">
-											<i class="fas fa-users"></i>
+											<i class="fas fa-file"></i>
 											<span>Arquivos</span>
 											</a>
 										</li>
@@ -133,7 +133,7 @@
 										{if $perms.cod_3.r}
 										<li class="{if $breadcrumb.admin.permissao}active{/if}" >
 											<a href="{$app_url}admin/permissao/index">
-											<i class="fas fa-users-cog"></i>
+											<i class="fas fa-key"></i>
 											<span>Permissão</span>
 											</a>
 										</li>
@@ -153,7 +153,7 @@
 										{if $perms.cod_4.r}
 										<li class="{if $breadcrumb.admin.parametros}active{/if}" >
 											<a href="{$app_url}admin/parametros/index">
-											<i class="fas fa-users-cog"></i>
+											<i class="fas fa-cogs"></i>
 											<span>Parâmetros do Sistema</span>
 											</a>
 										</li>
@@ -161,7 +161,7 @@
 										{if $perms.cod_4.r}
 										<li class="{if $breadcrumb.admin.permissao_grupo}active{/if}" >
 											<a href="{$app_url}admin/permissao_grupo/index">
-											<i class="fas fa-users-cog"></i>
+											<i class="fas fa-user-lock"></i>
 											<span>Permissões do Grupo</span>
 											</a>
 										</li>

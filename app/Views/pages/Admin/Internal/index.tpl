@@ -17,7 +17,7 @@
 	<tbody>
         <tr class="ptr r-dt-slct" onclick="confirmInternal('clearCache')">
             <td>Limpar arquivos Caches</td>
-            <td>Limpa os caches de template, JavaScript e logs afim de otimizar o sistema.</td>
+            <td>Limpa os caches de template, JavaScript, CSS e logs afim de otimizar o sistema.</td>
         </tr>
         <tr class="ptr r-dt-slct" onclick="confirmInternal('pruneDatabase')">
             <td>Prune database</td>
@@ -39,7 +39,7 @@
             <td>Limpar sessões de usuários</td>
             <td>Deleta as sessões em abertas dos usuários (<span class="required">ATENÇÃO:</span> todos os usuários terão que realizar o login novamente caso necessário).</td>
         </tr>
-        <tr class="pointer r-dt-slct" onclick="confirmInternal('reorderMusics')">
+        <tr class="ptr r-dt-slct" onclick="confirmInternal('reorderMusics')">
             <td>Reordenar Código de Músicas</td>
             <td>Reordena o código das músicas disponíveis em ordem alfabética.</td>
         </tr>

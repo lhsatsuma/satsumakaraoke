@@ -1190,3 +1190,10 @@ input:checked+.slider-dark-mode:before {
 	margin: 0;
 	color: rgb(224, 224, 224);
 }
+#bdKaraoke p,
+#bdKaraoke h1,
+#SongLists h2 strong,
+#joinUsKaraoke,
+.volumeDiv h3{
+	color: white;
+}
