@@ -78,11 +78,14 @@ class KaraokeJS{
 					$('#pausedDiv').hide();
 				}
 			};
+			this.video.onplay = (event) => {
+				$('#pausedDiv').hide();
+			};
 			video.addEventListener('ended',this.endedVideo,false);
 			this.getNextVideo();
 			this.getThread();
 		}
-		if(this.typeScreen == 1 || this.typeScreen == 3){
+		if(this.typeScreen == 1 || this.typeScreen == 3 || this.typeScreen == 4){
 			this.mountWaitList();
 		}
 	}
@@ -235,10 +238,12 @@ class KaraokeJS{
 							}
 						}
 					});
-					if(hasDiv2){
-						$('#SongListsDiv').removeClass('col-12').addClass('col-6');
-					}else{
-						$('#SongListsDiv').removeClass('col-6').addClass('col-12');
+					if(this.typeScreen !== 4){
+						if(hasDiv2){
+							$('#SongListsDiv').removeClass('col-12').addClass('col-6');
+						}else{
+							$('#SongListsDiv').removeClass('col-6').addClass('col-12');
+						}
 					}
 					
 					if(res.detail.t - 1 > res.detail.s.length){
