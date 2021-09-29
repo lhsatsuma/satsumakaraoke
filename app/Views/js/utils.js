@@ -181,7 +181,12 @@ function insertMaskInputs()
 		}
 	});
 }
-
+function checkStrongPassword(str)
+{
+	let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+	console.log(strongPassword.test(str));
+	return strongPassword.test(str);
+}
 function ValidateForm(fm, elm)
 {
 	let f = $('#'+fm);
@@ -197,10 +202,17 @@ function ValidateForm(fm, elm)
 	$(f).find('input').each(function(){
 		$(this).removeClass('invalid-value');
 		let is_required = !!$(this).attr('required');
-		if(is_required && $(this).attr('name') == 'senha_nova'){
-			if($(this).val() == ''
-			&& (!recordId || $('input[name="confirm_senha_nova"]').val() !== '')){
-				addValidateError(this, 'É necessário digitar uma nova senha.', true);
+		if($(this).attr('name') == 'senha_nova'){
+			if(is_required){
+				if($(this).val() == ''
+				&& (!recordId || $('input[name="confirm_senha_nova"]').val() !== '')){
+					addValidateError(this, 'É necessário digitar uma nova senha.', true);
+					is_valid = false;
+					return;
+				}
+			}
+			if($(this).val() !== '' && !checkStrongPassword($(this).val())){
+				addValidateError(this, 'A senha deve possuir pelo menos 8 caracteres.<br />(1 letra maiúscula, 1 letra minúscula, 1 número e 1 caracter especial)', true);
 				is_valid = false;
 				return;
 			}
@@ -293,6 +305,12 @@ function ValidateForm(fm, elm)
 							is_valid = false;
 							return
 						}
+					}else if(cstm_validation == 'email'){
+						if($(this).val().trim() && !validateEmail($(this).val().trim())){
+							addValidateError(this, 'não é um email válido.');
+							is_valid = false;
+							return;
+						}
 					}
 				}
 				
@@ -306,13 +324,6 @@ function ValidateForm(fm, elm)
 				if($(this).attr('maxlength')){
 					if($(this).val().length > $(this).attr('maxlength')){
 						addValidateError(this, 'deve conter até '+$(this).attr('maxlength')+' caracteres.');
-						is_valid = false;
-						return;
-					}
-				}
-				if($(this).attr('form_valid_email')){
-					if($(this).val().trim() && !validateEmail($(this).val().trim())){
-						addValidateError(this, 'não é um email válido.');
 						is_valid = false;
 						return;
 					}

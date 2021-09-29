@@ -64,7 +64,6 @@ class Usuarios extends \App\Models\Basic\Basic
 			'required' => true,
 			'min_length' => 10,
 			'max_length' => 255,
-			'ext_attrs' => 'form_valid_email="true"',
 		),
 		'senha' => array(
 			'lbl' => 'Senha',

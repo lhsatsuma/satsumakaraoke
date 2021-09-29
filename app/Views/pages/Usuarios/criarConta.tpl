@@ -25,10 +25,10 @@
 					<div id="ERROR_LOGIN" class="required">{$login_msg}</div>
 					<form name="newForm" id="newForm" method="post" action="{$app_url}login/createUser" autocomplete="off">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="nome" type="text" id="nome" class="form-control" value="" placeholder="Nome" autocomplete="off" required maxlength="50"/></p>
-						<p><input name="email" type="text" id="email" class="form-control" value="" placeholder="Email" autocomplete="off" required maxlength="50"/></p>
-						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha" autocomplete="off" required maxlength="50"/></p>
-						<p><input name="senha_repeat" type="password" id="senha_repeat" class="form-control" value="" placeholder="Repita a Senha" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="nome" type="text" id="nome" class="form-control" placeholder="Nome" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="email" type="text" id="email" class="form-control" placeholder="Email" custom_type_validation="email" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="senha_nova" type="password" id="senha_nova" class="form-control" placeholder="Senha" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="confirm_senha_nova" type="password" id="confirm_senha_nova" class="form-control" placeholder="Repita a Senha" autocomplete="off" required maxlength="50"/></p>
 						<p><button type="button" class="btn width-100 btn-outline-success btn-rounded" onclick="ValidateForm('newForm')"><img class="loading-icon" src="{$app_url}images/loading.gif" style="display: none;cursor: disabled;width: 1rem;margin-right: 11px;"/> Cadastrar</button></p>
 						<p><button type="button" class="btn width-100 btn-outline-info btn-rounded" onclick="location.href='{$app_url}login'"> Voltar</button></p>
 					</form>

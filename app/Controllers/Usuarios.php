@@ -57,9 +57,10 @@ class Usuarios extends BaseController
 		$this->mdl->where['email'] = getFormData('email');
 		$this->mdl->f['status'] = 'ativo';
 		$this->mdl->f['tipo'] = '2'; //Regular
+		$this->mdl->f['senha'] = getFormData('senha_nova');
 		$founded = $this->mdl->search(1);
 
-		if(getFormData('senha') !== getFormData('senha_repeat')
+		if(getFormData('senha_nova') !== getFormData('confirm_senha_nova')
 			|| $founded[0]){
 			rdct('/login/criarConta');
 		}
