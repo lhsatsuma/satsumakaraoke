@@ -17,6 +17,7 @@ function showLoadingIcon(elm)
 	if(!$(elm).find('.loading-icon').length){
 		$(elm).append(` <img class="loading-icon" src="${_app_vars.app_url}images/loading.gif" />`);
 	}
+	hideErrorIcon($(elm));
     $(elm).find('.loading-icon').show();
 	$(elm).prop('disabled', true).css('cursor', 'not-allowed');
 }
@@ -24,6 +25,17 @@ function hideLoadingIcon(elm)
 {
     $(elm).find('.loading-icon').hide();
     $(elm).prop('disabled', false).css('cursor', 'pointer');
+}
+function showErrorIcon(elm)
+{
+	if(!$(elm).find('.error-icon').length){
+		$(elm).append(` <i class="fas fa-times error-icon"></i>`);
+	}
+    $(elm).find('.error-icon').show();
+}
+function hideErrorIcon(elm)
+{
+    $(elm).find('.error-icon').hide();
 }
 function isValidCPF(cpf)
 {
@@ -698,11 +710,11 @@ function handleAjax(args){
 					fireErrorGeneric();
 				}
 			}
-            if(!!args.callbackError){
-                args.callbackError(d);
-            }
             if(!!args.callbackAll){
                 args.callbackAll(d);
+            }
+            if(!!args.callbackError){
+                args.callbackError(d);
             }
         }
     }
