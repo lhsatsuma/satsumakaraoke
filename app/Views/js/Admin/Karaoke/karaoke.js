@@ -130,6 +130,10 @@ class KaraokeJS{
 						$('#playingNow').html('<p>'+this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]+'</p>');
 						$('#pausedDiv').hide();
 					}
+				}else{
+					setTimeout(() => {
+						karaoke.getNextVideo();
+					}, 2000);
 				}
 			},
 			callbackAll: (res) => {
