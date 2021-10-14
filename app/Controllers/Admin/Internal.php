@@ -178,6 +178,57 @@ class Internal extends AdminBaseController
         rdct('/admin/internal/index');
     }
 
+    public function deleteMusics()
+    {
+        /*
+        Delete files from upload where doenst exist on database
+        */
+
+        $model = new \App\Models\Musicas\Musicas();
+
+        $files = scan_dir(ROOTPATH . 'public/uploads/VIDEOSKARAOKE/');
+        $total_files = count($files);
+        $deleted = 0;
+        $cmd_del = '';
+        foreach($files as $file){
+            //Dont remove index.html and htaccess files
+            if(substr($file, -4) == '.mp4'){
+                $md5 = str_replace('.mp4', '', $file);
+                $model->where['md5'] = $md5;
+                $result = $model->search(1);
+                if(!$result){
+                    if($cmd_del){
+                        $cmd_del .= '<br />';
+                    }
+                    $cmd_del .= "del {$file};";
+                    $deleted++;
+                }
+            }
+        }
+        $msg_return = 'Arquivos uploads deletados com sucesso!';
+        $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
+        $msg_return .= "<br/>{$deleted} arquivo(s) irão ser deletado(s).";
+
+        if($cmd_del){
+            $msg_return .= "<br/>
+            Execute o comando abaixo no CMD:
+            <br />
+            <hr />
+            <p>
+                <textarea id='sqlRepair' class='form-control' rows='20'>{$cmd_del}</textarea>
+            </p>
+            <p>
+                <button type='button' class='btn btn-outline-success btn-rounded' onclick=\"$('#sqlRepair').select();document.execCommand('copy');\">Copiar</button>
+            </p>
+            <script type='text/javascript'>
+                $('#sqlRepair').val($('#sqlRepair').val().replace(/<br *\\/?>/gi, '\\n'));
+            </script><hr />";
+        }
+        
+        $this->setMsgData('success', $msg_return);
+        rdct('/admin/internal/index');
+    }
+
     public function reconstructDB($complete = false)
     {
         /*
