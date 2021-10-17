@@ -40,6 +40,7 @@ class KaraokeJS{
 				if(type == 1 || type == 2){
 					this.video = document.getElementById('video');
 					handleAjax({
+						dontFireError: true,
 						url: _app_vars.app_url+'Karaoke_ajax/k_get_thread_copy',
 						callback: (res) => {
 							if(res.detail !== null
@@ -49,8 +50,10 @@ class KaraokeJS{
 								this.last_volume = res.detail.volume / 100;
 								$('#volumeSpan').html(res.detail.volume + '%');
 							}
-							this.setInitialVars();
 						},
+						callbackAll: (res) => {
+							this.setInitialVars();
+						}
 					});
 				}else{
 					this.setInitialVars();
