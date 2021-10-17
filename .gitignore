@@ -135,3 +135,4 @@ ffmpeg.exe
 thread.json
 threadCopy.json
 *.log
+composer.lock
