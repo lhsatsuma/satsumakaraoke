@@ -185,7 +185,7 @@ class Usuarios extends BaseController
 	
 	public function auth()
 	{
-		$this->PopulatePost(true);
+		$this->PopulatePost(false);
 		
 		if(empty($this->mdl->f['email']) || empty($this->mdl->f['senha'])){
 			header('Location: /login');
