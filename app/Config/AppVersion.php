@@ -7,13 +7,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 Sets App Version
 	 Dummy var for now, gonna use this in the future
 	 */
-	public $app = '2.0.1';
-	
-	/*
-	@var string
-	 Sets cache version for jsManager/CSS/IMG files
-	 */
-	public $css = '202101014.1';
+	public $version = '2.0.1.1b';
 	
 	/*
 	@var bool

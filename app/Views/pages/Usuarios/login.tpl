@@ -27,7 +27,7 @@
 					{/if}
 					<form name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>
+						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
 						<p><button class="btn width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
 						<p><a href="javascript:void(0)" onclick="OpenModalReset()">Esqueci Minha Senha</a></p>
@@ -35,7 +35,7 @@
 							<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
 						{/if}
 					</form>
-					<p class="versao-sistema">Versão {$app_ver} | {$ch_ver_org}</p>
+					<p class="versao-sistema">Versão {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>

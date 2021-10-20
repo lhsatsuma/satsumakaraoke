@@ -9,7 +9,7 @@ if(!isset($GLOBALS['AppVersion'])){
 if(!function_exists('GetCacheVersion')){
 	function GetCacheVersion(){
 		global $AppVersion;
-		return ($AppVersion->enc_md5) ? md5($AppVersion->css) : $AppVersion->css;
+		return ($AppVersion->enc_md5) ? md5($AppVersion->version) : $AppVersion->version;
 	}
 	function GetTitle(){
 		global $AppVersion;
@@ -109,6 +109,23 @@ if(!function_exists('create_guid')){
 		list($a_dec, $a_sec) = explode(' ', $a);
 		list($b_dec, $b_sec) = explode(' ', $b);
 		return $b_sec - $a_sec + $b_dec - $a_dec;
+	}
+	function encrypt_pass($toEncrypt, string $type = 'default')
+	{
+		if(empty($toEncrypt)){
+			return null;
+		}
+		if($type === 'md5'){
+			return md5($toEncrypt);
+		}
+		return password_hash($toEncrypt, PASSWORD_BCRYPT, ['cost' => 12]);
+	}
+	function verify_pass($toEncrypt, $encrypted, string $type = 'default')
+	{
+		if($type === 'md5'){
+			return md5($toEncrypt) === $encrypted;
+		}
+		return password_verify($toEncrypt, $encrypted);
 	}
 }
 

@@ -111,7 +111,6 @@ class Usuarios extends BaseController
 	public function salvarMeusDados()
 	{
 		$this->PopulatePost();
-		
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
 			rdct('/usuarios/MeusDados');
@@ -119,9 +118,7 @@ class Usuarios extends BaseController
 		
 		$AuthUser = $this->session->get('auth_user');
 		
-		$SenhaAtual = md5(getFormData('senha_atual'));
-		
-		if($AuthUser['senha'] !== $SenhaAtual){
+		if(!verify_pass(getFormData('senha_atual'), $AuthUser['senha'])){
 			$this->validation_errors = array(
 				'senha_atual' => 'A senha atual não confere.',
 			);

@@ -28,11 +28,11 @@
 					<p>Painel de Administração</p>
 					<form name="LoginForm" id="LoginForm" method="post" action="{$app_url}admin/login/auth">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="email" type="text" id="login" class="form-control" value="" placeholder="Email"/></p>
+						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
 						<p><button class="btn width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
 					</form>
-					<p class="versao-sistema">Versão {$app_ver} | {$ch_ver_org}</p>
+					<p class="versao-sistema">Versão {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>

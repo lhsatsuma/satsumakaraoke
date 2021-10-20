@@ -194,7 +194,7 @@
 							</a>
 						</li>
 						<li class="versao-sistema">
-							Versão {$app_ver} | {$ch_ver_org}
+							Versão {$ch_ver_org}
 						</li>
 					</ul>
 				</div>

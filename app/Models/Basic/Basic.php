@@ -472,7 +472,7 @@ class Basic extends Model
 				break;
 			case 'password':
 				//Well, let's assume the value it's not converted yet
-				$value = md5($value);
+				$value = encrypt_pass($value);
 				break;
 			case 'bool':
 				$value = ($value) ? true : false;

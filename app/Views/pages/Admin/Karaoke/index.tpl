@@ -27,6 +27,11 @@
 		</script>
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
 		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
+		<style>
+		* {
+			color: rgb(224, 224, 224);	
+		}
+		</style>
 	</head>
 	<body id="bodyKaraoke" style="background: url('{$app_url}images/karaoke_bg.gif')">
 		<div class="modal fade" id="InitialModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="InitialModalLabel" aria-hidden="true">

@@ -81,6 +81,7 @@ class Usuarios extends \App\Models\Basic\Basic
 			'type' => 'related',
 			'table' => 'grupos',
 			'required' => true,
+			'skipRequired' => true,
 			'parameter' => array(
 				'model' => 'Grupos/Grupos',
 				'link_detail' => 'admin/grupos/detalhes/',
@@ -145,13 +146,16 @@ class Usuarios extends \App\Models\Basic\Basic
 	}
 	
 	public function SearchLogin(){
-		$this->helper->select('id');
+		$this->helper->select('id, senha');
 		$this->helper->where('email', $this->f['email']);
-		$this->helper->where('senha', $this->f['senha']);
 		$query = $this->helper->get(1);
+		log_message('debug', (string)$this->db->getLastQuery());
 		if($query){
 			if($query->resultID->num_rows > 0){
-				return $query->getResult('array')[0];
+				$resultDB = $query->getResult('array')[0];
+				if(verify_pass($this->f['senha'], $resultDB['senha'])){
+					return $resultDB;
+				}
 			}		
 		}else{
 			$this->RegisterLastError("Query search login failed: ");	
@@ -203,9 +207,9 @@ class Usuarios extends \App\Models\Basic\Basic
 	
 	public function changePass($new)
 	{
-		$md5 = md5($new);
+		$encrypted = encrypt_pass($new);
 		$this->helper->where('id', $this->f['id']);
-		$this->helper->update(['senha' => $md5, 'hash_esqueci_senha' => null, 'ultima_troca_senha' => date("Y-m-d H:i:s")]);
+		$this->helper->update(['senha' => $encrypted, 'hash_esqueci_senha' => null, 'ultima_troca_senha' => date("Y-m-d H:i:s")]);
 		return true;
 	}
 }

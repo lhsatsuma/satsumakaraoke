@@ -272,9 +272,8 @@ class BaseController extends Controller
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
 		$dataNew = array(
 			'app_url' => base_url().'/',
-			'app_ver' => $AppVersion->app,
 			'ch_ver' => GetCacheVersion(),
-			'ch_ver_org' => $AppVersion->css,
+			'ch_ver_org' => $AppVersion->version,
 			'is_mobile' => $this->is_mobile,
 			'msg' => $this->session->getFlashdata('msg'),
 			'msg_type' => $msg_type,
@@ -554,7 +553,8 @@ class BaseController extends Controller
 					}
 				}
 			}else{
-				if($attrs['required']){
+				if($attrs['required'] && isset($_POST[$field]) ||
+				(isset($attrs['skipRequired']) && !$attrs['skipRequired'])){
 					$validation_str .= $c_validation_str.'required';
 					$c_validation_str = '|';
 				}

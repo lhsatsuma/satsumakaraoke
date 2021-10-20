@@ -194,9 +194,7 @@ class Usuarios extends AdminBaseController
 		
 		$AuthUser = $this->session->get('auth_user');
 		
-		$SenhaAtual = md5(getFormData('senha_atual'));
-		
-		if($AuthUser['senha'] !== $SenhaAtual){
+		if(!verify_pass(getFormData('senha_atual'), $AuthUser['senha'])){
 			$this->validation_errors = array(
 				'senha_atual' => 'A senha atual não confere.',
 			);
@@ -264,7 +262,7 @@ class Usuarios extends AdminBaseController
 	
 	public function auth()
 	{
-		$this->PopulatePost(true);
+		$this->PopulatePost(false);
 		
 		if(empty($this->mdl->f['email']) || empty($this->mdl->f['senha'])){
 			header('Location: /admin/login');
