@@ -1,49 +1,48 @@
-function changeNameTo(elm)
-{
+function changeNameTo(elm) {
     let row = $(elm).parent();
     $('#changeRowID').val(row.attr('dt-r-id'));
 
-    $(row).find('td').each(function(){
-        if($(this).attr('dt-r-nome')){
+    $(row).find('td').each(function() {
+        if ($(this).attr('dt-r-nome')) {
             var newName = decodeURIComponent($(this).attr('dt-r-nome'));
             var oldName = decodeURIComponent($(this).attr('dt-r-nome'));
             $.ajax({
-                'url': _app_vars.app_url+'admin/musicas/sanitanizeName',
+                'url': _app_vars.app_url + 'admin/musicas/sanitanizeName',
                 'method': 'post',
                 'dataType': 'json',
                 'async': false,
                 headers: {
-                  "Content-Type": "application/json",
-                  "X-Requested-With": "XMLHttpRequest"
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
                 },
                 data: JSON.stringify({
                     'nome': $(this).attr('dt-r-nome'),
                 }),
-                success: function(d){
-                    
+                success: function(d) {
+
                 },
-                complete: function(d){
+                complete: function(d) {
                     var r = d.responseJSON;
-                    if(!!r){
-                        if(r.detail){
+                    if (!!r) {
+                        if (r.detail) {
                             newName = r.detail;
                             $('#changeRowOldNome').val(oldName);
                             $('#changeRowNewNome').val(newName);
                         }
                     }
                 },
-                error: function(d){
+                error: function(d) {
                     console.log(d);
                 }
             });
-        }else if($(this).attr('dt-r-tipo')){
+        } else if ($(this).attr('dt-r-tipo')) {
             $('#changeRowTipo').val($(this).attr('dt-r-tipo'));
         }
     });
     $('#ChangeNameToModal').modal('show');
 }
-function changeNameToDel(elm)
-{
+
+function changeNameToDel(elm) {
     var idDel = $(elm).parent().parent().attr('dt-r-id');
     Swal.fire({
         title: 'Deseja mesmo deleta esta música?',
@@ -54,26 +53,26 @@ function changeNameToDel(elm)
         showCancelButton: true,
         cancelButtonText: 'Cancelar',
     }).then((result) => {
-        if(result.isConfirmed){
+        if (result.isConfirmed) {
             $.ajax({
-                'url': _app_vars.app_url+'admin/musicas/fixNomesSaveDel',
+                'url': _app_vars.app_url + 'admin/musicas/fixNomesSaveDel',
                 'method': 'post',
                 'dataType': 'json',
                 'async': false,
                 headers: {
-                  "Content-Type": "application/json",
-                  "X-Requested-With": "XMLHttpRequest"
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
                 },
                 data: JSON.stringify({
                     'id': idDel,
                 }),
-                success: function(d){
-                    
+                success: function(d) {
+
                 },
-                complete: function(d){
+                complete: function(d) {
                     var r = d.responseJSON;
-                    if(!!r){
-                        if(r.detail){
+                    if (!!r) {
+                        if (r.detail) {
                             Swal.fire({
                                 title: 'Deletado com sucesso!',
                                 text: '',
@@ -87,29 +86,29 @@ function changeNameToDel(elm)
                                     $('#filtroForm').trigger('submit');
                                 }
                             });
-                        }else{
-                            
+                        } else {
+
                         }
                     }
                 },
-                error: function(d){
+                error: function(d) {
                     console.log(d);
                 }
             });
         }
     });
 }
-function saveChangeName(elm)
-{
+
+function saveChangeName(elm) {
     showLoadingIcon(elm);
     $('.validate-error').remove();
-    if(!$('#changeRowNewNome').val()){
+    if (!$('#changeRowNewNome').val()) {
         $('#changeRowNewNome').after("<p class='validate-error required'>Campo obrigatório!</p>");
         hideLoadingIcon(elm);
         return;
     }
 
-    if($('#changeRowNewNome').val().length < 10){
+    if ($('#changeRowNewNome').val().length < 10) {
         Swal.fire({
             heightAuto: false,
             title: 'Deseja mesmo salvar a música?',
@@ -120,41 +119,42 @@ function saveChangeName(elm)
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
         }).then((result) => {
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
                 ajaxSaveChanges();
                 hideLoadingIcon(elm);
             }
         });
-    }else{
+    } else {
         ajaxSaveChanges();
         hideLoadingIcon(elm);
     }
 }
-function ajaxSaveChanges(){
+
+function ajaxSaveChanges() {
     $.ajax({
-		'url': _app_vars.app_url+'admin/musicas/fixNomesSave',
-		'method': 'post',
+        'url': _app_vars.app_url + 'admin/musicas/fixNomesSave',
+        'method': 'post',
         'dataType': 'json',
         'async': false,
-		headers: {
-		  "Content-Type": "application/json",
-		  "X-Requested-With": "XMLHttpRequest"
-		},
-		data: JSON.stringify({
-			'id': $('#changeRowID').val(),
-			'newNome': $('#changeRowNewNome').val(),
-			'tipo': $('#changeRowTipo').val(),
-		}),
-		success: function(d){
-			
-		},
-		complete: function(d){
+        headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        data: JSON.stringify({
+            'id': $('#changeRowID').val(),
+            'newNome': $('#changeRowNewNome').val(),
+            'tipo': $('#changeRowTipo').val(),
+        }),
+        success: function(d) {
+
+        },
+        complete: function(d) {
             var r = d.responseJSON;
             var scrollOld = document.getScrollTop();
-			if(!!r){
-                if(r.detail){
+            if (!!r) {
+                if (r.detail) {
                     Swal.fire({
-                        backdrop:false,
+                        backdrop: false,
                         scrollbarPadding: false,
                         returnFocus: false,
                         focusConfirm: false,
@@ -164,43 +164,38 @@ function ajaxSaveChanges(){
                         width: '400px',
                         showConfirmButton: false,
                         timer: 500,
-                        timerProgressBar: true,
-                        didClose: () => {
-                            //Nothing
-                            document.setScrollTop(scrollOld);
-                            $('#ChangeNameToModal').modal('hide');
-                        }
+                        timerProgressBar: true
                     });
-                }else{
-                    
+                } else {
+
                 }
-			}
-		},
-		error: function(d){
-			console.log(d);
-		}
-	});
+            }
+        },
+        error: function(d) {
+            console.log(d);
+        }
+    });
 }
 
-$('#changeByTraco').on('click', () =>{
+$('#changeByTraco').on('click', () => {
     let oldVal = $('#changeRowNewNome').val();
     let exploded = [];
-    
+
     exploded = oldVal.split(' - ');
-    if(exploded.length > 1){
-        $('#changeRowNewNome').val(exploded[1]+' - '+exploded[0]);
+    if (exploded.length > 1) {
+        $('#changeRowNewNome').val(exploded[1] + ' - ' + exploded[0]);
         return;
     }
-    
+
     exploded = oldVal.split(' : ');
-    if(exploded.length > 1){
-        $('#changeRowNewNome').val(exploded[1]+' - '+exploded[0]);
+    if (exploded.length > 1) {
+        $('#changeRowNewNome').val(exploded[1] + ' - ' + exploded[0]);
         return;
     }
-    
+
     exploded = oldVal.split(' in the Style of ');
-    if(exploded.length > 1){
-        $('#changeRowNewNome').val(exploded[1]+' - '+exploded[0]);
+    if (exploded.length > 1) {
+        $('#changeRowNewNome').val(exploded[1] + ' - ' + exploded[0]);
         return;
     }
 });
