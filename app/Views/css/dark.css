@@ -238,7 +238,7 @@ table {
 .table-pagination .pagination li {
     padding: 8px;
     background-color: #4e4e4e;
-    border-radius: 10px;
+    border-radius: 0px;
     margin: 3px;
 }
 
