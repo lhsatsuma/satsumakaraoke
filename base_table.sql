@@ -115,6 +115,7 @@ CREATE TABLE parametros (
 id int NOT NULL AUTO_INCREMENT,
 nome varchar(255),
 codigo varchar(255),
+descricao text,
 valor varchar(255),
 deletado tinyint(1),
 data_criacao datetime,
@@ -207,6 +208,8 @@ last_connected datetime,
 hash_esqueci_senha varchar(255),
 ultima_troca_senha datetime,
 dark_mode tinyint(1),
+telefone varchar(255),
+celular varchar(255),
 PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 
@@ -235,4 +238,4 @@ INSERT INTO grupos (id, nome, ativo, deletado, data_criacao, usuario_criacao, da
 
 INSERT INTO parametros (id, nome, codigo, descricao, valor, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES ('0', 'Criar Conta pela tela de login', 'enable_create_user_login', '0 - Desabilitado\r\n1 - Habilitado', '1', '0', '2021-09-26 21:04:50', 'asd-1s1s-3bnmvhj', '2021-09-26 21:09:56', 'asd-1s1s-3bnmvhj');
 
-INSERT INTO usuarios (id, nome, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao, email, senha, tipo, last_ip, last_connected, hash_esqueci_senha, ultima_troca_senha, dark_mode, status) VALUES ('asd-1s1s-3bnmvhj', 'Luis', 0, '2020-09-18 09:36:16', 'asd-1s1s-3bnmvhj', '2021-09-19 22:30:44', NULL, 'minoruluis@gmail.com', '202cb962ac59075b964b07152d234b70', '1', '192.168.1.175', '2021-09-19 22:30:44', NULL, '2021-08-07 10:59:55', 1, 'ativo');
+INSERT INTO usuarios (id, nome, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao, email, senha, tipo, last_ip, last_connected, hash_esqueci_senha, ultima_troca_senha, dark_mode, status) VALUES ('asd-1s1s-3bnmvhj', 'Luis', 0, '2020-09-18 09:36:16', 'asd-1s1s-3bnmvhj', '2021-09-19 22:30:44', NULL, 'minoruluis@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '1', '192.168.1.175', '2021-09-19 22:30:44', NULL, '2021-08-07 10:59:55', 1, 'ativo'); --Default pass 1234

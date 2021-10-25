@@ -11,7 +11,7 @@
 		{if $auth_user.dark_mode}
 			<link rel="stylesheet" href="/cssManager/dark.css?v=404NotFound">
 		{/if}
-		<script language="javascript" type="text/javascript" src="/jsManager/jquery-3.5.1.min.js?v=404NotFound"></script>
+		<script language="javascript" type="text/javascript" src="/jsManager/jquery.min.js?v=404NotFound"></script>
 	</head>
 	<body>
 		<div class="container">

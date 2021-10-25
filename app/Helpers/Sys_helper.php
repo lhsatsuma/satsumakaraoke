@@ -122,7 +122,7 @@ if(!function_exists('create_guid')){
 	}
 	function verify_pass($toEncrypt, $encrypted, string $type = 'default')
 	{
-		if($type === 'md5'){
+		if($type === 'md5' || preg_match('/^[a-f0-9]{32}$/', $encrypted)){
 			return md5($toEncrypt) === $encrypted;
 		}
 		return password_verify($toEncrypt, $encrypted);
