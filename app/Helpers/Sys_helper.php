@@ -120,12 +120,17 @@ if(!function_exists('create_guid')){
 		}
 		return password_hash($toEncrypt, PASSWORD_BCRYPT, ['cost' => 12]);
 	}
-	function verify_pass($toEncrypt, $encrypted, string $type = 'default')
+	function verify_pass($toEncrypt, $encrypted)
 	{
-		if($type === 'md5' || preg_match('/^[a-f0-9]{32}$/', $encrypted)){
-			return md5($toEncrypt) === $encrypted;
+		$validPass = false;
+		if(preg_match('/^[a-f0-9]{32}$/', $encrypted)){
+			$validPass = md5($toEncrypt) === $encrypted;
 		}
-		return password_verify($toEncrypt, $encrypted);
+
+		if(!$validPass){
+			$validPass = password_verify($toEncrypt, $encrypted);
+		}
+		return $validPass;
 	}
 }
 
