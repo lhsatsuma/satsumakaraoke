@@ -55,46 +55,35 @@
 				</div>
 				<div class="sidebar-menu">
 					<ul>
-						{if $perms.cod_1001.r}
-						<li>
-							<a href="javascript:void(0)" id="ControleRemotoButton">
-							<i class="fas fa-location-arrow"></i>
-							<span>Controle</span>
-							</a>
-						</li>
-						{/if}
-						<li class="{if $breadcrumb.musicas_fila.index}active{/if}">
-							<a href="{$app_url}musicas_fila/index">
-							<i class="fas fa-list"></i>
-							<span>Músicas na Fila</span>
-							</a>
-						</li>
-						<li class="{if $breadcrumb.musicas.index}active{/if}">
-							<a href="{$app_url}musicas/index">
-							<i class="fas fa-music"></i>
-							<span>Músicas</span>
-							</a>
-						</li>
-						<li class="{if $breadcrumb.musicas_fila.topmusicas}active{/if}">
-							<a href="{$app_url}musicas_fila/topMusicas">
-							<i class="fas fa-music"></i>
-							<span>Músicas mais Tocadas</span>
-							</a>
-						</li>
-						<li class="{if $breadcrumb.usuarios.meusdados}active{/if}">
-							<a href="{$app_url}usuarios/MeusDados">
-							<i class="fas fa-user"></i>
-							<span>Meus Dados</span>
-							</a>
-						</li>
-						{if $perms.cod_5.r}
-						<li>
-							<a href="{$app_url}admin/usuarios/index">
-							<i class="fas fa-users"></i>
-							<span>Administração</span>
-							</a>
-						</li>
-						{/if}
+						{foreach from=$menu_arr item=menu_pai key=key_menu_pai}
+							{if $menu_pai.subs}
+								<li class="sidebar-dropdown {if $menu_pai.class_active}active{/if}">
+								<a id="{$menu_pai.id}" href="#">
+									<i class="{$menu_pai.icon}"></i>
+									<span>{$menu_pai.lbl}</span>
+								</a>
+								<div class="sidebar-submenu"> 
+									<ul>
+										{foreach from=$menu_pai.subs item=menu_filho key=key_menu_filho}
+											<li class="{if $menu_filho.class_active}active{/if}" >
+												<a id="{$menu_filho.id}" href="{if $menu_filho.url == '#'}javascript:void(0){else}{$app_url}{$menu_filho.url}{/if}">
+												<i class="{$menu_filho.icon}"></i>
+												<span>{$menu_filho.lbl}</span>
+												</a>
+											</li>
+										{/foreach}
+									</ul>
+								</div>
+							</li>
+							{else}
+							<li class="{if $menu_pai.class_active}active{/if}">
+								<a id="{$menu_pai.id}" href="{if $menu_pai.url == '#'}javascript:void(0){else}{$app_url}{$menu_pai.url}{/if}">
+									<i class="{$menu_pai.icon}"></i>
+									<span>{$menu_pai.lbl}</span>
+								</a>
+							</li>
+							{/if}
+						{/foreach}
 						<li class="dark-mode-li">
 							<a href="javascript:void(0)">
 							<i class="fas fa-moon"></i> <span>Tema escuro</span>

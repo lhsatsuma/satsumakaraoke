@@ -508,7 +508,7 @@ function rmvRequired(elm)
 }
 function addRequired(elm)
 {
-	$(elm).removeClass('invalid-value').prop('required', true).parent().parent().find('.required').remove();
+	rmvRequired(elm);
 	$(elm).removeClass('invalid-value').prop('required', true).parent().parent().find('label').after(' <span class="required">*</span>');
 }
 function validateEmail(email)

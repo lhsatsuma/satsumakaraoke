@@ -1,5 +1,5 @@
 var isControleOpen = false;
-$('#ControleRemotoButton').on('click', () =>{
+$('#menu_CONTROLE').on('click', () =>{
 	getLastVolume();
 	isControleOpen = true;
 	if(hasToggleMenu){

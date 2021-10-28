@@ -44,6 +44,33 @@ CREATE INDEX nome_dele1 ON grupos (nome, deletado );
 CREATE INDEX ativ_dele2 ON grupos (ativo, deletado );
 
 /*
+SQL FOR TABLE menus
+*/
+CREATE TABLE menus (
+id int NOT NULL AUTO_INCREMENT,
+nome varchar(255),
+ativo tinyint(1) DEFAULT TRUE,
+ordem int DEFAULT '1',
+tipo varchar(255) DEFAULT '1',
+menu_pai varchar(36),
+url_base varchar(255),
+icon varchar(30) DEFAULT 'fas fa-list',
+label varchar(30),
+perm varchar(36),
+deletado tinyint(1),
+data_criacao datetime,
+usuario_criacao varchar(36),
+data_modificacao datetime,
+usuario_modificacao varchar(36),
+PRIMARY KEY (id)
+) ENGINE = InnoDB;
+
+-- SQL INDEX FOR TABLE menus
+CREATE INDEX id_dele0 ON menus (id, deletado );
+CREATE INDEX nome_ativ_tipo_dele1 ON menus (nome, ativo, tipo, deletado );
+CREATE INDEX ativ_tipo_dele2 ON menus (ativo, tipo, deletado );
+
+/*
 SQL FOR TABLE musicas
 */
 CREATE TABLE musicas (
@@ -230,7 +257,8 @@ INSERT INTO permissao (id, nome, deletado, data_criacao, usuario_criacao, data_m
 (5, 'Painel Admin', 0, '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:12', 'asd-1s1s-3bnmvhj'),
 (6, 'Admin - Utilidades', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj'),
 (7, 'Cadastro de Arquivos', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj'),
-(8, 'Cadastro de Parâmetros', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj');
+(8, 'Cadastro de Parâmetros', 0, '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj', '2021-09-20 17:22:22', 'asd-1s1s-3bnmvhj'),
+(9, 'Cadastro de Menus', 0, '2021-10-25 20:25:00', 'asd-1s1s-3bnmvhj', '2021-10-25 20:25:00', 'asd-1s1s-3bnmvhj');
 
 INSERT INTO grupos (id, nome, ativo, deletado, data_criacao, usuario_criacao, data_modificacao, usuario_modificacao) VALUES
 (1, 'Administrador do Sistema', 1, 0, '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj', '2021-09-19 22:07:10', 'asd-1s1s-3bnmvhj'),

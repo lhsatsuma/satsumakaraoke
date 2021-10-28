@@ -56,128 +56,35 @@
 							<span>Ir para o Site</span>
 							</a>
 						</li>
-						{if $perms.cod_1002.r}
-							<li class="{if $breadcrumb.admin.musicas.karaoke}active{/if}">
-								<a href="{$app_url}admin/karaoke/index" target="_blank">
-								<i class="fas fa-music"></i>
-								<span>Karaokê</span>
-								</a>
-							</li>
-						{/if}
-						<li class="{if $breadcrumb.admin.musicas_fila}active{/if}">
-							<a href="{$app_url}admin/musicas_fila/index">
-							<i class="fas fa-list"></i>
-							<span>Músicas na Fila</span>
-							</a>
-						</li>
-						<li class="sidebar-dropdown {if $breadcrumb.admin.musicas}active{/if}">
-							<a href="#">
-								<i class="fas fa-music"></i>
-								<span>Músicas</span>
-							</a>
-							<div class="sidebar-submenu" {if $breadcrumb.admin.musicas} style="display: block"{/if}> 
-								<ul>
-									<li class="{if $breadcrumb.admin.musicas.index}active{/if}" >
-										<a href="{$app_url}admin/musicas/index">
-										<i class="fas fa-list"></i>
-										<span>Listar Músicas</span>
-										</a>
-									</li>
-									<li class="{if $breadcrumb.admin.musicas.import}active{/if}" >
-										<a href="{$app_url}admin/musicas/import">
-										<i class="fas fa-upload"></i>
-										<span>Importar Músicas</span>
-										</a>
-									</li>
-									<li class="{if $breadcrumb.admin.musicas.fixNomes}active{/if}" >
-										<a href="{$app_url}admin/musicas/fixNomes">
-										<i class="fas fa-tools"></i>
-										<span>Arrumar Nomes Músicas</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						{if $perms.cod_7.r OR $perms.cod_1.r OR $perms.cod_2.r OR $perms.cod_3.r}
-							<li class="sidebar-dropdown {if $breadcrumb.admin.usuarios OR $breadcrumb.admin.grupos OR $breadcrumb.admin.permissao OR $breadcrumb.admin.arquivos}active{/if}">
-								<a href="#">
-									<i class="fas fa-list"></i>
-									<span>Cadastros</span>
+						{foreach from=$menu_arr item=menu_pai key=key_menu_pai}
+							{if $menu_pai.subs}
+								<li class="sidebar-dropdown {if $menu_pai.class_active}active{/if}">
+								<a id="{$menu_pai.id}" href="#">
+									<i class="{$menu_pai.icon}"></i>
+									<span>{$menu_pai.lbl}</span>
 								</a>
 								<div class="sidebar-submenu"> 
 									<ul>
-										{if $perms.cod_7.r}
-										<li class="{if $breadcrumb.admin.arquivos}active{/if}" >
-											<a href="{$app_url}admin/arquivos/index">
-											<i class="fas fa-file"></i>
-											<span>Arquivos</span>
-											</a>
-										</li>
-										{/if}
-										{if $perms.cod_1.r}
-										<li class="{if $breadcrumb.admin.usuarios}active{/if}" >
-											<a href="{$app_url}admin/usuarios/index">
-											<i class="fas fa-users"></i>
-											<span>Usuários</span>
-											</a>
-										</li>
-										{/if}
-										{if $perms.cod_2.r}
-											<li class="{if $breadcrumb.admin.grupos}active{/if}" >
-												<a href="{$app_url}admin/grupos/index">
-												<i class="fas fa-users-cog"></i>
-												<span>Grupos</span>
+										{foreach from=$menu_pai.subs item=menu_filho key=key_menu_filho}
+											<li class="{if $menu_filho.class_active}active{/if}" >
+												<a id="{$menu_filho.id}" href="{$app_url}{$menu_filho.url}">
+												<i class="{$menu_filho.icon}"></i>
+												<span>{$menu_filho.lbl}</span>
 												</a>
 											</li>
-										{/if}
-										{if $perms.cod_3.r}
-										<li class="{if $breadcrumb.admin.permissao}active{/if}" >
-											<a href="{$app_url}admin/permissao/index">
-											<i class="fas fa-key"></i>
-											<span>Permissão</span>
-											</a>
-										</li>
-										{/if}
+										{/foreach}
 									</ul>
 								</div>
 							</li>
-						{/if}
-						{if $perms.cod_4.r OR $perms.cod_6.r OR $perms.cod_8.r}
-							<li class="sidebar-dropdown {if $breadcrumb.admin.internal OR $breadcrumb.admin.permissao_grupo OR $breadcrumb.admin.parametros}active{/if}">
-								<a href="#">
-									<i class="fas fa-list"></i>
-									<span>Administração</span>
+							{else}
+							<li class="{if $menu_pai.class_active}active{/if}">
+								<a id="{$menu_pai.id}" href="{$app_url}{$menu_pai.url}">
+									<i class="{$menu_pai.icon}"></i>
+									<span>{$menu_pai.lbl}</span>
 								</a>
-								<div class="sidebar-submenu"> 
-									<ul>
-										{if $perms.cod_4.r}
-										<li class="{if $breadcrumb.admin.parametros}active{/if}" >
-											<a href="{$app_url}admin/parametros/index">
-											<i class="fas fa-cogs"></i>
-											<span>Parâmetros do Sistema</span>
-											</a>
-										</li>
-										{/if}
-										{if $perms.cod_4.r}
-										<li class="{if $breadcrumb.admin.permissao_grupo}active{/if}" >
-											<a href="{$app_url}admin/permissao_grupo/index">
-											<i class="fas fa-user-lock"></i>
-											<span>Permissões do Grupo</span>
-											</a>
-										</li>
-										{/if}
-										{if $perms.cod_6.r}
-											<li class="{if $breadcrumb.admin.internal}active{/if}" >
-												<a href="{$app_url}admin/internal/index">
-												<i class="fas fa-list"></i>
-												<span>Utilidades</span>
-												</a>
-											</li>
-										{/if}
-									</ul>
-								</div>
 							</li>
-						{/if}
+							{/if}
+						{/foreach}
 						<li class="dark-mode-li">
 							<a href="javascript:void(0)">
 							<i class="fas fa-moon"></i> <span>Tema escuro</span>

@@ -70,7 +70,14 @@ class Layout
 				$return= $this->GetFile($field, $record[$field], $attrs['parameter']);
 				break;
 			case 'bool':
-				$return = $this->GetCheckbox($field, $record[$field]);
+				if(!is_null($record['raw'][$field])){
+					$selected = $record['raw'][$field];
+				}elseif(isset($attrs['default'])){
+					$selected = $attrs['default'];
+				}else{
+					$selected = '';
+				}
+				$return = $this->GetCheckbox($field, $selected);
 				break;
 			case 'currency':
 				$return = $this->GetCurrency($field, $record[$field]);
@@ -438,6 +445,105 @@ class Layout
 		}
 		
 		return $return_data;
+	}
+	public function mountLayoutMenu(string $type = 'template', array $breadcrumb = [])
+	{
+		$this->breadcrumbString = $breadcrumb;
+		$dataLayout = [
+			'perms' => [],
+			'menu_arr' => [],
+		];
+
+		$menus = new \App\Models\Menus\Menus();
+		$menusSalvos = $menus->mountArrayMenus((($type == 'template') ? 'public' : 'admin'));
+
+		//Get JSON for menu fixed of framework
+		$file_json = $type. '_menu';
+		$json_menus = json_decode(file_get_contents(APPPATH . 'Views/template/'.$file_json.'.json'), true);
+		
+
+		$menusSalvos = array_merge($menusSalvos, $json_menus);
+
+		
+
+		// echo '<pre>';print_r($menusSalvos);exit;
+
+
+		foreach($menusSalvos as $key => $menu_pai){
+			$menu_pai['id'] = 'menu_'.fatiarString($menu_pai['lbl'], 10);
+			//If has sub menus, consider the menu dont need permission
+			if($menu_pai['subs']){
+				$menu_pai_clone = $menu_pai;
+				unset($menu_pai_clone['subs']);
+				$dataLayout['menu_arr'][$key] = $menu_pai_clone;
+				foreach($menu_pai['subs'] as $key_filho => $menu_filho){
+					$menu_filho['id'] = 'submenu_'.$menu_pai['id'].'_'.fatiarString($menu_filho['lbl'], 10);
+					//Checking if sub menu needs permission
+					$menu_filho['class_active'] = $this->checkBreadcrumb($menu_filho['url']);
+					if($menu_filho['class_active']){
+						$dataLayout['menu_arr'][$key]['class_active'] = 1;
+					}
+
+					if($menu_filho['perm']){
+						$dataLayout['perms']['cod_'.$menu_filho['perm']] = hasPermission($menu_filho['perm']);
+						if($dataLayout['perms']['cod_'.$menu_filho['perm']]['r']){
+							$dataLayout['menu_arr'][$key]['subs'][$key_filho] = $menu_filho;
+						}
+					}else{
+						$dataLayout['menu_arr'][$key]['subs'][$key_filho] = $menu_filho;
+					}
+				}
+			}else{
+				//Checking if menu needs permission
+				$menu_pai['class_active'] = $this->checkBreadcrumb($menu_pai['url']);
+				if($menu_pai['perm']){
+					$dataLayout['perms']['cod_'.$menu_pai['perm']] = hasPermission($menu_pai['perm']);
+					if($dataLayout['perms']['cod_'.$menu_pai['perm']]['r']){
+						$dataLayout['menu_arr'][$key] = $menu_pai;
+					}
+				}else{
+					$dataLayout['menu_arr'][$key] = $menu_pai;
+				}
+			}
+		}
+		//Fixing index array of sub menus
+		foreach($dataLayout['menu_arr'] as $key_pai => $menu_pai){
+			if($dataLayout['menu_arr'][$key_pai]['subs']){
+				$dataLayout['menu_arr'][$key_pai]['subs'] = array_values($dataLayout['menu_arr'][$key_pai]['subs']);
+			}elseif($menusSalvos[$key_pai]['subs']){
+				//The menu dont have sub menus because of permission
+				unset($dataLayout['menu_arr'][$key_pai]);
+			}
+		}
+
+		//Fixing index array of menus
+		$dataLayout['menu_arr'] = array_values($dataLayout['menu_arr']);
+
+		// echo '<Pre>';print_r($dataLayout['menu_arr']);exit;
+
+		return $dataLayout;
+	}
+
+	public function checkBreadcrumb(string $check)
+	{
+		$valid = 0;
+		if(!empty($this->breadcrumbString)){
+			//only 3 level (type, controller, method)
+			$checkArr = explode('/', $check);
+			if($checkArr[0] && $checkArr[0] == $this->breadcrumbString[0] &&
+				$checkArr[1] && $checkArr[1] == $this->breadcrumbString[1]){
+				$valid = 1;
+			}
+			
+			//If check ends with "/", consider all methods
+			if($checkArr[2] && $valid){
+				if($checkArr[2] != $this->breadcrumbString[2]){
+					$valid = 0;
+				}
+			}
+		}
+
+		return $valid;
 	}
 }
 ?>

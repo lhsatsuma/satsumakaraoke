@@ -26,6 +26,12 @@ class Dropdown
 			'privado' => 'Privado',		
 			'admin' => 'Apenas Admin',		
 		),
+		'tipo_menu_list' => array(
+			'1' => 'Pai - Público',
+			'2' => 'Filho - Público',
+			'3' => 'Pai - Admin',	
+			'4' => 'Filho - Admin',	
+		),
 		'timezones_availables' => array(),
 	);
 	public function __construct()

@@ -255,6 +255,31 @@ class BaseController extends Controller
 		$this->js_vars['_ACTION_NAME'] = $methodName;
 		return $breadcrumb;
 	}
+
+	public function getBreadcrumb()
+	{
+		$breadcrumb = [];
+		$controllerName = strtolower(str_replace('App\\Controllers\\', '', get_class($this)));
+		$methodName = strtolower($this->routes->methodName());
+		if(count($this->uri) == 0){
+			//For cases like app_url/
+			$breadcrumb[] = $controllerName;
+			$breadcrumb[] = $methodName;
+		}elseif(count($this->uri) == 1){
+			if($this->uri[0] == 'admin'){
+				//For cases like app_url/admin/
+				$breadcrumb[] = 'admin';
+				$breadcrumb[] = $methodName;
+			}else{
+				//For cases like app_url/home
+				$breadcrumb[] = $controllerName;
+				$breadcrumb[] = $methodName;
+			}
+		}else{
+			$breadcrumb = $this->uri;
+		}
+		return $breadcrumb;
+	}
 	
 	public function SetInitialData()
 	{
@@ -456,6 +481,17 @@ class BaseController extends Controller
 	
 	private function display_template($content)
 	{
+		$dataMenu = $this->layout->mountLayoutMenu($this->template_file, $this->getBreadcrumb());
+		if($dataMenu['perms']){
+			$this->data['perms'] = array_merge($this->data['perms'], $dataMenu['perms']);
+		}
+		$this->data['menu_arr'] = $dataMenu['menu_arr'];
+		// echo '<Pre>';print_r($this->data['menu_arr']);exit;
+		$this->view->setData([
+			'perms' => $this->data['perms'],
+			'menu_arr' => $this->data['menu_arr'],
+		]);
+
 		return $this->display($this->view->setData(array('content'=>$content))->view($this->template.'/'.$this->template_file));
 	}
 

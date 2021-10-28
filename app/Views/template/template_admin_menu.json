@@ -1,0 +1,64 @@
+[
+	{
+		"url": "",
+		"icon": "fas fa-list",
+		"lbl": "Cadastros",
+		"subs": [
+			{
+				"url": "admin/arquivos/",
+				"icon": "fas fa-file",
+				"lbl": "Arquivos",
+				"perm": 7
+			},
+			{
+				"url": "admin/usuarios/",
+				"icon": "fas fa-users",
+				"lbl": "Usuários",
+				"perm": 7
+			},
+			{
+				"url": "admin/grupos/",
+				"icon": "fas fa-users-cog",
+				"lbl": "Grupos",
+				"perm": 2
+			},
+			{
+				"url": "admin/permissao/",
+				"icon": "fas fa-key",
+				"lbl": "Permissão",
+				"perm": 3
+			}
+		]
+	},
+	{
+		"url": "",
+		"icon": "fas fa-list",
+		"lbl": "Administração",
+		"subs": [
+			{
+				"url": "admin/menus/",
+				"icon": "fas fa-file",
+				"lbl": "Menus",
+				"perm": 9
+			},
+			{
+				"url": "admin/parametros/",
+				"icon": "fas fa-cogs",
+				"lbl": "Parâmetros do Sistema",
+				"perm": 8
+			},
+			{
+				"url": "admin/permissao_grupo",
+				"icon": "fas fa-user-lock",
+				"lbl": "Permissões do Grupo",
+				"perm": 4
+			},
+			{
+				"url": "admin/internal/",
+				"icon": "fas fa-list",
+				"lbl": "Utilidades",
+				"perm": 5
+			}
+		]
+	}
+]

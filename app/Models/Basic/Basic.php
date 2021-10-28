@@ -110,6 +110,16 @@ class Basic extends Model
 			$this->auth_user_id = $this->session->get('auth_user_admin')['id'];
 		}
 	}
+
+	public function reset()
+	{
+		$this->where = array();
+		$this->force_deletado = false;
+		$this->order_by = array();
+		$this->select = '*';
+		$this->join = array();
+		$this->group_by = array();
+	}
 	
 	/*
 	Get record from DataBase with $this->f['id']
