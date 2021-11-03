@@ -119,9 +119,9 @@ body {
     left: 0;
     top: 10px;
     border-radius: 0 4px 4px 0px;
-    width: 50px;
+    width: 2.6rem;
     transition-delay: 0.3s;
-    font-size: 2rem;
+    font-size: 1.3rem;
     z-index: 99999;
 }
 
@@ -676,7 +676,7 @@ table {
 
 .div-title {
     margin-bottom: 20px;
-    margin-top: 30px;
+    margin-top: 2rem;
 }
 
 .margin-b-10 {
