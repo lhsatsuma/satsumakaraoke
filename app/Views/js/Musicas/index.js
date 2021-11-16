@@ -125,7 +125,7 @@ $('#ImportModalLink').keyup(function(){
 					},
 					complete: function(d){
 						var r = d.responseJSON;
-						if(!!r.status){
+						if(!!r.status && !!r.detail){
 							$('#ImportModalLinkTitleDiv').html('<p><label>Nome</label><input type="hidden" id="ImportModalLinkMD5" name="ImportModalLinkMD5" value="'+r.detail.md5+'"/><input class="form-control" type="text" id="ImportModalLinkTitle" name="ImportModalLinkTitle" value="'+fixNameUtf8(r.detail.title)+'"/></p><p><button type="button" class="btn btn-outline-info btn-rounded" onclick="changeByTraco(this)">Inverter Titulo/cantor</button></p><p><label>Tipo</label><select class="form-control" id="ImportModalLinkTipo" name="ImportModalLinkTipo"><option value="N/A">N/A</option><option value="INT">INT</option><option value="BRL">BRL</option><option value="ESP">ESP</option><option value="JPN">JPN</option><option value="OTR">OTR</option></select></p>');
 							$('#ImportMusicaButton').prop('disabled', false);
 							$('#ImportMusicaAndFilaButton').prop('disabled', false);
@@ -171,7 +171,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', () =>{
 					var r = d.responseJSON;
 					swal.close();
 					if(!!r){
-						if(r.status){
+						if(r.status && r.detail){
 							let title_sa_fire = 'Música importada';
 							if(r.detail.auto_fila){
 								title_sa_fire += " e colocada na fila";

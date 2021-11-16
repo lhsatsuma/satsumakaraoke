@@ -23,10 +23,12 @@ function getLastVolume(needCheck = false)
 			showLoadingIcon($('#ControleRemotoModalLabel'));
 		},
 		callback: (res) => {
-			if(res.detail !== null
-				&& res.detail.volume !== null){
-				$('#volumeRange').val(res.detail.volume);
-				$('#volP').html(res.detail.volume+'%');
+			if(res.detail){
+				if(res.detail !== null
+					&& res.detail.volume !== null){
+					$('#volumeRange').val(res.detail.volume);
+					$('#volP').html(res.detail.volume+'%');
+				}
 			}
 		},
 		callbackAll: (res) => {

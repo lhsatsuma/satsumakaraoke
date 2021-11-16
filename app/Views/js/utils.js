@@ -680,7 +680,7 @@ function handleAjax(args){
 			"X-Requested-With": "XMLHttpRequest"
 		},
         success: function(d){
-            if(!!d.status && d.detail){
+            if(!!d.status){
 				if(typeof args.callback == 'function'){
                 	args.callback(d);
 				}

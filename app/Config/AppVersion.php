@@ -7,7 +7,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 Sets App Version
 	 Dummy var for now, gonna use this in the future
 	 */
-	public $version = '2.1.0.3b';
+	public $version = '2.1.0.4b';
 	
 	/*
 	@var bool

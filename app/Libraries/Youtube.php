@@ -49,10 +49,12 @@ return preg_replace($regex, '$1', $str);
 }
 class Youtube
 {
-    public $upload_path = ROOTPATH . 'public/uploads/VIDEOSKARAOKE/';
-
+    public function __construct()
+    {
+        $this->upload_path = getValorParametro('path_video_karaoke');
+    }
     public function __clear_title($title, $decode = true)
-    {   
+    {
         if($decode){
             $new_title = trim(remove_emoji(str_replace("&nbsp;", " ", $title)));
         }

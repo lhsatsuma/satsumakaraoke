@@ -253,13 +253,19 @@ function SetRelatedField(args = {})
 				},
 				complete: function(d){
 					var r = d.responseJSON;
+					let valid = false;
 					if(!!r.status){
 						let records = [];
-						if(!Array.isArray(r.detail)){
-							records.push(r.detail);
-						}else if(r.detail.length > 0){
-							response(r.detail);
-						}else{
+						if(r.detail){
+							if(!Array.isArray(r.detail)){
+								valid = true;
+								records.push(r.detail);
+							}else if(r.detail.length > 0){
+								valid = true;
+								response(r.detail);
+							}
+						}
+						if(!valid){
 							response([{"label":"Nenhum registro encontrado!", "value": $(elmCfg.elm).val()}]);
 						}
 					}

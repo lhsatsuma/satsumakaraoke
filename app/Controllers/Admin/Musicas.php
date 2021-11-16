@@ -4,16 +4,11 @@ namespace App\Controllers\Admin;
 class Musicas extends AdminBaseController
 {
 	public $module_name = 'Musicas';
-	public $upload_path = ROOTPATH . 'public/uploads/VIDEOSKARAOKE/';
 	
 	public function __construct()
 	{
 		parent::__construct();
-		
-		/* The correct way was to create another controller, but i am lazy */
-		if($this->uri[0] == 'listarAdmin'){
-			$this->access_cfg['admin_only'] = true;
-		}
+		$this->upload_path = getValorParametro('path_video_karaoke');
 	}
 	
 	public function index($offset=0)

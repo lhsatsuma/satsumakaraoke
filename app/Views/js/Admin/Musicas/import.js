@@ -36,7 +36,7 @@ function ajaxNextSearch()
                 </tr>`);
             },
             callback: (res) => {
-                if(res.detail.title){
+                if(res.detail && res.detail.title){
                     $('#countLinks').html(parseInt($('#countLinks').html()) + 1);
                     $('.importLink_Name'+res.detail.len_link).val(fixNameUtf8(res.detail.title));
                     $('.importLink_MD5'+res.detail.len_link).val(res.detail.md5);
@@ -112,7 +112,7 @@ function ajaxNextImport()
             },
             success: function(res){
                 $('#countLinksTotal').html(parseInt($('#countLinksTotal').html()) + 1);
-                if(!!res.status && res.detail.downloaded){
+                if(!!res.status && res.detail && res.detail.downloaded){
                     $('#countLinksSuccess').html(parseInt($('#countLinksSuccess').html()) + 1);
                     console.log($('.importLink_Link'+totalImported).val(), 'OK');
                     $('.importLink_Status'+res.detail.len_link).html('<i class="fas fa-check"></i>');

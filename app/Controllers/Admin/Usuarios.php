@@ -66,7 +66,7 @@ class Usuarios extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
 
-		$this->setPermData(2);
+		$this->setPermData(1);
 		
 		return $this->displayNew('pages/Admin/Usuarios/detalhes');
 	}
@@ -89,14 +89,14 @@ class Usuarios extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 
-		$this->setPermData(3);
+		$this->setPermData(1);
 		
 		return $this->displayNew('pages/Admin/Usuarios/editar');
 	}
 	
 	public function salvar()
 	{
-		hasPermission(2, 'w', true);
+		hasPermission(1, 'w', true);
 
 		$this->PopulatePost();
 		

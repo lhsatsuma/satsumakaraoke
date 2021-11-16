@@ -42,16 +42,14 @@ $('#newForm').find('.btn-success').on('click', (e) =>{
 		complete: function(d){
             var r = d.responseJSON;
 			if(!!r){
-				if(r.status){
-                    if(r.detail){
-                        if(r.detail.exists){
-                            $('#email').after("<p class='validate-error required'>Já existe um usuário com este email cadastrado!</p>");
-                            $('#email').trigger('focus');
-                            hideLoadingIcon(this);
-                            validated = false;
-                        }else{
-                            $('#newForm').trigger('submit');
-                        }
+				if(r.status && r.detail){
+                    if(r.detail.exists){
+                        $('#email').after("<p class='validate-error required'>Já existe um usuário com este email cadastrado!</p>");
+                        $('#email').trigger('focus');
+                        hideLoadingIcon(this);
+                        validated = false;
+                    }else{
+                        $('#newForm').trigger('submit');
                     }
 				}
 			}

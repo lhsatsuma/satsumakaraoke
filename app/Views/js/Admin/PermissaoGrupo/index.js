@@ -13,8 +13,8 @@ $('#grupos').change(() => {
                 grupo_id: $('#grupos').val(),
             }),
             callback: (res) => {
-                if(res.status){
-                    let html = '';
+                let html = '';
+                if(res.status && res.detail){
                     let close = false;
                     res.detail.forEach((ipt, idx) => {
                         let value_permissao = (ipt.permissao_grupo_id) ? ipt.permissao_grupo_id: '';
@@ -69,11 +69,11 @@ $('#grupos').change(() => {
                             close = false;
                         }
                     });
-                    if(html.substr(html.length - 5) !== '</tr>'){
-                        html += '</tr>';
-                    }
-                    $('#tbodyPermissaoGrupo').html(html);
                 }
+                if(html.substr(html.length - 5) !== '</tr>'){
+                    html += '</tr>';
+                }
+                $('#tbodyPermissaoGrupo').html(html);
                 Swal.close();
             }
         });

@@ -125,7 +125,7 @@ class KaraokeJS{
 				of: 0,
 			},
 			callback: (res) => {
-				if(res.detail.s[0]){
+				if(res.detail){
 					if(res.detail.s[0][4]){
 						this.songNow = res.detail.s[0];
 						$('#songNowId').val(this.songNow[0]);
@@ -231,7 +231,7 @@ class KaraokeJS{
 				$('#SongListsDiv').html('');
 				$('#SongListsDiv2').html('');
 				$('#SongListsDivCenter').html('');
-				if(res.detail.s){
+				if(res.detail){
 					let hasDiv2 = false;
 					res.detail.s.forEach((ipt, idx) => {
 						let turn = 0;

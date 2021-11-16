@@ -4,7 +4,12 @@ namespace App\Controllers;
 class Musicas extends BaseController
 {
 	public $module_name = 'Musicas';
-	public $upload_path = ROOTPATH . 'public/uploads/VIDEOSKARAOKE/';
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->upload_path = getValorParametro('path_video_karaoke');
+	}
 	
 	public function ExtButtonsGenericFilters()
 	{

@@ -34,7 +34,7 @@
 			<button type="button" class="btn btn-outline-success btn-rounded margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Salvar</button>
 			{if $record.id}
 				<a href="{$app_url}admin/parametros/detalhes/{$record.id}" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
-				{if $perms.cod_2.d}
+				{if $perms.cod_8.d}
 					<button type="button" class="btn btn-outline-danger margin-5" onclick="ConfirmdeleteRecord('EditarForm')"><i class="fas fa-trash"></i> Deletar</button>
 				{/if}
 			{else}

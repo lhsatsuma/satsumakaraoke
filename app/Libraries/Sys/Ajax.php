@@ -50,10 +50,12 @@ class Ajax{
 	{
 		return json_decode($this->request->getBody(), true);		
 	}
-	public function setSuccess($data = array())
+	public function setSuccess($data = null)
 	{
 		$this->data['status'] = 1;
-		$this->data['detail'] = $data;
+		if($data){
+			$this->data['detail'] = $data;
+		}
 		$this->setAjax();
 		
 	}

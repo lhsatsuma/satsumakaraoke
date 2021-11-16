@@ -4,11 +4,11 @@ namespace App\Controllers\Admin;
 class Karaoke extends AdminBaseController
 {
 	public $module_name = 'Karaoke';
-	public $upload_path = ROOTPATH . 'public/uploads/VIDEOSKARAOKE/';
 	
 	public function __construct()
 	{
 		parent::__construct();
+		$this->upload_path = getValorParametro('path_video_karaoke');
 	}
 
 	public function index()
