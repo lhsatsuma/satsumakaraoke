@@ -126,7 +126,7 @@ class KaraokeJS{
 			},
 			callback: (res) => {
 				if(res.detail){
-					if(res.detail.s[0][4]){
+					if(res.detail.s.length && res.detail.s[0][4]){
 						this.songNow = res.detail.s[0];
 						$('#songNowId').val(this.songNow[0]);
 						video.src = _app_vars.karaokeURL + 'uploads/VIDEOSKARAOKE/' + this.songNow[4]+'.mp4';
