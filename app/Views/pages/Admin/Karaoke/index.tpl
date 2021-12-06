@@ -21,7 +21,7 @@
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
 		<script type="text/javascript">
-			var _app_vars = {$JS_VARS};
+			var _APP = {$JS_VARS};
 			var karaokeURL = '{$karaokeURL}';
 			var host_fila = '{$host_fila}';
 		</script>

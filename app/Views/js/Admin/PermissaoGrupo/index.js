@@ -7,7 +7,7 @@ $('#grupos').change(() => {
             $('#grupo1required').remove();
         }
         fireAjaxLoading({
-            url: _app_vars.app_url+'admin/permissao_grupo/procurarPermissoes',
+            url: _APP.app_url+'admin/permissao_grupo/procurarPermissoes',
             text: 'Estamos buscando as permissões para este grupo...',
             data: JSON.stringify({
                 grupo_id: $('#grupos').val(),

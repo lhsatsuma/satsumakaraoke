@@ -166,7 +166,7 @@ function LoadPaginationAjax(id_subpanel, page = 0)
 	if(!!cfg.url){
 		var url_fire = cfg.url;
 	}else{
-		var url_fire = _app_vars.app_url+'Ajax_requests/pagination_ajax'
+		var url_fire = _APP.app_url+'Ajax_requests/pagination_ajax'
 	}
 	$.ajax({
 		'url': url_fire,
@@ -235,7 +235,7 @@ function SetRelatedField(args = {})
 				});
 			}
 			$.ajax({
-				"url": _app_vars.app_url+url_fire,
+				"url": _APP.app_url+url_fire,
 				"dataType": 'json',
 				"method": 'post',
 				headers: {

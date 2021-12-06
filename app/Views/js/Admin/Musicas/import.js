@@ -21,7 +21,7 @@ function ajaxNextSearch()
 {
     if(linksDone < links.length){
         handleAjax({
-            url: _app_vars.app_url+'musicas/CheckImportVideo',
+            url: _APP.app_url+'musicas/CheckImportVideo',
             data: JSON.stringify({ 
                 link: links[linksDone],
                 len_link: linksDone,
@@ -96,7 +96,7 @@ function ajaxNextImport()
 {
     if(totalImported < $('.importLink_Link').length){
         handleAjax({
-            url: _app_vars.app_url+'musicas/ImportVideoUrl',
+            url: _APP.app_url+'musicas/ImportVideoUrl',
             data: JSON.stringify({ 
                 'link': $('.importLink_Link'+totalImported).val(),
                 'md5': $('.importLink_MD5'+totalImported).val(),
@@ -106,7 +106,7 @@ function ajaxNextImport()
                 'len_link': totalImported,
             }),
             beforeSend: () => {
-                $('.importLink_Status'+totalImported).html('<img class="loading-icon" src="'+_app_vars.app_url+'images/loading.gif" />');
+                $('.importLink_Status'+totalImported).html('<img class="loading-icon" src="'+_APP.app_url+'images/loading.gif" />');
                 showLoadingIcon($('.importLink_Status'+totalImported));
                 console.log($('.importLink_Link'+totalImported).val(), 'IMPORTING');
             },

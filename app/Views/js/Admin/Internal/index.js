@@ -19,7 +19,7 @@ function confirmInternal(elm, action)
                         seconds++;
                         $('#counterSeconds').html(seconds);
                     }, 1000);
-                    location.href = _app_vars.app_url+'admin/internal/'+action;
+                    location.href = _APP.app_url+'admin/internal/'+action;
                 }
             });
         }

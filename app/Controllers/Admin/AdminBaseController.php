@@ -15,7 +15,6 @@ class AdminBaseController extends \App\Controllers\BaseController
 	public $access_cfg = array(
 		'needs_login' => true, //For access all pages, needs to be logged in
 		'admin_only' => true,
-		'role_access' => array(), //ToDo, Access with roles
 	);
 	
 	public $pager_cfg = array(

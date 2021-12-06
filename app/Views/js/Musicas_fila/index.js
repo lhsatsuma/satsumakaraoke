@@ -46,7 +46,7 @@ $('#InsertFilaBtn').on('click', () =>{
 		didOpen: () => {
 			Swal.showLoading();
 			handleAjax({
-				url: _app_vars.app_url+'musicas/insert_fila_ajax',
+				url: _APP.app_url+'musicas/insert_fila_ajax',
 				data: JSON.stringify({
 					id: $('#IdInsertModal').val(),
 				}),

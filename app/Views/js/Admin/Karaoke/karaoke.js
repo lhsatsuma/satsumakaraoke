@@ -8,7 +8,7 @@ $(document).ready(function(){
 class KaraokeJS{
 	constructor()
 	{
-		this.url = _app_vars.app_url+'admin/Karaoke_ajax/';
+		this.url = _APP.app_url+'admin/Karaoke_ajax/';
 		this.running = {
 			'nextVideo': false,
 			'list': false,
@@ -29,7 +29,7 @@ class KaraokeJS{
 		this.typeScreen = type;
 
 		handleAjax({
-			url: _app_vars.app_url+'admin/karaoke_ajax/k_get_body',
+			url: _APP.app_url+'admin/karaoke_ajax/k_get_body',
 			data: {
 				id: type,
 			},
@@ -41,7 +41,7 @@ class KaraokeJS{
 					this.video = document.getElementById('video');
 					handleAjax({
 						dontFireError: true,
-						url: _app_vars.app_url+'Karaoke_ajax/k_get_thread_copy',
+						url: _APP.app_url+'Karaoke_ajax/k_get_thread_copy',
 						callback: (res) => {
 							if(res.detail !== null
 								&& res.detail.volume !== null){
@@ -129,7 +129,7 @@ class KaraokeJS{
 					if(res.detail.s.length && res.detail.s[0][4]){
 						this.songNow = res.detail.s[0];
 						$('#songNowId').val(this.songNow[0]);
-						video.src = _app_vars.karaokeURL + 'uploads/VIDEOSKARAOKE/' + this.songNow[4]+'.mp4';
+						video.src = _APP.karaokeURL + this.songNow[4]+'.mp4';
 						$('#playingNow').html('<p>'+this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]+'</p>');
 						$('#pausedDiv').hide();
 					}
@@ -193,7 +193,7 @@ class KaraokeJS{
 							break;
 					}
 					handleAjax({
-						url: _app_vars.app_url+'admin/Karaoke_ajax/k_reset_thread',
+						url: _APP.app_url+'admin/Karaoke_ajax/k_reset_thread',
 						callback: (res) => {
 							karaoke.running.thread = false;
 						}

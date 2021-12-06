@@ -20,7 +20,7 @@ function OpenModalReset()
 		confirmButtonText: 'Sim',
 		cancelButtonText: 'Não',
 		preConfirm: () => {
-			return fetch(_app_vars.app_url+'login/send_forget_pass',
+			return fetch(_APP.app_url+'login/send_forget_pass',
 				{
 					method: 'POST',
 					body: JSON.stringify({ 

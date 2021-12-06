@@ -34,7 +34,10 @@ class DownloadManager extends BaseController
 			if($fileName){
 				
 				//Check if mimetype it's an image or pdf, otherwise let's download the file
-				if(strpos($fileName['mimetype'], 'image') === false && $fileName['mimetype'] !== 'application/pdf'){
+				if(strpos($fileName['mimetype'], 'image') === false
+				&& $fileName['mimetype'] !== 'application/pdf'
+				&& strpos($fileName['mimetype'], 'video/') === false
+				){
 					return $this->response->download($fileName['nome'], file_get_contents($fileName['path']));
 				}
 				
@@ -71,13 +74,11 @@ class DownloadManager extends BaseController
 			$this->access_cfg = array(
 				'needs_login' => true,
 				'admin_only' => true,
-				'role_access' => array(),
 			);
 		}elseif($tipo == 'private'){
 			$this->access_cfg = array(
 				'needs_login' => true,
 				'admin_only' => false,
-				'role_access' => array(),
 			);
 		}
 		$this->SetSys(); //Checking session if necessary

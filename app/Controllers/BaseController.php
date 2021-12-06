@@ -87,7 +87,6 @@ class BaseController extends Controller
 	public $access_cfg = array(
 		'needs_login' => true, //For access all pages, needs to be logged in
 		'admin_only' => false,
-		'role_access' => array(), //ToDo, Access with roles
 	);
 	
 	/*

@@ -80,13 +80,11 @@ class JsManager extends BaseController
 			$this->access_cfg = array(
 				'needs_login' => true,
 				'admin_only' => true,
-				'role_access' => array(),
 			);
 		}elseif($tipo == 'private'){
 			$this->access_cfg = array(
 				'needs_login' => true,
 				'admin_only' => false,
-				'role_access' => array(),
 			);
 		}
 		$this->SetSys(); //Checking session if necessary

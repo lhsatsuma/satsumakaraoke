@@ -17,7 +17,7 @@ $('#volumeRange').val(100);
 function getLastVolume(needCheck = false)
 {
 	handleAjax({
-		url: _app_vars.app_url+'Karaoke_ajax/k_get_thread_copy',
+		url: _APP.app_url+'Karaoke_ajax/k_get_thread_copy',
 		dontFireError: true,
 		beforeSend: (res) => {
 			showLoadingIcon($('#ControleRemotoModalLabel'));
@@ -63,7 +63,7 @@ $('.controlbtns').on('click', (e) => {
 	let domObj = $(e.currentTarget);
 	$(domObj).trigger('focusout');
 	handleAjax({
-		url: _app_vars.app_url+'Karaoke_ajax/k_set_thread',
+		url: _APP.app_url+'Karaoke_ajax/k_set_thread',
 		dontFireError: true,
 		data: {
 			action: $(domObj).attr('data-val'),
@@ -82,7 +82,7 @@ $('.controlbtns').on('click', (e) => {
 document.getElementById('volumeRange').addEventListener('input', function() {
 	$('#volP').html($(this).val()+'%');
 	handleAjax({
-		url: _app_vars.app_url+'Karaoke_ajax/k_set_thread',
+		url: _APP.app_url+'Karaoke_ajax/k_set_thread',
 		dontFireError: true,
 		data: {
 			action: 'volume',

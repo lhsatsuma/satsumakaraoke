@@ -27,7 +27,7 @@
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
 		<script src="https://cdn.tiny.cloud/1/gkma8l0v7mxj6bd7bono39z4l7bzq7k29vt4yp3ja81e67db/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-		<script type="text/javascript">var _app_vars = {$JS_VARS};</script>
+		<script type="text/javascript">var _APP = {$JS_VARS};</script>
 		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
 		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
 	</head>

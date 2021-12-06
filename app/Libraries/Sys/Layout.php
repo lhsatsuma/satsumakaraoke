@@ -224,8 +224,20 @@ class Layout
 			}
 		}
 		$data['accept'] = ($parameter['accept']) ? $parameter['accept'] : '';
-		$data['max_size'] = ($parameter['max_size']) ? $parameter['max_size'] : '';
+		$data['max_size'] = (float)($parameter['max_size']) ? $parameter['max_size'] : '';
 		
+		//Verify if max_size of field in model have compatibility with upload_max_filesize of php.ini
+		$max_size_ini = (float)str_replace('M', '', ini_get('upload_max_filesize'))*1024;
+		if($max_size_ini < $data['max_size']){
+			$data['max_size'] = $max_size_ini;
+		}
+
+		//Verify if max_size of field in model have compatibility with post_max_size of php.ini
+		$post_max_size_ini = (float)str_replace('M', '', ini_get('post_max_size'))*1024;
+		if($post_max_size_ini < $data['max_size']){
+			$data['max_size'] = $max_size_ini;
+		}
+
 		$max_size_mb = $data['max_size']/1024;
 		if(is_float($max_size_mb)){
 			$max_size_mb = number_format($max_size_mb, 2, ',', '.');
