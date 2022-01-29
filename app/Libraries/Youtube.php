@@ -133,12 +133,12 @@ class Youtube
     public function importUrl($url, $md5)
     {
         log_message('info', "DOWNLOADING VIDEO: ".$url);
-        if(file_exists($this->upload_path . $md5.'.mp4')){
-			unlink($this->upload_path . $md5.'.mp4');
+        if(file_exists($this->upload_path . $md5)){
+			unlink($this->upload_path . $md5);
 		}
-		
-		$string = ("cd {$this->upload_path} && youtube-dl.exe " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
-                  escapeshellarg($md5.".mp4"));
+		$youtube_dl_path = APPPATH . 'Helpers/youtube-dl.exe';
+		$string = ("cd $this->upload_path && {$youtube_dl_path} " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
+                  escapeshellarg($md5));
         log_message('info', "COMMAND: ".$string);
 		$descriptorspec = array(
 		   0 => array("pipe", "r"),  // stdin
