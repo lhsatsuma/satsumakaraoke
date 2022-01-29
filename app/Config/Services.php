@@ -29,4 +29,18 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+    public static function pagerext($config = null, RendererInterface $view = null, bool $getShared = true)
+	{
+		if (empty($config))
+		{
+			$config = config('Pager');
+		}
+
+		if (! $view instanceof RendererInterface)
+		{
+			$view = static::renderer();
+		}
+
+		return new \App\Libraries\Sys\Pager($config, $view);
+	}
 }

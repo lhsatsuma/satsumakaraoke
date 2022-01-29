@@ -3,7 +3,7 @@ namespace App\Libraries\Sys;
 
 class InitApp
 {
-	private $url;
+	private $uri;
 	private $session;
 	public $vardef;
 	public $module;
@@ -12,7 +12,7 @@ class InitApp
 	public function __construct($need_login, $module_name)
 	{
 		$this->session = getSession();
-		$this->url = current_url(true)->getSegments();
+		$this->uri = current_url(true)->getSegments();
 		array_shift($this->uri);
 		$this->module = $module_name;
 	}

@@ -1,16 +1,22 @@
 <?php
+
 namespace App\Controllers;
 
-/**
-BASE Controller
-AUTHOR: LUIS HENRIQUE MINORU SATSUMA
-LAST UPDATE: 13/09/2020
- */
-
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\CLIRequest;
+use CodeIgniter\HTTP\IncomingRequest;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class BaseController extends Controller
 {
+    /**
+     * Instance of the main Request object.
+     *
+     * @var CLIRequest|IncomingRequest
+     */
+    protected $request;
 
 	/**
 	 * An array of helpers to be loaded automatically upon
@@ -129,6 +135,7 @@ class BaseController extends Controller
 			helper('Sys_helper');
 			$this->session = getSession();
 			$this->uri = current_url(true)->getSegments();
+			array_shift($this->uri);
 			$this->routes = \Config\Services::router();
 			$this->request = \Config\Services::request();
 
@@ -215,7 +222,6 @@ class BaseController extends Controller
 	
 	public function SetLayout()
 	{
-		
 		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map);
 		$this->layout->template = $this->template;
 	}
