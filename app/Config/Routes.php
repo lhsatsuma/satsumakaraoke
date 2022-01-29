@@ -1,16 +1,17 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
-{
-	require SYSTEMPATH . 'Config/Routes.php';
+if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+    require SYSTEMPATH . 'Config/Routes.php';
 }
 
-/**
+/*
  * --------------------------------------------------------------------
  * Router Setup
  * --------------------------------------------------------------------
@@ -44,7 +45,7 @@ $routes->set404Override(function() {
 });
 $routes->setAutoRoute(true);
 
-/**
+/*
  * --------------------------------------------------------------------
  * Route Definitions
  * --------------------------------------------------------------------
@@ -64,7 +65,7 @@ $routes->add('/login/(:any)', 'Usuarios::$1');
 $routes->add('/jsManager/(:any)', 'JsManager::get/$1');
 $routes->add('/cssManager/(:any)', 'cssManager::get/$1');
 
-/**
+/*
  * --------------------------------------------------------------------
  * Additional Routing
  * --------------------------------------------------------------------
@@ -77,7 +78,6 @@ $routes->add('/cssManager/(:any)', 'cssManager::get/$1');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
-{
-	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
