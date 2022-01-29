@@ -38,7 +38,7 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 - Framework PHP CodeIgniter 4+
 - Bootstrap 4.5.2
 - jQuery 3.6
-- SweetAlert2 11.1.9
+- SweetAlert2 11.3.10
 - Smarty 3.1
 - PHPMailer 6.5
 - MPDF 8.0+

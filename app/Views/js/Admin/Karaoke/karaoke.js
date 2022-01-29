@@ -129,9 +129,13 @@ class KaraokeJS{
 					if(res.detail.s.length && res.detail.s[0][4]){
 						this.songNow = res.detail.s[0];
 						$('#songNowId').val(this.songNow[0]);
-						video.src = _APP.karaokeURL + this.songNow[4]+'.mp4';
+						video.src = _APP.karaokeURL + this.songNow[4];
 						$('#playingNow').html('<p>'+this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]+'</p>');
 						$('#pausedDiv').hide();
+					}else{
+						setTimeout(() => {
+							karaoke.getNextVideo();
+						}, 2000);
 					}
 				}else{
 					setTimeout(() => {

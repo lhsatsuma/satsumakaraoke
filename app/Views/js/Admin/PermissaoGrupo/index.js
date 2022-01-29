@@ -53,14 +53,14 @@ $('#grupos').change(() => {
                             ipt.nivel -= 1;
                             has_d = 'checked="true"';
                         }
-                        html += `<td scope="col" class="col-4">
+                        html += `<td scope="col" class="col-4 border-right">
                             <input type="hidden" name="permissao[${ipt.id}]" value="${value_permissao}" />
                             [${ipt.id}] ${ipt.nome}
                         </td>
-                        <td scope="col"class="col-2 text-center ${sideTd}">
-                            R: <input type="checkbox" name="permissao_checked[${ipt.id}][r]" permission="r" ${has_r} />
-                            W: <input type="checkbox" name="permissao_checked[${ipt.id}][w]" permission="w" ${has_w} />
-                            D: <input type="checkbox" name="permissao_checked[${ipt.id}][d]" permission="d" ${has_d} />
+                        <td scope="col"class="col-2 text-center ${sideTd} border-right">
+                            R:&nbsp;&nbsp;<input type="checkbox" name="permissao_checked[${ipt.id}][r]" permission="r" ${has_r} /><br /><br />
+                            W: <input type="checkbox" name="permissao_checked[${ipt.id}][w]" permission="w" ${has_w} /><br /><br />
+                            D:&nbsp;&nbsp;<input type="checkbox" name="permissao_checked[${ipt.id}][d]" permission="d" ${has_d} /><br />
                         </td>`;
 
                         if(idx % 2 == 1 && idx > 0){

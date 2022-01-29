@@ -34,9 +34,7 @@ class DownloadManager extends BaseController
 			if($fileName){
 				
 				//Check if mimetype it's an image or pdf, otherwise let's download the file
-				if(strpos($fileName['mimetype'], 'image') === false
-				&& $fileName['mimetype'] !== 'application/pdf'
-				&& strpos($fileName['mimetype'], 'video/') === false
+				if($this->checkMimetypeDefault($fileName['mimetype'])
 				){
 					return $this->response->download($fileName['nome'], file_get_contents($fileName['path']));
 				}
@@ -48,6 +46,16 @@ class DownloadManager extends BaseController
 		}
 		//If file doesn't exists, throw 404
 		throw PageNotFoundException::forPageNotFound();
+	}
+
+	private function checkMimetypeDefault($mimetype)
+	{
+		if(strpos($mimetype, 'image') === false
+		&& $mimetype !== 'application/pdf'
+		&& strpos($mimetype, 'video/') === false){
+			return true;
+		}
+		return false;
 	}
 	
 	private function getFile($id)

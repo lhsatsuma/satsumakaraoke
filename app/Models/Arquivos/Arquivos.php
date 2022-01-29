@@ -100,6 +100,13 @@ class Arquivos extends \App\Models\Basic\Basic
 			$this->fields_map['registro']['parameter'] = [];
 			
 			switch($this->fields_map['registro']['table']){
+				case 'musicas':
+					$this->fields_map['registro']['parameter'] = [
+						'url' => null,
+						'model' => 'Musicas/Musicas',
+						'link_detail' => 'admin/musicas/detalhes/',
+					];
+					break;
 				default:
 					$this->fields_map['registro']['parameter'] = [
 						'url' => null,
