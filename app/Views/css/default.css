@@ -1190,8 +1190,4 @@ input[type="checkbox"]:checked+.slider:before {
     display: none;
 }
 
-html.swal2-shown,
-body.swal2-shown {
-    overflow-y: hidden !important;
-    height: auto!important;
-}
+body.swal2-shown { overflow-y: none !important; }

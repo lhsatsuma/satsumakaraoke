@@ -30,6 +30,8 @@ function OpenModalSelected(id){
 $('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireLoading({
+		toast: true,
+		position: 'top-end',
 		didOpen: () => {
 			Swal.showLoading();
 			handleAjax({
@@ -40,12 +42,14 @@ $('#InsertFilaBtn').on('click', () =>{
 				callback: (res) => {
 					Swal.close();
 					Swal.fire({
+						toast: true,
+						position: 'top-end',
 						title: 'Música adicionada na fila!',
 						text: '',
 						icon: 'success',
 						width: '400px',
 						showConfirmButton: false,
-						timer: 1000,
+						timer: 2000,
 						timerProgressBar: true
 					});
 				}

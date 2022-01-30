@@ -7,7 +7,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 Sets App Version
 	 Dummy var for now, gonna use this in the future
 	 */
-	public $version = '2.3.1.1b';
+	public $version = '2.3.1.2b';
 	
 	/*
 	@var bool
@@ -30,10 +30,12 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	public $template = 'template';
 	public $template_file = 'template';
 	public $template_file_admin = 'template_admin';
+
+	public $charset = 'UTF-8';
 	
 	public function __construct()
 	{
 		parent::__construct();
-		ini_set('default_charset', 'UTF-8');
+		ini_set('default_charset', $this->charset);
 	}
 }
