@@ -14,7 +14,7 @@ class Layout
 	{
 		//Nothing to do for now
 		$this->fields_map = $fields_map;
-		$this->dropdown = new \App\Libraries\Dropdown();
+		$this->dropdown = new \App\Libraries\Sys\Dropdown();
         $this->dropdown->values['modules_list'] = getModules();
 		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
 		$this->session = getSession();

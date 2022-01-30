@@ -5,7 +5,7 @@ class Fields
 {
 	public function __construct()
 	{
-		$this->dropdown = new \App\Libraries\Dropdown();
+		$this->dropdown = new \App\Libraries\Sys\Dropdown();
 	}
 	
 	public function formatDBValues($type, $value)

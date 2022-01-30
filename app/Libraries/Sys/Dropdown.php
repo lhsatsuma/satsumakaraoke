@@ -7,36 +7,31 @@ class Dropdown
 	ARRAY OF DROPDOWN VALUES
 	*/
 	
-	public $values = array(
-		'ativo_inativo_list' => array(
-			'ativo' => 'Ativo',
-			'inativo' => 'Inativo',		
-		),
-		'status_usuario_list' => array(
-			'ativo' => 'Ativo',
-			'inativo' => 'Inativo',
-			'bloqueado' => 'Bloqueado',	
-		),
-		'sim_nao' => array(
-			'sim' => 'Sim',
-			'nao' => 'Não',
-		),
-		'tipo_acesso' => array(
-			'public' => 'Público',
-			'privado' => 'Privado',		
-			'admin' => 'Apenas Admin',		
-		),
-		'tipo_menu_list' => array(
-			'1' => 'Pai - Público',
-			'2' => 'Filho - Público',
-			'3' => 'Pai - Admin',	
-			'4' => 'Filho - Admin',	
-		),
-		'timezones_availables' => array(),
-	);
+	public $values = array();
 	public function __construct()
 	{
 		//Nothing to do for now
+		$locale = service('request')->getLocale();
+		$locale_search = [$locale, 'en']; //Find first locale of system
+
+		foreach($locale_search as $lang){
+			$file_language = APPPATH . "Language/{$lang}/Dropdown.php";
+			if(file_exists($file_language)){
+
+				$this->values = include($file_language);
+
+				//Search for extensions of dropdown for system
+				$file_language = APPPATH . "Language/{$lang}/Dropdown_ext.php";
+				
+				if(file_exists($file_language)){
+					$new_values = include($file_language);
+					if(is_array($new_values)){
+						$this->values = array_merge($this->values, $new_values);
+					}
+				}
+				break;
+			}
+		}		
 	}
 	
 	public function GetDropdown($what)
