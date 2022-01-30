@@ -482,14 +482,14 @@ class Layout
 
 
 		foreach($menusSalvos as $key => $menu_pai){
-			$menu_pai['id'] = 'menu_'.fatiarString($menu_pai['lbl'], 10);
+			$menu_pai['id'] = 'menu_'.sliceString($menu_pai['lbl'], 10);
 			//If has sub menus, consider the menu dont need permission
 			if($menu_pai['subs']){
 				$menu_pai_clone = $menu_pai;
 				unset($menu_pai_clone['subs']);
 				$dataLayout['menu_arr'][$key] = $menu_pai_clone;
 				foreach($menu_pai['subs'] as $key_filho => $menu_filho){
-					$menu_filho['id'] = 'submenu_'.$menu_pai['id'].'_'.fatiarString($menu_filho['lbl'], 10);
+					$menu_filho['id'] = 'submenu_'.$menu_pai['id'].'_'.sliceString($menu_filho['lbl'], 10);
 					//Checking if sub menu needs permission
 					$menu_filho['class_active'] = $this->checkBreadcrumb($menu_filho['url']);
 					if($menu_filho['class_active']){

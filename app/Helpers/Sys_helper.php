@@ -142,7 +142,7 @@ if(!function_exists('create_slug')){
 		$text = preg_replace('~[^\pL\d]+~u', '-', $text);
 
 		// transliterate
-		$text = removeAcentos($text);
+		$text = removeAccents($text);
 		// remove unwanted characters
 		$text = preg_replace('~[^-\w]+~', '', $text);
 		// trim
@@ -225,15 +225,15 @@ if(!function_exists('convertSize')){
 	return $result;
   }
 }
-if(!function_exists('removeAcentos')){
-	function removeAcentos($string){
+if(!function_exists('removeAccents')){
+	function removeAccents($string){
 		return preg_replace(array("/ç|Ç/","/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","c a A e E i I o O u U n N"),$string);
 	}
 }
-if(!function_exists('fatiarString')){
-	function fatiarString($string, $int, $capitalize = false, $clean = false){
+if(!function_exists('sliceString')){
+	function sliceString($string, $int, $capitalize = false, $clean = false){
 		$result = implode(' ', array_slice(explode(' ', $string), 0, $int));
-		$result = removeAcentos($result);
+		$result = removeAccents($result);
 		$result = str_replace('-','', $result);
 		$result = str_replace(':','', $result);
 		if(!$capitalize){
@@ -246,8 +246,8 @@ if(!function_exists('fatiarString')){
 		$result = ucfirst($result);
 		return $result;
 	}
-	if(!function_exists('fatiarData')){
-		function fatiarData($string, $inicio, $fim){
+	if(!function_exists('sliceDate')){
+		function sliceDate($string, $inicio, $fim){
 			$result = implode(' ', array_slice(explode(' ', $string), $inicio, $fim));
 			return $result;
 		}
@@ -335,7 +335,7 @@ function hasPermission(int $cod, string $nivel_need = null, bool $rdct = false, 
 			'w' => 1,
 		];
 	}else{
-		$permissions = getSession()->get('PERM_CACHE_'.$cod.'_'.$grupo);
+		$permissions = getSession()->get('PRM_'.$cod.'_'.$grupo);
 		if(is_null($permissions)){
 			if(!$permissao){
 				$permissao = new \App\Models\PermissaoGrupo\PermissaoGrupo();
@@ -371,7 +371,7 @@ function hasPermission(int $cod, string $nivel_need = null, bool $rdct = false, 
 				$permissions['d'] = 1;
 			}
 
-			getSession()->set('PERM_CACHE_'.$cod.'_'.$grupo, $permissions);
+			getSession()->set('PRM_'.$cod.'_'.$grupo, $permissions);
 		}
 	}
 	if(is_null($nivel_need)){

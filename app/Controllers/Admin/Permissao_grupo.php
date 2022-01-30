@@ -65,7 +65,7 @@ class Permissao_grupo extends AdminBaseController
 			}else{
 				$this->mdl->saveRecord();
 			}
-			$this->session->remove('PERM_CACHE_'.$perm_id.'_'.$this->mdl->f['grupo']);
+			$this->session->remove('PRM_'.$perm_id.'_'.$this->mdl->f['grupo']);
 		}
 		$this->session->setFlashdata('msg', 'Permissões salvas com sucesso');
 		rdct('/admin/permissao_grupo/index/');
