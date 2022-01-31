@@ -405,3 +405,17 @@ function getValorParametro(string $cod)
 	}
 	return $parametro_valor;
 }
+function checkRdct($rdct_url)
+{
+	if($rdct_url
+	&& strpos($rdct_url, 'downloadManager') == false
+	&& strpos($rdct_url, 'cssManager') == false
+	&& strpos($rdct_url, 'jsManager') == false
+	&& strpos($rdct_url, 'Ajax_requests') == false
+	&& strpos($rdct_url, '_ajax') == false
+	){
+		return true;
+	}else{
+		return false;
+	}
+}

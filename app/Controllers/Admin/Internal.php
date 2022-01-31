@@ -186,13 +186,13 @@ class Internal extends AdminBaseController
 
         $model = new \App\Models\Musicas\Musicas();
 
-        $files = scan_dir(ROOTPATH . 'public/uploads/VIDEOSKARAOKE/');
+        $files = scan_dir(ROOTPATH . 'public/uploads/');
         $total_files = count($files);
         $deleted = 0;
         $cmd_del = '';
         foreach($files as $file){
             //Dont remove index.html and htaccess files
-            if(substr($file, -4) == '.mp4'){
+            if(strlen($file) == 32){
                 $md5 = str_replace('.mp4', '', $file);
                 $model->where['md5'] = $md5;
                 $result = $model->search(1);

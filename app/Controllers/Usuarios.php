@@ -209,7 +209,13 @@ class Usuarios extends BaseController
 		$this->mdl->auth_user_id = $exists['id'];
 		$this->mdl->saveRecord();
 		
-		rdct('/home');
+		$rdct_url = $this->request->getPost('rdct_url');
+		if(checkRdct($rdct_url)){
+			$rdct = urldecode($rdct_url);
+		}else{
+			$rdct = '/home';
+		}
+		rdct($rdct);
 	}
 	
 	public function send_forget_pass()

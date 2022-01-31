@@ -27,6 +27,7 @@
 					{/if}
 					<p>Painel de Administração</p>
 					<form name="LoginForm" id="LoginForm" method="post" action="{$app_url}admin/login/auth">
+						<input type="hidden" name="rdct_url" value="{$rdct_url}" />
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
 						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>

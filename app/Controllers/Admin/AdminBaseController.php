@@ -52,7 +52,9 @@ class AdminBaseController extends \App\Controllers\BaseController
 		if($this->access_cfg['needs_login']){
 			if(!$HasAccess &&
 			(!isset($this->uri[1]) || $this->uri[1] !== 'login')){
-				$this->session->setFlashdata('rdct_url', urlencode(current_url()));
+				$current_url = str_replace('index.php/', '', current_url());
+				$current_url = str_replace('index.php', '', $current_url);
+				$this->session->setFlashdata('rdct_url', urlencode($current_url));
 				rdct('/admin/login');
 			}
 		}

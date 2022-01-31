@@ -197,7 +197,9 @@ class BaseController extends Controller
 	
 	public function rdctLogin()
 	{
-		$this->session->setFlashdata('rdct_url', urlencode(current_url()));
+		$current_url = str_replace('index.php/', '', current_url());
+		$current_url = str_replace('index.php', '', $current_url);
+		$this->session->setFlashdata('rdct_url', urlencode($current_url));
 		rdct('/login');
 	}
 	
@@ -315,6 +317,7 @@ class BaseController extends Controller
 			'breadcrumb' => $this->SetBreadCrumbArr(),
 			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
+			'rdct_url' => $this->session->getFlashdata('rdct_url'),
 		);
 		if($this->data){
 			$this->data = array_merge($this->data, $dataNew);
