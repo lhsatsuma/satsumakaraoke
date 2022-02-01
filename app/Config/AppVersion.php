@@ -6,8 +6,14 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	@var string
 	 Sets App Version
 	 Dummy var for now, gonna use this in the future
+	 x.y.z.wA
+	 x = Core Version
+	 y = System Version (includes all composer and vendor)
+	 z = App Version
+	 w = Minor Version (Fixes for App Version or minor updates)
+	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.3.2.0b';
+	public $version = '2.3.2.1b';
 	
 	/*
 	@var bool

@@ -6,11 +6,20 @@ class Internal extends AdminBaseController
 	public $module_name = 'Internal';
 	public $data = array();
 	public $generic_filter = true;
+    private $microtime_start;
+    private $microtime_end;
 
     public function __construct()
     {
         parent::__construct();
         hasPermission(6, 'r', true);
+        $this->microtime_start = microtime(true);
+    }
+
+    private function calcExectime()
+    {
+        $this->microtime_end = microtime(true);
+        return number_format($this->microtime_end - $this->microtime_start, 5, '.', ',');
     }
 	
 	public function ExtButtonsGenericFilters()
@@ -68,7 +77,7 @@ class Internal extends AdminBaseController
             }
         }
 
-        $msg_return = 'Arquivos cache deletados com sucesso!';
+        $msg_return = 'Arquivos cache deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
         $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
 
@@ -94,7 +103,7 @@ class Internal extends AdminBaseController
             }
         }
 
-        $msg_return = 'Sessões deletadas com sucesso!';
+        $msg_return = 'Sessões deletadas com sucesso! Tempo: '.$this->calcExectime().'ms';
 
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
         $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
@@ -140,7 +149,7 @@ class Internal extends AdminBaseController
                 $tables_msg .= "<br/>Tabela {$table} não possui campo deletado";
             }
         }
-        $msg_return = 'Registros deletados com sucesso!';
+        $msg_return = 'Registros deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= $tables_msg;
         
         $this->setMsgData('success', $msg_return);
@@ -170,7 +179,7 @@ class Internal extends AdminBaseController
             }
         }
 
-        $msg_return = 'Arquivos uploads deletados com sucesso!';
+        $msg_return = 'Arquivos uploads deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
         $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
         
@@ -205,7 +214,7 @@ class Internal extends AdminBaseController
                 }
             }
         }
-        $msg_return = 'Arquivos uploads deletados com sucesso!';
+        $msg_return = 'Arquivos uploads deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
         $msg_return .= "<br/>{$deleted} arquivo(s) irão ser deletado(s).";
 
@@ -378,7 +387,7 @@ class Internal extends AdminBaseController
                 $sqlRepair .= "/*<br />SQL FOR TABLE {$mdl->table}<br />*/<br />".$sqlRepairTable;
             }
         }
-        $msg_return = "Reconstrução do banco de dados verificado!";
+        $msg_return = 'Reconstrução do banco de dados verificado! Tempo: '.$this->calcExectime().'ms';
         if($sqlRepair){
             $msg_return .= "<br/>
                 Execute o SQL abaixo para que as alterações sejam feitas:
@@ -425,7 +434,7 @@ class Internal extends AdminBaseController
             $codigo++;
         }
 
-        $msg_return = 'Reordenação de códigos de músicas realizado com sucesso!';
+        $msg_return = 'Reordenação de códigos de músicas realizado com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$totalResults} registro(s) encontrado(s) na tabela.";
         $msg_return .= "<br/>{$codigo} registro(s) foram afetados.";
         
