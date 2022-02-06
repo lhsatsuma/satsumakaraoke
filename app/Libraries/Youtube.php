@@ -140,7 +140,7 @@ class Youtube
         if(file_exists($this->upload_path . $md5)){
 			unlink($this->upload_path . $md5);
 		}
-		$youtube_dl_path = APPPATH . 'Helpers/youtube-dl.exe';
+		$youtube_dl_path = APPPATH . 'Helpers/yt-dlp.exe';
 		$string = ("cd $this->upload_path && {$youtube_dl_path} " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
                   escapeshellarg($md5));
         log_message('info', "COMMAND: ".$string);

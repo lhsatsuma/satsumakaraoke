@@ -18,14 +18,14 @@
 				<tr class="d-flex">
 					<th scope="col" class="col-4">Permissão</th>
 					<th scope="col" class="col-2 text-center">
-						R:&nbsp;&nbsp;<input type="checkbox" onclick="togglePermissoes('esquerda', this, 'r')" /><br /><br />
-						W:&nbsp;<input type="checkbox" onclick="togglePermissoes('esquerda', this, 'w')" /><br /><br />
+						R:&nbsp;&nbsp;<input type="checkbox" onclick="togglePermissoes('esquerda', this, 'r')" /><br />
+						W:&nbsp;<input type="checkbox" onclick="togglePermissoes('esquerda', this, 'w')" /><br />
 						D:&nbsp;&nbsp;<input type="checkbox" onclick="togglePermissoes('esquerda', this, 'd')" /><br />
 					</th>
 					<th scope="col" class="col-4">Permissão</th>
 					<th scope="col" class="col-2 text-center">
-						R:&nbsp;&nbsp;<input type="checkbox" onclick="togglePermissoes('direita', this, 'r')" /><br /><br />
-						W:&nbsp;<input type="checkbox" onclick="togglePermissoes('direita', this, 'w')" /><br /><br />
+						R:&nbsp;&nbsp;<input type="checkbox" onclick="togglePermissoes('direita', this, 'r')" /><br />
+						W:&nbsp;<input type="checkbox" onclick="togglePermissoes('direita', this, 'w')" /><br />
 						D:&nbsp;&nbsp;<input type="checkbox" onclick="togglePermissoes('direita', this, 'd')" /><br />
 					</th>
 				</tr>

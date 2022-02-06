@@ -14,11 +14,11 @@ https://www.youtube.com/watch?v=EWHP-lrzcQI&ab_channel=MuramatsuKaraoke
 <table class="table table-striped mt-5">
 	<thead>
 		<tr class="d-flex">
-			<th class="col-2 col-xl-3">Link</th>
+			<th class="col-2 col-xl-2">Link</th>
 			<th class="col-2 col-xl-1">Tipo</th>
 			<th class="col-6 col-xl-6">Nome</th>
 			<th class="col-2 col-xl-2">&nbsp;</th>
-			<th class="col-2 col-xl-2">&nbsp;</th>
+			<th class="col-2 col-xl-1">&nbsp;<span class="counterSeconds">0</span> segundos</th>
 		</tr>
 	</thead>
 	<tbody id="searchedLinks"></tbody>

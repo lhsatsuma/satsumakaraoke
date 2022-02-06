@@ -36,7 +36,7 @@ function ajaxNextSearch()
                 </tr>`);
             },
             callback: (res) => {
-                if(res.detail && res.detail.title){
+                if(res && res.detail && res.detail.title){
                     $('#countLinks').html(parseInt($('#countLinks').html()) + 1);
                     $('.importLink_Name'+res.detail.len_link).val(fixNameUtf8(res.detail.title));
                     $('.importLink_MD5'+res.detail.len_link).val(res.detail.md5);
@@ -72,19 +72,28 @@ function inverterLine(ln)
 {
     $('.importLink_Name'+ln).val(changeByTraco2($('.importLink_Name'+ln).val()));
 }
+function timer()
+{
+    let seconds = parseInt($('.counterSeconds:first').text());
+    seconds++;
+    $('.counterSeconds').html(seconds);
+}
 
 var totalImported = 0;
+var intervalCountImport = null;
 function finallyImport()
 {
     if(!$('.importLink_Link').length){
         return;
     }
     let linksDone = 0;
+    intervalCountImport = setInterval(timer, 1000);
     fireLoading({
         html: `<p>Isto <strong>VAI</strong> demorar um tempo...</p>
         <p><span id="countLinksTotal">0</span>/`+$('.importLink_Link').length+` música(s) finalizado(s).</p>
         <p><span id="countLinksSuccess">0</span> música(s) com sucesso.</p>
         <p><span id="countLinksError">0</span> música(s) com erro.</p>`,
+        footer: '<p><span class="counterSeconds">0</span> segundos</p>',
         didOpen: () => {
             Swal.showLoading();
             ajaxNextImport();
@@ -124,6 +133,7 @@ function ajaxNextImport()
                 totalImported++;
                 if(totalImported == $('.importLink_Link').length){
                     setTimeout(() => {
+                        clearInterval(intervalCountImport);
                         Swal.close();
                         totalImported = 0;
                     }, 1000);
@@ -145,6 +155,7 @@ function ajaxNextImport()
                 totalImported++;
                 if(totalImported == $('.importLink_Link').length){
                     setTimeout(() => {
+                        clearInterval(intervalCountImport);
                         Swal.close();
                         totalImported = 0;
                     }, 1000);
