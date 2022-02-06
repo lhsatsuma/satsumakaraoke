@@ -21,10 +21,10 @@ class Usuarios extends AdminBaseController
 		$this->data['title'] = 'Lista de Usuários';
 		
 		$initial_filter = array(
-			'nome' => '',
+			'name' => '',
 		);
 		$initial_order_by = array(
-			'field' => 'data_criacao',
+			'field' => 'date_created',
 			'order' => 'DESC',
 		);
 		
@@ -32,7 +32,7 @@ class Usuarios extends AdminBaseController
 			'use' => true,
 			'action' => base_url().'/admin/usuarios/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 				'email',
 			),
 		);
@@ -100,7 +100,7 @@ class Usuarios extends AdminBaseController
 
 		$this->PopulatePost();
 		
-		if($this->mdl->f['deletado']){
+		if($this->mdl->f['deleted']){
 			if(!empty($this->mdl->f['id'])){
 				hasPermission(2, 'd', true);
 				
@@ -230,7 +230,7 @@ class Usuarios extends AdminBaseController
 		}
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			$AuthUser['nome'] = $saved['nome'];
+			$AuthUser['name'] = $saved['name'];
 			$AuthUser['email'] = $saved['email'];
 			$AuthUser['senha'] = $saved['senha'];
 			$this->session->set('auth_user', $AuthUser);

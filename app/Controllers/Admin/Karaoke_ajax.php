@@ -39,14 +39,14 @@ class Karaoke_ajax extends AdminBaseController
 	{
 
 		$this->mdl->select = "musicas_fila.id,
-		usuarios.nome as cantor,
+		usuarios.name as cantor,
 		musicas.codigo,
-		musicas.nome as nome_musica,
+		musicas.name as name_musica,
 		musicas.md5";
 		$this->mdl->where["status"] = "pendente";
 		$this->mdl->join["musicas"] = "musicas.id = musicas_fila.musica_id";
-		$this->mdl->join["usuarios"] = "usuarios.id = musicas_fila.usuario_criacao";
-		$this->mdl->order_by["musicas_fila.data_criacao"] = "ASC";
+		$this->mdl->join["usuarios"] = "usuarios.id = musicas_fila.user_created";
+		$this->mdl->order_by["musicas_fila.date_created"] = "ASC";
 
 		$total_rows = $this->mdl->total_rows();
 		$this->mdl->page_as_offset = true;
@@ -59,13 +59,13 @@ class Karaoke_ajax extends AdminBaseController
 				if(strlen($fila['cantor']) > 13){
 					$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
 				}
-				if(strlen($fila['nome_musica']) > 29){
-					$result[$key]['nome_musica'] = mb_substr($fila['nome_musica'], 0, 26) . '...';
+				if(strlen($fila['name_musica']) > 29){
+					$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 26) . '...';
 				}
 			}elseif((int)$this->ajax->body['sh'] > 1){
-				$total_len = $fila['cantor'].$fila['nome_musica'];
+				$total_len = $fila['cantor'].$fila['name_musica'];
 				if(strlen($total_len) > $this->ajax->body['sh'] - 3){
-					$result[$key]['nome_musica'] = mb_substr($fila['nome_musica'], 0, $this->ajax->body['sh'] - strlen($fila['cantor'])) . '...';
+					$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, $this->ajax->body['sh'] - strlen($fila['cantor'])) . '...';
 				}
 			}
 			$result[$key]['codigo'] = (int)$result[$key]['codigo'];

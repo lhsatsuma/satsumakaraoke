@@ -3,9 +3,9 @@ function changeNameTo(elm) {
     $('#changeRowID').val(row.attr('dt-r-id'));
 
     $(row).find('td').each(function() {
-        if ($(this).attr('dt-r-nome')) {
-            var newName = decodeURIComponent($(this).attr('dt-r-nome'));
-            var oldName = decodeURIComponent($(this).attr('dt-r-nome'));
+        if ($(this).attr('dt-r-name')) {
+            var newName = decodeURIComponent($(this).attr('dt-r-name'));
+            var oldName = decodeURIComponent($(this).attr('dt-r-name'));
             $.ajax({
                 'url': _APP.app_url + 'admin/musicas/sanitanizeName',
                 'method': 'post',
@@ -16,7 +16,7 @@ function changeNameTo(elm) {
                     "X-Requested-With": "XMLHttpRequest"
                 },
                 data: JSON.stringify({
-                    'nome': $(this).attr('dt-r-nome'),
+                    'name': $(this).attr('dt-r-name'),
                 }),
                 success: function(d) {
 
@@ -26,8 +26,8 @@ function changeNameTo(elm) {
                     if (!!r) {
                         if (r.detail) {
                             newName = r.detail;
-                            $('#changeRowOldNome').val(oldName);
-                            $('#changeRowNewNome').val(newName);
+                            $('#changeRowOldname').val(oldName);
+                            $('#changeRowNewname').val(newName);
                         }
                     }
                 },
@@ -55,7 +55,7 @@ function changeNameToDel(elm) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                'url': _APP.app_url + 'admin/musicas/fixNomesSaveDel',
+                'url': _APP.app_url + 'admin/musicas/fixnamesSaveDel',
                 'method': 'post',
                 'dataType': 'json',
                 'async': false,
@@ -74,7 +74,7 @@ function changeNameToDel(elm) {
                     if (!!r) {
                         if (r.detail) {
                             Swal.fire({
-                                title: 'Deletado com sucesso!',
+                                title: 'deleted com sucesso!',
                                 text: '',
                                 icon: 'success',
                                 width: '400px',
@@ -102,17 +102,17 @@ function changeNameToDel(elm) {
 function saveChangeName(elm) {
     showLoadingIcon(elm);
     $('.validate-error').remove();
-    if (!$('#changeRowNewNome').val()) {
-        $('#changeRowNewNome').after("<p class='validate-error required'>Campo obrigatório!</p>");
+    if (!$('#changeRowNewname').val()) {
+        $('#changeRowNewname').after("<p class='validate-error required'>Campo obrigatório!</p>");
         hideLoadingIcon(elm);
         return;
     }
 
-    if ($('#changeRowNewNome').val().length < 10) {
+    if ($('#changeRowNewname').val().length < 10) {
         Swal.fire({
             heightAuto: false,
             title: 'Deseja mesmo salvar a música?',
-            text: 'O nome possui menos de 10 caracteres.',
+            text: 'O name possui menos de 10 caracteres.',
             icon: 'warning',
             showConfirmButton: true,
             confirmButtonText: 'Salvar',
@@ -132,7 +132,7 @@ function saveChangeName(elm) {
 
 function ajaxSaveChanges() {
     $.ajax({
-        'url': _APP.app_url + 'admin/musicas/fixNomesSave',
+        'url': _APP.app_url + 'admin/musicas/fixnamesSave',
         'method': 'post',
         'dataType': 'json',
         'async': false,
@@ -142,7 +142,7 @@ function ajaxSaveChanges() {
         },
         data: JSON.stringify({
             'id': $('#changeRowID').val(),
-            'newNome': $('#changeRowNewNome').val(),
+            'newname': $('#changeRowNewname').val(),
             'tipo': $('#changeRowTipo').val(),
         }),
         success: function(d) {
@@ -178,24 +178,24 @@ function ajaxSaveChanges() {
 }
 
 $('#changeByTraco').on('click', () => {
-    let oldVal = $('#changeRowNewNome').val();
+    let oldVal = $('#changeRowNewname').val();
     let exploded = [];
 
     exploded = oldVal.split(' - ');
     if (exploded.length > 1) {
-        $('#changeRowNewNome').val(exploded[1] + ' - ' + exploded[0]);
+        $('#changeRowNewname').val(exploded[1] + ' - ' + exploded[0]);
         return;
     }
 
     exploded = oldVal.split(' : ');
     if (exploded.length > 1) {
-        $('#changeRowNewNome').val(exploded[1] + ' - ' + exploded[0]);
+        $('#changeRowNewname').val(exploded[1] + ' - ' + exploded[0]);
         return;
     }
 
     exploded = oldVal.split(' in the Style of ');
     if (exploded.length > 1) {
-        $('#changeRowNewNome').val(exploded[1] + ' - ' + exploded[0]);
+        $('#changeRowNewname').val(exploded[1] + ' - ' + exploded[0]);
         return;
     }
 });

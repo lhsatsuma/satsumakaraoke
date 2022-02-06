@@ -13,7 +13,7 @@ class Grupos extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
-		'nome' => array(
+		'name' => array(
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'max_length' => 255,
@@ -25,17 +25,17 @@ class Grupos extends \App\Models\Basic\Basic
 			'type' => 'bool',
 			'default' => '1',
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -44,12 +44,12 @@ class Grupos extends \App\Models\Basic\Basic
 				'link_detail' => 'admin/usuarios/detalhes/',
 			]
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -60,9 +60,9 @@ class Grupos extends \App\Models\Basic\Basic
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['nome', 'deletado'],
-		['ativo', 'deletado'],
+		['id', 'deleted'],
+		['name', 'deleted'],
+		['ativo', 'deleted'],
 	];
 }
 ?>

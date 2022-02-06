@@ -61,6 +61,9 @@ class Youtube
         $title = $new_title;
 
         $title = str_replace([
+            '[ KARAOKE ] ',
+            '[Karaoke/Instrumental] ',
+            ' 【Karaoke】',
             ' [KARAOKE VERSION | OFF VOCAL/LINKED HORIZON]',
             ' [Sing with Us - Instrumental] [Karaoke]',
             ' [Sing with Us - Instrumental] [Karaoke]',
@@ -78,6 +81,7 @@ class Youtube
             ' with lyrics (with lead vocal)',
             ' (Radio Version)',
             ' (Backing Track)',
+            ' ( instrumental + lyrics )',
             ' ( Karaoke)',
             ' (Karaoke)',
             ' (karaoke)',

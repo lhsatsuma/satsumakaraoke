@@ -18,7 +18,7 @@ class DownloadManager extends BaseController
 			//Get's all info of file and check if allowed access
 			$fileName = $this->getFile($id);
 			if($fileName){
-				return $this->response->download($fileName['nome'], file_get_contents($fileName['path']));
+				return $this->response->download($fileName['name'], file_get_contents($fileName['path']));
 			}
 		}
 		
@@ -36,11 +36,11 @@ class DownloadManager extends BaseController
 				//Check if mimetype it's an image or pdf, otherwise let's download the file
 				if($this->checkMimetypeDefault($fileName['mimetype'])
 				){
-					return $this->response->download($fileName['nome'], file_get_contents($fileName['path']));
+					return $this->response->download($fileName['name'], file_get_contents($fileName['path']));
 				}
 				
 				//Setting all headers necessarys and returning binary file
-				$this->response->setHeader('Content-Type', $fileName['mimetype'])->appendHeader('Content-Length', filesize($fileName['path']))->appendHeader('Content-Disposition', 'inline; filename='.$fileName['nome'].'');
+				$this->response->setHeader('Content-Type', $fileName['mimetype'])->appendHeader('Content-Length', filesize($fileName['path']))->appendHeader('Content-Disposition', 'inline; filename='.$fileName['name'].'');
 				return readfile($fileName['path']);
 			}
 		}
@@ -70,7 +70,7 @@ class DownloadManager extends BaseController
 			$this->checkAccess($result['tipo']);
 			$file_name = ROOTPATH.'public/uploads/'.$result['arquivo'];
 			if(file_exists($file_name)){
-				return ['nome' => $result['nome'], 'mimetype' => $result['mimetype'], 'path' => $file_name];
+				return ['name' => $result['name'], 'mimetype' => $result['mimetype'], 'path' => $file_name];
 			}
 		}
 		return false;

@@ -5,9 +5,9 @@
 	<thead>
 		<tr>
 			<th scope="col" class="ptr" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">Código</th>
-			<th scope="col" class="ptr" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
+			<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">Nome</th>
 			<th scope="col" class="ptr" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo</th>
-			<th scope="col" class="ptr" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data Criação</th>
+			<th scope="col" class="ptr" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">Data Criação</th>
 			<th scope="col" class="ptr" dt-h-field="md5" onclick="OrderByFiltro('md5')">MD5</th>
 			<th scope="col">Deletar</th>
 		</tr>
@@ -21,9 +21,9 @@
 		{foreach from=$records item=campos}
 		<tr class="r-dt-slct" dt-r-id="{$campos.id}">
 			<td class="ptr" onclick="changeNameTo(this)" scope="row" dt-r-codigo="{$campos.codigo}">{$campos.codigo}</td>
-			<td class="ptr" onclick="changeNameTo(this)" dt-r-nome="{$campos.nome|escape:'url'}">{$campos.nome}</td>
+			<td class="ptr" onclick="changeNameTo(this)" dt-r-name="{$campos.name|escape:'url'}">{$campos.name}</td>
 			<td class="ptr" onclick="changeNameTo(this)" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
-			<td class="ptr" onclick="changeNameTo(this)" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
+			<td class="ptr" onclick="changeNameTo(this)" dt-r-date_created="{$campos.date_created}">{$campos.date_created}</td>
 			<td class="ptr" dt-r-md5="{$campos.md5}">{$campos.md5}</td>
 			<td><i class="fas fa-trash pointer" onclick="changeNameToDel(this)"></i></td>
 		</tr>
@@ -49,7 +49,7 @@
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h6 class="modal-title" id="ChangeNameToModalLabel">Mudar nome da Música</h6>
+				<h6 class="modal-title" id="ChangeNameToModalLabel">Mudar name da Música</h6>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
@@ -58,12 +58,12 @@
 				<input type="hidden" id="changeRowID" value=""/>
 				<div class="row">
 					<div class="col-12">
-						<p>Atual: <input class="form-control" type="text" id="changeRowOldNome" value="" disabled /></p>
+						<p>Atual: <input class="form-control" type="text" id="changeRowOldname" value="" disabled /></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<p>Novo: <input class="form-control" type="text" id="changeRowNewNome" value=""/></p>
+						<p>Novo: <input class="form-control" type="text" id="changeRowNewname" value=""/></p>
 					</div>
 				</div>
 				<div class="row">
@@ -85,5 +85,5 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="{$app_url}jsManager/Admin/Musicas/fixNomes.js?v={$ch_ver}"></script>
+<script type="text/javascript" src="{$app_url}jsManager/Admin/Musicas/fixnames.js?v={$ch_ver}"></script>
 {/if}

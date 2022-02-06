@@ -13,8 +13,8 @@ class Arquivos extends \App\Models\Basic\Basic
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
-		'nome' => array(
-			'lbl' => 'Nome do Arquivo',
+		'name' => array(
+			'lbl' => 'name do Arquivo',
 			'type' => 'varchar',
 			'max_length' => 255,
 			'link_record' => true,
@@ -49,28 +49,28 @@ class Arquivos extends \App\Models\Basic\Basic
 			'type' => 'varchar',
 			'max_length' => 255,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -78,9 +78,9 @@ class Arquivos extends \App\Models\Basic\Basic
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['nome', 'deletado'],
-		['tipo', 'deletado'],
+		['id', 'deleted'],
+		['name', 'deleted'],
+		['tipo', 'deleted'],
 	];
 	
 	public function get()

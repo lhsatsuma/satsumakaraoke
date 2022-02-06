@@ -13,24 +13,24 @@ class Musicas extends \App\Models\Basic\Basic
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
-		'nome' => array(
+		'name' => array(
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -41,12 +41,12 @@ class Musicas extends \App\Models\Basic\Basic
 			),
 			'dont_load_layout' => true,
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -95,9 +95,9 @@ class Musicas extends \App\Models\Basic\Basic
 		)
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['nome', 'deletado'],
-		['tipo', 'deletado']
+		['id', 'deleted'],
+		['name', 'deleted'],
+		['tipo', 'deleted']
 	];
 	
 	function get_order_by()
@@ -118,8 +118,8 @@ class Musicas extends \App\Models\Basic\Basic
 
 	public function before_save(string $operation = null)
 	{
-		if($this->f['nome']){
-			$this->f['nome'] = trim($this->f['nome']);
+		if($this->f['name']){
+			$this->f['name'] = trim($this->f['name']);
 		}
 	}
 	
@@ -135,7 +135,7 @@ class Musicas extends \App\Models\Basic\Basic
 			$this->f['codigo'] = $result[0]['codigo'];
 		}
 		if(empty($this->f['codigo'])){
-			$this->force_deletado = true;
+			$this->force_deleted = true;
 			$this->where = array();
 			$this->select = "MAX(CAST(codigo as UNSIGNED))+1 as codigo_ult";
 			$number = $this->search(1);
@@ -143,9 +143,9 @@ class Musicas extends \App\Models\Basic\Basic
 			if(is_null($this->f['codigo'])){
 				$this->f['codigo'] = 1;
 			}
-			$this->force_deletado = false;
+			$this->force_deleted = false;
 		}
-		$this->f['nome'] = $title;
+		$this->f['name'] = $title;
 		$this->f['md5'] = $md5;
 		$this->f['link'] = $link;
 		$this->f['tipo'] = $tipo;
@@ -155,7 +155,7 @@ class Musicas extends \App\Models\Basic\Basic
 			$arquivos = new \App\Models\Arquivos\Arquivos();
 			$arquivos->new_with_id = true;
 			$arquivos->f['id'] = $md5;
-			$arquivos->f['nome'] = $title.'.mp4';
+			$arquivos->f['name'] = $title.'.mp4';
 			$arquivos->f['arquivo'] = $md5;
 			$arquivos->f['mimetype'] = 'video/mp4';
 			$arquivos->f['tipo'] = 'private';

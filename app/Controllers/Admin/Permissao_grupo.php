@@ -12,12 +12,12 @@ class Permissao_grupo extends AdminBaseController
 		$this->data['title'] = 'Lista de Permissão por Grupo';
 	
 		$grupos = new \App\Models\Grupos\Grupos();
-		$gruposAtivos = $grupos->getAtivos('id, nome');
+		$gruposAtivos = $grupos->getAtivos('id, name');
 
 		$gruposArr = [];
 		foreach($gruposAtivos as $key => $val){
 			unset($gruposAtivos[$key]);
-			$gruposArr[$val['id']] = $val['nome'];
+			$gruposArr[$val['id']] = $val['name'];
 		}
 		unset($gruposAtivos);
 		$DropdownLib = new \App\Libraries\Sys\Dropdown();

@@ -69,7 +69,7 @@ class JsManager extends BaseController
 
 		/* Return to controller action */
         if(file_exists($cachePath)){
-            return ['nome' => basename($file_name), 'mimetype' => 'text/javascript', 'path' => $cachePath];
+            return ['name' => basename($file_name), 'mimetype' => 'text/javascript', 'path' => $cachePath];
         }
 		return false;
 	}

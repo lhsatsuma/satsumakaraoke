@@ -119,7 +119,7 @@ class BaseController extends Controller
 		'use' => false,
 		'action' => '',
 		'generic_filter' => array(
-			'nome',
+			'name',
 		),
 	);
 
@@ -547,8 +547,8 @@ class BaseController extends Controller
 				$value = getFormData('save_data_'.$field);
 				if(!empty($value)){
 					if($attrs['type'] == 'related'){
-						$save_data[$field.'_nome'] = getFormData('save_data_'.$field);
-						$save_data[$field] = getFormData('save_data_'.$field.'_nome');
+						$save_data[$field.'_name'] = getFormData('save_data_'.$field);
+						$save_data[$field] = getFormData('save_data_'.$field.'_name');
 					}elseif($attrs['type'] == 'dropdown'){
 						$save_data['raw'][$field] = $value;
 					}else{
@@ -558,8 +558,8 @@ class BaseController extends Controller
 					$value = $this->request->getGet('save_data_'.$field);
 					if(!empty($value)){
 						if($attrs['type'] == 'related'){
-							$save_data[$field.'_nome'] = $this->request->getGet('save_data_'.$field);
-							$save_data[$field] = $this->request->getGet('save_data_'.$field.'_nome');
+							$save_data[$field.'_name'] = $this->request->getGet('save_data_'.$field);
+							$save_data[$field] = $this->request->getGet('save_data_'.$field.'_name');
 						}elseif($attrs['type'] == 'dropdown'){
 							$save_data['raw'][$field] = $value;
 						}else{

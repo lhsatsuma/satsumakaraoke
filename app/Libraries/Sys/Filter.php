@@ -70,7 +70,7 @@ class Filter
 			if($attrs['options']['type'] == 'related'){
 				$fields_map['search_'.$field] = $attrs['options'];
 				$record['search_'.$field] = $attrs['value'];
-				$record['search_'.$field.'_nome'] = getFormData('search_'.$field.'_nome');
+				$record['search_'.$field.'_name'] = getFormData('search_'.$field.'_name');
 			}
 			$fields_map['search_'.$field] = $attrs['options'];
 			$record['search_'.$field] = $attrs['value'];

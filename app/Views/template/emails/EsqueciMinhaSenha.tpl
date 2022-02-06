@@ -14,7 +14,7 @@
 				</tr>
 				<tr>
 					<td bgcolor="#efefef" align="center">
-						<p>Prezado(a) <b>{$nome}</b>,</p>
+						<p>Prezado(a) <b>{$name}</b>,</p>
 						<p>Conforme solicitado em nosso site, <a href="{$app_url}login/fgt_rcv/{$id}/{$hash_esqueci_senha}">clique aqui</a> para recuperar sua senha ou acesse o link abaixo:</p>
 						<p><a href="{$app_url}login/fgt_rcv/{$id}/{$hash_esqueci_senha}">{$app_url}login/fgt_rcv/{$id}/{$hash_esqueci_senha}</a></p>
 						<p>&nbsp;</p>

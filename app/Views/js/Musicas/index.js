@@ -12,10 +12,10 @@ addEventRowData();
 function OpenModalSelected(id){
 	var row = $('tr[dt-r-id="'+id+'"]');
 	const codigo = row.find('td[dt-r-codigo]').attr('dt-r-codigo');
-	const nome = row.find('td[dt-r-nome]').attr('dt-r-nome');
+	const name = row.find('td[dt-r-name]').attr('dt-r-name');
 	const fvt = parseInt(row.attr('dt-r-fvt'));
 	$('#IdInsertModal').val(id);
-	$('#SelectedRowModalLabel').html('['+codigo+'] '+nome);
+	$('#SelectedRowModalLabel').html('['+codigo+'] '+name);
 
 	if(fvt == 2){
 		$('#itsFavorite').val('2');
@@ -182,7 +182,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', () =>{
 							}
 							Swal.fire({
 								title: title_sa_fire,
-								text: r.detail.saved_record.nome,
+								text: r.detail.saved_record.name,
 								icon: 'success',
 								width: '400px',
 								showConfirmButton: false,

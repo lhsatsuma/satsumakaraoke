@@ -13,58 +13,64 @@ class Permissao extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
-		'nome' => array(
-			'lbl' => 'Nome da Permissão',
+		'name' => array(
+			'lbl' => 'name da Permissão',
 			'type' => 'varchar',
 			'max_length' => 255,
 			'required' => true,
 			'link_record' => true,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['nome', 'deletado']
+		['id', 'deleted'],
+		['name', 'deleted']
 	];
 
 	public function getAllPermissao(string $grupo)
 	{
 		if($grupo){
-			$this->force_deletado = true;
-			$this->select = "permissao.id, permissao.nome, permissao_grupo.id as permissao_grupo_id, permissao_grupo.nivel";
+			$this->force_deleted = true;
+			$this->select = "permissao.id, permissao.name, permissao_grupo.id as permissao_grupo_id, permissao_grupo.nivel";
 			$this->join['LEFTJOIN_permissao_grupo'] = "permissao.id = permissao_grupo.permissao
-			AND (permissao_grupo.deletado = '0' OR permissao_grupo.deletado IS NULL)
+			AND (permissao_grupo.deleted = '0' OR permissao_grupo.deleted IS NULL)
 			AND permissao_grupo.grupo = '{$grupo}'";
-			$this->where['permissao.deletado'] = '0';
+			$this->where['permissao.deleted'] = '0';
 			$this->order_by['permissao.id'] = 'ASC';
 			$results = $this->search();
-			$this->force_deletado = true;
+			$this->force_deleted = true;
 
 			foreach($results as $key => $result){
 				$results[$key]['id'] = (int)$result['id'];

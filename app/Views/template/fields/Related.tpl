@@ -6,7 +6,7 @@
 </p>
 
 <script type="text/javascript">SetRelatedField({literal}{{/literal}
-	'elm': 'input[name="{$name}_nome"]',
+	'elm': 'input[name="{$name}_name"]',
 	'elm_id': 'input[name="{$name}"]',
 	'model': '{$autocomplete_model}',
 	'url_ajax': '{$autocomplete_ajax}',

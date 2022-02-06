@@ -15,7 +15,7 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
-		'nome' => array(
+		'name' => array(
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'required' => true,
@@ -27,87 +27,83 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 			'type' => 'text',
 			'required' => true,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
-				'url' => null,
-				'model' => 'Admin/Usuarios/Usuarios',
-				'link_detail' => 'admin/usuarios/detalhes/',
-			),
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
-				'url' => null,
-				'model' => 'Admin/Usuarios/Usuarios',
-				'link_detail' => 'admin/usuarios/detalhes/',
-			),
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['usuario_criacao', 'deletado'],
-		['usuario_criacao', 'nome', 'deletado'],
+		['id', 'deleted'],
+		['user_created', 'deleted'],
+		['user_created', 'name', 'deleted'],
 	];
 
-	public function getPref(string $nome, string $user = null)
+	public function getPref(string $name, string $user = null)
 	{
-		$this->select = "id, nome, valor";
-		$this->where['nome'] = $nome;
-		$this->where['usuario_criacao'] = ($user) ? $user : $this->auth_user_id;
+		$this->select = "id, name, valor";
+		$this->where['name'] = $name;
+		$this->where['user_created'] = ($user) ? $user : $this->auth_user_id;
 
-		if(empty($this->where['usuario_criacao']) || empty($nome)){
+		if(empty($this->where['user_created']) || empty($name)){
 			return false;
 		}
 		return $this->search(1)[0];
 	}
 
-	public function getValor(string $nome, string $user = null)
+	public function getValor(string $name, string $user = null)
 	{
-		return $this->getPref($nome, $user)['valor'];
+		return $this->getPref($name, $user)['valor'];
 	}
 
-	public function setPref(string $nome, $valor, string $user = null)
+	public function setPref(string $name, $valor, string $user = null)
 	{
-		$alreadySaved = $this->getPref($nome, $user);
+		$alreadySaved = $this->getPref($name, $user);
 		$this->f = [];
 		if($alreadySaved['id']){
 			$this->f['id'] = $alreadySaved['id'];
 		}
-		$this->f['nome'] = $nome;
+		$this->f['name'] = $name;
 		$this->f['valor'] = $valor;
-		$this->f['usuario_criacao'] = ($user) ? $user : $this->auth_user_id;
+		$this->f['user_created'] = ($user) ? $user : $this->auth_user_id;
 		return $this->saveRecord();
 	}
 
-	public function delPref(string $nome=null, string $user = null)
+	public function delPref(string $name=null, string $user = null)
 	{
 		$this->select = "id";
-		if($nome){
-			$this->where['nome'] = $nome;
+		if($name){
+			$this->where['name'] = $name;
 		}
-		$this->where['usuario_criacao'] = ($user) ? $user : $this->auth_user_id;
+		$this->where['user_created'] = ($user) ? $user : $this->auth_user_id;
 
 		foreach($this->search() as $result){
 			$this->f = [];

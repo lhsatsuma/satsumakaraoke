@@ -17,7 +17,7 @@
 		<tr class="ptr">
 			<th>#{$rankTop}</th>
 			<th>{$campos.total}</th>
-			<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
+			<td dt-r-musica_id_name="{$campos.musica_id_name}">{$campos.musica_id_name}</td>
 		</tr>
 		{assign var="rankTop" value=$rankTop+1}
 		{/foreach}

@@ -37,18 +37,18 @@
 </div>
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.datetime.data_criacao}
+		{$layout.datetime.date_created}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.related.usuario_criacao}
+		{$layout.related.user_created}
 	</div>
 </div>
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.datetime.data_modificacao}
+		{$layout.datetime.date_modified}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.related.usuario_modificacao}
+		{$layout.related.user_modified}
 	</div>
 </div>
 {if $perms.cod_7.w}

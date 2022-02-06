@@ -72,8 +72,10 @@ class Layout
 			case 'bool':
 				if(!is_null($record['raw'][$field])){
 					$selected = $record['raw'][$field];
-				}elseif(isset($attrs['default'])){
+				}elseif(isset($attrs['default']) && !$this->its_filter){
 					$selected = $attrs['default'];
+				}elseif($this->its_filter && $record[$field]){
+					$selected = 1;
 				}else{
 					$selected = '';
 				}
@@ -91,7 +93,7 @@ class Layout
 			case 'dropdown':
 				if(!is_null($record['raw'][$field])){
 					$selected = $record['raw'][$field];
-				}elseif(isset($attrs['default'])){
+				}elseif(isset($attrs['default']) && !$this->its_filter){
 					$selected = $attrs['default'];
 				}else{
 					$selected = '';
@@ -172,9 +174,9 @@ class Layout
 		$this->smarty->clearInputs($tpl);
 		
 		$data = $this->MountDefaultData($field);
-		$data['name_id'] = $field.'_nome';
+		$data['name_id'] = $field.'_name';
 		$data['value_id'] = $record[$field];
-		$data['value'] = $record[$field.'_nome'];
+		$data['value'] = $record[$field.'_name'];
 		$data['link_detail'] = $this->base_url.$autocomplete_ajax['link_detail'].$data['value_id'];
 		$data['custom_where'] = ($autocomplete_ajax['custom_where']) ? json_encode($autocomplete_ajax['custom_where']) : '{}';
 		$data['callback_select'] = $autocomplete_ajax['callback_select'];
@@ -220,7 +222,7 @@ class Layout
 				$data['value'] = $result['id'];
 				$data['filename_field'] = $result['campo'];
 				$data['file_mimetype'] = $result['mimetype'];
-				$data['value_nome'] = $result['nome'];
+				$data['value_name'] = $result['name'];
 			}
 		}
 		$data['accept'] = ($parameter['accept']) ? $parameter['accept'] : '';
@@ -381,8 +383,8 @@ class Layout
 					$name = $field;
 					$value = $record[$field];
 					if($this->fields_map[$field]['type'] == 'related'){
-						$name = $field.'_nome';
-						$value = $record[$field.'_nome'];
+						$name = $field.'_name';
+						$value = $record[$field.'_name'];
 						if($this->fields_map[$field]['link_record']){
 							$link_record = $this->base_url.$this->fields_map[$field]['parameter']['link_detail'].$record[$field];
 						}
@@ -435,8 +437,8 @@ class Layout
 					$name = $field;
 					$value = $record[$field];
 					if($this->fields_map[$field]['type'] == 'related'){
-						$name = $field.'_nome';
-						$value = $record[$field.'_nome'];
+						$name = $field.'_name';
+						$value = $record[$field.'_name'];
 						if($this->fields_map[$field]['link_record']){
 							$link_record = $this->base_url.$this->fields_map[$field]['parameter']['link_detail'].$record[$field];
 						}
@@ -476,20 +478,16 @@ class Layout
 
 		$menusSalvos = array_merge($menusSalvos, $json_menus);
 
-		
 
-		// echo '<pre>';print_r($menusSalvos);exit;
-
-
-		foreach($menusSalvos as $key => $menu_pai){
-			$menu_pai['id'] = 'menu_'.sliceString($menu_pai['lbl'], 10);
+		foreach($menusSalvos as $key => $parent_menu){
+			$parent_menu['id'] = 'menu_'.sliceString($parent_menu['lbl'], 10);
 			//If has sub menus, consider the menu dont need permission
-			if($menu_pai['subs']){
-				$menu_pai_clone = $menu_pai;
-				unset($menu_pai_clone['subs']);
-				$dataLayout['menu_arr'][$key] = $menu_pai_clone;
-				foreach($menu_pai['subs'] as $key_filho => $menu_filho){
-					$menu_filho['id'] = 'submenu_'.$menu_pai['id'].'_'.sliceString($menu_filho['lbl'], 10);
+			if($parent_menu['subs']){
+				$parent_menu_clone = $parent_menu;
+				unset($parent_menu_clone['subs']);
+				$dataLayout['menu_arr'][$key] = $parent_menu_clone;
+				foreach($parent_menu['subs'] as $key_filho => $menu_filho){
+					$menu_filho['id'] = 'submenu_'.$parent_menu['id'].'_'.sliceString($menu_filho['lbl'], 10);
 					//Checking if sub menu needs permission
 					$menu_filho['class_active'] = $this->checkBreadcrumb($menu_filho['url']);
 					if($menu_filho['class_active']){
@@ -507,31 +505,29 @@ class Layout
 				}
 			}else{
 				//Checking if menu needs permission
-				$menu_pai['class_active'] = $this->checkBreadcrumb($menu_pai['url']);
-				if($menu_pai['perm']){
-					$dataLayout['perms']['cod_'.$menu_pai['perm']] = hasPermission($menu_pai['perm']);
-					if($dataLayout['perms']['cod_'.$menu_pai['perm']]['r']){
-						$dataLayout['menu_arr'][$key] = $menu_pai;
+				$parent_menu['class_active'] = $this->checkBreadcrumb($parent_menu['url']);
+				if($parent_menu['perm']){
+					$dataLayout['perms']['cod_'.$parent_menu['perm']] = hasPermission($parent_menu['perm']);
+					if($dataLayout['perms']['cod_'.$parent_menu['perm']]['r']){
+						$dataLayout['menu_arr'][$key] = $parent_menu;
 					}
 				}else{
-					$dataLayout['menu_arr'][$key] = $menu_pai;
+					$dataLayout['menu_arr'][$key] = $parent_menu;
 				}
 			}
 		}
 		//Fixing index array of sub menus
-		foreach($dataLayout['menu_arr'] as $key_pai => $menu_pai){
-			if($dataLayout['menu_arr'][$key_pai]['subs']){
-				$dataLayout['menu_arr'][$key_pai]['subs'] = array_values($dataLayout['menu_arr'][$key_pai]['subs']);
-			}elseif($menusSalvos[$key_pai]['subs']){
+		foreach($dataLayout['menu_arr'] as $key_parent => $parent_menu){
+			if($dataLayout['menu_arr'][$key_parent]['subs']){
+				$dataLayout['menu_arr'][$key_parent]['subs'] = array_values($dataLayout['menu_arr'][$key_parent]['subs']);
+			}elseif($menusSalvos[$key_parent]['subs']){
 				//The menu dont have sub menus because of permission
-				unset($dataLayout['menu_arr'][$key_pai]);
+				unset($dataLayout['menu_arr'][$key_parent]);
 			}
 		}
 
 		//Fixing index array of menus
 		$dataLayout['menu_arr'] = array_values($dataLayout['menu_arr']);
-
-		// echo '<Pre>';print_r($dataLayout['menu_arr']);exit;
 
 		return $dataLayout;
 	}

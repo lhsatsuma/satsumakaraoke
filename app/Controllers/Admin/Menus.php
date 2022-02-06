@@ -18,7 +18,7 @@ class Menus extends AdminBaseController
 		$this->data['title'] = 'Lista de Menus';
 		
 		$initial_filter = array(
-			'nome' => '',
+			'name' => '',
 			'tipo' => '',
 			'ativo' => '1',
 		);
@@ -31,7 +31,7 @@ class Menus extends AdminBaseController
 			'use' => true,
 			'action' => base_url().'/admin/menus/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 			),
 		);
 		
@@ -101,7 +101,7 @@ class Menus extends AdminBaseController
 
 		$this->PopulatePost();
 		
-		if($this->mdl->f['deletado']){
+		if($this->mdl->f['deleted']){
 			if(!empty($this->mdl->f['id'])){
 				hasPermission(9, 'd', true);
 

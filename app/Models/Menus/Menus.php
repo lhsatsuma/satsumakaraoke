@@ -13,7 +13,7 @@ class Menus extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
-		'nome' => array(
+		'name' => array(
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'max_length' => 255,
@@ -74,17 +74,17 @@ class Menus extends \App\Models\Basic\Basic
 				'link_detail' => 'admin/permissao/detalhes/',
 			]
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -93,12 +93,12 @@ class Menus extends \App\Models\Basic\Basic
 				'link_detail' => 'admin/usuarios/detalhes/',
 			]
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -109,15 +109,15 @@ class Menus extends \App\Models\Basic\Basic
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['nome', 'ativo', 'tipo', 'deletado'],
-		['ativo', 'tipo', 'deletado'],
+		['id', 'deleted'],
+		['name', 'ativo', 'tipo', 'deleted'],
+		['ativo', 'tipo', 'deleted'],
 	];
 
 	public function mountArrayMenus($type = 'public')
 	{
 		$this->reset();
-		$this->select = 'id, tipo, ordem, url_base, icon, label, perm, menu_pai';
+		$this->select = 'id, tipo, ordem, url_base, icon, label, perm, menu_pai as parent_menu';
 		$this->where['ativo'] = '1';
 		if($type == 'public'){
 			$this->where['tipo'] = ['IN', ['1', '2']];
@@ -139,7 +139,7 @@ class Menus extends \App\Models\Basic\Basic
 					'perm' => $menu_result['perm'],
 				];
 			}else{
-				$menus[$menu_result['menu_pai']]['subs'][$menu_result['id']] = [
+				$menus[$menu_result['parent_menu']]['subs'][$menu_result['id']] = [
 					'url' => $menu_result['url_base'],
 					'icon' => $menu_result['icon'],
 					'lbl' => $menu_result['label'],
@@ -149,15 +149,14 @@ class Menus extends \App\Models\Basic\Basic
 		}
 
 		//Fixing index array of sub menus
-		foreach($menus as $key_pai => $menu_pai){
-			if($menus[$key_pai]['subs']){
-				$menus[$key_pai]['subs'] = array_values($menus[$key_pai]['subs']);
+		foreach($menus as $key_parent => $parent_menu){
+			if($menus[$key_parent]['subs']){
+				$menus[$key_parent]['subs'] = array_values($menus[$key_parent]['subs']);
 			}
 		}
 
 		//Fixing index array of menus
 		$menus = array_values($menus);
-
 		return $menus;
 	}
 }

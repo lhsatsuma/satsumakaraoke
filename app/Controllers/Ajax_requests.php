@@ -37,13 +37,13 @@ class Ajax_requests extends BaseController
 		$ns_mdl = "\\App\\Models\\".$this->model_name;
 		$mdl = new $ns_mdl();
 		
-		$mdl->select = "id, nome";
+		$mdl->select = "id, name";
 		
 		if(!empty($this->body['custom_where'])){
 			$mdl->where = $this->body['custom_where'];
 		}else{
 			$mdl->where = array(
-				'nome' => ['LIKE', $this->body['search_param'].'%'],
+				'name' => ['LIKE', $this->body['search_param'].'%'],
 			);
 		}
 		$results = $mdl->search(5);
@@ -55,8 +55,8 @@ class Ajax_requests extends BaseController
 		
 			foreach($results as $key => $fields){
 				$return[$key] = array(
-					'value' => $fields['nome'],
-					'label' => $fields['nome'],
+					'value' => $fields['name'],
+					'label' => $fields['name'],
 					'id' => $fields['id'],
 				);
 			}

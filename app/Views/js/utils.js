@@ -257,7 +257,7 @@ function ValidateForm(fm, elm)
 				if($(this).attr('field_type_related')){
 					let elm_related = $(this).attr('field_type_related');
 					if(!its_blank && $('input[name="'+elm_related+'"]').val() == ''){
-						addValidateError(this, 'O registro de nome '+$(this).val()+' não foi encontrado.', true);
+						addValidateError(this, 'O registro de name '+$(this).val()+' não foi encontrado.', true);
 						is_valid = false;
 						return;
 					}

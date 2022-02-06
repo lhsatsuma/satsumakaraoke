@@ -55,16 +55,16 @@
 				</div>
 				<div class="sidebar-menu">
 					<ul>
-						{foreach from=$menu_arr item=menu_pai key=key_menu_pai}
-							{if $menu_pai.subs}
-								<li class="sidebar-dropdown {if $menu_pai.class_active}active{/if}">
-								<a id="{$menu_pai.id}" href="#">
-									<i class="{$menu_pai.icon}"></i>
-									<span>{$menu_pai.lbl}</span>
+						{foreach from=$menu_arr item=parent_menu key=key_parent_menu}
+							{if $parent_menu.subs}
+								<li class="sidebar-dropdown {if $parent_menu.class_active}active{/if}">
+								<a id="{$parent_menu.id}" href="#">
+									<i class="{$parent_menu.icon}"></i>
+									<span>{$parent_menu.lbl}</span>
 								</a>
 								<div class="sidebar-submenu"> 
 									<ul>
-										{foreach from=$menu_pai.subs item=menu_filho key=key_menu_filho}
+										{foreach from=$parent_menu.subs item=menu_filho key=key_menu_filho}
 											<li class="{if $menu_filho.class_active}active{/if}" >
 												<a id="{$menu_filho.id}" href="{if $menu_filho.url == '#'}javascript:void(0){else}{$app_url}{$menu_filho.url}{/if}">
 												<i class="{$menu_filho.icon}"></i>
@@ -76,10 +76,10 @@
 								</div>
 							</li>
 							{else}
-							<li class="{if $menu_pai.class_active}active{/if}">
-								<a id="{$menu_pai.id}" href="{if $menu_pai.url == '#'}javascript:void(0){else}{$app_url}{$menu_pai.url}{/if}">
-									<i class="{$menu_pai.icon}"></i>
-									<span>{$menu_pai.lbl}</span>
+							<li class="{if $parent_menu.class_active}active{/if}">
+								<a id="{$parent_menu.id}" href="{if $parent_menu.url == '#'}javascript:void(0){else}{$app_url}{$parent_menu.url}{/if}">
+									<i class="{$parent_menu.icon}"></i>
+									<span>{$parent_menu.lbl}</span>
 								</a>
 							</li>
 							{/if}

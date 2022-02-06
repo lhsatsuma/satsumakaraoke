@@ -21,7 +21,7 @@
         </tr>
         <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'pruneDatabase')">
             <td>Prune database</td>
-            <td>Deleta os registros do banco de dados que estão como deletados igual a 1.</td>
+            <td>Deleta os registros do banco de dados que estão como deleteds igual a 1.</td>
         </tr>
         <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'reconstructDB')">
             <td>Reconstruir campos no Banco de Dados</td>

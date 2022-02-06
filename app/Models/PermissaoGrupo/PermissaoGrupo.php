@@ -33,38 +33,44 @@ class PermissaoGrupo extends \App\Models\Basic\Basic
 			'required' => true,
 			'dont_load_layout' => true,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['permissao', 'grupo', 'deletado'],
-		['grupo', 'deletado'],
+		['id', 'deleted'],
+		['permissao', 'grupo', 'deleted'],
+		['grupo', 'deleted'],
 	];
 
 	public function hasPermission(int $cod, int $grupo)

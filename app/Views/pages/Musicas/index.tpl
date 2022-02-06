@@ -6,7 +6,7 @@
 		<thead>
 			<tr class="d-flex">
 				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Idioma</th>
-				<th scope="col" class="ptr col-9 col-xl-11" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th>
+				<th scope="col" class="ptr col-9 col-xl-11" dt-h-field="name" onclick="OrderByFiltro('name')">Nome</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,7 +18,7 @@
 			{foreach from=$records item=campos}
 			<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}" dt-r-fvt="{$campos.favorite}">
 				<td class="col-3 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
-				<td class="col-9 col-xl-11" dt-r-nome="{$campos.nome}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.nome}</td>
+				<td class="col-9 col-xl-11" dt-r-name="{$campos.name}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.name}</td>
 			</tr>
 			{/foreach}
 			{/if}
@@ -98,7 +98,7 @@
 					<div class="col-12 margin-b-10">
 						<label for="ImportModalLink">Como funciona?</label>
 						<ul>
-							<li>Você pode buscar músicas através da caixa geral pesquisando por nome, cantor, codigo ou idioma.</li>
+							<li>Você pode buscar músicas através da caixa geral pesquisando por name, cantor, codigo ou idioma.</li>
 							<li>Caso queira cantar uma música, clique sobre ela, e confirme se você deseja colocar na fila.</li>
 							<li>Automaticamente sua música estará na fila e você poderá acompanhar através da tela principal ou pelo menu "Músicas na Fila".</li>
 						</ul>

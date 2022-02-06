@@ -1,8 +1,8 @@
 $('#SearchByAssigned').on('click', () =>{
-	if($('#search_usuario_criacao').val() == '|ASSIGNED_ONLY|'){
-		$('#search_usuario_criacao').val('');
+	if($('#search_user_created').val() == '|ASSIGNED_ONLY|'){
+		$('#search_user_created').val('');
 	}else{
-		$('#search_usuario_criacao').val('|ASSIGNED_ONLY|');
+		$('#search_user_created').val('|ASSIGNED_ONLY|');
 	}
 	$('#filtroForm').trigger('submit');
 });
@@ -35,9 +35,9 @@ addEventRowData();
 function OpenModalSelected(id){
 	var row = $('tr[dt-r-id="'+id+'"]');
 	const musica_id = row.find('input[dt-r-musica_id]').attr('dt-r-musica_id');
-	const nome = row.find('td[dt-r-musica_id_nome]').attr('dt-r-musica_id_nome');
+	const name = row.find('td[dt-r-musica_id_name]').attr('dt-r-musica_id_name');
 	$('#IdInsertModal').val(musica_id);
-	$('#SelectedRowModalLabel').html(nome);
+	$('#SelectedRowModalLabel').html(name);
 	$('#SelectedRowModal').modal('show');
 }
 $('#InsertFilaBtn').on('click', () =>{

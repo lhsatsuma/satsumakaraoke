@@ -17,7 +17,7 @@ class Musicas extends AdminBaseController
 		$this->data['title'] = 'Músicas';
 		
 		$initial_order = array(
-			'field' => 'nome',
+			'field' => 'name',
 			'order' => 'ASC',
 		);
 		
@@ -25,7 +25,7 @@ class Musicas extends AdminBaseController
 			'use' => true,
 			'action' => base_url().'/admin/musicas/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 				'codigo',
 				'origem',
 				'tipo'
@@ -60,21 +60,21 @@ class Musicas extends AdminBaseController
 		return $this->displayNew('pages/Admin/Musicas/detalhes');
 	}
 	
-	public function fixNomes($offset = 0)
+	public function fixnames($offset = 0)
 	{
 		hasPermission(1003, 'w', true);
-		$this->data['title'] = 'Arrumar Nomes de Músicas';
+		$this->data['title'] = 'Arrumar names de Músicas';
 		
 		$initial_order = array(
-			'field' => 'nome',
+			'field' => 'name',
 			'order' => 'ASC',
 		);
 		
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/musicas/fixNomes',
+			'action' => base_url().'/admin/musicas/fixnames',
 			'generic_filter' => array(
-				'nome',
+				'name',
 				'codigo',
 				'origem',
 			),
@@ -91,29 +91,29 @@ class Musicas extends AdminBaseController
 		
 		$this->data['records'] = $result;
 		
-		return $this->displayNew('pages/Admin/Musicas/fixNomes');
+		return $this->displayNew('pages/Admin/Musicas/fixnames');
 	}
 
 	public function sanitanizeName()
 	{
 		$this->ajax = new \App\Libraries\Sys\Ajax();
 		$this->ajax->CheckIncoming();
-		$this->ajax->CheckRequired(['nome']);
+		$this->ajax->CheckRequired(['name']);
 
 		$ytLib = new \App\Libraries\Youtube();
-		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->ajax->body['nome'])));
+		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->ajax->body['name'])));
 		
 	}
 
-	public function fixNomesSave()
+	public function fixnamesSave()
 	{
 		hasPermission(1003, 'w', true);
-		$this->ajax = new \App\Libraries\Sys\Ajax(['id', 'newNome', 'tipo']);
+		$this->ajax = new \App\Libraries\Sys\Ajax(['id', 'newname', 'tipo']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();
 		if($found){
-			$this->mdl->f['nome'] = $this->ajax->body['newNome'];
+			$this->mdl->f['name'] = $this->ajax->body['newname'];
 			$this->mdl->f['tipo'] = $this->ajax->body['tipo'];
 			$savedRecord = $this->mdl->saveRecord();
 			$this->ajax->setSuccess($savedRecord);
@@ -122,7 +122,7 @@ class Musicas extends AdminBaseController
 		}
 	}
 
-	public function fixNomesSaveDel()
+	public function fixnamesSaveDel()
 	{
 		hasPermission(1003, 'w', true);
 		$this->ajax = new \App\Libraries\Sys\Ajax(['id']);

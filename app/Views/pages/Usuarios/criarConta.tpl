@@ -25,7 +25,7 @@
 					<div id="ERROR_LOGIN" class="required">{$login_msg}</div>
 					<form name="newForm" id="newForm" method="post" action="{$app_url}login/createUser" autocomplete="off">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="nome" type="text" id="nome" class="form-control" placeholder="Nome" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="name" type="text" id="name" class="form-control" placeholder="name" autocomplete="off" required maxlength="50"/></p>
 						<p><input name="email" type="text" id="email" class="form-control" placeholder="Email" custom_type_validation="email" autocomplete="off" required maxlength="50"/></p>
 						<p><input name="senha_nova" type="password" id="senha_nova" class="form-control" placeholder="Senha" autocomplete="off" required maxlength="50"/></p>
 						<p><input name="confirm_senha_nova" type="password" id="confirm_senha_nova" class="form-control" placeholder="Repita a Senha" autocomplete="off" required maxlength="50"/></p>

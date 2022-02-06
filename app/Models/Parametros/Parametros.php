@@ -13,8 +13,8 @@ class Parametros extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
-		'nome' => array(
-			'lbl' => 'Nome do Parâmetro',
+		'name' => array(
+			'lbl' => 'name do Parâmetro',
 			'type' => 'varchar',
 			'max_length' => 255,
 			'required' => true,
@@ -36,37 +36,43 @@ class Parametros extends \App\Models\Basic\Basic
 			'type' => 'varchar',
 			'max_length' => 255,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
+			'parameter' => [
+				'link_detail' => 'admin/usuarios/detalhes/',
+			]
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['codigo', 'deletado']
+		['id', 'deleted'],
+		['codigo', 'deleted']
 	];
 
 	public function getValorParametro(string $cod)

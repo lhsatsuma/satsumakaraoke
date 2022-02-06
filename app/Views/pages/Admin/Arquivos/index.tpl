@@ -5,20 +5,20 @@
     <table class="table table-striped table-list tb-rst-fltr">
         <thead>
             <tr>
-                <th scope="col" class="ptr" dt-h-field="nome" onclick="OrderByFiltro('nome')">Nome</th> 
+                <th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">Nome</th> 
                 <th scope="col" class="ptr" dt-h-field="tabela" onclick="OrderByFiltro('tabela')">Tabela</th> 
                 <th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="registro" onclick="OrderByFiltro('registro')">Registro</th> 
-                <th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="data_modificacao" onclick="OrderByFiltro('data_modificacao')">Data Modificação</th> 
+                <th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">Data Modificação</th> 
             </tr>
         </thead>
         <tbody>
         {if !empty($records)}
             {foreach from=$records item=campos}
                 <tr class="ptr row-data-select" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/arquivos/detalhes/{$campos.id}'" >
-                    <td dt-r-nome="{$campos.nome}" >{$campos.nome}</td>
+                    <td dt-r-name="{$campos.name}" >{$campos.name}</td>
                     <td dt-r-tabela="{$campos.tabela}" >{$campos.tabela}</td>
-                    <td class="d-none d-md-table-cell" dt-r-registro_nome="{$campos.registro_nome}" >{$campos.registro_nome}</td>
-                    <td class="d-none d-lg-table-cell" dt-r-data_modificacao="{$campos.data_modificacao}">{$campos.data_modificacao}</td>
+                    <td class="d-none d-md-table-cell" dt-r-registro_name="{$campos.registro_name}" >{$campos.registro_name}</td>
+                    <td class="d-none d-lg-table-cell" dt-r-date_modified="{$campos.date_modified}">{$campos.date_modified}</td>
                 </tr>
             {/foreach}
         {else}

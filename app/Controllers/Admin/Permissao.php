@@ -19,7 +19,7 @@ class Permissao extends AdminBaseController
 		$this->data['title'] = 'Lista de Permissões';
 		
 		$initial_filter = array(
-			'nome' => '',
+			'name' => '',
 		);
 		$initial_order_by = array(
 			'field' => 'id',
@@ -30,7 +30,7 @@ class Permissao extends AdminBaseController
 			'use' => true,
 			'action' => base_url().'/admin/permissao/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 			),
 		);
 		
@@ -100,7 +100,7 @@ class Permissao extends AdminBaseController
 
 		$this->PopulatePost();
 		
-		if($this->mdl->f['deletado']){
+		if($this->mdl->f['deleted']){
 			if(!empty($this->mdl->f['id'])){
 				hasPermission(3, 'd', true);
 				$deleted = $this->mdl->deleteRecord();

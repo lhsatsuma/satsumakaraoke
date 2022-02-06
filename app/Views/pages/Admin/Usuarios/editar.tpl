@@ -7,7 +7,7 @@
 {/if}
 <form id="EditarForm" method="post" action="{$app_url}admin/usuarios/salvar">
 	<input type="hidden" name="id" value="{$record.id}" />
-	<input type="hidden" name="deletado" value="{$record.deletado}" />
+	<input type="hidden" name="deleted" value="{$record.deleted}" />
 	<div class="row">
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 			{$layout.dropdown.status}
@@ -18,7 +18,7 @@
 	</div>
 	<div class="row">
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			{$layout.varchar.nome}
+			{$layout.varchar.name}
 		</div>
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 			{$layout.email.email}

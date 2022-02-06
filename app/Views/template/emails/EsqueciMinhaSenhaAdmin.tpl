@@ -26,7 +26,7 @@
 						<table width="618" align="center">
 							<tr>
 								<td>
-									<p>Sr. (a) <b>{$nome}</b>, conforme solicitado em nosso site, <a href="{$app_url}admin/login/fgt_rcv/{$id}/{$hash_esqueci_senha}">clique aqui</a> para recuperar sua senha ou acesse o link abaixo:</p>
+									<p>Sr. (a) <b>{$name}</b>, conforme solicitado em nosso site, <a href="{$app_url}admin/login/fgt_rcv/{$id}/{$hash_esqueci_senha}">clique aqui</a> para recuperar sua senha ou acesse o link abaixo:</p>
 									<p><a href="{$app_url}admin/login/fgt_rcv/{$id}/{$hash_esqueci_senha}">{$app_url}admin/login/fgt_rcv/{$id}/{$hash_esqueci_senha}</a></p>
 									<p>&nbsp;</p>
 									<p>O link acima irá expirar em 24 horas.</p>

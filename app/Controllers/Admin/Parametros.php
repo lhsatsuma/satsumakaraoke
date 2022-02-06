@@ -18,11 +18,11 @@ class Parametros extends AdminBaseController
 		$this->data['title'] = 'Lista de Parâmetros';
 		
 		$initial_filter = array(
-			'nome' => '',
+			'name' => '',
 			'codigo' => '',
 		);
 		$initial_order_by = array(
-			'field' => 'data_criacao',
+			'field' => 'date_created',
 			'order' => 'DESC',
 		);
 		
@@ -30,7 +30,7 @@ class Parametros extends AdminBaseController
 			'use' => true,
 			'action' => base_url().'/admin/parametros/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 				'codigo',
 			),
 		);
@@ -101,7 +101,7 @@ class Parametros extends AdminBaseController
 
 		$this->PopulatePost();
 		
-		if($this->mdl->f['deletado']){
+		if($this->mdl->f['deleted']){
 			if(!empty($this->mdl->f['id'])){
 				hasPermission(8, 'd', true);
 

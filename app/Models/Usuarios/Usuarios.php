@@ -13,24 +13,24 @@ class Usuarios extends \App\Models\Basic\Basic
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
-		'nome' => array(
+		'name' => array(
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -41,12 +41,12 @@ class Usuarios extends \App\Models\Basic\Basic
 			),
 			'dont_load_layout' => true,
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'usuarios',
@@ -124,8 +124,8 @@ class Usuarios extends \App\Models\Basic\Basic
 		),
 	);
 	public $idx_table = [
-		['id', 'deletado'],
-		['tipo','deletado'],
+		['id', 'deleted'],
+		['tipo','deleted'],
 	];
 
 	public function __construct()

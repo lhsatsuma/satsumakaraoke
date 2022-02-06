@@ -10,11 +10,11 @@ class Musicas_fila extends BaseController
 		$this->data['title'] = 'Músicas na Fila';
 		
 		$initial_filter = array(
-			'usuario_criacao' => '',
+			'user_created' => '',
 			'status' => 'pendente',
 		);
 		$initial_order_by = array(
-			'field' => 'data_criacao',
+			'field' => 'date_created',
 			'order' => 'DESC',
 		);
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
@@ -30,12 +30,12 @@ class Musicas_fila extends BaseController
 		
 		
 		$icon_search = '<i class="far fa-times-circle"></i>';
-		if($this->filter['usuario_criacao']['value']){
-			$this->data['color_usuario_criacao'] = 'warning';
-			$this->data['icon_usuario_criacao'] = $icon_search;
+		if($this->filter['user_created']['value']){
+			$this->data['color_user_created'] = 'warning';
+			$this->data['icon_user_created'] = $icon_search;
 		}else{
-			$this->data['color_usuario_criacao'] = 'success';
-			$this->data['icon_usuario_criacao'] = '';
+			$this->data['color_user_created'] = 'success';
+			$this->data['icon_user_created'] = '';
 		}
 		
 		$this->data['color_status_pendente'] = 'success';

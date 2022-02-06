@@ -29,10 +29,10 @@ class Arquivos extends AdminBaseController
         $this->data['title'] = 'Arquivos';
         
         $initial_filter = array(
-            'nome' => '',
+            'name' => '',
         );
         $initial_order_by = array(
-            'field' => 'nome',
+            'field' => 'name',
             'order' => 'ASC',
         );
 
@@ -40,7 +40,7 @@ class Arquivos extends AdminBaseController
             'use' => true,
             'action' => base_url().'/admin/arquivos/index',
             'generic_filter' => array(
-                'nome',
+                'name',
                 
             ),
         );
@@ -109,7 +109,7 @@ class Arquivos extends AdminBaseController
 		
 		$this->PopulatePost();
 		
-		if($this->mdl->f['deletado']){
+		if($this->mdl->f['deleted']){
 			if(!empty($this->mdl->f['id'])){
 				$deleted = $this->mdl->DeleteRecord();
 				if($deleted){

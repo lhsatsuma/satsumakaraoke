@@ -73,7 +73,7 @@ function ConfirmdeleteRecord(fm)
 		cancelButtonText: 'Cancelar',
 	}).then((result) => {
 		if(result.isConfirmed){
-			$('#'+fm).find('input[name="deletado"]:first').val('1');
+			$('#'+fm).find('input[name="deleted"]:first').val('1');
 			$('#'+fm).trigger('submit');
 		}
 	});
@@ -313,7 +313,7 @@ function callback_select_related(elmCfg)
 		var fn = window[elmCfg.callback_select];
 		if(typeof fn !== 'function')
 			return;
-		fn.apply(window, [{'id':$(elmCfg.elm_id).val(), 'nome':$(elmCfg.elm).val()}]);
+		fn.apply(window, [{'id':$(elmCfg.elm_id).val(), 'name':$(elmCfg.elm).val()}]);
 	}
 }
 function hideShowFields(hideF, showF)

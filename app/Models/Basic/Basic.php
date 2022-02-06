@@ -12,7 +12,7 @@ class Basic extends Model
 	*/
 	public $table = null;
 	public $where = array();
-	public $force_deletado = false;
+	public $force_deleted = false;
 	public $order_by = array();
 	public $select = '*';
 	public $join = array();
@@ -46,35 +46,35 @@ class Basic extends Model
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
-		'nome' => array(
+		'name' => array(
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
 		),
-		'deletado' => array(
-			'lbl' => 'Deletado',
+		'deleted' => array(
+			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
-		'data_criacao' => array(
+		'date_created' => array(
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_criacao' => array(
+		'user_created' => array(
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'caminhadas_usuarios',
 			'dont_load_layout' => true,
 		),
-		'data_modificacao' => array(
+		'date_modified' => array(
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
-		'usuario_modificacao' => array(
+		'user_modified' => array(
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'caminhadas_usuarios',
@@ -89,7 +89,7 @@ class Basic extends Model
 	
 	
 	/*
-	ToDo: Fetched row and use always $this->name, $this->data_criacao for setting fields
+	ToDo: Fetched row and use always $this->name, $this->date_created for setting fields
 	*/
 	public $fetched = array();
 	
@@ -114,7 +114,7 @@ class Basic extends Model
 	public function reset()
 	{
 		$this->where = array();
-		$this->force_deletado = false;
+		$this->force_deleted = false;
 		$this->order_by = array();
 		$this->select = '*';
 		$this->join = array();
@@ -128,8 +128,8 @@ class Basic extends Model
 	{
 		$this->helper->select($this->select);
 		$this->helper->where('id', $this->f['id']);
-		if(!$this->force_deletado){
-			$this->helper->where('deletado', '0');
+		if(!$this->force_deleted){
+			$this->helper->where('deleted', '0');
 		}
 		$query = $this->helper->get(1);
 		
@@ -176,7 +176,7 @@ class Basic extends Model
 	public function fillF(Array $fields)
 	{
 		foreach($fields as $field => $val){
-			if($this->fields_map[$field] && !in_array($field, ['data_criacao', 'usuario_criacao', 'data_modificacao', 'usuario_modificacao'])){
+			if($this->fields_map[$field] && !in_array($field, ['date_created', 'user_created', 'date_modified', 'user_modified'])){
 				$this->f[$field] = $val;
 			}
 		}
@@ -184,12 +184,12 @@ class Basic extends Model
 	
 	/*
 	Get related of field with ID
-	This is why it's important to have "nome" on each table
+	This is why it's important to have "name" on each table
 	*/
 	public function getRelated($table, $id)
 	{
 		$helper2 = $this->db->table($table);
-		$helper2->select('id, nome');
+		$helper2->select('id, name');
 		$helper2->where('id', $id);
 		$query = $helper2->get(1);
 		if ($this->db->error()['message']) {
@@ -230,7 +230,7 @@ class Basic extends Model
 		
 	/* Explain this it's a little too hard, so the main concept is:
 	CodeIgniter database helper don't do conditions with parenthesys like:
-	deletado = '0' OR (nome = 'test' AND tipo = 'test')
+	deleted = '0' OR (name = 'test' AND tipo = 'test')
 	So i improvised the code of where condition with begin and end parenthesys according to the $field
 	Beta test: Operator on condition $value[0] = OPERATOR, $value[1] = ACTUAL VALUE
 	There's a hard work to optimize this
@@ -351,8 +351,8 @@ class Basic extends Model
 				$c_where = "\nAND ";
 			}
 		}
-		if(!$this->force_deletado){
-			$return_string .= $c_where."{$this->table}.deletado = '0'";
+		if(!$this->force_deleted){
+			$return_string .= $c_where."{$this->table}.deleted = '0'";
 			$c_where = "\nAND ";
 			foreach($this->join as $table_name => $on){
 				if(strpos($table_name, ' AS ') !== false){
@@ -364,12 +364,12 @@ class Basic extends Model
 				
 				if(strpos($table_name, 'LEFTJOIN_') !== false
 				|| strpos($table_name, 'RIGHTJOIN_') !== false){
-					//If the join it's left or right, check deletado for null
+					//If the join it's left or right, check deleted for null
 					$new_table_name = str_replace(['LEFTJOIN_', 'RIGHTJOIN_'], '', $new_table_name);
-					$return_string .= $c_where." ({$new_table_name}.deletado = '0' OR {$new_table_name}.deletado IS NULL)";
+					$return_string .= $c_where." ({$new_table_name}.deleted = '0' OR {$new_table_name}.deleted IS NULL)";
 				}else{
 					//If the join it's inner, check only deleted is 0
-					$return_string .= $c_where."{$new_table_name}.deletado = '0'";
+					$return_string .= $c_where."{$new_table_name}.deleted = '0'";
 				}
 				$c_where = "\nAND ";
 			}
@@ -388,7 +388,7 @@ class Basic extends Model
 			if(strpos($field, '.') == false && strpos($field, '(*)') == false){
 				$field = $this->table.'.'.$field;
 			}
-			if($field == $this->table.'.nome' && $this->id_by_name){
+			if($field == $this->table.'.name' && $this->id_by_name){
 				$field = 'convert('.$field.', decimal)';
 			}
 			$return_string .= $comp.$field.' '.$value;
@@ -536,18 +536,18 @@ class Basic extends Model
 					}
 				}
 				if(!empty($fOld['id']) && !$this->new_with_id){
-					$fOld['data_modificacao'] = date("Y-m-d H:i:s");
-					$fOld['usuario_modificacao'] = $this->auth_user_id;
+					$fOld['date_modified'] = date("Y-m-d H:i:s");
+					$fOld['user_modified'] = $this->auth_user_id;
 					$this->helper->where('id', $fOld['id']);
 					$executed = $this->helper->update($fOld);
 				}else{
 					if(empty($fOld['id'])){
-						if(empty($fOld['nome']) && $this->id_by_name){
+						if(empty($fOld['name']) && $this->id_by_name){
 							/*
-							Let's mount "nome" field as an INT AUTO INCREMENT
+							Let's mount "name" field as an INT AUTO INCREMENT
 							*/
 							$this->where = array();
-							$this->select = "MAX(CAST(nome as UNSIGNED))+1 as codigo_ult";
+							$this->select = "MAX(CAST(name as UNSIGNED))+1 as codigo_ult";
 							$number = $this->search(1);
 							$codigo = (int) $number[0]['codigo_ult'];
 							if(empty($codigo)){
@@ -556,27 +556,27 @@ class Basic extends Model
 							if(!empty($this->min_number_name) && $codigo < $this->min_number_name){
 								$codigo = $this->min_number_name;
 							}
-							$fOld['nome'] = $codigo;
+							$fOld['name'] = $codigo;
 						}
 						if(!$this->fields_map['id']['dont_generate']){
 							$fOld['id'] = create_guid();
 						}
 					}
-					if(!isset($fOld['data_criacao'])){
-						$fOld['data_criacao'] = date("Y-m-d H:i:s");
+					if(!isset($fOld['date_created'])){
+						$fOld['date_created'] = date("Y-m-d H:i:s");
 					}
-					if(!isset($fOld['usuario_criacao'])){
-						$fOld['usuario_criacao'] = $this->auth_user_id;
-					}
-					
-					if(!isset($fOld['data_modificacao'])){
-						$fOld['data_modificacao'] = date("Y-m-d H:i:s");
+					if(!isset($fOld['user_created'])){
+						$fOld['user_created'] = $this->auth_user_id;
 					}
 					
-					if(!isset($fOld['usuario_modificacao'])){
-						$fOld['usuario_modificacao'] = $this->auth_user_id;
+					if(!isset($fOld['date_modified'])){
+						$fOld['date_modified'] = date("Y-m-d H:i:s");
 					}
-					$fOld['deletado'] = false;
+					
+					if(!isset($fOld['user_modified'])){
+						$fOld['user_modified'] = $this->auth_user_id;
+					}
+					$fOld['deleted'] = false;
 					$executed = $this->helper->insert($fOld);
 					
 					//If ID it's an AUTO INCREMENT column, let's get the inserted ID
@@ -625,7 +625,7 @@ class Basic extends Model
 						$arquivos->f['tabela'] = $this->table;
 						$arquivos->f['campo'] = $field;
 						$arquivos->f['mimetype'] = $value->getClientMimeType();
-						$arquivos->f['nome'] = $value->getClientName();
+						$arquivos->f['name'] = $value->getClientName();
 						if(!$arquivos->f['tipo']){
 							$arquivos->f['tipo'] = ($attrs['parameter']['private']) ? $attrs['parameter']['private'] : 'public';
 						}
@@ -641,7 +641,7 @@ class Basic extends Model
 						if($this->f['id']){
 							$update['id'] = $this->f['id'];
 							$update['mimetype'] = $value->getClientMimeType();
-							$update['nome'] = $value->getClientName();
+							$update['name'] = $value->getClientName();
 							if(!$this->f['tipo']){
 								$update['tipo'] = ($attrs['parameter']['private']) ? $attrs['parameter']['private'] : 'public';
 							}
@@ -664,9 +664,9 @@ class Basic extends Model
 			$oldRecord = $this->get();
 
 			$this->before_save('delete');
-			$updateDeleted['deletado'] = true;
-			$updateDeleted['data_modificacao'] = date("Y-m-d H:i:s");
-			$updateDeleted['usuario_modificacao'] = $this->auth_user_id;
+			$updateDeleted['deleted'] = true;
+			$updateDeleted['date_modified'] = date("Y-m-d H:i:s");
+			$updateDeleted['user_modified'] = $this->auth_user_id;
 			$this->helper->where('id', $this->f['id']);
 
 			$executed = $this->helper->update($updateDeleted);
@@ -753,16 +753,16 @@ class Basic extends Model
 						if($value){
 							$related = $this->getRelated($table_name, $value);
 						}
-						$field_nome = $field.'_nome';
-						$record[$field_nome] = ($related) ? $related['nome'] : null;
+						$field_name = $field.'_name';
+						$record[$field_name] = ($related) ? $related['name'] : null;
 						break;
 					case 'file':
 						if($this->table !== 'arquivos' && $value){
 							$arquivosmdl = new \App\Models\Arquivos\Arquivos();
 							$arquivosmdl->f['id'] = $value;
 							$result = $arquivosmdl->get();
-							$field_nome = $field.'_nome';
-							$record[$field_nome] = ($result) ? $result['nome'] : '';
+							$field_name = $field.'_name';
+							$record[$field_name] = ($result) ? $result['name'] : '';
 						}
 						break;
 					default:

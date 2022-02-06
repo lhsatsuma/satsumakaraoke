@@ -18,11 +18,11 @@ class Grupos extends AdminBaseController
 		$this->data['title'] = 'Lista de Grupos';
 		
 		$initial_filter = array(
-			'nome' => '',
+			'name' => '',
 			'ativo' => '1',
 		);
 		$initial_order_by = array(
-			'field' => 'data_criacao',
+			'field' => 'date_created',
 			'order' => 'DESC',
 		);
 		
@@ -30,7 +30,7 @@ class Grupos extends AdminBaseController
 			'use' => true,
 			'action' => base_url().'/admin/grupos/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 			),
 		);
 		
@@ -100,7 +100,7 @@ class Grupos extends AdminBaseController
 
 		$this->PopulatePost();
 		
-		if($this->mdl->f['deletado']){
+		if($this->mdl->f['deleted']){
 			if(!empty($this->mdl->f['id'])){
 				hasPermission(2, 'd', true);
 

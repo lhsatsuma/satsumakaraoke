@@ -1,9 +1,9 @@
 <form method="post" id="filtroForm" action="{$app_url}admin/musicas_fila/index">
-	<input type="hidden" id="search_usuario_criacao" name="search_usuario_criacao" value="{$search_usuario_criacao}"/>
+	<input type="hidden" id="search_user_created" name="search_user_created" value="{$search_user_created}"/>
 	<input type="hidden" id="search_status" name="search_status" value="{$search_status}"/>
 	<div class="row">
 		<div class="col-12">
-			<p><button class="btn btn-outline-{$color_usuario_criacao} btn-rounded search-button" id="SearchByAssigned">Filtrar por Meu Nome {$icon_usuario_criacao}</button>
+			<p><button class="btn btn-outline-{$color_user_created} btn-rounded search-button" id="SearchByAssigned">Filtrar por Meu name {$icon_user_created}</button>
 				<button class="btn btn-outline-{$color_status_pendente} btn-rounded search-button" id="SearchByPendente">Filtrar pelos Pendentes {$icon_status_pendente}</button>
 				<button class="btn btn-outline-{$color_status_encerrado} btn-rounded search-button" id="SearchByEncerrados">Filtrar pelos Encerrados {$icon_status_encerrado}</button>
 			</p>
@@ -17,10 +17,10 @@
 	<table class="table table-striped table-list">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="usuario_criacao" onclick="OrderByFiltro('usuario_criacao')">Usuário</th>
+				<th scope="col" class="ptr" dt-h-field="user_created" onclick="OrderByFiltro('user_created')">Usuário</th>
 				<th scope="col" class="ptr" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome</th>
 				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="data_criacao" onclick="OrderByFiltro('data_criacao')">Data</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">Data</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,10 +32,10 @@
 			{foreach from=$records item=campos}
 			<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
 				<input type="hidden" dt-r-musica_id="{$campos.musica_id}" />
-				<td dt-r-usuario_criacao_nome="{$usuario_criacao_nome}"> {$campos.usuario_criacao_nome} </td>
-				<td dt-r-musica_id_nome="{$campos.musica_id_nome}">{$campos.musica_id_nome}</td>
+				<td dt-r-user_created_name="{$user_created_name}"> {$campos.user_created_name} </td>
+				<td dt-r-musica_id_name="{$campos.musica_id_name}">{$campos.musica_id_name}</td>
 				<td dt-r-status="{$campos.status}">{$campos.status}</td>
-				<td class="d-none d-lg-table-cell" dt-r-data_criacao="{$campos.data_criacao}">{$campos.data_criacao}</td>
+				<td class="d-none d-lg-table-cell" dt-r-date_created="{$campos.date_created}">{$campos.date_created}</td>
 			</tr>
 			{/foreach}
 			{/if}

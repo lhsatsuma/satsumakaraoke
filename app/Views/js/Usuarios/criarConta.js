@@ -1,4 +1,4 @@
-var fields = {'nome': 'Nome', 'email': 'Email', 'senha': 'Senha', 'senha_repeat': 'Repita a Senha'};
+var fields = {'name': 'name', 'email': 'Email', 'senha': 'Senha', 'senha_repeat': 'Repita a Senha'};
 
 $('#newForm').find('.btn-success').on('click', (e) =>{
     showLoadingIcon(e.currentTarget);

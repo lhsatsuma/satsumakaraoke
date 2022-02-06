@@ -30,13 +30,13 @@ class Musicas extends BaseController
 
 		$initial_filter = array(
 			'codigo' => '',
-			'nome' => '',
+			'name' => '',
 			'tipo' => '',
 			'fvt' => '',
 		);
 		
 		$initial_order = array(
-			'field' => 'nome',
+			'field' => 'name',
 			'order' => 'ASC',
 		);
 		
@@ -44,7 +44,7 @@ class Musicas extends BaseController
 			'use' => true,
 			'action' => base_url().'/musicas/index',
 			'generic_filter' => array(
-				'nome',
+				'name',
 				'codigo',
 				'origem',
 				'tipo'
@@ -56,8 +56,8 @@ class Musicas extends BaseController
 
 		$this->mdl->select = "musicas.*, CAST(codigo AS DECIMAL(10,2)) AS codigo_cast, IF(musicas_favorites.id IS NOT NULL, 2, 1) as favorite";
 		$this->mdl->join[$key_join] = "musicas.id = musicas_favorites.musica_id
-		AND musicas_favorites.usuario_criacao = '{$this->session->get('auth_user')['id']}'
-		AND musicas_favorites.deletado = 0";
+		AND musicas_favorites.user_created = '{$this->session->get('auth_user')['id']}'
+		AND musicas_favorites.deleted = 0";
 
 		$total_row = $this->mdl->total_rows();
 		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
@@ -131,7 +131,7 @@ class Musicas extends BaseController
 			$return_data['auto_fila'] = true;
 			
 			$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
-			$musicas_fila_mdl->f['nome'] = $return_data['saved_record']['nome'];
+			$musicas_fila_mdl->f['name'] = $return_data['saved_record']['name'];
 			$musicas_fila_mdl->f['musica_id'] = $return_data['saved_record']['id'];
 			$musicas_fila_mdl->f['status'] = 'pendente';
 			$return_data['saved_fila'] = $musicas_fila_mdl->saveRecord();
@@ -179,7 +179,7 @@ class Musicas extends BaseController
 		if($AjaxLib->body['rmv']){
 			$mdl->select = 'id';
 			$mdl->where['musica_id'] = $result['id'];
-			$mdl->where['usuario_criacao'] = $this->session->get('auth_user')['id'];
+			$mdl->where['user_created'] = $this->session->get('auth_user')['id'];
 			$results = $mdl->search(10);
 			foreach($results as $result){
 				$mdl->f = [];
