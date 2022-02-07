@@ -6,7 +6,7 @@ Author: Luis Henrique Minoru Satsuma
 
 ## Server Requirements
 
-PHP version 7.3.x or 7.4.x is required, with the following extensions installed: 
+PHP version 7.4.x is required, with the following extensions installed: 
 
 - intl
 - mbstring
@@ -36,10 +36,10 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 
 - Composer
 - Framework PHP CodeIgniter 4+
-- Bootstrap 4.5.2
+- Bootstrap 4.5.3
 - jQuery 3.6
-- SweetAlert2 11.3.10
-- Smarty 3.1
-- PHPMailer 6.5
+- SweetAlert2 11.4
+- Smarty 3.1+
+- PHPMailer 6.5+
 - MPDF 8.0+
 - JsShrink 1.4
