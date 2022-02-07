@@ -10,11 +10,11 @@
 		<link rel="StyleSheet" href="{$app_url}cssManager/default.css?v={$ch_ver}" type="text/css"  media="screen">
 		<link rel="StyleSheet" href="{$app_url}cssManager/fontawesome.min.css?v={$ch_ver}" type="text/css"  media="screen">
 		<link rel="StyleSheet" href="{$app_url}cssManager/sweetalert2.min.css?v={$ch_ver}" type="text/css"  media="screen">
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/jquery.min.js?v={$ch_ver}"></script>
 		<script type="text/javascript">var _APP = {$JS_VARS};</script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/utils.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/bootstrap.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/sweetalert2.all.min.js?v={$ch_ver}"></script>
 	</head>
 	<body>
 		<div class="container">

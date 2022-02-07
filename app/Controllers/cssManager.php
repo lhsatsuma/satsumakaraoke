@@ -36,14 +36,6 @@ class CssManager extends BaseController
 		global $AppVersion;
 		$this->response->removeHeader('Location');
 
-		/* Check access for file */
-        if(strtolower($fileEx[0]) == 'admin'){
-            $this->checkAccess('admin');
-        }elseif(strtolower($fileEx[0]) == 'private'){
-            $this->checkAccess('private');
-        }
-
-
 		$ch_ver = GetCacheVersion();
         $cachePath = WRITEPATH . 'cache/css_min_'.md5(implode('_', $fileEx));
         $file_name = APPPATH.'Views/css/'.implode('/', $fileEx);
@@ -76,21 +68,5 @@ class CssManager extends BaseController
             return ['name' => basename($file_name), 'mimetype' => 'text/css', 'path' => $cachePath];
         }
 		return false;
-	}
-	
-	private function checkAccess($tipo)
-	{
-		if($tipo == 'admin'){
-			$this->access_cfg = array(
-				'needs_login' => true,
-				'admin_only' => true,
-			);
-		}elseif($tipo == 'private'){
-			$this->access_cfg = array(
-				'needs_login' => true,
-				'admin_only' => false,
-			);
-		}
-		$this->SetSys(); //Checking session if necessary
 	}
 }

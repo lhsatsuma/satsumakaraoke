@@ -35,13 +35,16 @@ class JsManager extends BaseController
 	{
 		global $AppVersion;
 		$this->response->removeHeader('Location');
+		if(array_search('public', $fileEx) === false){
+			$this->session = getSession();
 
-		/* Check access for file */
-        if(strtolower($fileEx[0]) == 'admin'){
-            $this->checkAccess('admin');
-        }elseif(strtolower($fileEx[0]) == 'private'){
-            $this->checkAccess('private');
-        }
+			/* Check access for file */
+			if(strtolower($fileEx[0]) == 'admin'){
+				$this->checkAccess('admin');
+			}elseif(strtolower($fileEx[0]) == 'private'){
+				$this->checkAccess('private');
+			}
+		}
 
 
 		$ch_ver = GetCacheVersion();

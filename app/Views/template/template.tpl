@@ -22,19 +22,19 @@
         <script language="javascript" type="text/javascript">
 			localStorage.dark_mode_active = {$auth_user.dark_mode};
 		</script>
-        <script src="{$app_url}jsManager/fontawesome.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/datepicker-pt-BR.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/popper.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/moment-with-locales.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap-datetimepicker.js?v={$ch_ver}"></script>
+        <script src="{$app_url}jsManager/public/fontawesome.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/jquery.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/datepicker-pt-BR.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/bootstrap.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/sweetalert2.all.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/popper.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/moment-with-locales.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/bootstrap-datetimepicker.js?v={$ch_ver}"></script>
 		<script src="https://cdn.tiny.cloud/1/gkma8l0v7mxj6bd7bono39z4l7bzq7k29vt4yp3ja81e67db/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 		<script type="text/javascript">var _APP = {$JS_VARS};</script>
-		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
-		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
+		<script type="text/javascript" src="{$app_url}jsManager/public/utils.js?v={$ch_ver}"></script>
+		<script type="text/javascript" src="{$app_url}jsManager/public/app.js?v={$ch_ver}"></script>
 	</head>
 	<body>
 	<div class="page-wrapper chiller-theme {if !$is_mobile}toggled{/if}">
@@ -184,7 +184,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="{$app_url}jsManager/ControleRemoto.js?v={$ch_ver}"></script>
+		<script type="text/javascript" src="{$app_url}jsManager/public/ControleRemoto.js?v={$ch_ver}"></script>
 		{/if}
 	</body>
 </html>

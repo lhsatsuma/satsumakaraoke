@@ -16,17 +16,17 @@
 		{if $auth_user.dark_mode}
        		<link rel="stylesheet" id="darkmodecss" href="{$app_url}cssManager/dark.css?v={$ch_ver}" type="text/css" media="screen" lazyload="1">
 		{/if}
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/bootstrap.min.js?v={$ch_ver}"></script>
-		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/sweetalert2.all.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/jquery.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/jquery-ui-1.12.1.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/bootstrap.min.js?v={$ch_ver}"></script>
+		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/sweetalert2.all.min.js?v={$ch_ver}"></script>
 		<script type="text/javascript">
 			var _APP = {$JS_VARS};
 			var karaokeURL = '{$karaokeURL}';
 			var host_fila = '{$host_fila}';
 		</script>
-		<script type="text/javascript" src="{$app_url}jsManager/app.js?v={$ch_ver}"></script>
-		<script type="text/javascript" src="{$app_url}jsManager/utils.js?v={$ch_ver}"></script>
+		<script type="text/javascript" src="{$app_url}jsManager/public/app.js?v={$ch_ver}"></script>
+		<script type="text/javascript" src="{$app_url}jsManager/public/utils.js?v={$ch_ver}"></script>
 		<style>
 		* {
 			color: rgb(224, 224, 224);	

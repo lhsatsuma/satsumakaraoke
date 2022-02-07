@@ -179,7 +179,7 @@ class Usuarios extends \App\Models\Basic\Basic
 		$mail = new \App\Libraries\Sys\SendEmail();
 		$mail->mailer->AddAddress($this->f['email']);
 		
-		$mail->subject = '['.GetTitle().'] Esqueci Minha Senha';
+		$mail->subject = '['.getTitle().'] Esqueci Minha Senha';
 		$mail->setBodyTemplate($this->template_forget_pass, $this->f);
 		
 		if($mail->send()){

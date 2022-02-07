@@ -120,6 +120,11 @@ class Dropdown
 
 	private function generate_timezone_list()
 	{
+		$cache_file = WRITEPATH . 'cache/timezone_list.json';
+		if(file_exists($cache_file)){
+			return json_decode(file_get_contents($cache_file), true);
+		}
+
 		static $regions = array(
 			\DateTimeZone::AMERICA,
 		);
@@ -150,7 +155,7 @@ class Dropdown
 	
 			$timezone_list[$timezone] = "(${pretty_offset}) $timezone";
 		}
-	
+		file_put_contents($cache_file, json_encode($timezone_list));
 		return $timezone_list;
 	}
 	
