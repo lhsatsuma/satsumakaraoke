@@ -464,24 +464,24 @@ class Layout
 	{
 		$this->breadcrumbString = $breadcrumb;
 
-		if($this->session->get('arr_menu_'.$type)){
-			return $this->session->get('arr_menu_'.$type);
-		}
-
 		$dataLayout = [
 			'perms' => [],
 			'menu_arr' => [],
 		];
 
-		$menus = new \App\Models\Menus\Menus();
-		$menusSalvos = $menus->mountArrayMenus((($type == 'template') ? 'public' : 'admin'));
 
-		//Get JSON for menu fixed of framework
-		$file_json = $type. '_menu';
-		$json_menus = json_decode(file_get_contents(APPPATH . 'Views/template/'.$file_json.'.json'), true);
-		
+		if($this->session->get('arr_menu_'.$type)){
+			$menusSalvos = $this->session->get('arr_menu_'.$type);
+		}else{
+			$menus = new \App\Models\Menus\Menus();
+			$menusSalvos = $menus->mountArrayMenus((($type == 'template') ? 'public' : 'admin'));
 
-		$menusSalvos = array_merge($menusSalvos, $json_menus);
+			//Get JSON for menu fixed of framework
+			$file_json = $type. '_menu';
+			$json_menus = json_decode(file_get_contents(APPPATH . 'Views/template/'.$file_json.'.json'), true);
+
+			$menusSalvos = array_merge($menusSalvos, $json_menus);
+		}
 
 
 		foreach($menusSalvos as $key => $parent_menu){
@@ -521,6 +521,7 @@ class Layout
 				}
 			}
 		}
+		
 		//Fixing index array of sub menus
 		foreach($dataLayout['menu_arr'] as $key_parent => $parent_menu){
 			if($dataLayout['menu_arr'][$key_parent]['subs']){
@@ -534,7 +535,7 @@ class Layout
 		//Fixing index array of menus
 		$dataLayout['menu_arr'] = array_values($dataLayout['menu_arr']);
 
-		$this->session->set('arr_menu_'.$type, $dataLayout);
+		$this->session->set('arr_menu_'.$type, $menusSalvos);
 
 		return $dataLayout;
 	}
