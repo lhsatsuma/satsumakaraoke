@@ -37,7 +37,7 @@ class CssManager extends BaseController
 		$this->response->removeHeader('Location');
 
 		$ch_ver = GetCacheVersion();
-        $cachePath = WRITEPATH . 'cache/css_min_'.md5(implode('_', $fileEx));
+        $cachePath = WRITEPATH . 'cache/css/css_min_'.md5(implode('_', $fileEx));
         $file_name = APPPATH.'Views/css/'.implode('/', $fileEx);
 		if(substr($file_name, -4) == '.map'){
 			return false;
@@ -55,6 +55,9 @@ class CssManager extends BaseController
 					$minifiedCode = str_replace("\r\n", " ", $minifiedCode);
 					$minifiedCode = str_replace("\t", " ", $minifiedCode);
 					$minifiedCode = preg_replace("/([0-9]*px(?!;))/", "$1 ", $minifiedCode);
+				}
+				if(!is_dir(WRITEPATH . 'cache/css/')){
+					mkdir(WRITEPATH . 'cache/css/');
 				}
 				file_put_contents($cachePath, "/*{$ch_ver}*/\n".$minifiedCode);
 			}

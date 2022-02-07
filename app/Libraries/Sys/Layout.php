@@ -463,6 +463,11 @@ class Layout
 	public function mountLayoutMenu(string $type = 'template', array $breadcrumb = [])
 	{
 		$this->breadcrumbString = $breadcrumb;
+
+		if($this->session->get('arr_menu_'.$type)){
+			return $this->session->get('arr_menu_'.$type);
+		}
+
 		$dataLayout = [
 			'perms' => [],
 			'menu_arr' => [],
@@ -528,6 +533,8 @@ class Layout
 
 		//Fixing index array of menus
 		$dataLayout['menu_arr'] = array_values($dataLayout['menu_arr']);
+
+		$this->session->set('arr_menu_'.$type, $dataLayout);
 
 		return $dataLayout;
 	}

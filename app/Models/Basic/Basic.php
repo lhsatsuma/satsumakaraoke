@@ -342,18 +342,18 @@ class Basic extends Model
 								$field = $this->table.'.'.$field;
 							}
 							$return_string .= $c_where.$field.$cond_value;
-							$c_where = "\nAND ";
+							$c_where = " AND ";
 						}
 					}
 				}
 			}else{
 				$return_string = $this->where;
-				$c_where = "\nAND ";
+				$c_where = " AND ";
 			}
 		}
 		if(!$this->force_deleted){
 			$return_string .= $c_where."{$this->table}.deleted = '0'";
-			$c_where = "\nAND ";
+			$c_where = " AND ";
 			foreach($this->join as $table_name => $on){
 				if(strpos($table_name, ' AS ') !== false){
 					$new_table_name = explode(' AS ', $table_name);
@@ -371,7 +371,7 @@ class Basic extends Model
 					//If the join it's inner, check only deleted is 0
 					$return_string .= $c_where."{$new_table_name}.deleted = '0'";
 				}
-				$c_where = "\nAND ";
+				$c_where = " AND ";
 			}
 		}
 		if(!empty($return_string)){

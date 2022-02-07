@@ -55,7 +55,7 @@ function checkControleOpen()
 		}
 	}, 5000);
 }
-getLastVolume();
+//getLastVolume();
 checkControleOpen();
 
 

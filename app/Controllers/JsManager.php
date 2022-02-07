@@ -48,7 +48,7 @@ class JsManager extends BaseController
 
 
 		$ch_ver = GetCacheVersion();
-        $cachePath = WRITEPATH . 'cache/js_min_'.md5(implode('_', $fileEx));
+        $cachePath = WRITEPATH . 'cache/js/js_min_'.md5(implode('_', $fileEx));
         $file_name = APPPATH.'Views/js/'.implode('/', $fileEx);
 		if(substr($file_name, -4) == '.map'){
 			return false;
@@ -62,6 +62,9 @@ class JsManager extends BaseController
 					$minifiedCode = file_get_contents($file_name);
 				}else{
 					$minifiedCode = \JShrink\Minifier::minify(file_get_contents($file_name));
+				}
+				if(!is_dir(WRITEPATH . 'cache/js/')){
+					mkdir(WRITEPATH . 'cache/js/');
 				}
 				file_put_contents($cachePath, "/*{$ch_ver}*/\n".$minifiedCode);
 			}

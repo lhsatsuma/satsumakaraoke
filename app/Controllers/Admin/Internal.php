@@ -45,7 +45,17 @@ class Internal extends AdminBaseController
         $total_files = count($files);
         $deleted = 0;
         foreach($files as $file){
-
+            if(is_dir(WRITEPATH . 'cache/'.$file)){
+                $files_dir = scan_dir(WRITEPATH . 'cache/'.$file);
+                $total_files += count($files_dir);
+                foreach($files_dir as $file_dir){
+                    //Dont remove index.html and htaccess files
+                    if(!in_array($file_dir, ['index.html', '.htaccess'])){
+                        unlink(WRITEPATH . 'cache/'.$file.'/'.$file_dir);
+                        $deleted++;
+                    }
+                }
+            }
             //Dont remove index.html and htaccess files
             if(!in_array($file, ['index.html', '.htaccess'])){
                 unlink(WRITEPATH . 'cache/'.$file);

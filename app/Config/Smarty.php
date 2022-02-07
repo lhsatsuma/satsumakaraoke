@@ -22,7 +22,7 @@ class Smarty
 	 *
 	 * @var string
 	 */
-	public $compileDir = WRITEPATH . 'cache';
+	public $compileDir = WRITEPATH . 'cache/smarty';
 	
 	/**
 	 *---------------------------------------------------------------
@@ -44,5 +44,5 @@ class Smarty
 	 *
 	 * @var string
 	 */
-	public $cacheDir = WRITEPATH . 'cache';
+	public $cacheDir = WRITEPATH . 'cache/smarty';
 }
