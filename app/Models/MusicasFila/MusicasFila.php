@@ -79,5 +79,52 @@ class MusicasFila extends \App\Models\Basic\Basic
 		['name', 'deleted'],
 		['status', 'deleted'],
 	];
+
+	public function after_save(?string $operation = null)
+	{
+		$this->createJSON();
+	}
+
+	public function createJSON()
+	{
+		log_message('debug', 'Creating JSON musics in line...');
+		$this->select = "musicas_fila.id,
+		usuarios.name as cantor,
+		musicas.codigo,
+		musicas.name as name_musica,
+		musicas.md5";
+		$this->where["status"] = "pendente";
+		$this->join["musicas"] = "musicas.id = musicas_fila.musica_id";
+		$this->join["usuarios"] = "usuarios.id = musicas_fila.user_created";
+		$this->order_by["musicas_fila.date_created"] = "ASC";
+
+		$total_rows = $this->total_rows();
+		$this->page_as_offset = true;
+		$result = $this->search(10);
+		if(is_null($result)){
+			return false;
+		}
+		foreach($result as $key => $fila){
+			if((int) $this->ajax->body['sh'] == 1){
+				$fila['cantor'] = explode(' ', $fila['cantor'])[0];
+				if(strlen($fila['cantor']) > 13){
+					$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
+				}
+				if(strlen($fila['name_musica']) > 29){
+					$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 26) . '...';
+				}
+			}elseif((int)20 > 1){
+				$total_len = $fila['cantor'].$fila['name_musica'];
+				if(strlen($total_len) > 20 - 3){
+					$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 32 - strlen($fila['cantor'])) . '...';
+				}
+			}
+			$result[$key]['codigo'] = (int)$result[$key]['codigo'];
+			$result[$key] = array_values($result[$key]);
+		}
+		$result = array_values($result);
+		log_message('debug', 'Creating JSON musics in line... DONE');
+		return file_put_contents(WRITEPATH . 'cache/line_music.json', json_encode(['t' => $total_rows, 's' => $result]));
+	}
 }
 ?>

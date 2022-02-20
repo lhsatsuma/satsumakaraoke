@@ -35,13 +35,13 @@
 	</div>
 	<div class="row">
 		<div class="col-12 margin-b-10">
-			<h5>Senha Atual</h5>
+			<h5>Alterar Senha</h5>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			<label for="senha_atual">Senha</label> <span class="required">*</span>
-			<p><input class="form-control" type="password" name="senha_atual" value="{$record.senha_atual}" required="true"/>{if $save_data_errors.senha_atual}<span class='validate-error required'>{$save_data_errors.senha_atual}</span>{/if}</p>
+			<label for="senha_atual">Senha Atual</label>
+			<p><input class="form-control" type="password" name="senha_atual" value="{$record.senha_atual}"/>{if $save_data_errors.senha_atual}<span class='validate-error required'>{$save_data_errors.senha_atual}</span>{/if}</p>
 		</div>
 	</div>
 	<div class="row">

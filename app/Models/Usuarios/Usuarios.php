@@ -140,7 +140,7 @@ class Usuarios extends \App\Models\Basic\Basic
 	{
 		if($operation == 'delete'){
 			$this->preference->delPref(null, $this->f['id']);
-		}elseif($this->f['timezone'] || $operation == 'insert'){
+		}else{
 			$this->preference->setPref('timezone_user', (($this->f['timezone']) ? $this->f['timezone'] : date_default_timezone_get()), $this->f['id']);
 		}
 	}

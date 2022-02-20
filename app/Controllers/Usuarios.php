@@ -118,15 +118,14 @@ class Usuarios extends BaseController
 		
 		$AuthUser = $this->session->get('auth_user');
 		
-		if(!verify_pass(getFormData('senha_atual'), $AuthUser['senha'])){
-			$this->validation_errors = array(
-				'senha_atual' => 'A senha atual não confere.',
-			);
-			$this->SetErrorValidatedForm();
-			rdct('/usuarios/MeusDados');
-		}
-		
 		if(!empty(getFormData('senha_nova')) || !empty(getFormData('confirm_senha_nova'))){
+			if(!verify_pass(getFormData('senha_atual'), $AuthUser['senha'])){
+				$this->validation_errors = array(
+					'senha_atual' => 'A senha atual não confere.',
+				);
+				$this->SetErrorValidatedForm();
+				rdct('/usuarios/MeusDados');
+			}
 			$senha_nova = getFormData('senha_nova');
 			$confirm_senha_nova = getFormData('confirm_senha_nova');
 			if($senha_nova !== $confirm_senha_nova){

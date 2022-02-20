@@ -196,7 +196,6 @@ function insertMaskInputs()
 function checkStrongPassword(str)
 {
 	let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
-	console.log(strongPassword.test(str));
 	return strongPassword.test(str);
 }
 function ValidateForm(fm, elm)
