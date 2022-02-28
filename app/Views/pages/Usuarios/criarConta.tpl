@@ -21,7 +21,8 @@
 			<div class="row">
 				<div class="col-10 col-sm-8 col-md-6 col-xl-4 login-div">
 					<div id="header_logo"><img src="{$app_url}images/logo.png" /></div>
-					<h4><strong>Criar uma nova Conta</strong></h4>
+					<h4 class="mt-3 mb-1"><strong>Criar uma nova Conta</strong></h4>
+					<p class="text-left mb-4">Para acessar a lista de músicas, é necessário criar uma conta e realizar o login.</p>
 					<div id="ERROR_LOGIN" class="required">{$login_msg}</div>
 					<form name="newForm" id="newForm" method="post" action="{$app_url}login/createUser" autocomplete="off">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />

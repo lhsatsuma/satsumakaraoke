@@ -100,7 +100,7 @@
 							</a>
 						</li>
 						<li class="versao-sistema">
-							Versão {$ch_ver_org}
+							ⓒ 2022 Todos os direitos reservados.<br />Versão {$ch_ver_org}
 						</li>
 					</ul>
 				</div>

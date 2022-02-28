@@ -25,18 +25,18 @@
 					{if $msg_type}
 						<div id="ERROR_LOGIN" class="msg-type-{$msg_type}">{$msg}</div>
 					{/if}
-					<form name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
+					<form class="mt-3" name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
 						<input type="hidden" name="rdct_url" value="{$rdct_url}" />
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
 						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
-						<p><button class="btn width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
+						<p><button class="btn mt-3 width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
 						<p><a href="javascript:void(0)" onclick="OpenModalReset()">Esqueci Minha Senha</a></p>
 						{if $enabled_create_user}
 							<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
 						{/if}
 					</form>
-					<p class="versao-sistema">Versão {$ch_ver_org}</p>
+					<p class="versao-sistema">ⓒ 2022 Todos os direitos reservados.<br />Sistema desenvolvido por Luis Satsuma | V. {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>
