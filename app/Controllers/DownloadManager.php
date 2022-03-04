@@ -32,15 +32,13 @@ class DownloadManager extends BaseController
 			//Get's all info of file and check if allowed access
 			$fileName = $this->getFile($id);
 			if($fileName){
-				
 				//Check if mimetype it's an image or pdf, otherwise let's download the file
 				if($this->checkMimetypeDefault($fileName['mimetype'])
 				){
 					return $this->response->download($fileName['name'], file_get_contents($fileName['path']));
 				}
-				
 				//Setting all headers necessarys and returning binary file
-				$this->response->setHeader('Content-Type', $fileName['mimetype'])->appendHeader('Content-Length', filesize($fileName['path']))->appendHeader('Content-Disposition', 'inline; filename='.$fileName['name'].'');
+				$this->response->setHeader('Content-Type', $fileName['mimetype'])->appendHeader('Content-Length', filesize($fileName['path']))->appendHeader('Content-Disposition', 'inline; filename="'.$fileName['name'].'"');
 				return readfile($fileName['path']);
 			}
 		}

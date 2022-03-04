@@ -106,13 +106,12 @@ class KaraokeJS{
 				callback: (d) => {
 					karaoke.songNow = [];
 					$('#songNowId').val('');
-					karaoke.getNextVideo();
-					karaoke.getThread();
+					karaoke.getNextVideo(true);
 				},
 			});
 		}
 	}
-	getNextVideo()
+	getNextVideo(call_wait_list = false)
 	{
 		if(this.running.nextVideo){
 			return;
@@ -122,7 +121,7 @@ class KaraokeJS{
 			url: karaoke.url+'k_get_thread',
 			data: {
 				sh: 0,
-				ct: 1,
+				ct: (!call_wait_list) ? 1 : 0,
 				of: 0,
 				search: true,
 			},
@@ -134,6 +133,13 @@ class KaraokeJS{
 						video.src = _APP.karaokeURL + this.songNow[4];
 						$('#playingNow').html('<p>'+this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]+'</p>');
 						$('#pausedDiv').hide();
+						if(call_wait_list){
+							if(res.detail.s.length > 1){
+								res.detail.s = res.detail.s.shift();
+								karaoke.mountWaitList(res.detail.s, res.detail.t);
+
+							}
+						}
 					}else{
 						setTimeout(() => {
 							karaoke.getNextVideo();
@@ -209,41 +215,7 @@ class KaraokeJS{
 						}
 					}
 					if(this.search_list){
-						$('#SongListsDiv').html('');
-						$('#SongListsDiv2').html('');
-						$('#SongListsDivCenter').html('');
-						let hasDiv2 = false;
-						res.detail.s.forEach((ipt, idx) => {
-							if(idx > 0){
-								let turn = 0;
-								turn = idx + 1;
-								if(idx < this.numSongsList){
-									if($('#SongListsDiv2').length && turn > 7){
-										hasDiv2 = true;
-										$('#SongListsDiv2').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
-									}else{
-										$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
-									}
-								}
-							}
-						});
-						if(this.typeScreen !== 4){
-							if(hasDiv2){
-								$('#SongListsDiv').removeClass('col-12').addClass('col-6');
-							}else{
-								$('#SongListsDiv').removeClass('col-6').addClass('col-12');
-							}
-						}
-						
-						if(res.detail.t - 1 > res.detail.s.length){
-							let leftSongs = res.detail.t - res.detail.s.length - 1;
-							if($('#SongListsDivCenter').length){
-								$('#SongListsDivCenter').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
-								
-							}else{
-								$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
-							}
-						}
+						this.mountWaitList(res.detail.s, res.detail.t);
 					}
 					if(res.detail.th){
 						handleAjax({
@@ -271,6 +243,45 @@ class KaraokeJS{
 				}, wait_mil);
 			}
 		})
+	}
+	mountWaitList(list, total)
+	{
+		
+		$('#SongListsDiv').html('');
+		$('#SongListsDiv2').html('');
+		$('#SongListsDivCenter').html('');
+		let hasDiv2 = false;
+		list.forEach((ipt, idx) => {
+			if(idx > 0){
+				let turn = 0;
+				turn = idx + 1;
+				if(idx < this.numSongsList){
+					if($('#SongListsDiv2').length && turn > 7){
+						hasDiv2 = true;
+						$('#SongListsDiv2').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+					}else{
+						$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+					}
+				}
+			}
+		});
+		if(this.typeScreen !== 4){
+			if(hasDiv2){
+				$('#SongListsDiv').removeClass('col-12').addClass('col-6');
+			}else{
+				$('#SongListsDiv').removeClass('col-6').addClass('col-12');
+			}
+		}
+		
+		if(total - 1 > list.length){
+			let leftSongs = total - list.length - 1;
+			if($('#SongListsDivCenter').length){
+				$('#SongListsDivCenter').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
+				
+			}else{
+				$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
+			}
+		}
 	}
 	resizeVideo()
 	{
