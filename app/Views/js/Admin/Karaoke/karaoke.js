@@ -136,10 +136,8 @@ class KaraokeJS{
 						$('#playingNow').html('<p>'+this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]+'</p>');
 						$('#pausedDiv').hide();
 						if(call_wait_list){
-							if(res.detail.s.length > 1){
-								res.detail.s = res.detail.s.shift();
-								karaoke.mountWaitList(res.detail.s, res.detail.t);
-							}
+							this.search_list = true;
+							karaoke.getThread(false);
 						}
 					}else{
 						setTimeout(() => {
@@ -157,7 +155,7 @@ class KaraokeJS{
 			}
 		});
 	}
-	getThread()
+	getThread(need_loop = true)
 	{
 		if(this.running.thread){
 			return;
@@ -239,50 +237,60 @@ class KaraokeJS{
 				}else{
 					this.search_list = true;
 				}
-				setTimeout(function(){
-					karaoke.getThread();
-				}, wait_mil);
+				if(need_loop){
+					setTimeout(function(){
+						karaoke.getThread();
+					}, wait_mil);
+				}
 			}
 		})
 	}
 	mountWaitList(list, total)
 	{
-		
 		$('#SongListsDiv').html('');
 		$('#SongListsDiv2').html('');
 		$('#SongListsDivCenter').html('');
 		let hasDiv2 = false;
 		let totalDisplay = 0;
-		list.forEach((ipt, idx) => {
-			if(idx > 0){
-				let turn = 0;
-				turn = idx;
-				if(idx < this.numSongsList){
-					totalDisplay++;
-					if($('#SongListsDiv2').length && turn > 7){
-						hasDiv2 = true;
-						$('#SongListsDiv2').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+		let validList = true;
+		if(list){
+			list.forEach((ipt, idx) => {
+				if(Array.isArray(ipt)){
+					if(idx > 0){
+						let turn = 0;
+						turn = idx;
+						if(idx < this.numSongsList){
+							totalDisplay++;
+							if($('#SongListsDiv2').length && turn > 7){
+								hasDiv2 = true;
+								$('#SongListsDiv2').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+							}else{
+								$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+							}
+						}
+					}
+				}else{
+					validList = false;
+				}
+			});
+			if(validList){
+				if(this.typeScreen !== 4){
+					if(hasDiv2){
+						$('#SongListsDiv').removeClass('col-12').addClass('col-6');
 					}else{
-						$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+						$('#SongListsDiv').removeClass('col-6').addClass('col-12');
 					}
 				}
-			}
-		});
-		if(this.typeScreen !== 4){
-			if(hasDiv2){
-				$('#SongListsDiv').removeClass('col-12').addClass('col-6');
-			}else{
-				$('#SongListsDiv').removeClass('col-6').addClass('col-12');
-			}
-		}
-		
-		if(total - 1 > totalDisplay){
-			let leftSongs = total - totalDisplay - 1;
-			if($('#SongListsDivCenter').length){
-				$('#SongListsDivCenter').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
 				
-			}else{
-				$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
+				if(total - 1 > totalDisplay){
+					let leftSongs = total - totalDisplay - 1;
+					if($('#SongListsDivCenter').length){
+						$('#SongListsDivCenter').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
+						
+					}else{
+						$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
+					}
+				}
 			}
 		}
 	}
