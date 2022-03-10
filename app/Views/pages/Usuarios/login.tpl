@@ -36,7 +36,7 @@
 							<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
 						{/if}
 					</form>
-					<p class="versao-sistema">ⓒ 2022 Todos os direitos reservados.<br />Sistema desenvolvido por Luis Satsuma | V. {$ch_ver_org}</p>
+					<p class="versao-sistema">ⓒ 2022 Todos os direitos reservados.<br />Desenvolvido por Luis Satsuma | V. {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>

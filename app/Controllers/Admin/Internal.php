@@ -254,6 +254,7 @@ class Internal extends AdminBaseController
         Reconstruct database with models definitions
         */
         $model = new \CodeIgniter\Model();
+        $model->setTable('usuarios');
 
         getModules();
         $models = getModules();

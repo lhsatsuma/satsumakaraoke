@@ -15,9 +15,6 @@
     <div class="row">
         <div class="col-12 center playingNowDiv" style="padding: 30px 0px 15px 0px">
             <h4><span id="playingNow"></span></h4>
-            <div id="pausedDiv" class="center" style="display: none">
-                <h3>VIDEO PAUSADO!</h3>
-            </div>
         </div>
         <div class="col-12 center videoDiv">
             <input type="hidden" id="songNowId" value=""/>
@@ -26,7 +23,7 @@
             </video>
         </div>
         <div class="col-12 center volumeDiv">
-            <h3>Volume: <span id="volumeSpan">100%</span></h3>
+            <h3>Volume: <span id="volumeSpan">100%</span> <span id="pausedDiv" style="display: none">VIDEO PAUSADO!</span></h3>
         </div>
     </div>
 </div>

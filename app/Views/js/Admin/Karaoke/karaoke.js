@@ -91,6 +91,8 @@ class KaraokeJS{
 			video.addEventListener('ended',this.endedVideo,false);
 			this.getNextVideo();
 			this.getThread();
+		}else{
+			this.getThread();
 		}
 	}
 	endedVideo()
@@ -137,7 +139,6 @@ class KaraokeJS{
 							if(res.detail.s.length > 1){
 								res.detail.s = res.detail.s.shift();
 								karaoke.mountWaitList(res.detail.s, res.detail.t);
-
 							}
 						}
 					}else{
@@ -217,7 +218,7 @@ class KaraokeJS{
 					if(this.search_list){
 						this.mountWaitList(res.detail.s, res.detail.t);
 					}
-					if(res.detail.th){
+					if(res.detail.th && (this.typeScreen == 1 || this.typeScreen == 2)){
 						handleAjax({
 							url: _APP.app_url+'admin/Karaoke_ajax/k_reset_thread',
 							callback: (res) => {
@@ -233,7 +234,7 @@ class KaraokeJS{
 			callbackAll: (res) => {
 				this.reset_line = false;
 				karaoke.running.thread = false;
-				if(this.search_list){
+				if(this.search_list && (this.typeScreen == 1 || this.typeScreen == 2)){
 					this.search_list = false;
 				}else{
 					this.search_list = true;
@@ -251,11 +252,13 @@ class KaraokeJS{
 		$('#SongListsDiv2').html('');
 		$('#SongListsDivCenter').html('');
 		let hasDiv2 = false;
+		let totalDisplay = 0;
 		list.forEach((ipt, idx) => {
 			if(idx > 0){
 				let turn = 0;
-				turn = idx + 1;
+				turn = idx;
 				if(idx < this.numSongsList){
+					totalDisplay++;
 					if($('#SongListsDiv2').length && turn > 7){
 						hasDiv2 = true;
 						$('#SongListsDiv2').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
@@ -273,8 +276,8 @@ class KaraokeJS{
 			}
 		}
 		
-		if(total - 1 > list.length){
-			let leftSongs = total - list.length - 1;
+		if(total - 1 > totalDisplay){
+			let leftSongs = total - totalDisplay - 1;
 			if($('#SongListsDivCenter').length){
 				$('#SongListsDivCenter').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
 				

@@ -80,13 +80,17 @@ $('.controlbtns').on('click', (e) => {
 	});
 })
 document.getElementById('volumeRange').addEventListener('input', function() {
-	$('#volP').html($(this).val()+'%');
+	changedVolumeRange();
+});
+function changedVolumeRange()
+{
+	$('#volP').html($('#volumeRange').val()+'%');
 	handleAjax({
 		url: _APP.app_url+'Karaoke_ajax/k_set_thread',
 		dontFireError: true,
 		data: {
 			action: 'volume',
-			valueTo: $(this).val(),
+			valueTo: $('#volumeRange').val(),
 		},
 		beforeSend: () => {
 			showLoadingIcon($('#ControleRemotoModalLabel'));
@@ -98,4 +102,4 @@ document.getElementById('volumeRange').addEventListener('input', function() {
 			showErrorIcon($('#ControleRemotoModalLabel'));
 		}
 	});
-});
+}

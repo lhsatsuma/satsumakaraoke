@@ -100,7 +100,7 @@ class MusicasFila extends \App\Models\Basic\Basic
 
 		$total_rows = $this->total_rows();
 		$this->page_as_offset = true;
-		$result = $this->search(10);
+		$result = $this->search();
 		if(is_null($result)){
 			return false;
 		}

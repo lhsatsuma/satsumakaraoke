@@ -48,6 +48,7 @@
 							<p><button class="btn btn-outline-info btn-rounded" onclick="karaoke.removeInitial(2)" >2- APENAS VIDEO</button></p>
 							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(3)" >3- APENAS AS MUSICAS NA FILA</button></p>
 							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(4)" >4- MUSICAS NA FILA + CONTROLE REMOTO</button></p>
+							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(5)" >5- CONTROLE REMOTO</button></p>
 							</div>
 						</div>
 					</div>

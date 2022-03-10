@@ -33,7 +33,7 @@
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
 						<p><button class="btn mt-3 width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
 					</form>
-					<p class="versao-sistema">ⓒ 2022 Todos os direitos reservados.<br />Sistema desenvolvido por Luis Satsuma | V. {$ch_ver_org}</p>
+					<p class="versao-sistema">ⓒ 2022 Todos os direitos reservados.<br />Desenvolvido por Luis Satsuma | V. {$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>

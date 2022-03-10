@@ -7,11 +7,8 @@
             <h1>Cante com nós! Acesse <span class="b800">{$host_fila}</span></h1>
         </div>
     </div>
-    <div class="row" id="SongLists">
-        <div class="col-12 mb-5 center">
-            <h2><strong>Músicas na Fila:</strong></h2>
-        </div>
-        <div class="col-8 h-75" id="SongListsDiv"></div>
+    <div class="row">
+        <div class="col-4">&nbsp;</div>
         <div class="col-4 h-75" style="border: 1px solid #ccc;background-color: #4c4c4ccc;padding: 3.5em;">
             <div class="row">
                 <div class="col-6 center">
@@ -59,6 +56,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-4">&nbsp;</div>
     </div>
 </div>
 <script type="text/javascript" src="{$app_url}jsManager/public/ControleRemoto.js?v={$ch_ver}"></script>
