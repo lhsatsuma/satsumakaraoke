@@ -111,6 +111,13 @@
 						</ul>
 					</div>
 					<div class="col-12 margin-b-10">
+						<label for="ImportModalLink">Músicas favoritas</label>
+						<ul>
+							<li>Ao clicar em cima de uma música, você pode colocá-la nos favoritos ou removê-la.</li>
+							<li>A música favoritada estará disponível para busca através do botão de busca avançada.</li>
+						</ul>
+					</div>
+					<div class="col-12 margin-b-10">
 						<label for="ImportModalLink">Direitos Autorais</label>
 						<ul>
 							<li>Todos os direitos autorais das músicas são mantidos pelos próprios criadores que podem ser encontrados através do vídeo original no YouTube.</li>
@@ -121,9 +128,13 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-outline-info btn-rounded" data-dismiss="modal">Fechar</button>
+				{if $showPopupWizard}<button type="button" class="btn btn-outline-warning btn-rounded" onclick="hideAlwaysPopupWizard()">Não mostrar novamente</button>{/if}
 			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript" src="{$app_url}jsManager/Musicas/index.js?v={$ch_ver}"></script>
+{/if}
+{if !$bdOnly AND $showPopupWizard}
+	<script type="text/javascript">$('#helpSongsModal').modal('show');</script>
 {/if}

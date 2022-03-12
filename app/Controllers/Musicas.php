@@ -66,6 +66,11 @@ class Musicas extends BaseController
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
+
+		
+
+		$hideInfoPopup = \App\Models\PreferenciasUsuario\PreferenciasUsuario::getPreference('hideInfoPopup');
+		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 		
 		return $this->displayNew('pages/Musicas/index');
 	}
@@ -191,5 +196,14 @@ class Musicas extends BaseController
 			$saved_record = $mdl->saveRecord();
 		}
 		$AjaxLib->setSuccess($saved_record);
+	}
+	
+	public function hidePopupWizard()
+	{
+		
+		$AjaxLib = new \App\Libraries\Sys\Ajax();
+		
+		$mdl = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
+		$AjaxLib->setSuccess($mdl->setPref('hideInfoPopup', '1'));
 	}
 }

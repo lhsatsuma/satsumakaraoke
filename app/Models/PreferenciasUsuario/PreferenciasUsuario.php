@@ -67,6 +67,11 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 		['user_created', 'name', 'deleted'],
 	];
 
+	public static function getPreference(string $name, string $user = null)
+	{
+		$class = new self();
+		return $class->getPref($name, $user);
+	}
 	public function getPref(string $name, string $user = null)
 	{
 		$this->select = "id, name, valor";

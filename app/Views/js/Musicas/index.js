@@ -235,3 +235,11 @@ function changeByTraco(){
         return;
     }
 };
+function hideAlwaysPopupWizard()
+{
+	$('#helpSongsModal').modal('hide');
+	handleAjax({
+		dontFireError: true,
+		url: _APP.app_url+'musicas/hidePopupWizard',
+	});
+}
