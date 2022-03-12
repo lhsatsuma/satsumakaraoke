@@ -25,6 +25,7 @@
 					{if $msg_type}
 						<div id="ERROR_LOGIN" class="msg-type-{$msg_type}">{$msg}</div>
 					{/if}
+					<p class="mt-3 text-left">Para acessar a lista de músicas, é necessário ter uma conta e estar logado.</p>
 					<form class="mt-3" name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
 						<input type="hidden" name="rdct_url" value="{$rdct_url}" />
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />

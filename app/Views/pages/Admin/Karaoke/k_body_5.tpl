@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">&nbsp;</div>
+        <div class="col-2">&nbsp;</div>
         <div class="col-4 h-75" style="border: 1px solid #ccc;background-color: #4c4c4ccc;padding: 3.5em;">
             <div class="row">
                 <div class="col-6 center">
@@ -56,41 +56,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">&nbsp;</div>
+        <div class="col-6">
+            <div class="col-6">
+                <p class="bold">Digite o código da música para inserir na fila como Admin:</p>
+                <p><input class="form form-control" type="text" id="music_code" /></p>
+                <p><button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()">Buscar</button></p>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="{$app_url}jsManager/public/ControleRemoto.js?v={$ch_ver}"></script>
-{literal}
-<script type="text/javascript">
-getLastVolume();
-$(document).keyup(function(event) {
-    switch(event.which){
-        case 103:
-            $('#playbutton').click();
-            break;
-        case 105:
-            $('#pausebutton').click();
-            break;
-        case 100:
-            $('#nextbutton').click();
-            break;
-        case 102:
-            $('#repeatbutton').click();
-            break;
-        case 96:
-            $('#mutebutton').click();
-            break;
-        case 97:
-            document.getElementById("volumeRange").stepDown(1);
-            changedVolumeRange();
-            break;
-        case 99:
-            document.getElementById("volumeRange").stepUp(1);
-            changedVolumeRange();
-            break;
-        default:
-            break;
-    }
-});
-{/literal}
-</script>
+<script type="text/javascript" src="{$app_url}jsManager/Admin/Karaoke/Hotkeys.js?v={$ch_ver}"></script>

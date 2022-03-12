@@ -75,4 +75,16 @@ class Karaoke_ajax extends AdminBaseController
 		$this->data['host_fila'] = getValorParametro('karaoke_url_host');
 		$this->ajax->setSuccess($this->displayNew('pages/Admin/Karaoke/k_body_'.$this->ajax->body['id'], false));
 	}
+
+	public function k_search_music()
+	{
+		$mdl = new \App\Models\Musicas\Musicas();
+		$mdl->where['codigo'] = $this->ajax->body['code'];
+		$result = $mdl->search(1)[0];
+		if($result){
+			$this->ajax->setSuccess($result);
+		}else{
+			$this->ajax->setError('0x001', 'Não foi possível encontrar a música pelo código '.$this->ajax->body['code'].'!');
+		}
+	}
 }
