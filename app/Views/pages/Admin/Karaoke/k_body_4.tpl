@@ -15,8 +15,8 @@
         <div class="col-4 h-75">
             <div class="row">
                 <div class="col-8">
-                    <p class="bold">Digite o código da música para inserir na fila como Admin:</p>
-                    <p><input class="form form-control" type="text" id="music_code" style="width: 60%;display:inline-block"/> <button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()">Buscar</button></p>
+                    <h5 class="bold">Digite o código da música para inserir na fila como Admin:</h5>
+                    <p class="mt-3"><input class="form form-control" type="text" id="music_code" style="width: 75%;display:inline-block;font-size: 2rem;"/> <button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()" style="font-size: 2rem;vertical-align: baseline;">Buscar</button></p>
                 </div>
             </div>
             <div class="row">

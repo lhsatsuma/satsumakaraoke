@@ -13,54 +13,53 @@
             <div class="row">
                 <div class="col-6 center">
                     <span class="ptr controlbtns" id="playbutton" data-val="play">
-                        <i class="fas fa-play margin-5"></i>
-                        <p>Play [NP-7]</p>
+                        <i style="font-size: 1.5rem" class="fas fa-play margin-5"></i>
+                        <p style="font-size: 1.5rem">Play [NP-7]</p>
                     </span>
                 </div>
                 <div class="col-6 center">
                     <span class="ptr controlbtns" id="pausebutton" data-val="pause">
-                        <i class="fas fa-pause margin-5"></i>
-                        <p>Pausar [NP-7]</p>
+                        <i style="font-size: 1.5rem" class="fas fa-pause margin-5"></i>
+                        <p style="font-size: 1.5rem">Pausar [NP-7]</p>
                     </span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 center">
                     <span class="ptr controlbtns" id="nextbutton" data-val="next">
-                        <i class="fas fa-step-forward margin-5"></i>
-                        <p>Próximo [NP-4]</p>
+                        <i style="font-size: 1.5rem" class="fas fa-step-forward margin-5"></i>
+                        <p style="font-size: 1.5rem">Próximo [NP-4]</p>
                     </span>
                 </div>
                 <div class="col-6 center">
                     <span class="ptr controlbtns" id="repeatbutton" data-val="repeat">
-                        <i class="fas fa-sync-alt margin-5"></i>
-                        <p>Repetir [NP-6]</p>
+                        <i style="font-size: 1.5rem" class="fas fa-sync-alt margin-5"></i>
+                        <p style="font-size: 1.5rem">Repetir [NP-6]</p>
                     </span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 center mb-4">
                     <span class="ptr">
-                        <p id="volP">100%</p>
+                        <p style="font-size: 1.5rem" id="volP">100%</p>
                         <input type="range" class="form-control-range" id="volumeRange" step="5">
-                        <p>[NP-1] [NP-3]
+                        <p style="font-size: 1.5rem">[NP-1] [NP-3]
                     </span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 center">
                     <span class="ptr controlbtns" id="mutebutton" data-val="mute">
-                        <i class="fas fa-volume-mute margin-5"></i>
-                        <p>Mutar [NP-0]</p>
+                        <i style="font-size: 1.5rem" class="fas fa-volume-mute margin-5"></i>
+                        <p style="font-size: 1.5rem">Mutar [NP-0]</p>
                     </span>
                 </div>
             </div>
         </div>
         <div class="col-6">
-            <div class="col-6">
-                <p class="bold">Digite o código da música para inserir na fila como Admin:</p>
-                <p><input class="form form-control" type="text" id="music_code" /></p>
-                <p><button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()">Buscar</button></p>
+            <div class="col-8">
+                <h5 class="bold">Digite o código da música para inserir na fila como Admin:</h5>
+                <p class="mt-3"><input class="form form-control" type="text" id="music_code" style="width: 40%;display:inline-block;font-size: 2rem;"/> <button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()" style="font-size: 2rem;vertical-align: baseline;">Buscar</button></p>
             </div>
         </div>
     </div>
