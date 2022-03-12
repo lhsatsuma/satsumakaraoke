@@ -114,6 +114,7 @@ body {
 
 /*----------------show sidebar button----------------*/
 
+
 #show-sidebar {
     position: fixed;
     left: 0;
@@ -125,7 +126,8 @@ body {
     z-index: 99999;
 }
 
-.page-wrapper.toggled #show-sidebar {
+.page-wrapper.toggled #show-sidebar,
+body.modal-open > .page-wrapper > a.btn {
     display: none;
 }
 
@@ -1171,7 +1173,13 @@ input[type="checkbox"]:checked+.slider:before {
     width: 100%;
 }
 
-.versao-sistema {
+.versao-sistema:not(.menu) {
+    font-size: 0.7rem;
+    text-align: center;
+    margin: 0;
+    color: rgb(102 102 102);
+}
+.versao-sistema{
     font-size: 0.7rem;
     text-align: center;
     margin: 0;

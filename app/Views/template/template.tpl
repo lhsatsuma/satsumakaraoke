@@ -99,7 +99,7 @@
 							<span>Sair</span>
 							</a>
 						</li>
-						<li class="versao-sistema">
+						<li class="versao-sistema menu">
 							ⓒ 2022 Todos os direitos reservados.<br />Versão {$ch_ver_org}
 						</li>
 					</ul>
