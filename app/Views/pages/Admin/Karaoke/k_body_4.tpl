@@ -14,12 +14,6 @@
         <div class="col-8 h-75" id="SongListsDiv"></div>
         <div class="col-4 h-75">
             <div class="row">
-                <div class="col-8">
-                    <h5 class="bold">Digite o código da música para inserir na fila como Admin:</h5>
-                    <p class="mt-3"><input class="form form-control" type="text" id="music_code" style="width: 75%;display:inline-block;font-size: 2rem;"/> <button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()" style="font-size: 2rem;vertical-align: baseline;">Buscar</button></p>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12" style="border: 1px solid #ccc;background-color: #4c4c4ccc;padding: 1.7em;">
                     <div class="row">
                         <div class="col-6 center">
@@ -40,6 +34,12 @@
                             <span class="ptr controlbtns" id="nextbutton" data-val="next">
                                 <i class="fas fa-step-forward margin-5"></i>
                                 <p>Próximo [NP-4]</p>
+                            </span>
+                        </div>
+                        <div class="col-6 center">
+                            <span class="ptr" id="insertmusic" onclick="karaoke.searchCodeMusic()">
+                                <i style="font-size: 1.5rem" class="fas fa-list margin-5"></i>
+                                <p style="font-size: 1.5rem">Inserir Música [NP-5]</p>
                             </span>
                         </div>
                         <div class="col-6 center">

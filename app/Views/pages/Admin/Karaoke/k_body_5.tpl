@@ -20,7 +20,7 @@
                 <div class="col-6 center">
                     <span class="ptr controlbtns" id="pausebutton" data-val="pause">
                         <i style="font-size: 1.5rem" class="fas fa-pause margin-5"></i>
-                        <p style="font-size: 1.5rem">Pausar [NP-7]</p>
+                        <p style="font-size: 1.5rem">Pausar [NP-9]</p>
                     </span>
                 </div>
             </div>
@@ -29,6 +29,12 @@
                     <span class="ptr controlbtns" id="nextbutton" data-val="next">
                         <i style="font-size: 1.5rem" class="fas fa-step-forward margin-5"></i>
                         <p style="font-size: 1.5rem">Próximo [NP-4]</p>
+                    </span>
+                </div>
+                <div class="col-6 center">
+                    <span class="ptr" id="insertmusic" onclick="karaoke.searchCodeMusic()">
+                        <i style="font-size: 1.5rem" class="fas fa-list margin-5"></i>
+                        <p style="font-size: 1.5rem">Inserir Música [NP-5]</p>
                     </span>
                 </div>
                 <div class="col-6 center">
@@ -54,12 +60,6 @@
                         <p style="font-size: 1.5rem">Mutar [NP-0]</p>
                     </span>
                 </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="col-8">
-                <h5 class="bold">Digite o código da música para inserir na fila como Admin:</h5>
-                <p class="mt-3"><input class="form form-control" type="text" id="music_code" style="width: 40%;display:inline-block;font-size: 2rem;"/> <button type="button" class="btn btn-success" onclick="karaoke.searchCodeMusic()" style="font-size: 2rem;vertical-align: baseline;">Buscar</button></p>
             </div>
         </div>
     </div>

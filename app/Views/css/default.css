@@ -1201,3 +1201,6 @@ input[type="checkbox"]:checked+.slider:before {
 }
 
 body.swal2-shown { overflow-y: none !important; }
+.swal2-input{
+    color: #dfdfdf !important;
+}

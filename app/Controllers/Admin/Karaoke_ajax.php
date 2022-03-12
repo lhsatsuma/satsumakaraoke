@@ -50,11 +50,6 @@ class Karaoke_ajax extends AdminBaseController
 		$this->ajax->setSuccess($encoded);
 	}
 
-	public function k_musics_list()
-	{
-
-	}
-
 	public function k_ended_video()
 	{
 		$this->mdl->f['id'] = $this->ajax->body['id'];

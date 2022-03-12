@@ -1,7 +1,8 @@
 getLastVolume();
 $(document).keyup(function(event) {
     event.preventDefault();
-    let focusSearh = document.querySelector('#music_code') === document.activeElement;
+    let focusSearh = $('.swal2-container').length;
+    console.log(focusSearh);
     if(!focusSearh){
         switch(event.which){
             case 103:
@@ -12,6 +13,9 @@ $(document).keyup(function(event) {
                 break;
             case 100:
                 $('#nextbutton').click();
+                break;
+            case 101:
+                karaoke.searchCodeMusic();
                 break;
             case 102:
                 $('#repeatbutton').click();
@@ -30,7 +34,5 @@ $(document).keyup(function(event) {
             default:
                 break;
         }
-    }else if(event.which === 13){
-        karaoke.searchCodeMusic();
     }
 });

@@ -234,8 +234,10 @@ class KaraokeJS{
 				karaoke.running.thread = false;
 				if(this.search_list && (this.typeScreen == 1 || this.typeScreen == 2)){
 					this.search_list = false;
+					this.reset_line = false;
 				}else{
 					this.search_list = true;
+					this.reset_line = true;
 				}
 				if(need_loop){
 					setTimeout(function(){
@@ -298,72 +300,87 @@ class KaraokeJS{
 	{
 		$('#video').css('height', $('.videoDiv').css('height'));
 	}
+	
 	searchCodeMusic()
 	{
-		let code_input = $('#music_code').val().replace(/\D/g, "");
-		fireLoading({
-			title: 'Buscando música...',
-			didOpen: () => {
-				$('#music_code').val('');
-				Swal.showLoading();
-				handleAjax({
-					dontFireError: true,
-					url: karaoke.url+'k_search_music',
-					data: JSON.stringify({'code': code_input}),
-					callback: (res) => {
-						Swal.close();
-						if(res.detail){
-							Swal.fire({
-								title: 'Deseja inserir na fila?',
-								icon: 'question',
-								text: '['+res.detail.codigo+'] '+res.detail.name,
-								showCloseButton: true,
-								showCancelButton: true,
-								focusConfirm: true,
-							}).then((result) => {
-								if(result.isConfirmed){
-									fireLoading({
-										toast: true,
-										position: 'top-end',
-										didOpen: () => {
-											Swal.showLoading();
-											handleAjax({
-												url: _APP.app_url+'musicas/insert_fila_ajax',
-												data: JSON.stringify({'id': res.detail.id}),
-												callback: (res) => {
-													Swal.close();
-													if(res.detail){
-														Swal.fire({
-															toast: true,
-															position: 'top-end',
-															title: 'Música adicionada na fila!',
-															text: '',
-															icon: 'success',
-															width: '400px',
-															showConfirmButton: false,
-															timer: 2000,
-															timerProgressBar: true
-														});
-													}
-												},
-											});
+		Swal.fire({
+			title: 'Insira o código',
+			input: 'text',
+			inputAttributes: {
+			autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Buscar',
+			showLoaderOnConfirm: true,
+			preConfirm: (codigo) => {
+				return codigo;
+			}
+		}).then((result) => {
+			if(result.isConfirmed){
+				fireLoading({
+					title: 'Buscando música...',
+					didOpen: () => {
+						Swal.showLoading();
+						handleAjax({
+							dontFireError: true,
+							url: karaoke.url+'k_search_music',
+							data: JSON.stringify({'code': result.value}),
+							callback: (res) => {
+								Swal.close();
+								if(res.detail){
+									Swal.fire({
+										title: 'Deseja inserir na fila?',
+										icon: 'question',
+										text: '['+res.detail.codigo+'] '+res.detail.name,
+										showCloseButton: true,
+										showCancelButton: true,
+										focusConfirm: true,
+									}).then((result) => {
+										if(result.isConfirmed){
+											fireLoading({
+												toast: true,
+												position: 'top-end',
+												didOpen: () => {
+													Swal.showLoading();
+													handleAjax({
+														url: _APP.app_url+'musicas/insert_fila_ajax',
+														data: JSON.stringify({'id': res.detail.id}),
+														callback: (res) => {
+															Swal.close();
+															if(res.detail){
+																Swal.fire({
+																	toast: true,
+																	position: 'top-end',
+																	title: 'Música adicionada na fila!',
+																	text: '',
+																	icon: 'success',
+																	width: '400px',
+																	showConfirmButton: false,
+																	timer: 2000,
+																	timerProgressBar: true
+																});
+															}
+														},
+													});
+												}
+											})
 										}
 									})
 								}
-							})
-						}
-					},
-					callbackError: (res) => {
-						if(res.error_msg){
-							fireAndClose({
-								title: res.error_msg,
-								html: '',
-								icon: 'warning',
-								allowOutsideClick: false,
-							});
-						}else{
-							fireErrorGeneric();
-						}
+							},
+							callbackError: (res) => {
+								if(res.error_msg){
+									fireAndClose({
+										title: res.error_msg,
+										html: '',
+										icon: 'warning',
+										allowOutsideClick: false,
+									});
+								}else{
+									fireErrorGeneric();
+								}
+							}
+						})
 					}
 				})
 			}
