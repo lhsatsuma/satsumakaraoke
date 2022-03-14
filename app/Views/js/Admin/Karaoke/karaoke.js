@@ -18,9 +18,10 @@ class KaraokeJS{
 		this.numSongsList = 7;
 		this.last_volume = 1;
 		this.reset_line = true;
+		this.typeScreen = 0;
 		$(document).keyup(function(event) {
 			event.preventDefault();
-			if($('#InitialModal').length){
+			if(!karaoke.typeScreen){
 				switch(event.which){
 					case 49:
 					case 97:
@@ -205,45 +206,7 @@ class KaraokeJS{
 			callback: (res) => {
 				if(res.detail){
 					if(res.detail.th && (this.typeScreen == 1 || this.typeScreen == 2)){
-						let action = res.detail.th.action;
-						switch(action){
-							case 'play':
-								this.video.play();
-								break;
-							case 'pause':
-								this.video.pause();
-								break;
-							case 'next':
-								let sec_left = video.duration - video.currentTime;
-								if(sec_left > 5){
-									karaoke.endedVideo();
-								}
-								break;
-							case 'repeat':
-								this.video.currentTime = 0;
-								break;
-							case 'volume':
-								let volSpan = parseFloat(res.detail.th.valueTo);
-								let volumeAllFloat = volSpan / 100;
-								video.volume = volumeAllFloat;
-								this.last_volume = volumeAllFloat;
-								wait_mil = 1000;
-								$('#volumeSpan').html(volSpan + '%');
-								break;
-							case 'mute':
-								let volumeMuteFloat = parseFloat(video.volume.toFixed(2));
-								let volSpanMute = 0;
-								if(volumeMuteFloat <= 0){
-									video.volume = this.last_volume;
-									volSpanMute = this.last_volume * 100;
-								}else{
-									video.volume = 0;
-								}
-								$('#volumeSpan').html(volSpanMute + '%');
-								break;
-							default:
-								break;
-						}
+						this.setVideoAction(res.detail.th.action, res.detail.th.valueTo);
 					}
 					if(this.search_list){
 						this.mountWaitList(res.detail.s, res.detail.t);
@@ -278,6 +241,47 @@ class KaraokeJS{
 				}
 			}
 		})
+	}
+	setVideoAction(action, valTo)
+	{
+		switch(action){
+			case 'play':
+				this.video.play();
+				break;
+			case 'pause':
+				this.video.pause();
+				break;
+			case 'next':
+				let sec_left = video.duration - video.currentTime;
+				if(sec_left > 5){
+					karaoke.endedVideo();
+				}
+				break;
+			case 'repeat':
+				this.video.currentTime = 0;
+				break;
+			case 'volume':
+				let volSpan = parseFloat(valueTo);
+				let volumeAllFloat = volSpan / 100;
+				video.volume = volumeAllFloat;
+				this.last_volume = volumeAllFloat;
+				wait_mil = 1000;
+				$('#volumeSpan').html(volSpan + '%');
+				break;
+			case 'mute':
+				let volumeMuteFloat = parseFloat(video.volume.toFixed(2));
+				let volSpanMute = 0;
+				if(volumeMuteFloat <= 0){
+					video.volume = this.last_volume;
+					volSpanMute = this.last_volume * 100;
+				}else{
+					video.volume = 0;
+				}
+				$('#volumeSpan').html(volSpanMute + '%');
+				break;
+			default:
+				break;
+		}
 	}
 	mountWaitList(list, total)
 	{
