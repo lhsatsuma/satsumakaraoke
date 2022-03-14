@@ -44,11 +44,11 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-12 primary-row">
-							<p><button class="btn btn-outline-success btn-rounded" onclick="karaoke.removeInitial(1)" >1- TELA COMPLETA</button></p>
-							<p><button class="btn btn-outline-info btn-rounded" onclick="karaoke.removeInitial(2)" >2- APENAS VIDEO</button></p>
-							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(3)" >3- APENAS AS MUSICAS NA FILA</button></p>
-							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(4)" >4- MUSICAS NA FILA + CONTROLE REMOTO</button></p>
-							<p><button class="btn btn-outline-primary btn-rounded" onclick="karaoke.removeInitial(5)" >5- CONTROLE REMOTO</button></p>
+							<p><button class="btn btn-outline-success btn-rounded" id="type_screen_1" onclick="karaoke.removeInitial(1)" >1- TELA COMPLETA</button></p>
+							<p><button class="btn btn-outline-info btn-rounded" id="type_screen_2" onclick="karaoke.removeInitial(2)" >2- APENAS VIDEO</button></p>
+							<p><button class="btn btn-outline-primary btn-rounded" id="type_screen_3" onclick="karaoke.removeInitial(3)" >3- APENAS AS MUSICAS NA FILA</button></p>
+							<p><button class="btn btn-outline-primary btn-rounded" id="type_screen_4" onclick="karaoke.removeInitial(4)" >4- MUSICAS NA FILA + CONTROLE REMOTO</button></p>
+							<p><button class="btn btn-outline-primary btn-rounded" id="type_screen_5" onclick="karaoke.removeInitial(5)" >5- CONTROLE REMOTO</button></p>
 							</div>
 						</div>
 					</div>
@@ -58,7 +58,5 @@
 		<div id="bdKaraoke" class="row m-0"></div>
 	</body>
 	<script type="text/javascript" src="{$app_url}jsManager/Admin/Karaoke/karaoke.js?v={$ch_ver}"></script>
-	<script type="text/javascript">
-	karaoke = new KaraokeJS();
-	</script>
+	<script type="text/javascript">karaoke = new KaraokeJS();</script>
 </html>

@@ -18,6 +18,35 @@ class KaraokeJS{
 		this.numSongsList = 7;
 		this.last_volume = 1;
 		this.reset_line = true;
+		$(document).keyup(function(event) {
+			event.preventDefault();
+			if($('#InitialModal').length){
+				switch(event.which){
+					case 49:
+					case 97:
+						$('#type_screen_1').click();
+						break;
+					case 50:
+					case 98:
+						$('#type_screen_2').click();
+						break;
+					case 51:
+					case 99:
+						$('#type_screen_3').click();
+						break;
+					case 52:
+					case 100:
+						$('#type_screen_4').click();
+						break;
+					case 53:
+					case 101:
+						$('#type_screen_5').click();
+						break;
+					default:
+						break;
+				}
+			}
+		});
 	}
 	/*
 	* type 1 -> Complete (video, next songs)
@@ -94,6 +123,9 @@ class KaraokeJS{
 		}else if(this.typeScreen !== 5){
 			this.getThread();
 		}
+		setTimeout(() => { 
+			$('#InitialModal').remove();}
+		, 1500);
 	}
 	endedVideo()
 	{

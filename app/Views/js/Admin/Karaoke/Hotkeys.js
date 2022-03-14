@@ -2,7 +2,6 @@ getLastVolume();
 $(document).keyup(function(event) {
     event.preventDefault();
     let focusSearh = $('.swal2-container').length;
-    console.log(focusSearh);
     if(!focusSearh){
         switch(event.which){
             case 103:
@@ -34,5 +33,7 @@ $(document).keyup(function(event) {
             default:
                 break;
         }
+    }else if(event.which == 8 || event.which == 0){
+        $('.swal2-cancel').click();
     }
 });
