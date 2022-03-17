@@ -50,7 +50,7 @@ class KaraokeJS{
 		});
 	}
 	/*
-	* type 1 -> Complete (video, next songs)
+	* type 1 -> Complete (video, next songs, remote control)
 	* type 2 -> Video only
 	* type 3 -> next songs only
 	* type 4 -> next songs with remote control
@@ -74,6 +74,9 @@ class KaraokeJS{
 					this.search_list = false;
 				}
 				if(type == 1 || type == 2){
+					if(type == 1){
+						this.hotkeysTypeOne();
+					}
 					this.video = document.getElementById('video');
 					handleAjax({
 						dontFireError: true,
@@ -83,6 +86,8 @@ class KaraokeJS{
 								this.video.volume = res.detail.volume / 100;
 								this.last_volume = res.detail.volume / 100;
 								$('#volumeSpan').html(res.detail.volume + '%');
+								$('#volumeRange').val(res.detail.volume);
+								$('#volP').html(res.detail.volume+'%');
 							}
 						},
 						callbackAll: (res) => {
@@ -206,7 +211,7 @@ class KaraokeJS{
 			callback: (res) => {
 				if(res.detail){
 					if(res.detail.th && (this.typeScreen == 1 || this.typeScreen == 2)){
-						this.setVideoAction(res.detail.th.action, res.detail.th.valueTo);
+						wait_mil = this.setVideoAction(res.detail.th.action, res.detail.th.valueTo);
 					}
 					if(this.search_list){
 						this.mountWaitList(res.detail.s, res.detail.t);
@@ -242,7 +247,7 @@ class KaraokeJS{
 			}
 		})
 	}
-	setVideoAction(action, valTo)
+	setVideoAction(action, valueTo, wait_mil = 3000)
 	{
 		switch(action){
 			case 'play':
@@ -280,6 +285,7 @@ class KaraokeJS{
 				$('#volumeSpan').html(volSpanMute + '%');
 				break;
 			default:
+				return wait_mil;
 				break;
 		}
 	}
@@ -421,5 +427,75 @@ class KaraokeJS{
 				})
 			}
 		})
+	}
+	hotkeysTypeOne()
+	{
+		$(document).keyup(function(event) {
+			event.preventDefault();
+			let focusSearh = $('#RemoteControlType1').css('display') !== 'none';
+			if(focusSearh){
+				switch(event.which){
+					case 103:
+						karaoke.setVideoAction('play');
+						break;
+					case 105:
+						karaoke.setVideoAction('pause');
+						break;
+					case 100:
+						karaoke.setVideoAction('next');
+						break;
+					case 102:
+						karaoke.setVideoAction('repeat');
+						break;
+					case 96:
+						karaoke.setVideoAction('mute');
+						break;
+					case 97:
+						document.getElementById("volumeRange").stepDown(1);
+						karaoke.changedVolumeRange();
+						karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
+						break;
+					case 99:
+						document.getElementById("volumeRange").stepUp(1);
+						karaoke.changedVolumeRange();
+						karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
+						break;
+					default:
+						break;
+				}
+			}else if(event.which == 8 || event.which == 0){
+				$('.swal2-cancel').click();
+			}
+			if(event.which == 106){
+				$('#RemoteControlType1').toggle();
+				$('#SongLists').toggle();
+			}
+		});
+		document.getElementById('volumeRange').addEventListener('input', function() {
+			karaoke.changedVolumeRange();
+			karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
+		});
+	}
+	changedVolumeRange()
+	{
+		$('#volP').html($('#volumeRange').val()+'%');
+		handleAjax({
+			url: _APP.app_url+'Karaoke_ajax/k_set_thread',
+			dontFireError: true,
+			data: {
+				action: 'volume',
+				valueTo: $('#volumeRange').val(),
+				copy_only: 1,
+			},
+			beforeSend: () => {
+				showLoadingIcon($('#ControleRemotoModalLabel'));
+			},
+			callbackAll: (res) => {
+				hideLoadingIcon($('#ControleRemotoModalLabel'));
+			},
+			callbackError: (res) => {
+				showErrorIcon($('#ControleRemotoModalLabel'));
+			}
+		});
 	}
 }
