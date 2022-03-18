@@ -642,8 +642,7 @@ function fireErrorGeneric(msg = null){
         allowOutsideClick: false,
     };
 	if(msg){
-		argsFire.text = msg;
-		delete argsFire.html;
+		argsFire.html = msg;
 	}
     fireAndClose(argsFire);
 }

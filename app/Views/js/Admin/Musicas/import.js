@@ -47,7 +47,20 @@ function ajaxNextSearch()
                     }else{
                         $('.importLink_Name'+res.detail.len_link).val(fixNameUtf8(res.detail.title));
                     }
+                    if(links[linksDone][2]){
+                        $('.importLink_Tipo'+res.detail.len_link).val(links[linksDone][2]);
+                    }
                     $('.importLink_MD5'+res.detail.len_link).val(res.detail.md5);
+                    linksDone++;
+                    if(linksDone == links.length){
+                        setTimeout(() => {
+                            Swal.close();
+                            linksDone = 0;
+                        }, 1000);
+                    }else{
+                        ajaxNextSearch();
+                    }
+                }else{
                     linksDone++;
                     if(linksDone == links.length){
                         setTimeout(() => {

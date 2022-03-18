@@ -1,9 +1,8 @@
 <div class="row">
 	<div class="col-12">
+		<p>LINK|^|NOME|^|TIPO</p>
 		<textarea class="form-control" rows="10" id="links">
 		https://www.youtube.com/watch?v=_SJV7NWxzus&ab_channel=MuramatsuKaraoke&#10;
-https://www.youtube.com/watch?v=AiGzOT8l4mc&ab_channel=MuramatsuKaraoke&#10;
-https://www.youtube.com/watch?v=EWHP-lrzcQI&ab_channel=MuramatsuKaraoke
 		</textarea>
 	</div>
 	<div class="col-12 mt-2">

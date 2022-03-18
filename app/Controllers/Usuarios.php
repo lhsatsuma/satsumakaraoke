@@ -310,4 +310,14 @@ class Usuarios extends BaseController
 			rdct('/login');
 		}
 	}
+	public function reset_preferences()
+	{
+		$ajax = new \App\Libraries\Sys\Ajax();
+		$ajax->CheckIncoming();
+
+		$prefs = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
+		$deleted = $prefs->delPref(null, $this->mdl->auth_user_id, true);
+
+		$ajax->setSuccess(false);
+	}
 }

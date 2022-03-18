@@ -6,7 +6,6 @@ function addEventRowData()
 		});
 		
 	});
-	
 }
 addEventRowData();
 function OpenModalSelected(id){
@@ -242,4 +241,29 @@ function hideAlwaysPopupWizard()
 		dontFireError: true,
 		url: _APP.app_url+'musicas/hidePopupWizard',
 	});
+}
+
+var already_showedPopupWizard = false;
+function showPopupWizard()
+{
+	if(already_showedPopupWizard){
+		$('#helpSongsModal').modal('show');
+		return true;
+	}
+	fireLoading({
+		didOpen: () => {
+			Swal.showLoading();
+			handleAjax({
+				url: _APP.app_url+'musicas/showPopupWizard?bdOnly=1',
+				callback: (res) => {
+					Swal.close();
+					if(res.detail){
+						already_showedPopupWizard = true;
+						$('#helpSongsModal').html(res.detail);
+						$('#helpSongsModal').modal('show');
+					}
+				}
+			});
+		}
+	})
 }

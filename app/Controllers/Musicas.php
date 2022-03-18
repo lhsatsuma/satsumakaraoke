@@ -14,7 +14,7 @@ class Musicas extends BaseController
 	public function ExtButtonsGenericFilters()
 	{
 		$extBtns = [];
-		$extBtns['helpSongs'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#helpSongsModal"><i class="fas fa-info"></i></button>';
+		$extBtns['helpSongs'] = '<button class="btn btn-outline-info btn-rounded" type="button" onclick="showPopupWizard()"><i class="fas fa-info"></i></button>';
 		if(hasPermission(1003, 'r')){
 			$extBtns['import'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i> Importar</button>';
 		}
@@ -66,8 +66,6 @@ class Musicas extends BaseController
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
-
-		
 
 		$hideInfoPopup = \App\Models\PreferenciasUsuario\PreferenciasUsuario::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
@@ -197,10 +195,17 @@ class Musicas extends BaseController
 		}
 		$AjaxLib->setSuccess($saved_record);
 	}
+
+	public function showPopupWizard()
+	{
+		$hideInfoPopup = \App\Models\PreferenciasUsuario\PreferenciasUsuario::getPreference('hideInfoPopup');
+		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
+
+		return $this->displayNew('pages/Musicas/popupWizard');
+	}
 	
 	public function hidePopupWizard()
 	{
-		
 		$AjaxLib = new \App\Libraries\Sys\Ajax();
 		
 		$mdl = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();

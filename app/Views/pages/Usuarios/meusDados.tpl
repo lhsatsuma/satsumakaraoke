@@ -58,6 +58,8 @@
 		<div class="col-12">
 			<button type="button" class="btn btn-outline-success btn-rounded margin-5" onclick="ValidateForm('EditarForm')"><i class="fas fa-save"></i> Atualizar</button>
 			<a href="{$app_url}home" class="btn btn-outline-warning btn-rounded margin-5"><i class="fas fa-undo"></i> Cancelar</a>
+			<button type="button" class="btn btn-outline-primary btn-rounded margin-5" onclick="resetPreferences()"><i class="fas fa-undo"></i> Resetar Preferências</button>
 		</div>
 	</div>
 </form>
+<script type="text/javascript" src="{$app_url}jsManager/Usuarios/meusDados.js?v={$ch_ver}"></script>

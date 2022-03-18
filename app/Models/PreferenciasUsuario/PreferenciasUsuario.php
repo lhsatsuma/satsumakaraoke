@@ -102,19 +102,24 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 		return $this->saveRecord();
 	}
 
-	public function delPref(string $name=null, string $user = null)
+	public function delPref(string $name=null, string $user = null, $reset = false)
 	{
 		$this->select = "id";
-		if($name){
+		if($reset){
+			$this->where['name'] = ['DIFF', 'timezone_user'];
+		}elseif($name){
 			$this->where['name'] = $name;
 		}
 		$this->where['user_created'] = ($user) ? $user : $this->auth_user_id;
-
+		$success = true;
 		foreach($this->search() as $result){
 			$this->f = [];
 			$this->f['id'] = $result['id'];
-			$this->deleteRecord();
+			if(!$this->deleteRecord()){
+				$success = false;
+			}
 		}
+		return $success;
 	}
 }
 ?>
