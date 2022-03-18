@@ -9,9 +9,14 @@
 					<label for="ImportModalLink">Como funciona?</label>
 					<ul>
 						<li>Você pode buscar músicas através da caixa geral pesquisando por name, cantor, codigo ou idioma.</li>
-						<li>Caso queira cantar uma música, clique sobre ela, e confirme se você deseja colocar na fila.<br />
-						<img src="{$app_url}images/tutorial_musics/1.png" style="width: 100%"/></li>
-						<li>Automaticamente sua música estará na fila e você poderá acompanhar através da tela principal ou pelo menu "Músicas na Fila".</li>
+						<li><p>Caso queira cantar uma música, clique sobre ela, e confirme se você deseja colocar na fila.</p>
+						<p><img src="{$app_url}images/tutorial_musics/1.png" style="width: 100%"/></p></li>
+						<li><p>Automaticamente sua música estará na fila e você poderá acompanhar através da tela principal ou pelo menu "Músicas na Fila".</p>
+						<p><img src="{$app_url}images/tutorial_musics/5.png" style="width: 100%"/></p></li>
+						<li><p>Você pode buscar pelo que estão em seu nome, todos ou até mesmo as músicas que já foram colocadas anteriormente.</p>
+						<p><img src="{$app_url}images/tutorial_musics/6.png" style="width: 100%"/></p></li>
+						<li><p>Ao clicar na música, você pode inseri-la na fila novamente.</p>
+						<p><img src="{$app_url}images/tutorial_musics/7.png" style="width: 100%"/></p></li>
 					</ul>
 				</div>
 				<div class="col-12 margin-b-10">
@@ -26,9 +31,9 @@
 					<ul>
 						<li>Ao clicar em cima de uma música, você pode colocá-la nos favoritos ou removê-la.</li>
 						<img src="{$app_url}images/tutorial_musics/2.png" style="width: 100%"/></li>
-						<li>A música favoritada estará disponível para busca através do botão de busca avançada.</li>
-						<img src="{$app_url}images/tutorial_musics/3.png" style="width: 100%"/></li>
-						<img src="{$app_url}images/tutorial_musics/4.png" style="width: 100%"/></li>
+						<li><p>A música favoritada estará disponível para busca através do botão de busca avançada.</p>
+						<p><img src="{$app_url}images/tutorial_musics/3.png" style="width: 100%"/></p>
+						<p><img src="{$app_url}images/tutorial_musics/4.png" style="width: 100%"/></p></li>
 					</ul>
 				</div>
 				<div class="col-12 margin-b-10">

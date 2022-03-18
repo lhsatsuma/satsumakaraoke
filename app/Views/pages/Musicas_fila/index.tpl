@@ -3,8 +3,8 @@
 	<input type="hidden" id="search_status" name="search_status" value="{$search_status}"/>
 	<div class="row">
 		<div class="col-12">
-			<p><button class="btn btn-outline-{$color_user_created} btn-rounded search-button" id="SearchByAssigned">Filtrar por Meu name {$icon_user_created}</button>
-				<button class="btn btn-outline-{$color_status_pendente} btn-rounded search-button" id="SearchByPendente">Filtrar pelos Pendentes {$icon_status_pendente}</button>
+			<p><button class="btn btn-outline-{$color_user_created} btn-rounded search-button" id="SearchByAssigned">Filtrar por Meu Nome {$icon_user_created}</button>
+				<button class="btn btn-outline-{$color_status_pendente} btn-rounded search-button" id="SearchByPendente">Filtrar por Pendentes {$icon_status_pendente}</button>
 			</p>
 		</div>
 	</div>
