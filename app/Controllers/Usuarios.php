@@ -318,6 +318,6 @@ class Usuarios extends BaseController
 		$prefs = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
 		$deleted = $prefs->delPref(null, $this->mdl->auth_user_id, true);
 
-		$ajax->setSuccess(false);
+		$ajax->setSuccess($deleted);
 	}
 }
