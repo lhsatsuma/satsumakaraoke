@@ -9,29 +9,25 @@ function resetPreferences()
         focusConfirm: true,
     }).then((result) => {
         if(result.isConfirmed){
-            fireLoading({
-                didOpen: () => {
-                    Swal.showLoading();
-                    handleAjax({
-                        url: _APP.app_url+'usuarios/reset_preferences',
-                        callback: (res) => {
-                            Swal.close();
-                            if(res.detail){
-                                Swal.fire({
-                                    title: 'Preferências resetadas com sucesso!',
-                                    text: '',
-                                    icon: 'success',
-                                    width: '400px',
-                                    showConfirmButton: false,
-                                    timer: 2000,
-                                    timerProgressBar: true
-                                });
-                            }else{
-                                fireErrorGeneric('<p>Ocorreu um erro ao resetar suas preferências.</p><p>Entre em contato com o administrador');
-                            }
-                        },
-                    });
-                }
+            fireAjaxLoading({
+                url: _APP.app_url+'usuarios/reset_preferences',
+                callback: (res) => {
+                    toggleDarkMode(true, 1);
+                    Swal.close();
+                    if(res.detail){
+                        Swal.fire({
+                            title: 'Preferências resetadas com sucesso!',
+                            text: '',
+                            icon: 'success',
+                            width: '400px',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true
+                        });
+                    }else{
+                        fireErrorGeneric('<p>Ocorreu um erro ao resetar suas preferências.</p><p>Entre em contato com o administrador');
+                    }
+                },
             })
         }
     });

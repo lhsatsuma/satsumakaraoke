@@ -533,34 +533,31 @@ function GoToPage(elm, page)
 
 			let formValues = Object.fromEntries(formData.entries());
 
-			fireLoading({
+			fireAjaxLoading({
+				url: action+'?bdOnly=1',
+				dontfireError: true,
+				data: JSON.stringify(formValues),
+				callback: (res) => {
+					$('#filtroForm').parent().find('.tb-rst-fltr').remove();
+					$('#filtroForm').parent().find('.table-pagination').remove();
+					$('#filtroForm').after(res.detail);
+					orderByFiltro();
+					if(typeof addEventRowData != 'undefined'){
+						addEventRowData();
+					}
+					window.history.pushState({"html":document.html,"pageTitle":document.pageTitle},"", action);
+					window.scrollTo(0,0);
+				},
+				callbackError: (res) => {
+					fireErrorGeneric();
+				},
+				callbackAll: (res) => {
+					Swal.close();
+				}
+			},
+			{
 				title: 'Aguarde...',
 				text: 'Estamos buscando os registros...',
-				didOpen: () => {
-					Swal.showLoading();
-					handleAjax({
-						url: action+'?bdOnly=1',
-						dontfireError: true,
-						data: JSON.stringify(formValues),
-						callback: (res) => {
-							$('#filtroForm').parent().find('.tb-rst-fltr').remove();
-							$('#filtroForm').parent().find('.table-pagination').remove();
-							$('#filtroForm').after(res.detail);
-							orderByFiltro();
-							if(typeof addEventRowData != 'undefined'){
-								addEventRowData();
-							}
-							window.history.pushState({"html":document.html,"pageTitle":document.pageTitle},"", action);
-							window.scrollTo(0,0);
-						},
-						callbackError: (res) => {
-							fireErrorGeneric();
-						},
-						callbackAll: (res) => {
-							Swal.close();
-						}
-					});
-				}
 			});
 		}else{
 			$('#filtroForm').attr('action', action);
@@ -626,13 +623,14 @@ function fireLoading(args = {}){
     fireAndClose(argsFire);
 }
 
-function fireAjaxLoading(args = {}){
-	fireLoading({
+function fireAjaxLoading(args = {}, argsLoading = {}){
+	argsLoading = $.extend(argsLoading, {
 		didOpen: () => {
 			Swal.showLoading();
 			handleAjax(args);
 		}
 	});
+	fireLoading(argsLoading);
 }
 function fireErrorGeneric(msg = null){
 	let argsFire = {
@@ -678,6 +676,7 @@ function handleAjax(args){
 			"X-Requested-With": "XMLHttpRequest"
 		},
         success: function(d){
+			Swal.close();
             if(!!d.status){
 				if(typeof args.callback == 'function'){
                 	args.callback(d);
@@ -695,6 +694,7 @@ function handleAjax(args){
             }
         },
         error: function(d){
+			Swal.close();
             let r = d.responseJSON;
 			if(!args.dontFireError){
 				if(!!r && !!r.detail){
@@ -767,9 +767,9 @@ document.setScrollTop = function(y) {
 	window.scrollTo(0, y);
 }
 
-function toggleDarkMode(setAjax = true)
+function toggleDarkMode(setAjax = true, force_off = false)
 {
-	if($('#darkmodecss').length > 0){
+	if($('#darkmodecss').length > 0 || force_off){
 		$('#darkmodecss').remove();	
 		localStorage.dark_mode_active = 0;
 	}else{

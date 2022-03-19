@@ -42,26 +42,21 @@ function OpenModalSelected(id){
 }
 $('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
-	fireLoading({
-		didOpen: () => {
-			Swal.showLoading();
-			handleAjax({
-				url: _APP.app_url+'musicas/insert_fila_ajax',
-				data: JSON.stringify({
-					id: $('#IdInsertModal').val(),
-				}),
-				callback: (res) => {
-					Swal.close();
-					Swal.fire({
-						title: 'Música inserida na fila com sucesso!',
-						text: '',
-						icon: 'success',
-						width: '400px',
-						showConfirmButton: false,
-						timer: 1000,
-						timerProgressBar: true
-					});
-				}
+	fireAjaxLoading({
+		url: _APP.app_url+'musicas/insert_fila_ajax',
+		data: JSON.stringify({
+			id: $('#IdInsertModal').val(),
+		}),
+		callback: (res) => {
+			Swal.close();
+			Swal.fire({
+				title: 'Música inserida na fila com sucesso!',
+				text: '',
+				icon: 'success',
+				width: '400px',
+				showConfirmButton: false,
+				timer: 1000,
+				timerProgressBar: true
 			});
 		}
 	})

@@ -28,63 +28,55 @@ function OpenModalSelected(id){
 }
 $('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
-	fireLoading({
-		toast: true,
-		position: 'top-end',
-		didOpen: () => {
-			Swal.showLoading();
-			handleAjax({
-				url: _APP.app_url+'musicas/insert_fila_ajax',
-				data: JSON.stringify({
-					id: $('#IdInsertModal').val(),
-				}),
-				callback: (res) => {
-					Swal.close();
-					Swal.fire({
-						toast: true,
-						position: 'top-end',
-						title: 'Música adicionada na fila!',
-						text: '',
-						icon: 'success',
-						width: '400px',
-						showConfirmButton: false,
-						timer: 2000,
-						timerProgressBar: true
-					});
-				}
+	fireAjaxLoading({
+		url: _APP.app_url+'musicas/insert_fila_ajax',
+		data: JSON.stringify({
+			id: $('#IdInsertModal').val(),
+		}),
+		callback: (res) => {
+			Swal.close();
+			Swal.fire({
+				toast: true,
+				position: 'top-end',
+				title: 'Música adicionada na fila!',
+				text: '',
+				icon: 'success',
+				width: '400px',
+				showConfirmButton: false,
+				timer: 2000,
+				timerProgressBar: true
 			});
 		}
+	},
+	{
+		toast: true,
+		position: 'top-end',
 	})
 });
 $('#InsertFavoriteBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
-	fireLoading({
-		didOpen: () => {
-			Swal.showLoading();
-			handleAjax({
-				url: _APP.app_url+'musicas/insert_favorite_ajax',
-				data: JSON.stringify({
-					id: $('#IdInsertModal').val(),
-					rmv: ($('#itsFavorite').val() == '2') ? true : false,
-				}),
-				callback: (res) => {
-					if($('#itsFavorite').val() == '2'){
-						$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '1');
-					}else{
-						$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '2');
-					}
-					console.log('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]');
-					Swal.close();
-					Swal.fire({
-						title: 'Música '+(($('#itsFavorite').val() == '2') ? 'removida' : 'adicionada')+' nos favoritos!',
-						text: '',
-						icon: 'success',
-						width: '400px',
-						showConfirmButton: false,
-						timer: 1000,
-						timerProgressBar: true
-					});
-				}
+	fireAjaxLoading({
+		url: _APP.app_url+'musicas/insert_favorite_ajax',
+		data: JSON.stringify({
+			id: $('#IdInsertModal').val(),
+			rmv: ($('#itsFavorite').val() == '2') ? true : false,
+		}),
+		callback: (res) => {
+			if($('#itsFavorite').val() == '2'){
+				$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '1');
+			}else{
+				$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '2');
+			}
+			console.log('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]');
+			Swal.close();
+			Swal.fire({
+				title: 'Música '+(($('#itsFavorite').val() == '2') ? 'removida' : 'adicionada')+' nos favoritos!',
+				text: '',
+				icon: 'success',
+				width: '400px',
+				showConfirmButton: false,
+				timer: 1000,
+				timerProgressBar: true
 			});
 		}
 	})
@@ -250,20 +242,15 @@ function showPopupWizard()
 		$('#helpSongsModal').modal('show');
 		return true;
 	}
-	fireLoading({
-		didOpen: () => {
-			Swal.showLoading();
-			handleAjax({
-				url: _APP.app_url+'musicas/showPopupWizard?bdOnly=1',
-				callback: (res) => {
-					Swal.close();
-					if(res.detail){
-						already_showedPopupWizard = true;
-						$('#helpSongsModal').html(res.detail);
-						$('#helpSongsModal').modal('show');
-					}
-				}
-			});
+	fireAjaxLoading({
+		url: _APP.app_url+'musicas/showPopupWizard?bdOnly=1',
+		callback: (res) => {
+			Swal.close();
+			if(res.detail){
+				already_showedPopupWizard = true;
+				$('#helpSongsModal').html(res.detail);
+				$('#helpSongsModal').modal('show');
+			}
 		}
 	})
 }

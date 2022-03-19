@@ -349,7 +349,7 @@ class KaraokeJS{
 			title: 'Insira o código',
 			input: 'text',
 			inputAttributes: {
-			autocapitalize: 'off'
+				autocapitalize: 'off'
 			},
 			showCancelButton: true,
 			confirmButtonText: 'Buscar',
@@ -359,71 +359,63 @@ class KaraokeJS{
 			}
 		}).then((result) => {
 			if(result.isConfirmed){
-				fireLoading({
-					title: 'Buscando música...',
-					didOpen: () => {
-						Swal.showLoading();
-						handleAjax({
-							dontFireError: true,
-							url: karaoke.url+'k_search_music',
-							data: JSON.stringify({'code': result.value}),
-							callback: (res) => {
-								Swal.close();
-								if(res.detail){
-									Swal.fire({
-										title: 'Deseja inserir na fila?',
-										icon: 'question',
-										text: '['+res.detail.codigo+'] '+res.detail.name,
-										showCloseButton: true,
-										showCancelButton: true,
-										focusConfirm: true,
-									}).then((result) => {
-										if(result.isConfirmed){
-											fireLoading({
-												toast: true,
-												position: 'top-end',
-												didOpen: () => {
-													Swal.showLoading();
-													handleAjax({
-														url: _APP.app_url+'musicas/insert_fila_ajax',
-														data: JSON.stringify({'id': res.detail.id}),
-														callback: (res) => {
-															Swal.close();
-															if(res.detail){
-																Swal.fire({
-																	toast: true,
-																	position: 'top-end',
-																	title: 'Música adicionada na fila!',
-																	text: '',
-																	icon: 'success',
-																	width: '400px',
-																	showConfirmButton: false,
-																	timer: 2000,
-																	timerProgressBar: true
-																});
-															}
-														},
-													});
-												}
-											})
-										}
+				fireAjaxLoading({
+					dontFireError: true,
+					url: karaoke.url+'k_search_music',
+					data: JSON.stringify({'code': result.value}),
+					callback: (res) => {
+						if(res.detail){
+							Swal.fire({
+								title: 'Deseja inserir na fila?',
+								icon: 'question',
+								text: '['+res.detail.codigo+'] '+res.detail.name,
+								showCloseButton: true,
+								showCancelButton: true,
+								focusConfirm: true,
+							}).then((result) => {
+								if(result.isConfirmed){
+									fireAjaxLoading({
+										url: _APP.app_url+'musicas/insert_fila_ajax',
+										data: JSON.stringify({'id': res.detail.id}),
+										callback: (res) => {
+											Swal.close();
+											if(res.detail){
+												Swal.fire({
+													toast: true,
+													position: 'top-end',
+													title: 'Música adicionada na fila!',
+													text: '',
+													icon: 'success',
+													width: '400px',
+													showConfirmButton: false,
+													timer: 2000,
+													timerProgressBar: true
+												});
+											}
+										},
+									},
+									{
+										toast: true,
+										position: 'top-end',
 									})
 								}
-							},
-							callbackError: (res) => {
-								if(res.error_msg){
-									fireAndClose({
-										title: res.error_msg,
-										html: '',
-										icon: 'warning',
-										allowOutsideClick: false,
-									});
-								}else{
-									fireErrorGeneric();
-								}
-							}
-						})
+							})
+						}
+					},
+					callbackError: (res) => {
+						if(res.error_msg){
+							fireAndClose({
+								title: res.error_msg,
+								html: '',
+								icon: 'warning',
+								allowOutsideClick: false,
+							});
+						}else{
+							fireErrorGeneric();
+						}
 					}
+				}, {
+					title: 'Buscando música...'
 				})
 			}
 		})
