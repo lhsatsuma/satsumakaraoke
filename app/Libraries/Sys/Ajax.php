@@ -53,7 +53,7 @@ class Ajax{
 	public function setSuccess($data = null)
 	{
 		$this->data['status'] = 1;
-		if($data){
+		if(!is_null($data)){
 			$this->data['detail'] = $data;
 		}
 		$this->setAjax();

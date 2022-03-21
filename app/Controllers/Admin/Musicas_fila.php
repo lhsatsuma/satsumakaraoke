@@ -5,50 +5,37 @@ class Musicas_fila extends AdminBaseController
 {
 	public $module_name = 'MusicasFila';
 
+	public function ExtButtonsGenericFilters()
+	{
+		return [
+			'clearWaitList' => '<button class="btn btn-outline-warning btn-rounded" type="button" id="clearWaitList"><i class="fas fa-times-circle"></i> Limpar todas as músicas na fila</button>'
+		];
+	}
+
 	public function index($offset=0)
 	{
 		$this->data['title'] = 'Músicas na Fila';
-		
-		$initial_filter = array(
-			'user_created' => '',
-			'status' => 'pendente',
+
+		$this->filterLib_cfg = array(
+			'use' => true,
+			'action' => base_url().'/admin/musicas_fila/index',
+			'generic_filter' => array(
+				'name',
+				'status',
+			),
 		);
+
 		$initial_order_by = array(
 			'field' => 'date_created',
 			'order' => 'DESC',
 		);
-		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
+
+		$this->PopulateFiltroPost([], $initial_order_by);
 		
 		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		
 		$result = $this->mdl->formatRecordsView($result);
-		foreach($result as $key => $fields){
-			$result[$key]['ordem'] = $key + 1;
-		}
 		$this->data['records'] = $result;
-		
-		
-		$icon_search = '<i class="far fa-times-circle"></i>';
-		if($this->filter['user_created']['value']){
-			$this->data['color_user_created'] = 'warning';
-			$this->data['icon_user_created'] = $icon_search;
-		}else{
-			$this->data['color_user_created'] = 'success';
-			$this->data['icon_user_created'] = '';
-		}
-		
-		$this->data['color_status_pendente'] = 'success';
-		$this->data['icon_status_pendente'] = '';
-		$this->data['color_status_encerrado'] = 'success';
-		$this->data['icon_status_encerrado'] = '';
-		
-		if($this->filter['status']['value'] == 'pendente'){
-			$this->data['color_status_pendente'] = 'warning';
-			$this->data['icon_status_pendente'] = $icon_search;
-		}elseif($this->filter['status']['value'] == 'encerrado'){
-			$this->data['color_status_encerrado'] = 'warning';
-			$this->data['icon_status_encerrado'] = $icon_search;
-		}
 		
 		return $this->displayNew('pages/Admin/Musicas_fila/index');
 	}
@@ -73,6 +60,25 @@ class Musicas_fila extends AdminBaseController
 		$this->mdl->f['status'] = 'pendente';
 		$saved_record = $this->mdl->saveRecord();
 		$AjaxLib->setSuccess($saved_record);
+		
+	}
+	
+	public function clear_waitlist()
+	{
+		
+		$AjaxLib = new \App\Libraries\Sys\Ajax();
+		
+		$this->mdl = new \App\Models\MusicasFila\MusicasFila();
+		
+		$this->mdl->select = "id";
+		$count = 0;
+		foreach($this->mdl->search() as $record){
+			$this->select = "id";
+			$this->mdl->f['id'] = $record['id'];
+			$this->mdl->deleteRecord();
+			$count++;
+		}
+		$AjaxLib->setSuccess($count);
 		
 	}
 }

@@ -66,7 +66,7 @@ class MusicasFila extends \App\Models\Basic\Basic
 			'validations' => 'required',
 		),
 		'status' => array(
-			'lbl' => 'Origem',
+			'lbl' => 'Status',
 			'type' => 'dropdown',
 			'len' => 255,
 			'parameter' => 'status_musicas_fila_list',

@@ -131,15 +131,15 @@ class Basic extends Model
 		if(!$this->force_deleted){
 			$this->helper->where('deleted', '0');
 		}
-		$query = $this->helper->get(1);
-		
-		if ($this->db->error()['message']) {
+		try{
+			$query = $this->helper->get(1);
+			log_message('debug', (string)$this->db->getLastQuery());
+			if($query->resultID->num_rows > 0){
+				return $query->getResult('array')[0];
+			}
+		}catch(Exception $e){
 			$this->registerLastError("Error fetching total rows: ");
 			return null;
-        }
-		
-		if($query->resultID->num_rows > 0){
-			return $query->getResult('array')[0];
 		}
 		return false;
 	}
@@ -444,6 +444,7 @@ class Basic extends Model
 			}
 			return array();
 		}catch(Exception $e){
+			log_message('debug', (string)$this->db->getLastQuery());
 			if ($this->db->error()['message']) {
 				$this->registerLastError("Error fetching total rows: ");
 				return null;

@@ -87,9 +87,9 @@ class Internal extends AdminBaseController
             }
         }
 
-        $msg_return = 'Arquivos cache deleteds com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return = 'Arquivos cache deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
-        $msg_return .= "<br/>{$deleted} arquivo(s) foram deleted(s).";
+        $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
 
         $this->setMsgData('success', $msg_return);
         rdct('/admin/internal/index');
@@ -116,7 +116,7 @@ class Internal extends AdminBaseController
         $msg_return = 'Sessões deletadas com sucesso! Tempo: '.$this->calcExectime().'ms';
 
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
-        $msg_return .= "<br/>{$deleted} arquivo(s) foram deleted(s).";
+        $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
 
         $this->setMsgData('success', $msg_return);
         rdct('/admin/internal/index');
@@ -129,6 +129,7 @@ class Internal extends AdminBaseController
         */
 
         $model = new \CodeIgniter\Model();
+        $model->setTable('usuarios');
 
         $tables = $model->listTables();
 
@@ -144,13 +145,13 @@ class Internal extends AdminBaseController
                 $countTotal = $model->query("SELECT count(*) as total FROM {$table} WHERE deleted = '1'");
                 $result = (int)$countTotal->getResult()[0]->total;
 
-                $tables_msg .= "<br/>Tabela {$table} possui {$result} registros deleteds";
+                $tables_msg .= "<br/>Tabela {$table} possui {$result} registros deletados";
 
                 if($result > 0){
                     $query = $model->query("DELETE FROM {$table} WHERE deleted = '1'");
                     if($query){
                         $affected = $model->affectedRows();
-                        $tables_msg .= "<br/>{$affected} registros deleteds da tabela {$table}";
+                        $tables_msg .= "<br/>{$affected} registros deletados da tabela {$table}";
                     }else{
                         $tables_msg .= "<br/>Ocorreu um erro ao deletar os registros da tabela {$table}";
                     }
@@ -159,7 +160,7 @@ class Internal extends AdminBaseController
                 $tables_msg .= "<br/>Tabela {$table} não possui campo deleted";
             }
         }
-        $msg_return = 'Registros deleteds com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return = 'Registros deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= $tables_msg;
         
         $this->setMsgData('success', $msg_return);
@@ -189,9 +190,9 @@ class Internal extends AdminBaseController
             }
         }
 
-        $msg_return = 'Arquivos uploads deleteds com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return = 'Arquivos uploads deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
-        $msg_return .= "<br/>{$deleted} arquivo(s) foram deleted(s).";
+        $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
         
         $this->setMsgData('success', $msg_return);
         rdct('/admin/internal/index');
@@ -224,9 +225,9 @@ class Internal extends AdminBaseController
                 }
             }
         }
-        $msg_return = 'Arquivos uploads deleteds com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return = 'Arquivos uploads deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$total_files} arquivo(s) encontrado(s) na pasta.";
-        $msg_return .= "<br/>{$deleted} arquivo(s) irão ser deleted(s).";
+        $msg_return .= "<br/>{$deleted} arquivo(s) irão ser deletado(s).";
 
         if($cmd_del){
             $msg_return .= "<br/>
