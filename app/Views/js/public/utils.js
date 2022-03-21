@@ -676,7 +676,9 @@ function handleAjax(args){
 			"X-Requested-With": "XMLHttpRequest"
 		},
         success: function(d){
-			Swal.close();
+			if(!args.dontClose){
+				Swal.close();
+			}
             if(!!d.status){
 				if(typeof args.callback == 'function'){
                 	args.callback(d);

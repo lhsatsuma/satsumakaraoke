@@ -26,6 +26,7 @@ function ajaxNextSearch()
     if(linksDone < links.length){
         handleAjax({
             url: _APP.app_url+'musicas/CheckImportVideo',
+            dontClose: linksDone != links.length-1,
             data: JSON.stringify({ 
                 link: links[linksDone][0],
                 len_link: linksDone,
@@ -53,20 +54,13 @@ function ajaxNextSearch()
                     $('.importLink_MD5'+res.detail.len_link).val(res.detail.md5);
                     linksDone++;
                     if(linksDone == links.length){
-                        setTimeout(() => {
-                            Swal.close();
-                            linksDone = 0;
-                        }, 1000);
+                        linksDone = 0;
                     }else{
                         ajaxNextSearch();
                     }
                 }else{
-                    linksDone++;
                     if(linksDone == links.length){
-                        setTimeout(() => {
-                            Swal.close();
-                            linksDone = 0;
-                        }, 1000);
+                        linksDone = 0;
                     }else{
                         ajaxNextSearch();
                     }
@@ -76,10 +70,7 @@ function ajaxNextSearch()
                 console.log('Error searching Ajax');
                 linksDone++;
                 if(linksDone == links.length){
-                    setTimeout(() => {
-                        Swal.close();
-                        linksDone = 0;
-                    }, 1000);
+                    linksDone = 0;
                 }else{
                     ajaxNextSearch();
                 }
