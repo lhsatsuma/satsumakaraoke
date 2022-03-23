@@ -28,7 +28,8 @@ class SendEmail{
 		$this->mailer->Password = $this->mailCI->SMTPPass;
 		$this->mailer->From = $this->mailCI->fromEmail;
 		$this->mailer->FromName = $this->mailCI->fromName;
-		$this->mailer->SMTPDebug = 3;
+		$this->mailer->SMTPDebug = 2;
+		$this->mailer->CharSet = 'utf-8';
 		$this->mailer->Debugoutput = function($str, $level) {
 			log_message('debug', "$level: $str\n");
 		};
@@ -54,7 +55,7 @@ class SendEmail{
 		if(!$sended){
 			log_message('error', 'Error sending email: '.$this->mailer->ErrorInfo);
 		}
-		return $this->mailer->Send();
+		return $sended;
 	}
 	
 	public function setBodyTemplate($name, Array $data = [])
