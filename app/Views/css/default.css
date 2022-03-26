@@ -1204,3 +1204,7 @@ body.swal2-shown { overflow-y: none !important; }
 .swal2-input{
     color: #dfdfdf !important;
 }
+
+.carousel-control-next-icon{
+    box-shadow: #000000;
+}

@@ -9,7 +9,7 @@
 	<tbody>
 		{if empty($records)}
 		<tr>
-			<td colspan="2">Nenhum registro encontrada!</td>
+			<td colspan="2">Nenhum registro encontrado!</td>
 		</tr>
 		{else}
 		{assign var="rankTop" value="1"}

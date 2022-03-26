@@ -454,6 +454,29 @@ class Internal extends AdminBaseController
         rdct('/admin/internal/index');
     }
 
+    public function reconstructTotalMusics()
+    {
+        $model = new \App\Models\Musicas\Musicas();
+        $model->select = "count(*) as total, tipo";
+        $model->group_by = 'tipo';
+
+        $results = $model->search();
+        $json = [
+            'total' => 0
+        ];
+        foreach($results as $result){
+            $result['tipo'] = str_replace("/", "", strtolower($result['tipo']));
+            $json['total'] += $result['total'];
+            $json[$result['tipo']] = $result['total'];
+        }
+        file_put_contents(WRITEPATH . 'cache/total_musics.json', json_encode($json));
+        $msg_return = 'Reordenação de códigos de músicas realizado com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return .= "<br/>{$json['total']} registro(s) encontrado(s) na tabela.";
+        
+        $this->setMsgData('success', $msg_return);
+        rdct('/admin/internal/index');
+    }
+
     private function getTypeFieldDB(string $type)
     {
         $returnVal = $type;

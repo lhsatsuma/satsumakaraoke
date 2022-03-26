@@ -114,6 +114,12 @@ class Menus extends \App\Models\Basic\Basic
 		['ativo', 'tipo', 'deleted'],
 	];
 
+	public function after_save(string $operation = null)
+	{
+		$this->session->remove('arr_menu_template');
+		$this->session->remove('arr_menu_template_admin');
+	}
+
 	public function mountArrayMenus($type = 'public')
 	{
 		$this->reset();
@@ -127,7 +133,6 @@ class Menus extends \App\Models\Basic\Basic
 		}
 		$this->order_by['tipo'] = 'ASC';
 		$this->order_by['ordem'] = 'ASC';
-
 
 		$menus = [];
 		foreach($this->search() as $menu_result){

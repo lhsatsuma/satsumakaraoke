@@ -43,6 +43,14 @@
             <td>Deletar músicas não existentes no banco de dados</td>
             <td>É isso</td>
         </tr>
+        <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'reorderMusics')">
+            <td>Reordenar codigos</td>
+            <td>É isso</td>
+        </tr>
+        <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'reconstructTotalMusics')">
+            <td>Reconstruir totais de músicas</td>
+            <td>Reconstrói arquivo JSON com os totais de músicas.</td>
+        </tr>
 	</tbody>
 </table>
 <script type="text/javascript" src="{$app_url}jsManager/Admin/Internal/index.js?v={$ch_ver}"></script>

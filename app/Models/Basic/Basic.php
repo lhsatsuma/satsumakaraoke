@@ -16,7 +16,7 @@ class Basic extends Model
 	public $order_by = array();
 	public $select = '*';
 	public $join = array();
-	public $group_by = array();
+	public $group_by = '';
 	public $last_error = '';
 	public $id_by_name = false;
 	public $page_as_offset = false;
@@ -118,7 +118,7 @@ class Basic extends Model
 		$this->order_by = array();
 		$this->select = '*';
 		$this->join = array();
-		$this->group_by = array();
+		$this->group_by = '';
 	}
 	
 	/*
