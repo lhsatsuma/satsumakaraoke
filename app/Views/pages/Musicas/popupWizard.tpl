@@ -4,6 +4,10 @@
 			<h6 class="modal-title" id="helpSongsModalLabel">Ajuda sobre as músicas</h6>
 		</div>
 		<div class="modal-body">
+			<div class="d-flex flex-row-reverse">
+				{if $showPopupWizard}<button type="button" class="btn btn-outline-success btn-rounded" onclick="hideAlwaysPopupWizard()">Não mostrar novamente</button>{/if}
+				<button type="button" class="btn btn-outline-info btn-rounded mr-2" data-dismiss="modal">Fechar</button> 
+			</div>
 			<div class="row">
 				<div class="col-12 margin-b-10">
 					<label for="ImportModalLink">Como funciona?</label>

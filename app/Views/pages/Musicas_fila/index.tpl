@@ -16,7 +16,7 @@
 		<thead>
 			<tr>
 				<th scope="col" class="ptr" dt-h-field="user_created" onclick="OrderByFiltro('user_created')">Usuário</th>
-				<th scope="col" class="ptr" dt-h-field="musicas_id" onclick="OrderByFiltro('musicas_id')">Nome</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">Número - Música</th>
 				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
 				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">Data</th>
 			</tr>
@@ -30,8 +30,8 @@
 			{foreach from=$records item=campos}
 			<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}">
 				<input type="hidden" dt-r-musica_id="{$campos.musica_id}" />
-				<td dt-r-user_created_name="{$user_created_name}"> {$campos.user_created_name} </td>
-				<td dt-r-musica_id_name="{$campos.musica_id_name}">{$campos.musica_id_name}</td>
+				<td dt-r-user_created_name="{$user_created_name}">{$campos.user_created_name} </td>
+				<td dt-r-musica_id_name="{$campos.musica_id_name}">[#{$campos.name}] {$campos.musica_id_name}</td>
 				<td dt-r-status="{$campos.status}">{$campos.status}</td>
 				<td class="d-none d-lg-table-cell" dt-r-date_created="{$campos.date_created}">{$campos.date_created}</td>
 			</tr>
