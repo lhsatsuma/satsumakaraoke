@@ -362,7 +362,7 @@ class KaraokeJS{
 				if(total - 1 > totalDisplay){
 					let leftSongs = total - totalDisplay - 1;
 					if($('#SongListsDivCenter').length){
-						$('#SongListsDivCenter').append('<h3>....Mais '+leftSongs+' música(s) na fila....</h3>');
+						$('#SongListsDivCenter').append('<h2>....Mais '+leftSongs+' música(s) na fila....</h2>');
 						
 					}else{
 						$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');

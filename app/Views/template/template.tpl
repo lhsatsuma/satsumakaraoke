@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
-		<title>{$title} - {$sys_title}</title>
+		<title>{$title|strip_tags} - {$sys_title}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="initial-scale=1">
 		<meta charset=UTF-8>

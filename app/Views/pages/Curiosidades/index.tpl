@@ -12,9 +12,9 @@
     </ul>
 </p>
 <p>A versão em que você está vendo agora, deu-se início em Novembro/2020.</p>
-<p>Todo o código fonte do sistema pode ser encontrado no GitHub.</p>
+<p>Todo o código fonte do sistema pode ser encontrado no <a href="https://github.com/lhsatsuma/satsumakaraoke" target="_blank">GitHub</a>.</p>
 <p>Foram dias de baterias de testes até termos uma versão estável. Nos divertimos muito testando.</p>
-<p>Hoje estamos na versão <span class="b800">{$ch_ver_org}</span>. Desenvolvido por <span class="b800">Luis Satsuma</span>.</p>
+<p>Hoje estamos na versão <span class="b800">{$ch_ver_org}</span> em <span class="b800">{$last_date_version}</span>. Desenvolvido por <span class="b800">Luis Satsuma</span>.</p>
 <p>Quer me fazer um pix de um milhão de reais? Hehehehe</p>
 <hr />
 <h4>Algumas imagens das versões anteriores</h4>

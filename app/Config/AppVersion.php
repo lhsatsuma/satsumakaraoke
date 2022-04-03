@@ -13,7 +13,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 w = Minor Version (Fixes for App Version or minor updates)
 	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.5.9.0b';
+	public $version = '2.5.9.1b';
 	
 	/*
 	@var bool
