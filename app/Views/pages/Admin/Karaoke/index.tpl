@@ -55,7 +55,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="bdKaraoke" class="row m-0"></div>
 	</body>
 	<script type="text/javascript" src="{$app_url}jsManager/Admin/Karaoke/karaoke.js?v={$ch_ver}"></script>
 	<script type="text/javascript">karaoke = new KaraokeJS();</script>

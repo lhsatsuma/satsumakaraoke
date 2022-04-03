@@ -92,7 +92,8 @@ class MusicasFila extends \App\Models\Basic\Basic
 		usuarios.name as cantor,
 		musicas.codigo,
 		musicas.name as name_musica,
-		musicas.md5";
+		musicas.md5,
+		musicas_fila.name as numero_fila";
 		$this->where["status"] = "pendente";
 		$this->join["musicas"] = "musicas.id = musicas_fila.musica_id";
 		$this->join["usuarios"] = "usuarios.id = musicas_fila.user_created";
@@ -105,19 +106,11 @@ class MusicasFila extends \App\Models\Basic\Basic
 			return false;
 		}
 		foreach($result as $key => $fila){
-			if((int) $this->ajax->body['sh'] == 1){
-				$fila['cantor'] = explode(' ', $fila['cantor'])[0];
-				if(strlen($fila['cantor']) > 13){
-					$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
-				}
-				if(strlen($fila['name_musica']) > 29){
-					$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 26) . '...';
-				}
-			}elseif((int)20 > 1){
-				$total_len = $fila['cantor'].$fila['name_musica'];
-				if(strlen($total_len) > 20 - 3){
-					$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 32 - strlen($fila['cantor'])) . '...';
-				}
+			if(strlen($fila['cantor']) > 11){
+				$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
+			}
+			if(strlen($fila['name_musica']) > 32){
+				$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 32) . '...';
 			}
 			$result[$key]['codigo'] = (int)$result[$key]['codigo'];
 			$result[$key] = array_values($result[$key]);

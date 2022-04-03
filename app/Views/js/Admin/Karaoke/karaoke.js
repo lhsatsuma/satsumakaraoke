@@ -15,10 +15,13 @@ class KaraokeJS{
 		};
 		this.search_list = true;
 		this.shortName = true;
-		this.numSongsList = 7;
 		this.last_volume = 1;
 		this.reset_line = true;
 		this.typeScreen = 0;
+		this.optionsSongsList = {
+			num: 7,
+			class: '',
+		};
 		$(document).keyup(function(event) {
 			event.preventDefault();
 			if(!karaoke.typeScreen){
@@ -65,7 +68,8 @@ class KaraokeJS{
 				id: type,
 			},
 			callback: (res) => {
-				$('#bdKaraoke').html(res.detail);
+				$('#bodyKaraoke').removeClass('modal-open');
+				$('#bodyKaraoke').html('<div class="container-fluid">'+res.detail+'</div>');
 			},
 			callbackAll: (res) => {
 
@@ -103,8 +107,24 @@ class KaraokeJS{
 	setInitialVars()
 	{
 		$('#InitialModal').modal('hide');
-		if(this.typeScreen == 3){
-			this.numSongsList = 14;
+		switch(this.typeScreen){
+			case 1:
+				this.optionsSongsList.num = 7;
+				this.optionsSongsList.class = 'col-12 col-md-6';
+				this.optionsSongsList.classRow = 'row mr-3 mb-3 border';
+				break;
+			case 3:
+				this.optionsSongsList.num = 9;
+				this.optionsSongsList.class = 'col-12 col-sm-6 col-md-4 col-lg-3';
+				this.optionsSongsList.classRow = 'row mr-3 mb-3 border';
+				break;
+			case 4:
+				this.optionsSongsList.num = 9;
+				this.optionsSongsList.class = 'col-12 col-md-6 col-lg-4 col-xl-3 mb-3';
+				this.optionsSongsList.classRow = '';
+				break;
+			default:
+				break;
 		}
 		if(this.typeScreen == 1 || this.typeScreen == 2){
 			this.video.onloadeddata = function() {
@@ -137,7 +157,7 @@ class KaraokeJS{
 	{
 		if(karaoke.url){
 			karaoke.video.src = "";
-			$('#playingNow').html('<p>&nbsp</p>');
+			$('#playingNow').html('');
 			handleAjax({
 				url: karaoke.url+'k_ended_video',
 				data: {
@@ -171,7 +191,7 @@ class KaraokeJS{
 						this.songNow = res.detail.s[0];
 						$('#songNowId').val(this.songNow[0]);
 						video.src = _APP.karaokeURL + this.songNow[4];
-						$('#playingNow').html('<p>'+this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]+'</p>');
+						$('#playingNow').html(this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]);
 						$('#pausedDiv').hide();
 						if(call_wait_list){
 							this.search_list = true;
@@ -242,7 +262,7 @@ class KaraokeJS{
 				if(need_loop){
 					setTimeout(function(){
 						karaoke.getThread();
-					}, wait_mil);
+					}, 90000);
 				}
 			}
 		})
@@ -294,42 +314,56 @@ class KaraokeJS{
 		$('#SongListsDiv').html('');
 		$('#SongListsDiv2').html('');
 		$('#SongListsDivCenter').html('');
-		let hasDiv2 = false;
 		let totalDisplay = 0;
 		let validList = true;
+		let hasDiv2 = false;
 		if(list){
 			list.forEach((ipt, idx) => {
 				if(Array.isArray(ipt)){
 					if(idx > 0){
-						let turn = 0;
-						turn = idx;
-						if(idx < this.numSongsList){
+						if(idx < this.optionsSongsList.num){
 							totalDisplay++;
-							if($('#SongListsDiv2').length && turn > 7){
-								hasDiv2 = true;
-								$('#SongListsDiv2').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
-							}else{
-								$('#SongListsDiv').append('<p>'+turn+'. ' + ipt[1]+' ['+ipt[2]+']'+ ipt[3]+'</p>');
+
+							let htmlBox = '';
+							let cancelButton = '';
+							if(this.optionsSongsList.class){
+								htmlBox += `<div class="${this.optionsSongsList.class}">`;
 							}
+
+							if(this.optionsSongsList.classRow){
+								htmlBox += `<div class="${this.optionsSongsList.classRow}">`;
+							}
+							
+							if(this.typeScreen == 4){
+								cancelButton = ` <i class="fas fa-times ptr" onclick="karaoke.cancelSong(${ipt[5]}, '${ipt[0]}')"></i>`;
+							}
+							htmlBox += `<div class="col-12 border" style="background-color: #1a1a1a">
+							<p class="center">#${ipt[5]} ${cancelButton}</p>
+							<hr />
+							<p>${ipt[1]}</p>
+							<p style="font-size: 1.1rem;min-height: 2.2rem;">${ipt[3]}</p>
+							</div>`;
+
+							
+							if(this.optionsSongsList.classRow){
+								htmlBox += `</div>`;
+							}
+							if(this.optionsSongsList.class){
+								htmlBox += `</div>`;
+							}
+
+							$('#SongListsDiv').append(htmlBox);
 						}
 					}
 				}else{
 					validList = false;
 				}
 			});
-			if(validList){
-				if(this.typeScreen !== 4){
-					if(hasDiv2){
-						$('#SongListsDiv').removeClass('col-12').addClass('col-6');
-					}else{
-						$('#SongListsDiv').removeClass('col-6').addClass('col-12');
-					}
-				}
-				
+			if(validList){				
 				if(total - 1 > totalDisplay){
 					let leftSongs = total - totalDisplay - 1;
 					if($('#SongListsDivCenter').length){
-						$('#SongListsDivCenter').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
+						$('#SongListsDivCenter').append('<h3>....Mais '+leftSongs+' música(s) na fila....</h3>');
 						
 					}else{
 						$('#SongListsDiv').append('<p>....Mais '+leftSongs+' música(s) na fila....</p>');
@@ -399,7 +433,7 @@ class KaraokeJS{
 										position: 'top-end',
 									})
 								}
-							})
+							});
 						}
 					},
 					callbackError: (res) => {
@@ -487,6 +521,47 @@ class KaraokeJS{
 			},
 			callbackError: (res) => {
 				showErrorIcon($('#ControleRemotoModalLabel'));
+			}
+		});
+	}
+	cancelSong(number, id)
+	{
+		Swal.fire({
+			title: 'Deseja remover da fila?',
+			icon: 'question',
+			text: '#'+number,
+			showCloseButton: true,
+			showCancelButton: true,
+			focusConfirm: true,
+		}).then((result) => {
+			if(result.isConfirmed){
+				fireAjaxLoading({
+					url: this.url+'k_cancel_wait_list',
+					data: JSON.stringify({'id': id}),
+					callback: (res) => {
+						Swal.close();
+						if(res.detail){
+							Swal.fire({
+								toast: true,
+								position: 'top-end',
+								title: 'Música removida da fila!',
+								text: '',
+								icon: 'success',
+								width: '400px',
+								showConfirmButton: false,
+								timer: 2000,
+								timerProgressBar: true
+							}).then((result) => {
+								karaoke.search_list = true;
+								karaoke.getThread(false);
+							});
+						}
+					},
+				},
+				{
+					toast: true,
+					position: 'top-end',
+				})
 			}
 		});
 	}

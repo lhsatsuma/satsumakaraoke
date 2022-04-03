@@ -82,4 +82,15 @@ class Karaoke_ajax extends AdminBaseController
 			$this->ajax->setError('0x001', 'Não foi possível encontrar a música pelo código '.$this->ajax->body['code'].'!');
 		}
 	}
+
+	public function k_cancel_wait_list()
+	{
+		$this->mdl->f['id'] = $this->ajax->body['id'];
+		$result = $this->mdl->deleteRecord();
+		if($result){
+			$this->ajax->setSuccess($result);
+		}else{
+			$this->ajax->setError('0x001', 'Não foi possível encontrar a música pelo ID '.$this->ajax->body['id'].'!');
+		}
+	}
 }

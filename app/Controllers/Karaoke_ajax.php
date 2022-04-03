@@ -45,7 +45,7 @@ class Karaoke_ajax extends BaseController
 		$data_copy = [
 			'volume' => null,
 		];
-		if($data_encode['action'] == 'volume'){
+		if($this->ajax->body['action'] == 'volume'){
 			$data_copy = [
 				'volume' => (int)$this->ajax->body['valueTo'],
 			];
