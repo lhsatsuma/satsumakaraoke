@@ -73,8 +73,7 @@ class Musicas extends \App\Models\Basic\Basic
 		),
 		'codigo' => array(
 			'lbl' => 'Código',
-			'type' => 'varchar',
-			'max_length' => 6,
+			'type' => 'int',
 			'required' => true,
 		),
 		'md5' => array(
@@ -99,22 +98,6 @@ class Musicas extends \App\Models\Basic\Basic
 		['name', 'deleted'],
 		['tipo', 'deleted']
 	];
-	
-	function get_order_by()
-	{
-		$comp = '';
-		$order_by = '';
-		foreach($this->order_by as $field => $value){
-			if($field == 'codigo'){
-				$order_by .= $comp.'codigo_cast '.$value;
-			}else{
-				$order_by .= $comp.$field.' '.$value;
-			}
-			$comp = ', ';
-		}
-		$this->helper->orderBy($order_by);
-        return true;
-	}
 
 	public function before_save(string $operation = null)
 	{
@@ -137,7 +120,7 @@ class Musicas extends \App\Models\Basic\Basic
 		if(empty($this->f['codigo'])){
 			$this->force_deleted = true;
 			$this->where = array();
-			$this->select = "MAX(CAST(codigo as UNSIGNED))+1 as codigo_ult";
+			$this->select = "MAX(codigo)+1 as codigo_ult";
 			$number = $this->search(1);
 			$this->f['codigo'] = $number[0]['codigo_ult'];
 			if(is_null($this->f['codigo'])){
@@ -150,7 +133,7 @@ class Musicas extends \App\Models\Basic\Basic
 		$this->f['link'] = $link;
 		$this->f['tipo'] = $tipo;
 		$this->f['origem'] = 'UserImport';
-		$return_data['saved_record'] = $this->SaveRecord();
+		$return_data['saved_record'] = $this->saveRecord();
 		if($return_data['saved_record'] && !$return_data['exists']){
 			$arquivos = new \App\Models\Arquivos\Arquivos();
 			$arquivos->new_with_id = true;

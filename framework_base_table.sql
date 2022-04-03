@@ -147,8 +147,8 @@ PRIMARY KEY (id)
 
 -- SQL INDEX FOR TABLE preferencias_usuario
 CREATE INDEX id_dele0 ON preferencias_usuario (id, deleted );
-CREATE INDEX usua_dele1 ON preferencias_usuario (user_created, deleted );
-CREATE INDEX usua_name_dele2 ON preferencias_usuario (user_created, name, deleted );
+CREATE INDEX user_dele1 ON preferencias_usuario (user_created, deleted );
+CREATE INDEX user_name_dele2 ON preferencias_usuario (user_created, name, deleted );
 
 /*
 SQL FOR TABLE usuarios

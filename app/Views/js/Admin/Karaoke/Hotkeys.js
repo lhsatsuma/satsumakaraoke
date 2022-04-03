@@ -11,13 +11,13 @@ $(document).keyup(function(event) {
                 $('#pausebutton').click();
                 break;
             case 100:
-                $('#nextbutton').click();
+                $('#repeatbutton').click();
                 break;
             case 101:
                 karaoke.searchCodeMusic();
                 break;
             case 102:
-                $('#repeatbutton').click();
+                $('#nextbutton').click();
                 break;
             case 96:
                 $('#mutebutton').click();

@@ -15,8 +15,8 @@ class MusicasFila extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 		),
 		'name' => array(
-			'lbl' => 'Nome',
-			'type' => 'varchar',
+			'lbl' => 'Número',
+			'type' => 'int',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,

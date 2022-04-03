@@ -86,7 +86,8 @@ class Karaoke_ajax extends AdminBaseController
 	public function k_cancel_wait_list()
 	{
 		$this->mdl->f['id'] = $this->ajax->body['id'];
-		$result = $this->mdl->deleteRecord();
+		$this->mdl->f['status'] = 'cancelado';
+		$result = $this->mdl->saveRecord();
 		if($result){
 			$this->ajax->setSuccess($result);
 		}else{

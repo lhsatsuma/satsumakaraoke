@@ -109,17 +109,17 @@ class KaraokeJS{
 		$('#InitialModal').modal('hide');
 		switch(this.typeScreen){
 			case 1:
-				this.optionsSongsList.num = 7;
-				this.optionsSongsList.class = 'col-12 col-md-6';
+				this.optionsSongsList.num = 6;
+				this.optionsSongsList.class = 'col-12 col-md-6 m-0';
 				this.optionsSongsList.classRow = 'row mr-3 mb-3 border';
 				break;
 			case 3:
-				this.optionsSongsList.num = 9;
-				this.optionsSongsList.class = 'col-12 col-sm-6 col-md-4 col-lg-3';
+				this.optionsSongsList.num = 12;
+				this.optionsSongsList.class = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2';
 				this.optionsSongsList.classRow = 'row mr-3 mb-3 border';
 				break;
 			case 4:
-				this.optionsSongsList.num = 9;
+				this.optionsSongsList.num = 8;
 				this.optionsSongsList.class = 'col-12 col-md-6 col-lg-4 col-xl-3 mb-3';
 				this.optionsSongsList.classRow = '';
 				break;
@@ -262,7 +262,7 @@ class KaraokeJS{
 				if(need_loop){
 					setTimeout(function(){
 						karaoke.getThread();
-					}, 90000);
+					}, wait_mil);
 				}
 			}
 		})
@@ -321,7 +321,7 @@ class KaraokeJS{
 			list.forEach((ipt, idx) => {
 				if(Array.isArray(ipt)){
 					if(idx > 0){
-						if(idx < this.optionsSongsList.num){
+						if(idx <= this.optionsSongsList.num){
 							totalDisplay++;
 
 							let htmlBox = '';
@@ -333,15 +333,14 @@ class KaraokeJS{
 							if(this.optionsSongsList.classRow){
 								htmlBox += `<div class="${this.optionsSongsList.classRow}">`;
 							}
-							
 							if(this.typeScreen == 4){
-								cancelButton = ` <i class="fas fa-times ptr" onclick="karaoke.cancelSong(${ipt[5]}, '${ipt[0]}')"></i>`;
+								cancelButton = ` <i class="fas fa-trash-alt ptr mr-3" style="font-size: 1.5rem;vertical-align:middle" onclick="karaoke.cancelSong(${ipt[5]}, '${ipt[0]}')"></i>`;
 							}
 							htmlBox += `<div class="col-12 border" style="background-color: #1a1a1a">
-							<p class="center">#${ipt[5]} ${cancelButton}</p>
-							<hr />
-							<p>${ipt[1]}</p>
-							<p style="font-size: 1.1rem;min-height: 2.2rem;">${ipt[3]}</p>
+							<h1 class="center m-0">#${ipt[5]} ${cancelButton}</h1>`;
+							htmlBox += `<hr />
+							<h2>${ipt[1]}</h2>
+							<p style="font-size: 1.2rem;min-height: 3.5rem;">${ipt[3]}</p>
 							</div>`;
 
 							
@@ -468,10 +467,10 @@ class KaraokeJS{
 						karaoke.setVideoAction('pause');
 						break;
 					case 100:
-						karaoke.setVideoAction('next');
+						karaoke.setVideoAction('repeat');
 						break;
 					case 102:
-						karaoke.setVideoAction('repeat');
+						karaoke.setVideoAction('next');
 						break;
 					case 96:
 						karaoke.setVideoAction('mute');
@@ -549,7 +548,7 @@ class KaraokeJS{
 								icon: 'success',
 								width: '400px',
 								showConfirmButton: false,
-								timer: 2000,
+								timer: 1500,
 								timerProgressBar: true
 							}).then((result) => {
 								karaoke.search_list = true;

@@ -54,7 +54,7 @@ class Musicas extends BaseController
 		$this->PopulateFiltroPost($initial_filter, $initial_order);
 		$key_join = ($this->filter['fvt']['value']) ? "musicas_favorites" : "LEFTJOIN_musicas_favorites";
 
-		$this->mdl->select = "musicas.*, CAST(codigo AS DECIMAL(10,2)) AS codigo_cast, IF(musicas_favorites.id IS NOT NULL, 2, 1) as favorite";
+		$this->mdl->select = "musicas.*, IF(musicas_favorites.id IS NOT NULL, 2, 1) as favorite";
 		$this->mdl->join[$key_join] = "musicas.id = musicas_favorites.musica_id
 		AND musicas_favorites.user_created = '{$this->session->get('auth_user')['id']}'
 		AND musicas_favorites.deleted = 0";

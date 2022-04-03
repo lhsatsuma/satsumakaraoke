@@ -759,6 +759,9 @@ input.form-control[name="valor_total"] {
 }
 
 @media (min-width: 1440px) {
+    .QuickGoToPage {
+        width: 10%;
+    }
     #show-sidebar {
         display: none;
     }
@@ -781,7 +784,7 @@ input.form-control[name="valor_total"] {
         font-weight: 600;
     }
     .QuickGoToPage {
-        width: 10%;
+        width: 15%;
     }
     .logoKaraoke{
         width: 30%;

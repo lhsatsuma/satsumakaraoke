@@ -12,12 +12,12 @@
     </div>
 </div>
 <div class="row m-0 p-0">
-    <div class="col-7">
-        <h2 class="center mb-5"><strong>Próximas Músicas:</strong></h2>
+    <div class="col-8">
+        <h2 class="center mb-3"><strong>Próximas Músicas:</strong></h2>
         <div class="col-12"><div class="row" id="SongListsDiv"></div></div>
-        <div class="col-12 m-0 p-0 mt-5 center" id="SongListsDivCenter"></div>
+        <div class="col-12 m-0 p-0 center" id="SongListsDivCenter"></div>
     </div>
-    <div class="col-5 bg-karaoke-remote-control">
+    <div class="col-4 bg-karaoke-remote-control">
         <div class="row">
             <div class="col-6 center">
                 <span class="ptr controlbtns" id="playbutton" data-val="play">
@@ -34,9 +34,9 @@
         </div>
         <div class="row">
             <div class="col-6 center">
-                <span class="ptr controlbtns" id="nextbutton" data-val="next">
-                    <i class="fas fa-step-forward margin-5"></i>
-                    <p>Próximo [NP-4]</p>
+                <span class="ptr controlbtns" id="repeatbutton" data-val="repeat">
+                    <i class="fas fa-sync-alt margin-5"></i>
+                    <p>Repetir [NP-4]</p>
                 </span>
             </div>
             <div class="col-6 center">
@@ -46,9 +46,9 @@
                 </span>
             </div>
             <div class="col-6 center">
-                <span class="ptr controlbtns" id="repeatbutton" data-val="repeat">
-                    <i class="fas fa-sync-alt margin-5"></i>
-                    <p>Repetir [NP-6]</p>
+                <span class="ptr controlbtns" id="nextbutton" data-val="next">
+                    <i class="fas fa-step-forward margin-5"></i>
+                    <p>Próximo [NP-6]</p>
                 </span>
             </div>
         </div>

@@ -29,9 +29,9 @@
         </div>
         <div class="row">
             <div class="col-6 center">
-                <span class="ptr controlbtns" id="nextbutton" data-val="next">
-                    <i class="fas fa-step-forward margin-5"></i>
-                    <p>Próximo [NP-4]</p>
+                <span class="ptr controlbtns" id="repeatbutton" data-val="repeat">
+                    <i class="fas fa-sync-alt margin-5"></i>
+                    <p>Repetir [NP-4]</p>
                 </span>
             </div>
             <div class="col-6 center">
@@ -41,9 +41,9 @@
                 </span>
             </div>
             <div class="col-6 center">
-                <span class="ptr controlbtns" id="repeatbutton" data-val="repeat">
-                    <i class="fas fa-sync-alt margin-5"></i>
-                    <p>Repetir [NP-6]</p>
+                <span class="ptr controlbtns" id="nextbutton" data-val="next">
+                    <i class="fas fa-step-forward margin-5"></i>
+                    <p>Próximo [NP-6]</p>
                 </span>
             </div>
         </div>

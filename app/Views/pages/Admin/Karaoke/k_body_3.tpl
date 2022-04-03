@@ -7,12 +7,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12 mb-5 center">
+    <div class="col-12 mb-3 center">
         <hr />
         <h2><strong>Próximas Músicas:</strong></h2>
     </div>
 </div>
 <div class="row" id="SongListsDiv"></div>
 <div class="row m-0 p-0">
-    <div class="col-12  m-0 p-0 mt-5 center" id="SongListsDivCenter"></div>
+    <div class="col-12  m-0 p-0 mt-3 center" id="SongListsDivCenter"></div>
 </div>

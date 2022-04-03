@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="row m-0 p-0">
-    <div class="col-5" id="SongLists">
+    <div class="col-5 m-0 p-0" id="SongLists">
         <h2 class="center mb-2"><strong>Próximas Músicas:</strong></h2>
         <div class="col-12"><div class="row" id="SongListsDiv"></div></div>
         <div class="col-12 m-0 p-0 mt-2 center" id="SongListsDivCenter"></div>
@@ -39,15 +39,15 @@
         </div>
         <div class="row">
             <div class="col-6 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('next');">
-                    <i  class="fas fa-step-forward margin-5"></i>
-                    <p>Próximo [NP-4]</p>
+                <span class="ptr" onclick="karaoke.setVideoAction('repeat');">
+                    <i  class="fas fa-sync-alt margin-5"></i>
+                    <p>Repetir [NP-4]</p>
                 </span>
             </div>
             <div class="col-6 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('repeat');">
-                    <i  class="fas fa-sync-alt margin-5"></i>
-                    <p>Repetir [NP-6]</p>
+                <span class="ptr" onclick="karaoke.setVideoAction('next');">
+                    <i  class="fas fa-step-forward margin-5"></i>
+                    <p>Próximo [NP-6]</p>
                 </span>
             </div>
         </div>
