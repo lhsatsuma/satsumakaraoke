@@ -191,7 +191,7 @@ class KaraokeJS{
 						this.songNow = res.detail.s[0];
 						$('#songNowId').val(this.songNow[0]);
 						video.src = _APP.karaokeURL + this.songNow[4];
-						$('#playingNow').html(this.songNow[1]+' | ['+this.songNow[2]+'] '+ this.songNow[3]);
+						$('#playingNow').html(this.songNow[1]+' | [#'+this.songNow[5]+'] '+ this.songNow[3]);
 						$('#pausedDiv').hide();
 						if(call_wait_list){
 							this.search_list = true;

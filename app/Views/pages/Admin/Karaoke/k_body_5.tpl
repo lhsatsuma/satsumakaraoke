@@ -3,7 +3,7 @@
 </div>
 <div class="row">
     <div class="col-12 mt-4 center">
-        <h1>Cante com nós! Acesse <span class="b800">{$host_fila}</span></h1>
+        <h1 style="font-size: 3.5rem">Cante com nós! Acesse <span class="b800">{$host_fila}</span></h1>
     </div>
 </div>
 <div class="row">
