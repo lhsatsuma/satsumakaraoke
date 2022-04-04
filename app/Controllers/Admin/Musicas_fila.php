@@ -31,7 +31,14 @@ class Musicas_fila extends AdminBaseController
 		);
 
 		$this->PopulateFiltroPost([], $initial_order_by);
-		
+		$this->mdl->select = "musicas_fila.id,
+		musicas_fila.name,
+		musicas_fila.status,
+		musicas_fila.date_created,
+		usuarios.name as user_created_name,
+		musicas.name as musica_id_name";
+		$this->mdl->join["LEFTJOIN_usuarios"] = "musicas_fila.user_created = usuarios.id";
+		$this->mdl->join["LEFTJOIN_musicas"] = "musicas_fila.musica_id = musicas.id";
 		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		
 		$result = $this->mdl->formatRecordsView($result);

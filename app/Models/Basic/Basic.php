@@ -192,6 +192,7 @@ class Basic extends Model
 		$helper2->select('id, name');
 		$helper2->where('id', $id);
 		$query = $helper2->get(1);
+		log_message('debug', (string)$this->db->getLastQuery());
 		if ($this->db->error()['message']) {
 			$this->registerLastError("Error fetching total rows: ");
 			return null;
@@ -746,16 +747,20 @@ class Basic extends Model
 						$value = $this->fields->formatMultidropdown($options['parameter'], $value);
 						break;
 					case 'related':
-						if($this->table == 'arquivos' && $field == 'registro'){
-							$table_name = $record['tabela'];
-						}else{
-							$table_name = $options['table'];
+						if(isset($record[$field])){
+							if($this->table == 'arquivos' && $field == 'registro'){
+								$table_name = $record['tabela'];
+							}else{
+								$table_name = $options['table'];
+							}
+							if($value){
+								$related = $this->getRelated($table_name, $value);
+							}else{
+								$related = null;
+							}
+							$field_name = $field.'_name';
+							$record[$field_name] = ($related) ? $related['name'] : null;
 						}
-						if($value){
-							$related = $this->getRelated($table_name, $value);
-						}
-						$field_name = $field.'_name';
-						$record[$field_name] = ($related) ? $related['name'] : null;
 						break;
 					case 'file':
 						if($this->table !== 'arquivos' && $value){
