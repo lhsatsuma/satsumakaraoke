@@ -87,6 +87,12 @@ class Musicas extends \App\Models\Basic\Basic
 			'parameter' => 'tipo_musica',
 			'required' => true,
 		),
+		'duration' => array(
+			'lbl' => 'Duração (Segundos)',
+			'type' => 'int',
+			'default' => 0,
+			'required' => true,
+		),
 		'fvt' => array(
 			'nondb' => true,
 			'lbl' => 'Meus Favoritos',
@@ -133,6 +139,12 @@ class Musicas extends \App\Models\Basic\Basic
 		$this->f['link'] = $link;
 		$this->f['tipo'] = $tipo;
 		$this->f['origem'] = 'UserImport';
+
+		$file_path = FCPATH . 'uploads/'.$md5;
+		$getID3 = new \getID3();
+		$analized = $getID3->analyze($file_path);
+		$this->f['duration'] = (int)$analized['playtime_seconds'];
+
 		$return_data['saved_record'] = $this->saveRecord();
 		if($return_data['saved_record'] && !$return_data['exists']){
 			$arquivos = new \App\Models\Arquivos\Arquivos();

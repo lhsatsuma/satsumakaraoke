@@ -262,7 +262,7 @@ class KaraokeJS{
 				if(need_loop){
 					setTimeout(function(){
 						karaoke.getThread();
-					}, wait_mil);
+					}, 900000);
 				}
 			}
 		})
@@ -317,13 +317,14 @@ class KaraokeJS{
 		let totalDisplay = 0;
 		let validList = true;
 		let hasDiv2 = false;
+		let eta = 0; //ETA to next song
 		if(list){
 			list.forEach((ipt, idx) => {
 				if(Array.isArray(ipt)){
 					if(idx > 0){
+						eta += parseInt(ipt[6]);
 						if(idx <= this.optionsSongsList.num){
 							totalDisplay++;
-
 							let htmlBox = '';
 							let cancelButton = '';
 							if(this.optionsSongsList.class){
@@ -336,10 +337,12 @@ class KaraokeJS{
 							if(this.typeScreen == 4){
 								cancelButton = ` <i class="fas fa-trash-alt ptr mr-3" style="font-size: 1.5rem;vertical-align:middle" onclick="karaoke.cancelSong(${ipt[5]}, '${ipt[0]}')"></i>`;
 							}
+							let etaDisplay = (idx == 1) ? 'Próx. a cantar' : parseInt(eta / 60) + ' minutos';
 							htmlBox += `<div class="col-12 border" style="background-color: #1a1a1a">
-							<h1 class="center m-0">#${ipt[5]} ${cancelButton}</h1>`;
-							htmlBox += `<hr />
-							<h2>${ipt[1]}</h2>
+							<h2 class="center m-0">#${ipt[5]} ${cancelButton}</h2>`;
+							htmlBox += `<hr style="margin-top: 0"/>
+							<h3>${ipt[1]}</h3>
+							<p style="margin: 0">Em: ${etaDisplay}</p>
 							<p style="font-size: 1.2rem;min-height: 3.5rem;">${ipt[3]}</p>
 							</div>`;
 

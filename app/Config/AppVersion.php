@@ -13,7 +13,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 w = Minor Version (Fixes for App Version or minor updates)
 	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.6.0.0r';
+	public $version = '2.6.1.0r';
 	
 	/*
 	@var bool
@@ -38,6 +38,8 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	public $template_file_admin = 'template_admin';
 
 	public $charset = 'UTF-8';
+
+	public $google_api_key = '';
 	
 	public function __construct()
 	{

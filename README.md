@@ -44,3 +44,4 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 - PHPMailer 6.6+
 - MPDF 8.0+
 - JsShrink 1.4
+- yt-dlp 2022.03.08.1

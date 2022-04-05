@@ -51,6 +51,10 @@
             <td>Reconstruir totais de músicas</td>
             <td>Reconstrói arquivo JSON com os totais de músicas.</td>
         </tr>
+        <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'reconstructDurationVideos')">
+            <td>Reconstruir duração das músicas</td>
+            <td>Reconstrói duração em segundos das músicas e realiza o update na tabela.</td>
+        </tr>
 	</tbody>
 </table>
 <script type="text/javascript" src="{$app_url}jsManager/Admin/Internal/index.js?v={$ch_ver}"></script>

@@ -52,6 +52,7 @@ class Youtube
     public function __construct()
     {
         $this->upload_path = getValorParametro('path_video_karaoke');
+        $this->google_api_key = $GLOBALS['AppVersion']->google_api_key;
     }
     public function __clear_title($title, $decode = true)
     {
@@ -121,7 +122,10 @@ class Youtube
     }
     public function getInfo($videoID)
     {	
-        $callUrl = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='.$videoID.'&key=AIzaSyAjrrM41ewtN5bJWzhi6oQtP5A6H6piyL0';
+        if(!$this->google_api_key){
+            return false;
+        }
+        $callUrl = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='.$videoID.'&key='.$this->google_api_key;
         $page = file_get_contents($callUrl);
         $decoded = json_decode($page, true);
 
@@ -140,7 +144,7 @@ class Youtube
         if(file_exists($this->upload_path . $md5)){
 			unlink($this->upload_path . $md5);
 		}
-		$youtube_dl_path = APPPATH . 'Helpers/yt-dlp.exe';
+		$youtube_dl_path = APPPATH . 'ThirdParty/yt-dlp.exe';
 		$string = ("cd $this->upload_path && {$youtube_dl_path} " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
                   escapeshellarg($md5));
         log_message('info', "COMMAND: ".$string);

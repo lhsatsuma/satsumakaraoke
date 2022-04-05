@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <div class="col-12 center">
-        <hr />
+        <hr style="margin-bottom: 0.5rem;" />
     </div>
 </div>
 <div class="row m-0 p-0">

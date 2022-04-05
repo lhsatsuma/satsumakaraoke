@@ -93,7 +93,8 @@ class MusicasFila extends \App\Models\Basic\Basic
 		musicas.codigo,
 		musicas.name as name_musica,
 		musicas.md5,
-		musicas_fila.name as numero_fila";
+		musicas_fila.name as numero_fila,
+		musicas.duration";
 		$this->where["status"] = "pendente";
 		$this->join["musicas"] = "musicas.id = musicas_fila.musica_id";
 		$this->join["usuarios"] = "usuarios.id = musicas_fila.user_created";

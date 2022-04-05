@@ -271,7 +271,7 @@ class Internal extends AdminBaseController
 
             /* Check if table already exists, if it does, just try to repair */
             if ($tableExists){
-                $fieldsDB = $mdl->getFieldData($mdl->table);
+                $fieldsDB = (array)$mdl->getFieldData($mdl->table);
             }else{
                 $fieldsDB = [];
                 $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."CREATE TABLE {$mdl->table} (";
@@ -290,7 +290,7 @@ class Internal extends AdminBaseController
                 if($tableExists){
                     /* Get metadata from database */
                     foreach($fieldsDB as $fieldDBSearch){
-                        if($fieldDBSearch->name == $field){
+                        if($fieldDBSearch['name'] == $field){
                             $fieldInDB = $fieldDBSearch;
                             break;
                         }
@@ -331,14 +331,14 @@ class Internal extends AdminBaseController
                 }elseif(
                     (
                         $tableExists &&
-                        $fieldInDB->type !== $typeDB
+                        $fieldInDB['type'] !== $typeDB
                         || 
-                        $fieldInDB->max_length !== $maxLength
+                        $fieldInDB['max_length'] !== $maxLength
                     )
                     ||
                     (
-                        !empty($options['default'])
-                        && $options['default'] != $fieldInDB->default
+                        isset($options['default']) && !is_null($options['default'])
+                        && $options['default'] != $fieldInDB['default']
                     )
                 ){
                     //If table and field exists but there's something different, let's try an MODIFY COLUMN
@@ -361,7 +361,7 @@ class Internal extends AdminBaseController
                     }
                     if(isset($options['default']) && $typeDB == 'tinyint'){
                         $sqlRepairTable .= ' DEFAULT '. (($options['default']) ? "TRUE" : "FALSE");
-                    }elseif($options['default']){
+                    }elseif(isset($options['default']) && !is_null($options['default'])){
                         $sqlRepairTable .= ' DEFAULT '.(is_string($options['default']) ? "'{$options['default']}'" : $options['default']);
                     }
 
@@ -472,6 +472,41 @@ class Internal extends AdminBaseController
         file_put_contents(WRITEPATH . 'cache/total_musics.json', json_encode($json));
         $msg_return = 'Reordenação de códigos de músicas realizado com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$json['total']} registro(s) encontrado(s) na tabela.";
+        
+        $this->setMsgData('success', $msg_return);
+        rdct('/admin/internal/index');
+    }
+
+    public function reconstructDurationVideos()
+    {
+        $model = new \App\Models\Musicas\Musicas();
+        $model->select = "id, md5";
+        $model->where['BEGINORWHERE_duration'] = 0;
+        $model->where['ENDORWHERE_duration'] = ['IS_NULL'];
+
+        $results = $model->search();
+        $total = count($results);
+        $total_updated = 0;
+        $getID3 = new \getID3();
+        foreach($results as $result){
+            $file_path = FCPATH . 'uploads/'.$result['md5'];
+            if(file_exists($file_path)){
+                $analized = $getID3->analyze($file_path);
+                if($analized){
+                    $duration = (int)$analized['playtime_seconds'];
+                    $model->f = [];
+                    $model->f['duration'] = $duration;
+                    $model->f['id'] = $result['id'];
+                    $model->saveRecord();
+                    $total_updated++;
+                }
+            }
+        }
+
+
+        $msg_return = 'Reordenação de códigos de músicas realizado com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return .= "<br/>{$total} registro(s) encontrado(s) na tabela.";
+        $msg_return .= "<br/>{$total_updated} registro(s) atualizados.";
         
         $this->setMsgData('success', $msg_return);
         rdct('/admin/internal/index');
