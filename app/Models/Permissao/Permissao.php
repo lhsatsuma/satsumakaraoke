@@ -11,7 +11,7 @@ class Permissao extends \App\Models\Basic\Basic
 			'lbl' => 'ID',
 			'type' => 'int',
 			'dont_load_layout' => true,
-			'dont_generate' => true,
+			'auto_increment' => true,
 		),
 		'name' => array(
 			'lbl' => 'name da Permissão',
@@ -54,6 +54,9 @@ class Permissao extends \App\Models\Basic\Basic
 			]
 		),
 	);
+	public $primary_keys = [
+		'id'
+	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted']

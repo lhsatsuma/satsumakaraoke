@@ -77,6 +77,9 @@ class Arquivos extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 		),
 	);
+	public $primary_keys = [
+		'id'
+	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],

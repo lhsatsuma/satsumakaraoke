@@ -123,6 +123,9 @@ class Usuarios extends \App\Models\Basic\Basic
 			'type' => 'celphone',
 		),
 	);
+	public $primary_keys = [
+		'id'
+	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['tipo','deleted'],

@@ -316,14 +316,14 @@ class Internal extends AdminBaseController
                 if(!$tableExists){
                     //If table don't exists, just put field and type
                     $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."{$field} {$typeDB}";
-                    if($options['dont_generate']){
+                    if($options['auto_increment']){
                         $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
                     }
                     $needUpdate = true;
                 }elseif($tableExists && !$fieldInDB){
                     //If table exists but field don't, let's try an ADD COLUMN
                     $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."ALTER TABLE {$mdl->table} ADD {$field} {$typeDB}";
-                    if($options['dont_generate']){
+                    if($options['auto_increment']){
                         $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
                     }
                     $needUpdate = true;
@@ -343,7 +343,7 @@ class Internal extends AdminBaseController
                 ){
                     //If table and field exists but there's something different, let's try an MODIFY COLUMN
                     $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."ALTER TABLE {$mdl->table} MODIFY COLUMN {$field} {$typeDB}";
-                    if($options['dont_generate']){
+                    if($options['auto_increment']){
                         $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
                     }
                     $needUpdate = true;
@@ -381,7 +381,7 @@ class Internal extends AdminBaseController
                 $previousField = $field;
             }
             if(!$tableExists){
-                $pks_fields = ($mdl->pks_table) ? implode(', ',$mdl->pks_table) : 'id';
+                $pks_fields = ($mdl->primary_keys) ? implode(', ',$mdl->primary_keys) : 'id';
                 $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."PRIMARY KEY ({$pks_fields})<br />) ENGINE = InnoDB;";
             }
             $sqlRepairIdx = '';
