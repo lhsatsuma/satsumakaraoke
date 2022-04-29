@@ -66,9 +66,6 @@ class MusicasFavorites extends \App\Models\Basic\Basic
 			'validations' => 'required',
 		),
 	);
-	public $primary_keys = [
-		'id'
-	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],

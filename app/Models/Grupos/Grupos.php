@@ -11,7 +11,7 @@ class Grupos extends \App\Models\Basic\Basic
 			'lbl' => 'ID',
 			'type' => 'int',
 			'dont_load_layout' => true,
-			'auto_increment' => true,
+			'dont_generate' => true,
 		),
 		'name' => array(
 			'lbl' => 'Nome',
@@ -59,9 +59,6 @@ class Grupos extends \App\Models\Basic\Basic
 			]
 		),
 	);
-	public $primary_keys = [
-		'id'
-	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],

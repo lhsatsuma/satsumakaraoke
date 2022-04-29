@@ -540,9 +540,7 @@ class Basic extends Model
 				if(!empty($fOld['id']) && !$this->new_with_id){
 					$fOld['date_modified'] = date("Y-m-d H:i:s");
 					$fOld['user_modified'] = $this->auth_user_id;
-					foreach($this->primary_keys as $field_key){
-						$this->helper->where($field_key, $fOld[$field_key]);
-					}
+					$this->helper->where('id', $fOld['id']);
 					$executed = $this->helper->update($fOld);
 				}else{
 					if(empty($fOld['id'])){
@@ -562,7 +560,7 @@ class Basic extends Model
 							}
 							$fOld['name'] = $codigo;
 						}
-						if(!$this->fields_map['id']['auto_increment']){
+						if(!$this->fields_map['id']['dont_generate']){
 							$fOld['id'] = create_guid();
 						}
 					}
@@ -584,7 +582,7 @@ class Basic extends Model
 					$executed = $this->helper->insert($fOld);
 					
 					//If ID it's an AUTO INCREMENT column, let's get the inserted ID
-					if(empty($fOld['id']) && $this->fields_map['id']['auto_increment']){
+					if(empty($fOld['id']) && $this->fields_map['id']['dont_generate']){
 						$fOld['id'] = $this->insertID();
 					}
 				}

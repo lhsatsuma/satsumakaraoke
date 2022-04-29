@@ -61,9 +61,6 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 			]
 		),
 	);
-	public $primary_keys = [
-		'id'
-	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['user_created', 'deleted'],

@@ -99,9 +99,6 @@ class Musicas extends \App\Models\Basic\Basic
 			'type' => 'bool',
 		)
 	);
-	public $primary_keys = [
-		'id'
-	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],

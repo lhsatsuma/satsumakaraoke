@@ -74,9 +74,6 @@ class MusicasFila extends \App\Models\Basic\Basic
 			'validations' => 'required|max_length[255]',		
 		),
 	);
-	public $primary_keys = [
-		'id'
-	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],
