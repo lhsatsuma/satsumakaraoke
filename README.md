@@ -35,13 +35,13 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 # Technologies used
 
 - Composer
-- Framework PHP CodeIgniter 4+
+- [Composer] Framework PHP CodeIgniter 4+
 - Bootstrap 4.5.3
 - FontAwesome 5.15.4
 - jQuery 3.6
-- SweetAlert2 11.4.8
-- Smarty 3.1+
-- PHPMailer 6.6+
-- MPDF 8.0+
-- JsShrink 1.4
-- yt-dlp 2022.03.08.1
+- SweetAlert2 11.4.14
+- [Composer] Smarty 3.1+
+- [Composer] PHPMailer 6.6+
+- [Composer] MPDF 8.1+
+- [Composer] JsShrink 1.4
+- yt-dlp 2022.04.08
