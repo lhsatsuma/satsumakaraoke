@@ -109,7 +109,7 @@ class KaraokeJS{
 		$('#InitialModal').modal('hide');
 		switch(this.typeScreen){
 			case 1:
-				this.optionsSongsList.num = 6;
+				this.optionsSongsList.num = 4;
 				this.optionsSongsList.class = 'col-12 col-md-6 m-0';
 				this.optionsSongsList.classRow = 'row mr-3 mb-3 border';
 				break;
@@ -218,7 +218,6 @@ class KaraokeJS{
 		if(this.running.thread){
 			return;
 		}
-
 		this.running.thread = true;
 		var wait_mil = 3000;
 		handleAjax({
@@ -262,7 +261,7 @@ class KaraokeJS{
 				if(need_loop){
 					setTimeout(function(){
 						karaoke.getThread();
-					}, 900000);
+					}, 5000);
 				}
 			}
 		})
@@ -456,48 +455,43 @@ class KaraokeJS{
 			}
 		})
 	}
+	actionHotkey(code)
+	{
+		switch(code){
+			case 103:
+				karaoke.setVideoAction('play');
+				break;
+			case 105:
+				karaoke.setVideoAction('pause');
+				break;
+			case 100:
+				karaoke.setVideoAction('repeat');
+				break;
+			case 102:
+				karaoke.setVideoAction('next');
+				break;
+			case 96:
+				karaoke.setVideoAction('mute');
+				break;
+			case 97:
+				document.getElementById("volumeRange").stepDown(1);
+				karaoke.changedVolumeRange();
+				karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
+				break;
+			case 99:
+				document.getElementById("volumeRange").stepUp(1);
+				karaoke.changedVolumeRange();
+				karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
+				break;
+			default:
+				break;
+		}
+	}
 	hotkeysTypeOne()
 	{
 		$(document).keyup(function(event) {
 			event.preventDefault();
-			let focusSearh = $('#RemoteControlType1').css('display') !== 'none';
-			if(focusSearh){
-				switch(event.which){
-					case 103:
-						karaoke.setVideoAction('play');
-						break;
-					case 105:
-						karaoke.setVideoAction('pause');
-						break;
-					case 100:
-						karaoke.setVideoAction('repeat');
-						break;
-					case 102:
-						karaoke.setVideoAction('next');
-						break;
-					case 96:
-						karaoke.setVideoAction('mute');
-						break;
-					case 97:
-						document.getElementById("volumeRange").stepDown(1);
-						karaoke.changedVolumeRange();
-						karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
-						break;
-					case 99:
-						document.getElementById("volumeRange").stepUp(1);
-						karaoke.changedVolumeRange();
-						karaoke.setVideoAction('volume', parseInt($('#volumeRange').val()));
-						break;
-					default:
-						break;
-				}
-			}else if(event.which == 8 || event.which == 0){
-				$('.swal2-cancel').click();
-			}
-			if(event.which == 106){
-				$('#RemoteControlType1').toggle();
-				$('#SongLists').toggle();
-			}
+			karaoke.actionHotkey(event.which);
 		});
 		document.getElementById('volumeRange').addEventListener('input', function() {
 			karaoke.changedVolumeRange();

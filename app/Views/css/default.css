@@ -606,6 +606,9 @@ body,
 .ptr {
     cursor: pointer;
 }
+.ptr:hover{
+    opacity: 0.8;
+}
 
 .table-list {
     margin-bottom: 0px;
@@ -1227,3 +1230,12 @@ body.swal2-shown { overflow-y: none !important; }
 #bodyKaraoke hr{
     border-top: 2px solid rgb(245 245 245 / 50%) !important;
 }
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }

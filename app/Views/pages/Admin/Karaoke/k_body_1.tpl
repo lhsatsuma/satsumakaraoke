@@ -15,6 +15,7 @@
     <div class="col-5 m-0 p-0" id="SongLists">
         <h2 class="center mb-2"><strong>Próximas Músicas:</strong></h2>
         <div class="col-12"><div class="row" id="SongListsDiv"></div></div>
+        <div class="col-12 m-0 p-0 mt-2 center" id="SongListsDivCenter"></div>
     </div>
     <div class="col-5 bg-karaoke-remote-control" id="RemoteControlType1" style="display: none">
         <div class="row">
@@ -24,30 +25,15 @@
         </div>
         <div class="row">
             <div class="col-6 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('play');">
-                    <i  class="fas fa-play margin-5"></i>
-                    <p>Play [NP-7]</p>
-                </span>
+                
             </div>
             <div class="col-6 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('pause');">
-                    <i  class="fas fa-pause margin-5"></i>
-                    <p>Pausar [NP-9]</p>
-                </span>
             </div>
         </div>
         <div class="row">
             <div class="col-6 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('repeat');">
-                    <i  class="fas fa-sync-alt margin-5"></i>
-                    <p>Repetir [NP-4]</p>
-                </span>
             </div>
             <div class="col-6 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('next');">
-                    <i  class="fas fa-step-forward margin-5"></i>
-                    <p>Próximo [NP-6]</p>
-                </span>
             </div>
         </div>
         <div class="row">
@@ -61,10 +47,6 @@
         </div>
         <div class="row">
             <div class="col-12 center">
-                <span class="ptr" onclick="karaoke.setVideoAction('mute');">
-                    <i  class="fas fa-volume-mute margin-5"></i>
-                    <p>Mutar [NP-0]</p>
-                </span>
             </div>
         </div>
     </div>
@@ -83,7 +65,28 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-5 m-0 p-0 mt-2 center" id="SongListsDivCenter"></div>
+    <div class="col-5 p-0 center" style="font-size: 1.5rem;margin:0;margin-top:-1.5rem">
+        <p class="m-0">
+            <span class="ptr" onclick="karaoke.setVideoAction('play');">
+                <i  class="fas fa-play margin-5"></i> Play [NP-7]
+            </span>
+             |
+            <span class="ptr" onclick="karaoke.setVideoAction('pause');">
+                <i  class="fas fa-pause margin-5"></i> Pausar [NP-9]
+            </span>
+             |
+            <span class="ptr" onclick="karaoke.setVideoAction('repeat');">
+                <i  class="fas fa-sync-alt margin-5"></i> Repetir [NP-4]
+            </span>
+             |
+            <span class="ptr" onclick="karaoke.setVideoAction('next');">
+                <i  class="fas fa-step-forward margin-5"></i> Próximo [NP-6]
+            </span>
+        </p>
+        <p>
+            <span class="ptr noselect" onclick="karaoke.actionHotkey(97);">Vol. - [NP-1]</span> | <span class="ptr noselect" onclick="karaoke.actionHotkey(99);">Vol. + [NP-3]</span> | <span class="ptr noselect" onclick="karaoke.setVideoAction('mute');">Mutar [NP-0]</span>
+        </p>
+    </div>
     <div class="col-7 center">
         <h1>Cante com nós! Acesse <span class="b800">{$host_fila}</span></h1>
     </div>
