@@ -80,9 +80,9 @@ class MusicasFila extends \App\Models\Basic\Basic
 		['status', 'deleted'],
 	];
 
-	public function after_save(?string $operation = null)
+	public function after_save(?string $operation = null) : bool
 	{
-		$this->createJSON();
+		return $this->createJSON();
 	}
 
 	public function createJSON()

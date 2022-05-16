@@ -114,10 +114,11 @@ class Menus extends \App\Models\Basic\Basic
 		['ativo', 'tipo', 'deleted'],
 	];
 
-	public function after_save(string $operation = null)
+	public function after_save(string $operation = null) : bool
 	{
 		$this->session->remove('arr_menu_template');
 		$this->session->remove('arr_menu_template_admin');
+        return true;
 	}
 
 	public function mountArrayMenus($type = 'public')

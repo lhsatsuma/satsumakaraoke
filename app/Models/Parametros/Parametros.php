@@ -82,11 +82,12 @@ class Parametros extends \App\Models\Basic\Basic
 		return $this->search(1)[0];
 	}
 
-	public function after_save(?string $operation = null)
+	public function after_save(?string $operation = null) : bool
 	{
 		if($this->f['codigo']){
 			getSession()->remove('PARAM_CACHE_'.$this->f['codigo']);
 		}
+		return true;
 	}
 }
 ?>

@@ -136,13 +136,14 @@ class Usuarios extends \App\Models\Basic\Basic
 	
 	public $template_forget_pass = 'EsqueciMinhaSenha';
 
-	public function after_save(string $operation = null)
+	public function after_save(string $operation = null) : bool
 	{
 		if($operation == 'delete'){
 			$this->preference->delPref(null, $this->f['id']);
 		}else{
 			$this->preference->setPref('timezone_user', (($this->f['timezone']) ? $this->f['timezone'] : date_default_timezone_get()), $this->f['id']);
 		}
+		return true;
 	}
 	
 	public function SearchLogin(){

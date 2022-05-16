@@ -641,7 +641,7 @@ class BaseController extends Controller
 	
 	public function SetErrorValidatedForm($set_save_data = true)
 	{
-		if(!isset($this->validation_errors['generic_error'])){
+		if(!isset($this->validation_errors['generic_error']) && $this->validation_errors){
 			$this->validation_errors['generic_error'] = implode("\n", $this->validation_errors);
 		}
 		$this->session->setFlashdata('save_data_errors', $this->validation_errors);

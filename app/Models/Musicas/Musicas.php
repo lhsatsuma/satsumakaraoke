@@ -105,11 +105,12 @@ class Musicas extends \App\Models\Basic\Basic
 		['tipo', 'deleted']
 	];
 
-	public function before_save(string $operation = null)
+	public function before_save(string $operation = null) : bool
 	{
 		if($this->f['name']){
 			$this->f['name'] = trim($this->f['name']);
 		}
+		return true;
 	}
 	
 	function force_save(string $link, string $md5, string $title, string $tipo)
