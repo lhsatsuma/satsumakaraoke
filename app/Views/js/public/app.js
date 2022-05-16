@@ -78,8 +78,11 @@ function ConfirmdeleteRecord(fm)
 		}
 	});
 }
-function clearFiltroForm()
+function clearFiltroForm(elm)
 {
+	if(!!elm){
+		showLoadingIcon(elm);
+	}
 	$('#filtroForm').find('input, select').each(function(){
 		$(this).val('');
 	});

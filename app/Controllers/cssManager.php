@@ -7,14 +7,13 @@ class CssManager extends BaseController
 {
 	public $data = array();
 	public $session;
-	public $parser;
 	public $module_name = 'CssManager';
 	public $dummy_controller = true;
 	
 	public function get(...$fileEx)
 	{
 		if($fileEx){
-			//Get's all info of file and check if allowed access
+			//Get all info of file and check if allowed access
 			$fileInfo = $this->getFile($fileEx);
 
 			if($fileInfo){
@@ -54,7 +53,7 @@ class CssManager extends BaseController
 					//replace all new lines and spaces
 					$minifiedCode = str_replace("\r\n", " ", $minifiedCode);
 					$minifiedCode = str_replace("\t", " ", $minifiedCode);
-					$minifiedCode = preg_replace("/([0-9]*px(?!;))/", "$1 ", $minifiedCode);
+					$minifiedCode = preg_replace("/(\d*px(?!;))/", "$1 ", $minifiedCode);
 				}
 				if(!is_dir(WRITEPATH . 'cache/css/')){
 					mkdir(WRITEPATH . 'cache/css/');

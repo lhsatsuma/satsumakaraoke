@@ -155,8 +155,8 @@ class Menus extends \App\Models\Basic\Basic
 
 		//Fixing index array of sub menus
 		foreach($menus as $key_parent => $parent_menu){
-			if($menus[$key_parent]['subs']){
-				$menus[$key_parent]['subs'] = array_values($menus[$key_parent]['subs']);
+			if($parent_menu['subs']){
+				$menus[$key_parent]['subs'] = array_values($parent_menu['subs']);
 			}
 		}
 

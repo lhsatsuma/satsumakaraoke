@@ -14,7 +14,6 @@ class Home extends BaseController
 {
 	public $data = array();
 	public $session;
-	public $parser;
 	public $module_name = 'Home';
 	public $dummy_controller = true;
 	

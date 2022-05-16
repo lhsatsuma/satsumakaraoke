@@ -12,7 +12,7 @@
 				<div class="col-12 margin-b-10">
 					<label for="ImportModalLink">Como funciona?</label>
 					<ul>
-						<li>Você pode buscar músicas através da caixa geral pesquisando por name, cantor, codigo ou idioma.</li>
+						<li>Você pode buscar músicas através da caixa geral pesquisando por nome, cantor, codigo ou idioma.</li>
 						<p><img src="{$app_url}images/tutorial_musics/8.png" style="width: 100%"/></p></li>
 						<li><p>Caso queira cantar uma música, clique sobre ela, e confirme se você deseja colocar na fila.</p>
 						<p><img src="{$app_url}images/tutorial_musics/1.png" style="width: 100%"/></p></li>

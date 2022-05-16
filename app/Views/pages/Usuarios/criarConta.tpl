@@ -33,7 +33,7 @@
 						<p class="text-left">** A senha deve conter pelo menos:<br />8 dígitos e 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caracter especial.</p>
 						<p><input class="form-control" type="text" name="telefone" placeholder="Telefone" custom_type_validation="telephone" maxlength="14"><script type="text/javascript">$('input[name="telefone"]').mask('(99) 9999-9999');</script></p>
 						<p><input class="form-control" type="text" name="celular" placeholder="Celular" custom_type_validation="telephone" maxlength="15"><script type="text/javascript">$('input[name="celular"]').mask('(99) 99999-9999');</script></p>
-						<p><button type="button" class="btn width-100 btn-outline-success btn-rounded" onclick="ValidateForm('newForm')"><img class="loading-icon" src="{$app_url}images/loading.gif" style="display: none;cursor: disabled;width: 1rem;margin-right: 11px;"/> Cadastrar</button></p>
+						<p><button type="button" class="btn width-100 btn-outline-success btn-rounded" onclick="ValidateForm('newForm')"><img class="loading-icon" src="{$app_url}images/loading.gif" style="display: none;cursor: not-allowed;width: 1rem;margin-right: 11px;"/> Cadastrar</button></p>
 						<p><button type="button" class="btn width-100 btn-outline-info btn-rounded" onclick="location.href='{$app_url}login'"> Voltar</button></p>
 					</form>
 				</div>

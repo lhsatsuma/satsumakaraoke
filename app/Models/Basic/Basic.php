@@ -225,6 +225,7 @@ class Basic extends Model
 				return false;
 			}
 		}
+        return null;
     }
 	
 	
@@ -451,16 +452,17 @@ class Basic extends Model
 				return null;
 			}
 		}
+        return null;
 	}
 	
-	public function before_save(string $operation = null)
-	{
+	public function before_save(string $operation = null): bool
+    {
 		//Nothing to do in base
 		return true;
 	}
 	
-	public function after_save(string $operation = null)
-	{
+	public function after_save(string $operation = null): bool
+    {
 		//Nothing to do in base
 		return true;
 	}
@@ -487,7 +489,7 @@ class Basic extends Model
 				$value = encrypt_pass($value);
 				break;
 			case 'bool':
-				$value = ($value) ? true : false;
+				$value = (bool) $value;
 				break;
 			case 'float':
 			case 'currency':

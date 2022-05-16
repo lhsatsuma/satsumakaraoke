@@ -132,7 +132,7 @@ class Curl{
 		$this->Auth();
 		log_message('debug', '[CURL][URL] '.$url);
 		log_message('debug', '[CURL][HEADERS] '.var_export($this->GetHeaders(), true));
-		return $this->ch;
+		return true;
 	}
 	private function ExecuteCurl(){
 		$result = curl_exec($this->ch);

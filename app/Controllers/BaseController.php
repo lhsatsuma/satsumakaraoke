@@ -534,6 +534,7 @@ class BaseController extends Controller
 		}else{
 			return $content;
 		}
+        return false;
 	}
 	
 	public function displayNew($tpl, $template = true)

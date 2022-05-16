@@ -887,7 +887,6 @@ select[readonly] {
     display: block;
     width: 100%;
     background-color: #e9ecef;
-    ;
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
@@ -1238,4 +1237,9 @@ body.swal2-shown { overflow-y: none !important; }
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
+  }
+  .modal-footer{
+    padding: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }

@@ -311,7 +311,7 @@ class Layout
 			'label' => $this->fields_map[$field]['lbl'],
 			'name' => $field,
 			'ext_attrs' => $this->MountAttrs($this->fields_map[$field]),
-			'required' => $this->fields_map[$field]['required'],
+			'required' => ($this->its_filter) ? false : $this->fields_map[$field]['required'],
 			'error' => $this->session->getFlashdata('save_data_errors')[$field],
 			'disabled' => $this->disabled_all,
 			'mask' => $this->fields_map[$field]['mask'],

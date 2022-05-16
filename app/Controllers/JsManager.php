@@ -7,8 +7,6 @@ class JsManager extends BaseController
 {
 	public $data = array();
 	public $session;
-	public $parser;
-	public $module_name = 'JsManager';
 	public $dummy_controller = true;
 	
 	public function get(...$fileEx)
@@ -35,7 +33,7 @@ class JsManager extends BaseController
 	{
 		global $AppVersion;
 		$this->response->removeHeader('Location');
-		if(array_search('public', $fileEx) === false){
+		if(!in_array('public', $fileEx)){
 			$this->session = getSession();
 
 			/* Check access for file */
