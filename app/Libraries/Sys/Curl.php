@@ -53,11 +53,8 @@ class Curl{
 		}
 	}
 	public function SetHeader($type, $content){
-		// if(!array_key_exists($type, $this->headers)){
-			$this->headers[$type] = $content;
-			return true;
-		// }
-		// return false;
+		$this->headers[$type] = $content;
+		return true;
 	}
 	public function GetHeaders(){
 		$return = array();
@@ -136,7 +133,6 @@ class Curl{
 	}
 	private function ExecuteCurl(){
 		$result = curl_exec($this->ch);
-		$information = curl_getinfo($this->ch);
 		$http_code = curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
 		$url_effective = curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL);
 		$header_size = curl_getinfo($this->ch, CURLINFO_HEADER_SIZE);

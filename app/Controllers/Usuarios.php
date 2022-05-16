@@ -66,7 +66,7 @@ class Usuarios extends BaseController
 		}
 
 		$saved = $this->mdl->saveRecord();
-		// $saved = false;
+		
 		if($saved){
 			$this->setMsgData('success', 'Conta criado com sucesso!');
 			rdct('/login');
@@ -302,7 +302,6 @@ class Usuarios extends BaseController
 				$this->data['hash'] = $hash;
 				$this->data['usuario'] = $this->mdl->f['usuario'];
 				return $this->displayNew('pages/Usuarios/resetSenha', false);
-				rdct('/login/fgt_rcv/'.$hash);
 			}
 		}else{
 			//Caso deu algum erro, redirecionar para view de falha

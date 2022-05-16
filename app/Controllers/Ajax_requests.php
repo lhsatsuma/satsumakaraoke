@@ -103,7 +103,6 @@ class Ajax_requests extends BaseController
 		}
 		if(!isset($this->body['fields_return']['id'])){
 			$this->mdl->select .= $c_select.'id';
-			$c_select = ', ';
 		}
 		$this->filterLib_cfg = array(
 			'use' => true,

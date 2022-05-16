@@ -374,10 +374,11 @@ class Layout
 			'records' => array(),
 		);
 		if(!empty($records)){
-			foreach($records as $key => $record){
+			foreach($records as $record){
+
 				$return_data['table_tbody']['records'][$record['id']]['id_value'] = $record['id'];
 				$return_data['table_tbody']['records'][$record['id']]['location_href'] = $this->base_url.$location.$record['id'];
-				$columns = array();
+
 				foreach($fields as $field => $ext_class){
 					$link_record = '';
 					$name = $field;
@@ -393,7 +394,7 @@ class Layout
 							$link_record = $this->base_url.$location.$record['id'];
 						}
 					}
-					// var_dump($field);
+					
 					$return_data['table_tbody']['records'][$record['id']]['columns'][$field] = array(
 						'name' => $name,
 						'value' => $value,
@@ -427,10 +428,10 @@ class Layout
 			'records' => array(),
 		);
 		if(!empty($records)){
-			foreach($records as $key => $record){
+			foreach($records as $record){
 				$return_data['table_tbody']['records'][$record['id']]['id_value'] = $record['id'];
 				$return_data['table_tbody']['records'][$record['id']]['location_href'] = $this->base_url.$location.$record['id'];
-				$columns = array();
+				
 				foreach($fields as $field => $ext_class){
 					
 					$link_record = '';

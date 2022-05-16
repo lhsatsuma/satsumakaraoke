@@ -9,7 +9,7 @@ class InitApp
 	public $module;
 	public $action;
 	
-	public function __construct($need_login, $module_name)
+	public function __construct($module_name)
 	{
 		$this->session = getSession();
 		$this->uri = current_url(true)->getSegments();

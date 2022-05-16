@@ -197,8 +197,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		$f_base = floor($base);
 		$math = round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
 		
-		$result = str_replace('.', ',', $math);
-		return $result;
+		return str_replace('.', ',', $math);
 	}
 	function removeAccents($string){
 		return preg_replace(array("/ç|Ç/","/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","c a A e E i I o O u U n N"),$string);
@@ -215,12 +214,11 @@ if(!isset($GLOBALS['AppVersion'])){
 		if($clean){
 			$result = str_replace('_', '', $result);
 		}
-		$result = ucfirst($result);
-		return $result;
-		function sliceDate($string, $inicio, $fim){
-			$result = implode(' ', array_slice(explode(' ', $string), $inicio, $fim));
-			return $result;
-		}
+		return ucfirst($result);
+	}
+	
+	function sliceDate($string, $inicio, $fim){
+		return implode(' ', array_slice(explode(' ', $string), $inicio, $fim));
 	}
 
 	function sanitizeYt($link){
@@ -254,7 +252,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		}
 		return $return;
 	}
-	function getFormData($key=null, $raw = false)
+	function getFormData($key=null)
 	{
 		global $requestForm;
 		if(!$requestForm){
@@ -330,10 +328,7 @@ if(!isset($GLOBALS['AppVersion'])){
 					$permissions['w'] = 1;
 				}
 				$level -= 1;
-				if($level < 0){
-					$level = $levelPermission;
-				}else{
-					$levelPermission -= 1;
+				if($level > 0){
 					$permissions['d'] = 1;
 				}
 
@@ -373,16 +368,12 @@ if(!isset($GLOBALS['AppVersion'])){
 	}
 	function checkRdct($rdct_url)
 	{
-		if($rdct_url
-		&& strpos($rdct_url, 'downloadManager') == false
-		&& strpos($rdct_url, 'cssManager') == false
-		&& strpos($rdct_url, 'jsManager') == false
-		&& strpos($rdct_url, 'Ajax_requests') == false
-		&& strpos($rdct_url, '_ajax') == false
-		){
-			return true;
-		}else{
-			return false;
-		}
+		return ($rdct_url
+			&& strpos($rdct_url, 'downloadManager') === false
+			&& strpos($rdct_url, 'cssManager') === false
+			&& strpos($rdct_url, 'jsManager') === false
+			&& strpos($rdct_url, 'Ajax_requests') === false
+			&& strpos($rdct_url, '_ajax') === false
+		);
 	}
 }

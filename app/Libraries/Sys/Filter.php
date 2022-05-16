@@ -83,8 +83,8 @@ class Filter
 		$types_layout = $this->layout->GetAllFieldsFilter($record);
 		$html = '';
 		
-		foreach($types_layout as $type_layout => $fields){
-			foreach($fields as $field_layout => $html_field){
+		foreach($types_layout as $fields){
+			foreach($fields as $html_field){
 				$html .= '<div class="form-group">';
 				$html .= $html_field;
 				$html .= '</div>';

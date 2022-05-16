@@ -49,18 +49,17 @@ class AdminBaseController extends \App\Controllers\BaseController
 	public function CheckSysAccess()
 	{
 		$HasAccess = $this->sysLib->CheckSession();
-		if($this->access_cfg['needs_login']){
-			if(!$HasAccess &&
-			(!isset($this->uri[1]) || $this->uri[1] !== 'login')){
-				$current_url = str_replace('index.php/', '', current_url());
-				$current_url = str_replace('index.php', '', $current_url);
-				$this->session->setFlashdata('rdct_url', urlencode($current_url));
-				rdct('/admin/login');
-			}
+		if($this->access_cfg['needs_login'] &&
+		!$HasAccess &&
+		(!isset($this->uri[1]) || $this->uri[1] !== 'login')){
+			$current_url = str_replace('index.php/', '', current_url());
+			$current_url = str_replace('index.php', '', $current_url);
+			$this->session->setFlashdata('rdct_url', urlencode($current_url));
+			rdct('/admin/login');
 		}
+
 		if($this->access_cfg['admin_only'] && $HasAccess){
-			$HasAccessAdmin = $this->sysLib->CheckAccessAdmin();
-			if(!$HasAccessAdmin){
+			if(!$this->sysLib->CheckAccessAdmin()){
 				header('HTTP/1.0 403 Forbbiden');
 				echo '<p>Acesso Negado!</p>';
 				echo '<p><a href="'.base_url().'">Voltar para Página Inicial</a></p>';

@@ -129,13 +129,12 @@ class Youtube
         $page = file_get_contents($callUrl);
         $decoded = json_decode($page, true);
 
-        $data = [
+		return [
             'title' => $this->__clear_title($decoded['items'][0]['snippet']['title']),
             'videoID' => $decoded['items'][0]['id'],
             'url' => 'https://www.youtube.com/watch?v='.$decoded['items'][0]['id'],
             'md5' => md5($decoded['items'][0]['id']),
         ];
-		return $data;
     }
 
     public function importUrl($url, $md5)
@@ -162,7 +161,7 @@ class Youtube
             var_dump($stderr);exit;
         }
 		fclose($pipes[2]);
-        $ret = proc_close($process);
+        proc_close($process);
         
 		if(strpos($stdout, '[download] 100% of') !== false){
             log_message('info', "DOWNLOAD COMPLETED: ".$url);

@@ -53,10 +53,8 @@ class SmartyCI extends \Smarty
 		if(!$this->isCaching){
 			$this->smarty->clearCache($view, null, null);
 		}
-		
-		$result = $this->fetch($view);
 			
-		return $result;
+		return $this->fetch($view);
 	}
 	
 	public function setData(array $data = [])

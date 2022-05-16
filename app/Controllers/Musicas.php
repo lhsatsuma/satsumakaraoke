@@ -91,7 +91,6 @@ class Musicas extends BaseController
 
 
 		$videoID = explode("?v=", $AjaxLib->body['link'])[1];
-		$videoMD5 = md5(explode("?v=", $AjaxLib->body['link'])[1]);
 		$dataInfo = $ytLib->getInfo($videoID);
 		if(!$dataInfo['md5']){
 			$AjaxLib->setError('0x001', 'Link inválido!');

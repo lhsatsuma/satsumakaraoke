@@ -340,7 +340,7 @@ class Basic extends Model
 							$c_where = ' AND ';
 							$c_where_or = '';
 						}else{
-							if(strpos($field, '.') == false){
+							if(strpos($field, '.') === false){
 								$field = $this->table.'.'.$field;
 							}
 							$return_string .= $c_where.$field.$cond_value;
@@ -387,7 +387,7 @@ class Basic extends Model
 		$comp = '';
 		$return_string = '';
 		foreach($this->order_by as $field => $value){
-			if(strpos($field, '.') == false && strpos($field, '(*)') == false){
+			if(strpos($field, '.') === false && strpos($field, '(*)') === false){
 				$field = $this->table.'.'.$field;
 			}
 			if($field == $this->table.'.name' && $this->id_by_name){
@@ -518,6 +518,7 @@ class Basic extends Model
 	}
 	public function saveRecord($execute_logics = true)
 	{
+		$fOld = $this->f;
 		if(!empty($fOld['id']) && !$this->new_with_id){
 			$operationHook = 'update';
 		}else{
@@ -525,8 +526,7 @@ class Basic extends Model
 		}
 		if($execute_logics){
 			$returnBefore = $this->before_save($operationHook);
-			if($returnBefore !== false){
-				$fOld = $this->f;
+			if($returnBefore === false){
 				foreach($this->fields_map as $field => $options){
 					if($options['dont_save'] || $options['nondb']){
 						unset($fOld[$field]);
@@ -603,6 +603,8 @@ class Basic extends Model
 				}else{
 					$this->registerLastError("Query failed: ");
 				}
+			}else{
+				log_message('critical', 'Unable to complete before_save...');
 			}
 		}
 
@@ -803,7 +805,8 @@ class Basic extends Model
 				}
 			}
 		}catch(Exception $e){
-			
+			log_message('critical', 'Error searching Indexes for '.$this->table);
+			return 0;
 		}
 		return 0;
 	}

@@ -200,7 +200,7 @@ class BaseController extends Controller
 	public function SetSys()
 	{
 		//Initialize all system vars for models and session data
-		$this->sysLib = new \App\Libraries\Sys\InitApp($this->access_cfg['needs_login'], $this->module_name);
+		$this->sysLib = new \App\Libraries\Sys\InitApp($this->module_name);
 		$this->CheckSysAccess();
 	}
 	
@@ -424,7 +424,6 @@ class BaseController extends Controller
 						if($key == 0){
 							$key_where = 'BEGINORWHERE_';
 						}elseif($key == count($this->filterLib_cfg['generic_filter']) - 1){
-							// echo 'aaaaaaaa';exit;
 							$key_where = 'ENDORWHERE_';
 						}else{
 							$key_where = 'MIDORWHERE_';
@@ -454,7 +453,6 @@ class BaseController extends Controller
 			$this->mdl->order_by[$order_by_field] = $order_by_order;
 			
 		}
-		// echo '<pre>';print_r($this->mdl->where);exit;	
 		$this->data['order_by_field'] = $order_by_field;
 		$this->data['order_by_order'] = $order_by_order;
 		
@@ -568,7 +566,7 @@ class BaseController extends Controller
 					$value = $this->request->getGet('save_data_'.$field);
 					if(!empty($value)){
 						if($attrs['type'] == 'related'){
-							$save_data[$field.'_name'] = $this->request->getGet('save_data_'.$field);
+							$save_data[$field.'_name'] = $value;
 							$save_data[$field] = $this->request->getGet('save_data_'.$field.'_name');
 						}elseif($attrs['type'] == 'dropdown'){
 							$save_data['raw'][$field] = $value;
