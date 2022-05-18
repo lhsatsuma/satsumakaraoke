@@ -119,14 +119,12 @@ class Usuarios extends AdminBaseController
 			rdct('/admin/usuarios/editar/'.getFormData('id'));
 		}
 		
-		if(empty($this->mdl->f['id'])){
-			if(empty(getFormData('senha_nova')) && empty(getFormData('confirm_senha_nova'))){
-				$this->validation_errors = array(
-					'senha_nova' => 'É necessário digitar uma senha para novos usuários.',
-				);
-				$this->SetErrorValidatedForm();
-				rdct('/admin/usuarios/editar/');
-			}
+		if(empty($this->mdl->f['id']) && empty(getFormData('senha_nova')) && empty(getFormData('confirm_senha_nova'))){
+			$this->validation_errors = array(
+				'senha_nova' => 'É necessário digitar uma senha para novos usuários.',
+			);
+			$this->SetErrorValidatedForm();
+			rdct('/admin/usuarios/editar/');
 		}
 		
 		if(!empty(getFormData('senha_nova')) || !empty(getFormData('confirm_senha_nova'))){

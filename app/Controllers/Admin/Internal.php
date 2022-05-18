@@ -556,9 +556,6 @@ class Internal extends AdminBaseController
             case 'tinyint':
                 $returnVal = 1;
                 break;
-            case 'int':
-                // $returnVal = 11;
-                break;
             default:
                 break;
         }

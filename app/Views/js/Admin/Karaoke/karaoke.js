@@ -304,9 +304,9 @@ class KaraokeJS{
 				$('#volumeSpan').html(volSpanMute + '%');
 				break;
 			default:
-				return wait_mil;
 				break;
 		}
+		return wait_mil;
 	}
 	mountWaitList(list, total)
 	{

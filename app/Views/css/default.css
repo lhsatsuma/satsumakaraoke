@@ -279,7 +279,7 @@ body.modal-open > .page-wrapper > a.btn {
 }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown>a:after {
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free", sans-serif;
     font-weight: 900;
     content: "\f105";
     font-style: normal;
@@ -1128,7 +1128,7 @@ input:checked+.slider-dark-mode:before {
     transition: .4s;
 }
 
-input:not(disabled)+.slider {
+input:not(:disabled)+.slider {
     cursor: pointer;
 }
 

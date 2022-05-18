@@ -141,3 +141,5 @@ composer.lock
 .vs/slnx.sqlite
 .scannerwork/
 .idea/
+sonnar**
+sonar**

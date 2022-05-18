@@ -58,13 +58,11 @@ class AdminBaseController extends \App\Controllers\BaseController
 			rdct('/admin/login');
 		}
 
-		if($this->access_cfg['admin_only'] && $HasAccess){
-			if(!$this->sysLib->CheckAccessAdmin()){
-				header('HTTP/1.0 403 Forbbiden');
-				echo '<p>Acesso Negado!</p>';
-				echo '<p><a href="'.base_url().'">Voltar para Página Inicial</a></p>';
-				exit;
-			}
+		if($this->access_cfg['admin_only'] && $HasAccess && !$this->sysLib->CheckAccessAdmin()){
+			header('HTTP/1.0 403 Forbbiden');
+			echo '<p>Acesso Negado!</p>';
+			echo '<p><a href="'.base_url().'">Voltar para Página Inicial</a></p>';
+			exit;
 		}
 	}
 }

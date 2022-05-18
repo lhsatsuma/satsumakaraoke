@@ -214,7 +214,7 @@ class Basic extends Model
         $this->helper->select('COUNT('.$this->table.'.id) AS total');
 		$this->get_join();
         $this->get_where();
-		// $this->get_order_by();
+
 		try{
 			$result = $this->helper->get();
 			log_message('debug', (string)$this->db->getLastQuery());
@@ -823,10 +823,8 @@ class Basic extends Model
 			$idxSql .= ($idxSql) ? '_'.substr($fieldIdx, 0, 4) : substr($fieldIdx, 0, 4);
 		}
 		$idxSql .= $key;
-		if(!$complete){
-			if($this->getIdxTable($idxSql)){
-				return '';
-			}
+		if(!$complete && $this->getIdxTable($idxSql)){
+			return '';
 		}
 		$sqlRepair .= $idxSql;
 
