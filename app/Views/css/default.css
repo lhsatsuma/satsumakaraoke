@@ -95,7 +95,7 @@ body {
 
 @media screen and (min-width: 768px) {
     .page-wrapper.toggled .page-content {
-        padding-left: 300px;
+        padding-left: 290px;
     }
 }
 
@@ -732,11 +732,15 @@ input[type="checkbox"] {
     color: #007bff;
 }
 
-.loading-icon {
+.loading-span {
     display: none;
-    cursor: disabled;
-    width: 1rem;
-    margin-right: 11px;
+    cursor: not-allowed;
+    width: 1.3rem;
+    position: fixed;
+}
+
+.loading-icon {
+    width: 1.3rem;
 }
 
 table.table-hover tbody tr:hover {

@@ -14,16 +14,25 @@ function validateEmail(email)
 }
 function showLoadingIcon(elm)
 {
-	if(!$(elm).find('.loading-icon').length){
-		$(elm).append(` <img class="loading-icon" src="${_APP.app_url}images/loading.gif" />`);
+	if(!$(elm).find('.loadingOri').length){
+		let origContent = $(elm).html();
+		let oriWidth = parseInt($(elm).width());
+		let content = `
+			<span class="loading-span"><img class="loading-icon" src="${_APP.app_url}images/loading.gif" /></span>
+			<span class='loadingOri'>${origContent}</span>
+		`;
+		$(elm).html(content);
+		$(elm).find('.loading-span').css('width', oriWidth);
 	}
 	hideErrorIcon($(elm));
-    $(elm).find('.loading-icon').show();
+    $(elm).find('.loading-span').show();
+	$(elm).find('.loadingOri').css('opacity', 0.15);
 	$(elm).prop('disabled', true).css('cursor', 'not-allowed');
 }
 function hideLoadingIcon(elm)
 {
-    $(elm).find('.loading-icon').hide();
+    $(elm).find('.loading-span').hide();
+	$(elm).find('.loadingOri').css('opacity', 1);
     $(elm).prop('disabled', false).css('cursor', 'pointer');
 }
 function showErrorIcon(elm)
@@ -387,7 +396,6 @@ function ValidateForm(fm, elm)
 		}
 	});
 	//If form is valid, let's submit
-	
 	if(is_valid){
 		$(f).find('input[type="checkbox"]').each((idx, ipt) => {
 			if($(ipt).attr('name')){
