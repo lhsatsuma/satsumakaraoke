@@ -526,7 +526,7 @@ class Basic extends Model
 		}
 		if($execute_logics){
 			$returnBefore = $this->before_save($operationHook);
-			if($returnBefore === false){
+			if($returnBefore === true){
 				foreach($this->fields_map as $field => $options){
 					if($options['dont_save'] || $options['nondb']){
 						unset($fOld[$field]);
@@ -596,7 +596,10 @@ class Basic extends Model
 					
 					if($execute_logics){
 						$this->checkUploadFiles();
-						$this->after_save($operationHook);
+						if($this->after_save($operationHook) === false){
+							log_message('critical', 'Unable to complete after_save...');
+							return false;
+						}
 					}
 					$this->new_with_id = false;
 					return $this->f;
