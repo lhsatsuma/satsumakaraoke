@@ -107,8 +107,10 @@ class MusicasFila extends \App\Models\Basic\Basic
 			return false;
 		}
 		foreach($result as $key => $fila){
-			if(strlen($fila['cantor']) > 11){
-				$result[$key]['cantor'] = mb_substr($fila['cantor'], 0, 11) . '...';
+			$result[$key]['cantor'] = explode(' ', $result[$key]['cantor'], 3);
+			$result[$key]['cantor'] = $result[$key]['cantor'][0] . ' '.$result[$key]['cantor'][1]; 
+			if(strlen($result[$key]['cantor']) > 11){
+				$result[$key]['cantor'] = mb_substr(trim($result[$key]['cantor']), 0, 11) . '...';
 			}
 			if(strlen($fila['name_musica']) > 32){
 				$result[$key]['name_musica'] = mb_substr($fila['name_musica'], 0, 32) . '...';
@@ -118,7 +120,7 @@ class MusicasFila extends \App\Models\Basic\Basic
 		}
 		$result = array_values($result);
 		log_message('debug', 'Creating JSON musics in line... DONE');
-		return file_put_contents(WRITEPATH . 'cache/line_music.json', json_encode(['t' => $total_rows, 's' => $result]));
+		return file_put_contents(WRITEPATH . 'utils/line_music.json', json_encode(['t' => $total_rows, 's' => $result]));
 	}
 }
 ?>

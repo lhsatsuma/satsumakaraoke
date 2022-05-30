@@ -120,7 +120,7 @@ class Dropdown
 
 	private function generate_timezone_list()
 	{
-		$cache_file = WRITEPATH . 'cache/timezone_list.json';
+		$cache_file = WRITEPATH . 'utils/timezone_list.json';
 		if(file_exists($cache_file)){
 			return json_decode(file_get_contents($cache_file), true);
 		}

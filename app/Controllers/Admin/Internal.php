@@ -95,6 +95,33 @@ class Internal extends AdminBaseController
         rdct('/admin/internal/index');
     }
 
+    public function clearWaitListThread()
+    {
+        /*
+        Clear all cache files from writable/cache/, writable/logs/ and writable/uploads/
+        */
+        $files = [
+            WRITEPATH . 'utils/thread.json',
+            WRITEPATH . 'utils/threadCopy.json',
+            WRITEPATH . 'utils/line_music.json',
+        ];
+        $total_files = count($files);
+        $deleted = 0;
+        foreach($files as $file){
+            if(file_exists($file)){
+                unlink($file);
+                $deleted++;
+            }
+        }
+
+        $msg_return = 'Arquivos deletados com sucesso! Tempo: '.$this->calcExectime().'ms';
+        $msg_return .= "<br/>{$total_files} arquivo(s) a serem verificado(s).";
+        $msg_return .= "<br/>{$deleted} arquivo(s) foram deletado(s).";
+
+        $this->setMsgData('success', $msg_return);
+        rdct('/admin/internal/index');
+    }
+
     public function deleteSessions()
     {
         /*
@@ -469,7 +496,7 @@ class Internal extends AdminBaseController
             $json['total'] += $result['total'];
             $json[$result['tipo']] = $result['total'];
         }
-        file_put_contents(WRITEPATH . 'cache/total_musics.json', json_encode($json));
+        file_put_contents(WRITEPATH . 'utils/total_musics.json', json_encode($json));
         $msg_return = 'Reordenação de códigos de músicas realizado com sucesso! Tempo: '.$this->calcExectime().'ms';
         $msg_return .= "<br/>{$json['total']} registro(s) encontrado(s) na tabela.";
         

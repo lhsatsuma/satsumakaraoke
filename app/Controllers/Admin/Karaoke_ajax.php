@@ -25,19 +25,19 @@ class Karaoke_ajax extends AdminBaseController
 
 	public function k_reset_thread()
 	{
-		unlink(WRITEPATH . 'cache/thread.json');
+		unlink(WRITEPATH . 'utils/thread.json');
 		$this->ajax->setSuccess([]);
 	}
 
 	public function k_get_thread()
 	{
-		$thread = json_decode(file_get_contents(WRITEPATH . 'cache/thread.json'), true);
+		$thread = json_decode(file_get_contents(WRITEPATH . 'utils/thread.json'), true);
 
 		if($this->ajax->body['search']){
 			if($this->ajax->body['reset']){
 				$this->mdl->createJSON();
 			}
-			$encoded_line = json_decode(file_get_contents(WRITEPATH . 'cache/line_music.json'), true);
+			$encoded_line = json_decode(file_get_contents(WRITEPATH . 'utils/line_music.json'), true);
 		}else{
 			$encoded_line = [];
 		}

@@ -143,3 +143,8 @@ composer.lock
 .idea/
 sonnar**
 sonar**
+
+
+
+writable/utils/*
+!writable/utils/index.html

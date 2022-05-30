@@ -23,7 +23,7 @@ class Karaoke_ajax extends BaseController
 
 	public function k_get_thread_copy()
 	{
-		$encoded = file_get_contents(WRITEPATH . 'cache/threadCopy.json');
+		$encoded = file_get_contents(WRITEPATH . 'utils/threadCopy.json');
 		$this->ajax->setSuccess(json_decode($encoded, true));
 	}
 
@@ -39,14 +39,14 @@ class Karaoke_ajax extends BaseController
 			];
 
 			$encoded = json_encode($data_encode);
-			file_put_contents(WRITEPATH . 'cache/thread.json', $encoded);
+			file_put_contents(WRITEPATH . 'utils/thread.json', $encoded);
 		}
 		
 		if($this->ajax->body['action'] == 'volume'){
 			$data_copy = [
 				'volume' => (int)$this->ajax->body['valueTo'],
 			];
-			file_put_contents(WRITEPATH . 'cache/threadCopy.json', json_encode($data_copy));
+			file_put_contents(WRITEPATH . 'utils/threadCopy.json', json_encode($data_copy));
 		}
 		$this->ajax->setSuccess($data_encode);
 	}
