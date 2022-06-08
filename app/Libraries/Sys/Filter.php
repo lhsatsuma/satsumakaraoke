@@ -24,13 +24,15 @@ class Filter
 	
 	/* Request Interface CI */
 	public $request;
+
+	protected string $file_language;
 	
-	public function __construct($request, Array $filters)
+	public function __construct($request, Array $filters, string $class_name)
 	{
 		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
 		$this->filters = $filters;
 		$this->request = $request;
-		// $this->SetExtBtn('new', '<a class="btn btn-outline-success btn-rounded" href="#">Novo +</a>',
+		$this->file_language = $class_name;
 	}
 	
 	public function SetExtBtn($name, $button){
@@ -78,7 +80,7 @@ class Filter
 				$this->has_icon_advanced_filter = true;
 			}
 		}
-		$this->layout = new \App\Libraries\Sys\Layout($fields_map);
+		$this->layout = new \App\Libraries\Sys\Layout($fields_map, $this->file_language);
 		
 		$types_layout = $this->layout->GetAllFieldsFilter($record);
 		$html = '';

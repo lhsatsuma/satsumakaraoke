@@ -7,7 +7,7 @@ class Parametros extends AdminBaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/parametros/editar">Novo +</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/parametros/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}

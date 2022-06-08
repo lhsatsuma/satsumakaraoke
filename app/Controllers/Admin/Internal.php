@@ -25,7 +25,7 @@ class Internal extends AdminBaseController
 	public function ExtButtonsGenericFilters()
 	{
 		return array(
-			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/usuarios/editar">Novo +</a>',
+			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/usuarios/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>',
 		);
 	}
 	

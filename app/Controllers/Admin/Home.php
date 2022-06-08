@@ -11,6 +11,6 @@ class Home extends AdminBaseController
 	
 	public function index()
 	{
-		rdct('/admin/usuarios/index');
+		rdct('/admin/users/index');
 	}
 }

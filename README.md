@@ -35,7 +35,7 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 # Technologies used
 
 - Composer
-- [Composer] Framework PHP CodeIgniter 4+
+- [Composer] Framework PHP CodeIgniter 4.2+
 - Bootstrap 4.5.3
 - FontAwesome 5.15.4
 - jQuery 3.6
@@ -44,4 +44,4 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 - [Composer] PHPMailer 6.6+
 - [Composer] MPDF 8.1+
 - [Composer] JsShrink 1.4
-- yt-dlp 2022.04.08
+- yt-dlp 2022.05.08

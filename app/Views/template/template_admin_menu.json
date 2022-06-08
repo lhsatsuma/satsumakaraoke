@@ -11,15 +11,15 @@
 				"perm": 7
 			},
 			{
-				"url": "admin/usuarios/",
+				"url": "admin/users/",
 				"icon": "fas fa-users",
 				"lbl": "Usuários",
 				"perm": 7
 			},
 			{
-				"url": "admin/grupos/",
+				"url": "admin/profiles/",
 				"icon": "fas fa-users-cog",
-				"lbl": "Grupos",
+				"lbl": "Perfis",
 				"perm": 2
 			},
 			{

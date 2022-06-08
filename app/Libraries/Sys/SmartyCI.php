@@ -30,6 +30,7 @@ class SmartyCI extends \Smarty
 			$this->caching = \Smarty::CACHING_LIFETIME_CURRENT;
 			$this->cache_lifetime = 520;
 		}
+		$this->addPluginsDir(APPPATH . 'Libraries/Sys/Smarty/');
 		
 	}
 	public function clearInputs($view)

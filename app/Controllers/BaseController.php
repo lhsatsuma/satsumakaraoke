@@ -136,6 +136,8 @@ class BaseController extends Controller
 	public $js_vars = [];
 
 	protected $ext_buttons = [];
+
+	protected string $translate_file;
 	
 	public function __construct()
 	{
@@ -157,6 +159,7 @@ class BaseController extends Controller
 		global $AppVersion;
 		$this->template = $AppVersion->template;
 		$this->template_file = $AppVersion->template_file;
+		$this->translate_file = str_replace(['App\\Controllers\\', '\\'], ['', '.'], get_class($this));
 	}
 	
 	/**
@@ -230,7 +233,7 @@ class BaseController extends Controller
 	
 	public function SetLayout()
 	{
-		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map);
+		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map, get_class($this));
 		$this->layout->template = $this->template;
 	}
 	public function SetBreadCrumbArr()
@@ -315,7 +318,7 @@ class BaseController extends Controller
 			'is_mobile' => $this->is_mobile,
 			'msg' => $this->session->getFlashdata('msg'),
 			'msg_type' => $msg_type,
-			'title' => '',
+			'title' => translate($this->translate_file, 'LBL_ACTION_CTRL_'. strtoupper($this->routes->methodName())),
 			'sys_title' => getTitle(),
 			'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
 			'auth_user' => $this->session->get('auth_user'),
@@ -462,7 +465,7 @@ class BaseController extends Controller
 	
 	public function GenerateGenericFilter()
 	{
-		$this->filterLib = new \App\Libraries\Sys\Filter($this->request, $this->filter);
+		$this->filterLib = new \App\Libraries\Sys\Filter($this->request, $this->filter, get_class($this));
 		$this->filterLib->action = $this->filterLib_cfg['action'];
 		$this->filterLib->generic_filter = $this->filterLib_cfg['generic_filter'];
 		$this->filterLib->id_filter = $this->filterLib_cfg['id_filter'];

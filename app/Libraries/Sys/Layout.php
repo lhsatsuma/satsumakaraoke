@@ -9,8 +9,11 @@ class Layout
 	public $template = 'template';
 
 	public $disabled_all = false;
+
+
+	protected string $file_language;
 	
-	public function __construct($fields_map)
+	public function __construct($fields_map, string $class_name)
 	{
 		//Nothing to do for now
 		$this->fields_map = $fields_map;
@@ -19,6 +22,7 @@ class Layout
 		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
 		$this->session = getSession();
 		$this->request = getFormData();
+		$this->file_language = str_replace(['App\\Controllers\\', '\\'], ['', '.'], $class_name);
 		
 		$this->base_url = base_url().'/';
 	}
@@ -308,7 +312,7 @@ class Layout
 			$condition_filter_html = $this->dropdown->GetDropdownHTML('conditions_filter', $postVal);
 		}
 		return array(
-			'label' => $this->fields_map[$field]['lbl'],
+			'label' => translate($this->file_language, $this->fields_map[$field]['lbl']),
 			'name' => $field,
 			'ext_attrs' => $this->MountAttrs($this->fields_map[$field]),
 			'required' => ($this->its_filter) ? false : $this->fields_map[$field]['required'],
@@ -364,7 +368,7 @@ class Layout
 		
 		foreach($fields as $field => $ext_class){
 			$return_data['table_heads'][$field] = array(
-				'label' => $this->fields_map[$field]['lbl'],
+				'label' => translate($this->file_language, $this->fields_map[$field]['lbl']),
 				'class' => $ext_class,
 			);
 		}
@@ -418,7 +422,7 @@ class Layout
 		
 		foreach($fields as $field => $ext_class){
 			$return_data['table_heads'][$field] = array(
-				'label' => $this->fields_map[$field]['lbl'],
+				'label' => translate($this->file_language, $this->fields_map[$field]['lbl']),
 				'class' => $ext_class,
 			);
 		}

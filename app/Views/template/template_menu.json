@@ -1,11 +1,11 @@
 [
 	{
-		"url": "usuarios/MeusDados",
+		"url": "users/MeusDados",
 		"icon": "fas fa-user",
 		"lbl": "Meus dados"
 	},
 	{
-		"url": "admin/usuarios/index",
+		"url": "admin/users/index",
 		"icon": "fas fa-users",
 		"lbl": "Administração",
 		"perm": 5

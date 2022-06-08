@@ -57,7 +57,6 @@ class AdminBaseController extends \App\Controllers\BaseController
 			$this->session->setFlashdata('rdct_url', urlencode($current_url));
 			rdct('/admin/login');
 		}
-
 		if($this->access_cfg['admin_only'] && $HasAccess && !$this->sysLib->CheckAccessAdmin()){
 			header('HTTP/1.0 403 Forbbiden');
 			echo '<p>Acesso Negado!</p>';

@@ -17,7 +17,7 @@
 			{foreach from=$layout_list.table_tbody.records item=body_record}
 				<tr class="r-dt-slct" dt-r-id="{$body_record.id_value}">
 					{if $layout_list.has_edit}
-						<td><a href="{$body_record.location_href|replace:"/detalhes":"/editar"}"><i class="fas fa-edit"></i></a></td>
+						<td><a href="{$body_record.location_href|replace:"/detail":"/edit"}"><i class="fas fa-edit"></i></a></td>
 					{/if}
 					{foreach from=$body_record.columns item=tbody_col key=tbody_name}
 						<td class="{$layout_list.table_heads[$tbody_name].class}" dt-r-{$tbody_col.name}="{$tbody_col.name}" >
@@ -32,7 +32,7 @@
 			{/foreach}
 		{else}
 		<tr class="r-dt-slct">
-			<td colspan="{if $layout_list.has_edit}{count($layout_list.table_heads)+1}{else}{count($layout_list.table_heads)}{/if}">Nenhum registro encontrado!</td>
+			<td colspan="{if $layout_list.has_edit}{count($layout_list.table_heads)+1}{else}{count($layout_list.table_heads)}{/if}">{translate l="LBL_NO_RECORDS"}</td>
 		</tr>
 		{/if}
 	</tbody>
@@ -41,7 +41,7 @@
 	<tbody>
 		<tr>
 			<td>
-				Ir para: <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /> <button type="button" class="btn btn-outline-info btn-rounded" onclick="QuickGoToPage(this)">Ir</button>
+				{translate l="LBL_GO_TO_PAGE"} <input size="5" type="text" class="form-control QuickGoToPage" inputmode="numeric" pattern="[0-9]*" /> <button type="button" class="btn btn-outline-info btn-rounded" onclick="QuickGoToPage(this)">{translate l="LBL_GO_TO_PAGE_ACTION"}</button>
 			</td>
 		</tr>
 		<tr>

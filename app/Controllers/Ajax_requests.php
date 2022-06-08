@@ -142,7 +142,7 @@ class Ajax_requests extends BaseController
 
 	public function toogle_dark_mode()
 	{
-		$mdl = new \App\Models\Usuarios\Usuarios();
+		$mdl = new \App\Models\Users\Users();
 
 
 		$which_key = 'auth_user';
