@@ -1,0 +1,21 @@
+<?php
+return [
+    'LBL_NAME' => 'Nome',
+    'LBL_DELETED' => 'Deletado',
+    'LBL_DATE_CREATED' => 'Data Criação',
+    'LBL_USER_CREATED' => 'Usuário Criação',
+    'LBL_DATE_MODIFIED' => 'Data Modificação',
+    'LBL_USER_MODIFIED' => 'Usuário Modificação',
+    'LBL_EMAIL' => 'E-mail',
+    'LBL_PASSWORD' => 'Senha',
+    'LBL_STATUS' => 'Status',
+    'LBL_PROFILE' => 'Perfil',
+    'LBL_LAST_IP' => 'Último IP',
+    'LBL_LAST_CONNECTED' => 'Última vez conectado',
+    'LBL_HASH_ESQUECI_SENHA' => 'Chave Esqueci Senha',
+    'LBL_ULTIMA_TROCA_SENHA' => 'Data Última Troca de Senha',
+    'LBL_DARK_MODE' => 'Modo Escuro',
+    'LBL_TIMEZONE' => 'Fuso Horário',
+    'LBL_TELEPHONE' => 'Telefone',
+    'LBL_CELPHONE' => 'Celular',
+];

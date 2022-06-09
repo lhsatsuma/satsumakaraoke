@@ -385,7 +385,7 @@ if(!isset($GLOBALS['AppVersion'])){
 	}
 
 	function translate(string $module, string $label = ''){
-		global $translates;
+		global $translates, $locale;
 		if(empty($module)){
 			return '';
 		}
@@ -397,7 +397,9 @@ if(!isset($GLOBALS['AppVersion'])){
 		
 		if(!$translates[$module]){
 			$file = explode('.', $module);
-			$locale = service('request')->getLocale();
+			if(!$locale){
+				$locale = service('request')->getLocale();
+			}
 			$file = APPPATH . 'Language/'.$locale.'/'.implode('/', $file).'.php';
 			if(file_exists($file)){
 				log_message('debug', 'Calling language: '.$module);

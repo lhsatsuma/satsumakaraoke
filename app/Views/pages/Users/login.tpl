@@ -25,19 +25,19 @@
 					{if $msg_type}
 						<div id="ERROR_LOGIN" class="msg-type-{$msg_type}">{$msg}</div>
 					{/if}
-					<p class="mt-3 text-left">Para acessar a lista de músicas, é necessário ter uma conta e estar logado.</p>
+					<p class="mt-3 text-left">{translate l="LBL_INFO_LOGIN"}</p>
 					<form class="mt-3" name="LoginForm" id="LoginForm" method="post" action="{$app_url}login/auth">
 						<input type="hidden" name="rdct_url" value="{$rdct_url}" />
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
 						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="Email"/></p>
 						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="Senha"/></p>
-						<p><button class="btn mt-3 width-100 btn-outline-info btn-rounded" type="submit">Conectar</button></p>
-						<p><a href="javascript:void(0)" onclick="OpenModalReset()">Esqueci Minha Senha</a></p>
+						<p><button class="btn mt-3 width-100 btn-outline-info btn-rounded" type="submit">{translate l="LBL_CONNECT"}</button></p>
+						<p><a href="javascript:void(0)" onclick="OpenModalReset()">{translate l="LBL_FORGOT_PASSWORD"}</a></p>
 						{if $enabled_create_user}
-							<p><a href="{$app_url}login/criarConta" >Criar Conta</a></p>
+							<p><a href="{$app_url}login/criarConta" >{translate l="LBL_CREATE_ACCOUNT"}</a></p>
 						{/if}
 					</form>
-					<p class="versao-sistema">ⓒ 2022 Todos os direitos reservados.<br />Desenvolvido por Luis Satsuma | v{$ch_ver_org}</p>
+					<p class="versao-sistema">ⓒ 2022 {translate l="LBL_COPYRIGHT"}<br />{translate l="LBL_DEVELOPED_BY"} Luis Satsuma | v{$ch_ver_org}</p>
 				</div>
 			</div>
 		</div>

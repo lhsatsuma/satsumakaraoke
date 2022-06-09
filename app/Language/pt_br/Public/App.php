@@ -12,4 +12,15 @@ return [
     'LBL_RESET' => 'Resetar',
     'LBL_CLOSE' => 'Fechar',
     'LBL_ADVANCED_SEARCH' => 'Busca Avançada',
+    'LBL_DEVELOPED_BY' => 'Desenvolvido por',
+    'LBL_COPYRIGHT' => 'Todos os direitos reservados.',
+    'LBL_ADMIN_PANEL' => 'Painel de Administração',
+
+    /**
+     * Used in Login view
+     */
+    'LBL_CREATE_ACCOUNT' => 'Criar Conta',
+    'LBL_FORGOT_PASSWORD' => 'Esqueci minha Senha',
+    'LBL_INFO_LOGIN' => 'Para acessar a lista de músicas, é necessário ter uma conta e estar logado.',
+    'LBL_CONNECT' => 'Conectar',
 ];
