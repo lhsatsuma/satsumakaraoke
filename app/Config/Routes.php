@@ -55,12 +55,12 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->add('/admin/login', '\Admin\Users::login');
-$routes->add('/admin/login/auth', '\Admin\Users::auth');
-$routes->add('/admin/login/logout', '\Admin\Users::logout');
+$routes->match(['get', 'post'], '/login', 'Users::login');
+$routes->match(['get', 'post'], '/login/(:any)', 'Users::$1');
 
-$routes->add('/login', '\Users::login');
-$routes->add('/login/(:any)', '\Users::$1');
+$routes->match(['get', 'post'], '/admin/login/', 'Users::login', ['namespace' => 'App\Controllers\Admin']);
+$routes->match(['get', 'post'], '/admin/login/auth', 'Users::auth', ['namespace' => 'App\Controllers\Admin']);
+$routes->match(['get', 'post'], '/admin/login/logout', 'Users::logout', ['namespace' => 'App\Controllers\Admin']);
 
 $routes->add('/jsManager/(:any)', 'JsManager::get/$1');
 $routes->add('/cssManager/(:any)', 'cssManager::get/$1');
