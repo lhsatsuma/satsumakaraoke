@@ -302,7 +302,7 @@ if(!isset($GLOBALS['AppVersion'])){
 			$permissions = getSession()->get('PRM_'.$cod.'_'.$profile);
 			if(is_null($permissions)){
 				if(!$permissao){
-					$permissao = new \App\Models\PermissaoGrupo\PermissaoGrupo();
+					$permissao = new \App\Models\ProfilePermissions\ProfilePermissions();
 				}
 				$levelPermission = $permissao->hasPermission($cod, $profile)['nivel'];
 

@@ -1,7 +1,7 @@
 <?php
-namespace App\Models\PermissaoGrupo;
+namespace App\Models\ProfilePermissions;
 
-class PermissaoGrupo extends \App\Models\Basic\Basic
+class ProfilePermissions extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'permissao_grupo';

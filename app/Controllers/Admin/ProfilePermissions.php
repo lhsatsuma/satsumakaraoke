@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Permissao_grupo extends AdminBaseController
+class ProfilePermissions extends AdminBaseController
 {
-	public $module_name = 'PermissaoGrupo';
+	public $module_name = 'ProfilePermissions';
 
 	public function index($offset = 0)
 	{
@@ -11,7 +11,7 @@ class Permissao_grupo extends AdminBaseController
 
 		$this->data['title'] = 'Lista de Permissão por Grupo';
 	
-		$grupos = new \App\Models\Grupos\Grupos();
+		$grupos = new \App\Models\Profiles\Profiles();
 		$gruposAtivos = $grupos->getAtivos('id, name');
 
 		$gruposArr = [];
@@ -25,15 +25,15 @@ class Permissao_grupo extends AdminBaseController
 
 		$this->data['gruposAtivos'] = $DropdownLib->GetDropdownHTML('gruposAtivos');
 		
-		return $this->displayNew('pages/Admin/PermissaoGrupo/index');
+		return $this->displayNew('pages/Admin/ProfilePermissions/index');
 	}
 
-	public function procurarPermissoes()
+	public function searchPermissions()
 	{
 		hasPermission(4, 'r', true);
 		
 		$ajaxLib = new \App\Libraries\Sys\Ajax(['grupo_id']);
-		$permissao = new \App\Models\Permissao\Permissao();
+		$permissao = new \App\Models\Permissions\Permissions();
 		$permissoes = $permissao->getAllPermissions($ajaxLib->body['grupo_id']);
 		
 		$ajaxLib->setSuccess($permissoes);
@@ -68,6 +68,6 @@ class Permissao_grupo extends AdminBaseController
 			$this->session->remove('PRM_'.$perm_id.'_'.$this->mdl->f['grupo']);
 		}
 		$this->session->setFlashdata('msg', 'Permissões salvas com sucesso');
-		rdct('/admin/permissao_grupo/index/');
+		rdct('/admin/ProfilePermissions/index/');
 	}
 }

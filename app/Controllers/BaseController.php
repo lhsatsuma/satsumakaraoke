@@ -311,6 +311,7 @@ class BaseController extends Controller
 		$this->js_vars['app_version'] = $AppVersion->version;
 		$this->js_vars['ch_ver'] = GetCacheVersion();
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
+		$this->js_vars['ctrl_language'] = translate($this->translate_file);
 		$dataNew = array(
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
@@ -327,6 +328,10 @@ class BaseController extends Controller
 			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
 			'rdct_url' => $this->session->getFlashdata('rdct_url'),
+			'languages' => [
+				'app' => json_encode(translate('app')),
+				$this->translate_file => json_encode(translate($this->translate_file)),
+			]
 		);
 		if($this->data){
 			$this->data = array_merge($this->data, $dataNew);

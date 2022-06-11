@@ -48,9 +48,9 @@
 				"perm": 8
 			},
 			{
-				"url": "admin/permissao_grupo",
+				"url": "admin/profilePermissions",
 				"icon": "fas fa-user-lock",
-				"lbl": "Permissões do Grupo",
+				"lbl": "Permissões do Perfil",
 				"perm": 4
 			},
 			{

@@ -1,13 +1,13 @@
 $('#grupos').change(() => {
-    $('#tbodyPermissaoGrupo').html('');
+    $('#tbodyProfilePermissions').html('');
     if($('#grupos').val()){
         if($('#grupos').val() == '1'){
-            $('#grupos').after('<p class="required" id="grupo1required">Todas as permissões para este grupo são permitidas automaticamente.</p>');
+            $('#grupos').after('<p class="required" id="grupo1required">'+translate.get('Admin.ProfilePermissions', 'LBL_DEFAULT_PROFILE_ALL')+'</p>');
         }else{
             $('#grupo1required').remove();
         }
         fireAjaxLoading({
-            url: _APP.app_url+'admin/permissao_grupo/procurarPermissoes',
+            url: _APP.app_url+'admin/profilePermissions/searchPermissions',
             text: 'Estamos buscando as permissões para este grupo...',
             data: JSON.stringify({
                 grupo_id: $('#grupos').val(),
@@ -24,7 +24,7 @@ $('#grupos').change(() => {
                         if(close == true || idx == 0){
                             html += "\n<tr class='d-flex'>";
                         }
-                        let sideTd = (idx % 2 == 1) ? 'direitaSide' : 'esquerdaSide';
+                        let sideTd = (idx % 2 == 1) ? 'rightSide' : 'leftSide';
                         
                         let nivel = ipt.nivel;
                         let has_r = '';
@@ -73,13 +73,13 @@ $('#grupos').change(() => {
                 if(html.substr(html.length - 5) !== '</tr>'){
                     html += '</tr>';
                 }
-                $('#tbodyPermissaoGrupo').html(html);
+                $('#tbodyProfilePermissions').html(html);
                 Swal.close();
             }
         });
     }
 });
-function togglePermissoes(side, dom, per)
+function togglePermissions(side, dom, per)
 {
     $('.'+side+'Side > input[permission="'+per+'"]').each((idx, ipt) => {
         if(!$(dom).is(':checked')){
