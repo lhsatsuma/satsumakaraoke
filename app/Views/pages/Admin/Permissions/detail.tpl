@@ -8,10 +8,10 @@
 <input type="hidden" name="id" value="{$record.id}" />
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.varchar.name}
+		{$layout.int.id}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.bool.ativo}
+		{$layout.varchar.name}
 	</div>
 </div>
 <div class="row">
@@ -35,10 +35,10 @@
 		{$layout.related.user_modified}
 	</div>
 </div>
-{if $perms.cod_2.w}
-	<div class="row">
-		<div class="col-12">
-			<a href="{$app_url}admin/profiles/edit/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> {translate l="LBL_EDIT"}</a>
-		</div>
+{if $perms.cod_3.w}
+<div class="row">
+	<div class="col-12">
+		<a href="{$app_url}admin/permissions/edit/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> {translate l="LBL_EDIT"}</a>
 	</div>
+</div>
 {/if}

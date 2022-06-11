@@ -32,7 +32,7 @@
 			{/foreach}
 		{else}
 		<tr class="r-dt-slct">
-			<td colspan="{if $layout_list.has_edit}{count($layout_list.table_heads)+1}{else}{count($layout_list.table_heads)}{/if}">{translate l="LBL_NO_RECORDS"}</td>
+			<td colspan="{if $layout_list.has_edit}{count($layout_list.table_heads)+1}{else}{count($layout_list.table_heads)}{/if}">{translate l="LBL_NO_RECORDS_FOUND"}</td>
 		</tr>
 		{/if}
 	</tbody>

@@ -90,7 +90,7 @@ class Menus extends \App\Models\Basic\Basic
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
 			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			]
 		),
 		'date_modified' => array(
@@ -104,7 +104,7 @@ class Menus extends \App\Models\Basic\Basic
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
 			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			]
 		),
 	);

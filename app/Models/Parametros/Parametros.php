@@ -52,7 +52,7 @@ class Parametros extends \App\Models\Basic\Basic
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
 			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			]
 		),
 		'date_modified' => array(
@@ -66,7 +66,7 @@ class Parametros extends \App\Models\Basic\Basic
 			'table' => 'usuarios',
 			'dont_load_layout' => true,
 			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			]
 		),
 	);
@@ -75,7 +75,7 @@ class Parametros extends \App\Models\Basic\Basic
 		['codigo', 'deleted']
 	];
 
-	public function getValorParametro(string $cod)
+	public function getParameterValue(string $cod)
 	{
 		$this->select = "valor";
 		$this->where['codigo'] = $cod;

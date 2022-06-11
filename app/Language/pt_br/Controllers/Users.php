@@ -1,5 +1,6 @@
 <?php
 return [
+    'LBL_ID' => 'ID',
     'LBL_NAME' => 'Nome',
     'LBL_DELETED' => 'Deletado',
     'LBL_DATE_CREATED' => 'Data Criação',
@@ -18,4 +19,14 @@ return [
     'LBL_TIMEZONE' => 'Fuso Horário',
     'LBL_TELEPHONE' => 'Telefone',
     'LBL_CELPHONE' => 'Celular',
+    'LBL_ACTION_CTRL_CREATEACCOUNT' => 'Criar Conta',
+    'LBL_ACTION_CTRL_LOGIN' => 'Login',
+    'LBL_ACTION_CTRL_MYINFO' => 'Meus Dados',
+    'LBL_REPEAT_PASSWORD' => 'Repetir a senha',
+    'LBL_INFO_CREATE_NEW_ACCOUNT' => 'Para acessar a lista de músicas, é necessário criar uma conta e realizar o login.',
+    'LBL_INFO_STRONG_PASSWORD' => 'A senha deve conter pelo menos:<br />8 dígitos e 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caracter especial.',
+    'LBL_CURRENT_PASSWORD' => 'Senha Atual',
+    'LBL_NEW_PASSWORD' => 'Nova Senha',
+    'LBL_CONFIRM_NEW_PASSWORD' => 'Repita a Nova Senha',
+    'LBL_RESET_PREFERENCES' => 'Reseta Preferências',
 ];

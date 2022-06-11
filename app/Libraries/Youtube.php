@@ -51,7 +51,7 @@ class Youtube
 {
     public function __construct()
     {
-        $this->upload_path = getValorParametro('path_video_karaoke');
+        $this->upload_path = getParameterValue('path_video_karaoke');
         $this->google_api_key = $GLOBALS['AppVersion']->google_api_key;
     }
     public function __clear_title($title, $decode = true)

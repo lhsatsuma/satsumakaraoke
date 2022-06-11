@@ -353,7 +353,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		$focus->SetInitialData();
 		echo $focus->displayNew('403', false);exit;
 	}
-	function getValorParametro(string $cod)
+	function getParameterValue(string $cod)
 	{
 		global $parametros;
 		$parametro_valor = getSession()->get('PARAM_CACHE_'.$cod);
@@ -361,7 +361,7 @@ if(!isset($GLOBALS['AppVersion'])){
 			if(!$parametros){
 				$parametros = new \App\Models\Parametros\Parametros();
 			}
-			$parametro_valor = $parametros->getValorParametro($cod)['valor'];
+			$parametro_valor = $parametros->getParameterValue($cod)['valor'];
 			getSession()->set('PARAM_CACHE_'.$cod, $parametro_valor);
 		}
 		return $parametro_valor;

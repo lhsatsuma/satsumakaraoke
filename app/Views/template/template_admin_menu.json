@@ -23,9 +23,9 @@
 				"perm": 2
 			},
 			{
-				"url": "admin/permissao/",
+				"url": "admin/permissions/",
 				"icon": "fas fa-key",
-				"lbl": "Permissão",
+				"lbl": "Permissões",
 				"perm": 3
 			}
 		]

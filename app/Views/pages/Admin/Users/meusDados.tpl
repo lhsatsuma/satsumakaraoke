@@ -5,7 +5,7 @@
 	</div>
 </div>
 {/if}
-<form id="EditarForm" method="post" action="{$app_url}admin/users/salvarMeusDados">
+<form id="EditarForm" method="post" action="{$app_url}admin/users/salvarmyInfo">
 	<input type="hidden" name="status" value="{$record.raw.status}" />
 	<div class="row">
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

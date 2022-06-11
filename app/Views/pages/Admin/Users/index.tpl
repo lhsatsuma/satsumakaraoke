@@ -26,7 +26,7 @@
 			
 		{else}
 		<tr>
-			<td colspan="5">{translate l="LBL_NO_RECORDS"}</td>
+			<td colspan="5">{translate l="LBL_NO_RECORDS_FOUND"}</td>
 		</tr>	
 		{/if}
 		</tbody>

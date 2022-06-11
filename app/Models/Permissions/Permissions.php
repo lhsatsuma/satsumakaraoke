@@ -1,57 +1,61 @@
 <?php
-namespace App\Models\Permissao;
+namespace App\Models\Permissions;
 
-class Permissao extends \App\Models\Basic\Basic
+class Permissions extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'permissao';
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'int',
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
 		'name' => array(
-			'lbl' => 'name da Permissão',
+			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
-			'max_length' => 255,
 			'required' => true,
-			'link_record' => true,
+			'min_length' => 2,
+			'max_length' => 255,
 		),
 		'deleted' => array(
-			'lbl' => 'deleted',
+			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
 		'date_created' => array(
-			'lbl' => 'Data Criação',
+			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_created' => array(
-			'lbl' => 'Usuário Criação',
+			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
 			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
-			]
 		),
 		'date_modified' => array(
-			'lbl' => 'Data Modificação',
+			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
+			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
 			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
-			]
 		),
 	);
 	public $idx_table = [
@@ -59,7 +63,7 @@ class Permissao extends \App\Models\Basic\Basic
 		['name', 'deleted']
 	];
 
-	public function getAllPermissao(string $grupo)
+	public function getAllPermissions(string $grupo)
 	{
 		if($grupo){
 			$this->force_deleted = true;

@@ -66,8 +66,8 @@ class Karaoke_ajax extends AdminBaseController
 
 	public function k_get_body()
 	{
-		$this->data['karaokeURL'] = getValorParametro('karaoke_url_videos');
-		$this->data['host_fila'] = getValorParametro('karaoke_url_host');
+		$this->data['karaokeURL'] = getParameterValue('karaoke_url_videos');
+		$this->data['host_fila'] = getParameterValue('karaoke_url_host');
 		$this->ajax->setSuccess($this->displayNew('pages/Admin/Karaoke/k_body_'.$this->ajax->body['id'], false));
 	}
 

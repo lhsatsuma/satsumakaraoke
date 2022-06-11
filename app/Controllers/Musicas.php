@@ -8,7 +8,7 @@ class Musicas extends BaseController
 	public function __construct()
 	{
 		parent::__construct();
-		$this->upload_path = getValorParametro('path_video_karaoke');
+		$this->upload_path = getParameterValue('path_video_karaoke');
 	}
 	
 	public function ExtButtonsGenericFilters()

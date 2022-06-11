@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>Login - {$sys_title}</title>
+		<title>{$title|strip_tags} - {$sys_title}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="initial-scale=1">
 		<link rel="shortcut icon" href="{$app_url}images/favicon.ico" type="image/x-icon">
@@ -34,7 +34,7 @@
 						<p><button class="btn mt-3 width-100 btn-outline-info btn-rounded" type="submit">{translate l="LBL_CONNECT"}</button></p>
 						<p><a href="javascript:void(0)" onclick="OpenModalReset()">{translate l="LBL_FORGOT_PASSWORD"}</a></p>
 						{if $enabled_create_user}
-							<p><a href="{$app_url}login/criarConta" >{translate l="LBL_CREATE_ACCOUNT"}</a></p>
+							<p><a href="{$app_url}login/createAccount" >{translate l="LBL_CREATE_ACCOUNT"}</a></p>
 						{/if}
 					</form>
 					<p class="versao-sistema">ⓒ 2022 {translate l="LBL_COPYRIGHT"}<br />{translate l="LBL_DEVELOPED_BY"} Luis Satsuma | v{$ch_ver_org}</p>

@@ -8,55 +8,59 @@ class Profiles extends \App\Models\Basic\Basic
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
-			'type' => 'int',
+			'lbl' => 'LBL_ID',
+			'type' => 'varchar',
+			'max_length' => 36,
 			'dont_load_layout' => true,
-			'dont_generate' => true,
 		),
 		'name' => array(
-			'lbl' => 'Nome',
+			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
-			'max_length' => 255,
-			'link_record' => true,
 			'required' => true,
-		),
-		'ativo' => array(
-			'lbl' => 'Ativo',
-			'type' => 'bool',
-			'default' => '1',
+			'min_length' => 2,
+			'max_length' => 255,
 		),
 		'deleted' => array(
-			'lbl' => 'deleted',
+			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
 		'date_created' => array(
-			'lbl' => 'Data Criação',
+			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_created' => array(
-			'lbl' => 'Usuário Criação',
+			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
 			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
-			]
 		),
 		'date_modified' => array(
-			'lbl' => 'Data Modificação',
+			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
+			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
 			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/usuarios/detalhes/',
-			]
+		),
+		'ativo' => array(
+			'lbl' => 'LBL_ACTIVE',
+			'type' => 'bool',
+			'default' => '1',
 		),
 	);
 	public $idx_table = [

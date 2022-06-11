@@ -37,7 +37,7 @@ class Musicas extends \App\Models\Basic\Basic
 			'parameter' => array(
 				'url' => null,
 				'model' => 'Admin/Usuarios/Usuarios',
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
@@ -53,7 +53,7 @@ class Musicas extends \App\Models\Basic\Basic
 			'parameter' => array(
 				'url' => null,
 				'model' => 'Admin/Usuarios/Usuarios',
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),

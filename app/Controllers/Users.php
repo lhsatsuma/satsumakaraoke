@@ -12,7 +12,7 @@ class Users extends BaseController
 		$data = array(
 			'login_msg' => '',
 		);
-		if($this->uri[0] !== 'login' && $this->uri[1] !== 'MeusDados' && $this->uri[1] !== 'salvarMeusDados'){
+		if($this->uri[0] !== 'login' && $this->uri[1] !== 'myInfo' && $this->uri[1] !== 'salvarmyInfo'){
 			$this->access_cfg['admin_only'] = true;
 		}
 		$this->data = array_merge($data, $this->data);
@@ -20,13 +20,11 @@ class Users extends BaseController
 	
 	public function index()
 	{
-		rdct('/users/MeusDados');
+		rdct('/users/myInfo');
 	}
 	
-	public function MeusDados()
-	{
-		$this->data['title'] = 'Meus Dados';
-		
+	public function myInfo()
+	{		
 		$this->mdl->f['id'] = $this->session->get('auth_user')['id'];
 		
 		$result = $this->mdl->get();
@@ -45,12 +43,12 @@ class Users extends BaseController
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 		
 		
-		return $this->displayNew('pages/Users/meusDados');
+		return $this->displayNew('pages/Users/myInfo');
 	}
 	
 	public function createUser()
 	{
-		if(!getValorParametro('enable_create_user_login')){
+		if(!getParameterValue('enable_create_user_login')){
 			rdctForbbiden();
 		}
 		$this->PopulatePost();
@@ -77,17 +75,16 @@ class Users extends BaseController
 		}
 	}
 	
-	public function criarConta()
+	public function createAccount()
 	{
-		if(!getValorParametro('enable_create_user_login')){
+		if(!getParameterValue('enable_create_user_login')){
 			rdctForbbiden();
 		}
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
-		$this->data['title'] = 'Criar Conta';
 		
-		return $this->displayNew('pages/Users/criarConta', false);
+		return $this->displayNew('pages/Users/createAccount', false);
 	}
 	
 	public function checkExistEmail()
@@ -108,12 +105,12 @@ class Users extends BaseController
 		$ajaxLib->setSuccess(['exists' => false]);
 	}
 	
-	public function salvarMeusDados()
+	public function salvarmyInfo()
 	{
 		$this->PopulatePost();
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
-			rdct('/users/MeusDados');
+			rdct('/users/myInfo');
 		}
 		
 		$AuthUser = $this->session->get('auth_user');
@@ -124,7 +121,7 @@ class Users extends BaseController
 					'senha_atual' => 'A senha atual não confere.',
 				);
 				$this->SetErrorValidatedForm();
-				rdct('/users/MeusDados');
+				rdct('/users/myInfo');
 			}
 			$senha_nova = getFormData('senha_nova');
 			$confirm_senha_nova = getFormData('confirm_senha_nova');
@@ -133,7 +130,7 @@ class Users extends BaseController
 					'confirm_senha_nova' => 'As senhas não conferem',
 				);
 				$this->SetErrorValidatedForm();
-				rdct('/users/MeusDados');
+				rdct('/users/myInfo');
 			}
 			$this->mdl->f['senha'] = $confirm_senha_nova;
 		}
@@ -149,7 +146,7 @@ class Users extends BaseController
 				'email' => 'Já existe um usuário com este email.',
 			);
 			$this->SetErrorValidatedForm();
-			rdct('/users/MeusDados');
+			rdct('/users/myInfo');
 		}
 		$saved = $this->mdl->saveRecord();
 		if($saved){
@@ -158,11 +155,11 @@ class Users extends BaseController
 	
 			$this->session->set('auth_user', $AuthUser);
 			$this->SetErrorValidatedForm(false);
-			rdct('/users/MeusDados');
+			rdct('/users/myInfo');
 		}else{
 			$this->setMsgData('error', $this->mdl->last_error);
 			$this->SetErrorValidatedForm();
-			rdct('/users/MeusDados');
+			rdct('/users/myInfo');
 		}
 	}
 	
@@ -171,7 +168,7 @@ class Users extends BaseController
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
-		$this->data['enabled_create_user'] = getValorParametro('enable_create_user_login');
+		$this->data['enabled_create_user'] = getParameterValue('enable_create_user_login');
 		return $this->displayNew('pages/Users/login', false);
 	}
 	

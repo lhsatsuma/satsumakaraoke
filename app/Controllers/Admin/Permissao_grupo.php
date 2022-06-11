@@ -34,7 +34,7 @@ class Permissao_grupo extends AdminBaseController
 		
 		$ajaxLib = new \App\Libraries\Sys\Ajax(['grupo_id']);
 		$permissao = new \App\Models\Permissao\Permissao();
-		$permissoes = $permissao->getAllPermissao($ajaxLib->body['grupo_id']);
+		$permissoes = $permissao->getAllPermissions($ajaxLib->body['grupo_id']);
 		
 		$ajaxLib->setSuccess($permissoes);
 	}

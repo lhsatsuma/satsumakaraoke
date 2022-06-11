@@ -15,7 +15,6 @@ class Profiles extends AdminBaseController
 	public function index($offset = 0)
 	{
 		hasPermission(2, 'r', true);
-		$this->data['title'] = 'Lista de Profiles';
 		
 		$initial_filter = array(
 			'name' => '',
@@ -52,8 +51,6 @@ class Profiles extends AdminBaseController
 	public function detail($id = null)
 	{
 		hasPermission(2, 'r', true);
-
-		$this->data['title'] = 'Detalhes do Grupo';
 		
 		$this->mdl->f['id'] = $id;
 		$result = $this->mdl->get();
@@ -73,8 +70,8 @@ class Profiles extends AdminBaseController
 	public function editar($id = null)
 	{
 		hasPermission(2, 'w', true);
-
-		$this->data['title'] = ($id) ? 'Editar Profile' : 'Criar Profile';
+		
+		$this->data['title'] = translate($this->translate_file, ($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = array();
 		if($id){

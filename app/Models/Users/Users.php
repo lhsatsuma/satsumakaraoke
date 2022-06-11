@@ -7,7 +7,7 @@ class Users extends \App\Models\Basic\Basic
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
@@ -36,7 +36,7 @@ class Users extends \App\Models\Basic\Basic
 			'parameter' => array(
 				'url' => null,
 				'model' => 'Admin/Users/Users',
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
@@ -52,7 +52,7 @@ class Users extends \App\Models\Basic\Basic
 			'parameter' => array(
 				'url' => null,
 				'model' => 'Admin/Users/Users',
-				'link_detail' => 'admin/usuarios/detalhes/',
+				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
@@ -83,7 +83,7 @@ class Users extends \App\Models\Basic\Basic
 			'skipRequired' => true,
 			'parameter' => array(
 				'model' => 'Profiles/Profiles',
-				'link_detail' => 'admin/profiles/detalhes/',
+				'link_detail' => 'admin/profiles/detail/',
 			),
 		),
 		'last_ip' => array(

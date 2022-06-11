@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Permissao extends AdminBaseController
+class Permissions extends AdminBaseController
 {
-	public $module_name = 'Permissao';
+	public $module_name = 'Permissions';
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/permissao/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/permissions/edit">'.translate('app', 'LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}
@@ -28,7 +28,7 @@ class Permissao extends AdminBaseController
 		
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/permissao/index',
+			'action' => base_url().'/admin/permissions/index',
 			'generic_filter' => array(
 				'name',
 			),
@@ -46,10 +46,10 @@ class Permissao extends AdminBaseController
 		$this->data['records'] = $result;
 		$this->data['records_count'] = (count($result)) ? true : false;
 		
-		return $this->displayNew('pages/Admin/Permissao/index');
+		return $this->displayNew('pages/Admin/Permissions/index');
 	}
 	
-	public function detalhes($id = null)
+	public function detail($id = null)
 	{
 		hasPermission(3, 'r', true);
 
@@ -58,7 +58,7 @@ class Permissao extends AdminBaseController
 		$this->mdl->f['id'] = $id;
 		$result = $this->mdl->get();
 		if(!$result['id']){
-			rdct('/admin/permissao/index');
+			rdct('/admin/permissions/index');
 		}
 		$result = $this->mdl->formatRecordsView($result);
 		$this->data['record'] = $result;
@@ -67,10 +67,10 @@ class Permissao extends AdminBaseController
 
 		$this->setPermData(3);
 		
-		return $this->displayNew('pages/Admin/Permissao/detalhes');
+		return $this->displayNew('pages/Admin/Permissions/detail');
 	}
 	
-	public function editar($id = null)
+	public function edit($id = null)
 	{
 		hasPermission(3, 'w', true);
 
@@ -91,7 +91,7 @@ class Permissao extends AdminBaseController
 
 		$this->setPermData(3);
 		
-		return $this->displayNew('pages/Admin/Permissao/editar');
+		return $this->displayNew('pages/Admin/Permissions/edit');
 	}
 	
 	public function salvar()
@@ -105,25 +105,25 @@ class Permissao extends AdminBaseController
 				hasPermission(3, 'd', true);
 				$deleted = $this->mdl->deleteRecord();
 				if($deleted){
-					rdct('/admin/permissao/index');
+					rdct('/admin/permissions/index');
 				}
 				$this->setMsgData('error', 'Não foi possível deletar o registro, tente novamente.');
-				rdct('/admin/permissao/editar/'.$this->mdl->f['id']);
+				rdct('/admin/permissions/edit/'.$this->mdl->f['id']);
 			}
-			rdct('/admin/permissao/editar');
+			rdct('/admin/permissions/edit');
 		}
 		
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
-			rdct('/admin/permissao/editar/'.$this->mdl->f['id']);
+			rdct('/admin/permissions/edit/'.$this->mdl->f['id']);
 		}
 
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			rdct('/admin/permissao/detalhes/'.$this->mdl->f['id']);
+			rdct('/admin/permissions/detail/'.$this->mdl->f['id']);
 		}else{
 			$this->setMsgData('error', $this->mdl->last_error);
-			rdct('/admin/permissao/editar/'.$this->mdl->f['id']);
+			rdct('/admin/permissions/edit/'.$this->mdl->f['id']);
 		}
 	}
 }

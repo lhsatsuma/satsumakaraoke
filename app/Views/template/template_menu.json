@@ -1,6 +1,6 @@
 [
 	{
-		"url": "users/MeusDados",
+		"url": "users/myInfo",
 		"icon": "fas fa-user",
 		"lbl": "Meus dados"
 	},

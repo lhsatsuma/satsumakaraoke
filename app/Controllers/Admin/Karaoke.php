@@ -8,15 +8,15 @@ class Karaoke extends AdminBaseController
 	public function __construct()
 	{
 		parent::__construct();
-		$this->upload_path = getValorParametro('path_video_karaoke');
+		$this->upload_path = getParameterValue('path_video_karaoke');
 	}
 
 	public function index()
 	{
 		hasPermission(1002, 'r', true);
 
-		$videosKaraoke = getValorParametro('karaoke_url_videos');
-		$hostFila = getValorParametro('karaoke_url_host');
+		$videosKaraoke = getParameterValue('karaoke_url_videos');
+		$hostFila = getParameterValue('karaoke_url_host');
 		
 		$this->js_vars = array_merge($this->js_vars, [
 			'karaokeURL' => ($videosKaraoke) ? $videosKaraoke : base_url().'/',
