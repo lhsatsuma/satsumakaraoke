@@ -623,29 +623,29 @@ class Basic extends Model
 				$value = $requestForm->getFile($field);
 				if($value && $value->isValid() && !$value->hasMoved()){
 					if($this->table != 'arquivos'){
-						$arquivos = new \App\Models\Arquivos\Arquivos();
+						$file = new \App\Models\Files\Files();
 						if($this->f[$field]){
-							$arquivos->f['id'] = $this->f[$field];
-							$result = $arquivos->get();
+							$file->f['id'] = $this->f[$field];
+							$result = $file->get();
 							if($result){
-								$arquivos->fillF($result);
+								$file->fillF($result);
 							}
 						}
-						$arquivos->f['tabela'] = $this->table;
-						$arquivos->f['campo'] = $field;
-						$arquivos->f['mimetype'] = $value->getClientMimeType();
-						$arquivos->f['name'] = $value->getClientName();
-						if(!$arquivos->f['tipo']){
-							$arquivos->f['tipo'] = ($attrs['parameter']['private']) ? $attrs['parameter']['private'] : 'public';
+						$file->f['tabela'] = $this->table;
+						$file->f['campo'] = $field;
+						$file->f['mimetype'] = $value->getClientMimeType();
+						$file->f['name'] = $value->getClientName();
+						if(!$file->f['tipo']){
+							$file->f['tipo'] = ($attrs['parameter']['private']) ? $attrs['parameter']['private'] : 'public';
 						}
-						$arquivos->f['registro'] = $this->f['id'];
-						$arquivos->saveRecord();
+						$file->f['registro'] = $this->f['id'];
+						$file->saveRecord();
 						
-						$arquivos->helper->where('id', $arquivos->f['id']);
-						$arquivos->helper->update(['arquivo' => $arquivos->f['id']]);
-						// $value->move(ROOTPATH.'public/uploads', $arquivos->f['id']);
-						$this->mdl->f[$field] = $arquivos->f['id'];
-						$update[$field] = $arquivos->f['id'];
+						$file->helper->where('id', $file->f['id']);
+						$file->helper->update(['arquivo' => $file->f['id']]);
+						// $value->move(ROOTPATH.'public/uploads', $file->f['id']);
+						$this->mdl->f[$field] = $file->f['id'];
+						$update[$field] = $file->f['id'];
 					}else{
 						if($this->f['id']){
 							$update['id'] = $this->f['id'];
@@ -771,9 +771,9 @@ class Basic extends Model
 						break;
 					case 'file':
 						if($this->table !== 'arquivos' && $value){
-							$arquivosmdl = new \App\Models\Arquivos\Arquivos();
-							$arquivosmdl->f['id'] = $value;
-							$result = $arquivosmdl->get();
+							$filemdl = new \App\Models\Files\Files();
+							$filemdl->f['id'] = $value;
+							$result = $filemdl->get();
 							$field_name = $field.'_name';
 							$record[$field_name] = ($result) ? $result['name'] : '';
 						}

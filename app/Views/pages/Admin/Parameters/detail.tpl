@@ -5,7 +5,7 @@
 	</div>
 </div>
 {/if}
-<form id="DetailForm" method="post" action="{$app_url}admin/parametros/salvar">
+<form id="DetailForm" method="post" action="{$app_url}admin/parameters/salvar">
 	<input type="hidden" name="id" value="{$record.id}" />
 	<input type="hidden" name="deleted" value="{$record.deleted}" />
 	<div class="row">
@@ -49,7 +49,7 @@
 {if $perms.cod_8.w}
 	<div class="row">
 		<div class="col-12">
-			<a href="{$app_url}admin/parametros/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>
+			<a href="{$app_url}admin/parameters/edit/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> {translate l="LBL_EDIT"}</a>
 		</div>
 	</div>
 {/if}

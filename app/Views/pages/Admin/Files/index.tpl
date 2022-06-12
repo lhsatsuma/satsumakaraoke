@@ -5,16 +5,16 @@
     <table class="table table-striped table-list tb-rst-fltr">
         <thead>
             <tr>
-                <th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">Nome</th> 
-                <th scope="col" class="ptr" dt-h-field="tabela" onclick="OrderByFiltro('tabela')">Tabela</th> 
-                <th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="registro" onclick="OrderByFiltro('registro')">Registro</th> 
-                <th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">Data Modificação</th> 
+                <th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th> 
+                <th scope="col" class="ptr" dt-h-field="tabela" onclick="OrderByFiltro('tabela')">{translate l="LBL_RELATED_TABLE"}</th> 
+                <th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="registro" onclick="OrderByFiltro('registro')">{translate l="LBL_RELATED_TO"}</th> 
+                <th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th> 
             </tr>
         </thead>
         <tbody>
         {if !empty($records)}
             {foreach from=$records item=campos}
-                <tr class="ptr row-data-select" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/arquivos/detalhes/{$campos.id}'" >
+                <tr class="ptr row-data-select" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/files/detail/{$campos.id}'" >
                     <td dt-r-name="{$campos.name}" >{$campos.name}</td>
                     <td dt-r-tabela="{$campos.tabela}" >{$campos.tabela}</td>
                     <td class="d-none d-md-table-cell" dt-r-registro_name="{$campos.registro_name}" >{$campos.registro_name}</td>

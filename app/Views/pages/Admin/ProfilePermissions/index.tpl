@@ -32,7 +32,7 @@
 			</thead>
 			<tbody id="tbodyProfilePermissions">
 				<tr class="d-flex">
-					<td scope="col" class="col-12">{translate f="Admin.ProfilePermissions" l="LBL_SELECT_PROFILE"}</td>
+					<td scope="col" class="col-12">{translate l="LBL_SELECT_PROFILE"}</td>
 				</tr>
 			</tbody>
 			<tfoot>

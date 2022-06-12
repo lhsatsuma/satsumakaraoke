@@ -148,17 +148,17 @@ class Musicas extends \App\Models\Basic\Basic
 
 		$return_data['saved_record'] = $this->saveRecord();
 		if($return_data['saved_record'] && !$return_data['exists']){
-			$arquivos = new \App\Models\Arquivos\Arquivos();
-			$arquivos->new_with_id = true;
-			$arquivos->f['id'] = $md5;
-			$arquivos->f['name'] = $title.'.mp4';
-			$arquivos->f['arquivo'] = $md5;
-			$arquivos->f['mimetype'] = 'video/mp4';
-			$arquivos->f['tipo'] = 'private';
-			$arquivos->f['registro'] = $this->f['id'];
-			$arquivos->f['tabela'] = 'musicas';
-			$arquivos->f['campo'] = 'arquivo_id';
-			$arquivos->saveRecord();
+			$file = new \App\Models\Files\Files();
+			$file->new_with_id = true;
+			$file->f['id'] = $md5;
+			$file->f['name'] = $title.'.mp4';
+			$file->f['arquivo'] = $md5;
+			$file->f['mimetype'] = 'video/mp4';
+			$file->f['tipo'] = 'private';
+			$file->f['registro'] = $this->f['id'];
+			$file->f['tabela'] = 'musicas';
+			$file->f['campo'] = 'arquivo_id';
+			$file->saveRecord();
 		}
 		$return_data['saved'] = true;
 		return $return_data;

@@ -5,11 +5,11 @@
 	<table class="table table-striped table-list tb-rst-fltr">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate f="Admin.Users" l="LBL_NAME"}</th>
-				<th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="email" onclick="OrderByFiltro('email')">{translate f="Admin.Users" l="LBL_EMAIL"}</th>
-				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">{translate f="Admin.Users" l="LBL_STATUS"}</th>
-				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate f="Admin.Users" l="LBL_DATE_CREATED"}</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate f="Admin.Users" l="LBL_DATE_MODIFIED"}</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
+				<th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="email" onclick="OrderByFiltro('email')">{translate l="LBL_EMAIL"}</th>
+				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">{translate l="LBL_STATUS"}</th>
+				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate l="LBL_DATE_CREATED"}</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th>
 			</tr>
 		</thead>
 		<tbody>

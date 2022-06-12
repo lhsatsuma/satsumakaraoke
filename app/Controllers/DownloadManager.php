@@ -61,9 +61,9 @@ class DownloadManager extends BaseController
 		$this->response->setHeader('Cache-Control', 'no-cache')->appendHeader('Cache-Control', 'must-revalidate');
 		$this->response->removeHeader('Location');
 		
-		$arquivos = new \App\Models\Arquivos\Arquivos();
-		$arquivos->f['id'] = $id;
-		$result = $arquivos->get();
+		$file = new \App\Models\Files\Files();
+		$file->f['id'] = $id;
+		$result = $file->get();
 		if($result){
 			$this->checkAccess($result['tipo']);
 			$file_name = ROOTPATH.'public/uploads/'.$result['arquivo'];

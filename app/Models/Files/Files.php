@@ -1,80 +1,91 @@
 <?php
-namespace App\Models\Arquivos;
+namespace App\Models\Files;
 
-class Arquivos extends \App\Models\Basic\Basic
+class Files extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'arquivos';
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
 		'name' => array(
-			'lbl' => 'name do Arquivo',
+			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
+			'required' => true,
+			'min_length' => 2,
 			'max_length' => 255,
-			'link_record' => true,
+		),
+		'deleted' => array(
+			'lbl' => 'LBL_DELETED',
+			'type' => 'bool',
+			'dont_load_layout' => true,
+		),
+		'date_created' => array(
+			'lbl' => 'LBL_DATE_CREATED',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
+		'user_created' => array(
+			'lbl' => 'LBL_USER_CREATED',
+			'type' => 'related',
+			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
+			'dont_load_layout' => true,
+		),
+		'date_modified' => array(
+			'lbl' => 'LBL_DATE_MODIFIED',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
+		'user_modified' => array(
+			'lbl' => 'LBL_USER_MODIFIED',
+			'type' => 'related',
+			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
+			'dont_load_layout' => true,
 		),
 		'arquivo' => array(
-			'lbl' => 'Arquivo',
+			'lbl' => 'LBL_FILE',
 			'type' => 'file',
 			'parameter' => array(
 				'max_size' => 40960,
 			),
 		),
 		'mimetype' => array(
-			'lbl' => 'Tipo do Arquivo',
+			'lbl' => 'LBL_MIMETYPE',
 			'type' => 'varchar',
 			'max_length' => 255,
 		),
 		'tipo' => array(
-			'lbl' => 'Tipo Acesso',
+			'lbl' => 'LBL_TYPE_ACCESS',
 			'type' => 'dropdown',
 			'parameter' => 'tipo_acesso',
 		),
 		'registro' => array(
-			'lbl' => 'Relacionado a',
+			'lbl' => 'LBL_RELATED_TO',
 			'type' => 'related',
 		),
 		'tabela' => array(
-			'lbl' => 'Tabela Relacionado',
+			'lbl' => 'LBL_RELATED_TABLE',
 			'type' => 'varchar',
 		),
 		'campo' => array(
-			'lbl' => 'Campo Relacionado',
+			'lbl' => 'LBL_RELATED_FIELD',
 			'type' => 'varchar',
 			'max_length' => 255,
-		),
-		'deleted' => array(
-			'lbl' => 'deleted',
-			'type' => 'bool',
-			'dont_load_layout' => true,
-		),
-		'date_created' => array(
-			'lbl' => 'Data Criação',
-			'type' => 'datetime',
-			'dont_load_layout' => true,
-		),
-		'user_created' => array(
-			'lbl' => 'Usuário Criação',
-			'type' => 'related',
-			'table' => 'usuarios',
-			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
-			'lbl' => 'Data Modificação',
-			'type' => 'datetime',
-			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
-			'type' => 'related',
-			'table' => 'usuarios',
-			'dont_load_layout' => true,
 		),
 	);
 	public $idx_table = [
@@ -110,8 +121,8 @@ class Arquivos extends \App\Models\Basic\Basic
 				default:
 					$this->fields_map['registro']['parameter'] = [
 						'url' => null,
-						'model' => 'Arquivos/Arquivos',
-						'link_detail' => 'admin/arquivos/detalhes/',
+						'model' => 'files/Arquivos',
+						'link_detail' => 'admin/files/detail/',
 					];
 					break;
 			}

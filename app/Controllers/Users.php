@@ -189,7 +189,7 @@ class Users extends BaseController
 		}
 		$exists = $this->mdl->SearchLogin();
 		if(!$exists){
-			$this->setMsgData('error', 'Login ou senha inválido(s)');
+			$this->setMsgData('error', translate('LBL_LOGIN_INVALID'));
 			rdct('/login');
 		}
 		

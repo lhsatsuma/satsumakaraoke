@@ -5,7 +5,7 @@
 		"lbl": "Cadastros",
 		"subs": [
 			{
-				"url": "admin/arquivos/",
+				"url": "admin/files/",
 				"icon": "fas fa-file",
 				"lbl": "Arquivos",
 				"perm": 7
@@ -42,7 +42,7 @@
 				"perm": 9
 			},
 			{
-				"url": "admin/parametros/",
+				"url": "admin/parameters/",
 				"icon": "fas fa-cogs",
 				"lbl": "Parâmetros do Sistema",
 				"perm": 8

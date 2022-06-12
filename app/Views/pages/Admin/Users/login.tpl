@@ -34,8 +34,8 @@
 					<form class="mt-3" name="LoginForm" id="LoginForm" method="post" action="{$app_url}admin/login/auth">
 						<input type="hidden" name="rdct_url" value="{$rdct_url}" />
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="{translate f="Users" l="LBL_EMAIL"}"/></p>
-						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="{translate f="Users" l="LBL_PASSWORD"}"/></p>
+						<p><input name="email" type="email" id="login" class="form-control" value="" placeholder="{translate l="LBL_EMAIL"}"/></p>
+						<p><input name="senha" type="password" id="senha" class="form-control" value="" placeholder="{translate l="LBL_PASSWORD"}"/></p>
 						<p><button class="btn mt-3 width-100 btn-outline-info btn-rounded" type="submit">{translate l="LBL_CONNECT"}</button></p>
 					</form>
 					<p class="versao-sistema">ⓒ 2022 {translate l="LBL_COPYRIGHT"}<br />{translate l="LBL_DEVELOPED_BY"} Luis Satsuma | v{$ch_ver_org}</p>

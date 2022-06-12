@@ -5,10 +5,10 @@
 	<table class="table table-striped table-list tb-rst-fltr">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="id" onclick="OrderByFiltro('id')">{translate f="Admin.Permissions" l="LBL_ID"}</th>
-				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate f="Admin.Permissions" l="LBL_NAME"}</th>
-				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate f="Admin.Permissions" l="LBL_DATE_CREATED"}</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate f="Admin.Permissions" l="LBL_DATE_MODIFIED"}</th>
+				<th scope="col" class="ptr" dt-h-field="id" onclick="OrderByFiltro('id')">{translate l="LBL_ID"}</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
+				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate l="LBL_DATE_CREATED"}</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th>
 			</tr>
 		</thead>
 		<tbody>

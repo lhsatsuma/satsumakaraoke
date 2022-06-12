@@ -7,7 +7,7 @@ class Menus extends AdminBaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/menus/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/menus/editar">'.translate('LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}

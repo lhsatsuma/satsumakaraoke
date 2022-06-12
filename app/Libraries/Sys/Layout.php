@@ -219,9 +219,9 @@ class Layout
 		$data = $this->MountDefaultData($field);
 		
 		if(!empty($selected)){
-			$arquivos = new \App\Models\Arquivos\Arquivos();
-			$arquivos->where['arquivo'] = $selected;
-			$result = $arquivos->search(1,0)[0];
+			$file = new \App\Models\Files\Files();
+			$file->where['arquivo'] = $selected;
+			$result = $file->search(1,0)[0];
 			if($result){
 				$data['value'] = $result['id'];
 				$data['filename_field'] = $result['campo'];
@@ -312,7 +312,7 @@ class Layout
 			$condition_filter_html = $this->dropdown->GetDropdownHTML('conditions_filter', $postVal);
 		}
 		return array(
-			'label' => translate($this->file_language, $this->fields_map[$field]['lbl']),
+			'label' => translate($this->fields_map[$field]['lbl']),
 			'name' => $field,
 			'ext_attrs' => $this->MountAttrs($this->fields_map[$field]),
 			'required' => ($this->its_filter) ? false : $this->fields_map[$field]['required'],
@@ -368,7 +368,7 @@ class Layout
 		
 		foreach($fields as $field => $ext_class){
 			$return_data['table_heads'][$field] = array(
-				'label' => translate($this->file_language, $this->fields_map[$field]['lbl']),
+				'label' => translate($this->fields_map[$field]['lbl']),
 				'class' => $ext_class,
 			);
 		}
@@ -422,7 +422,7 @@ class Layout
 		
 		foreach($fields as $field => $ext_class){
 			$return_data['table_heads'][$field] = array(
-				'label' => translate($this->file_language, $this->fields_map[$field]['lbl']),
+				'label' => translate($this->fields_map[$field]['lbl']),
 				'class' => $ext_class,
 			);
 		}

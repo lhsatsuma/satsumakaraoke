@@ -22,17 +22,17 @@
 				<div class="col-10 col-sm-8 col-md-6 col-xl-4 login-div">
 					<div id="header_logo"><img src="{$app_url}images/logo.png" /></div>
 					<h4 class="mt-3 mb-1"><strong>{$title}</strong></h4>
-					<p class="text-left mb-4">{translate f="Users" l="LBL_INFO_CREATE_NEW_ACCOUNT"}</p>
+					<p class="text-left mb-4">{translate l="LBL_INFO_CREATE_NEW_ACCOUNT"}</p>
 					<div id="ERROR_LOGIN" class="required">{$login_msg}</div>
 					<form name="newForm" id="newForm" method="post" action="{$app_url}login/createUser" autocomplete="off">
 						<input type="hidden" name="forgetpass" value="0" id="forgetpass" />
-						<p><input name="name" type="text" id="name" class="form-control" placeholder="{translate f="Users" l="LBL_NAME"} *" autocomplete="off" required maxlength="50"/></p>
-						<p><input name="email" type="text" id="email" class="form-control" placeholder="{translate f="Users" l="LBL_EMAIL"} *" custom_type_validation="email" autocomplete="off" required maxlength="50"/></p>
-						<p><input name="senha_nova" type="password" id="senha_nova" class="form-control" placeholder="{translate f="Users" l="LBL_PASSWORD"} *" autocomplete="off" required maxlength="50"/></p>
-						<p><input name="confirm_senha_nova" type="password" id="confirm_senha_nova" class="form-control" placeholder="{translate f="Users" l="LBL_REPEAT_PASSWORD"} *" autocomplete="off" required maxlength="50"/></p>
-						<p class="text-left">** {translate f="Users" l="LBL_INFO_STRONG_PASSWORD"}</p>
-						<p><input class="form-control" type="text" name="telefone" placeholder="{translate f="Users" l="LBL_TELEPHONE"}" custom_type_validation="telephone" maxlength="14"><script type="text/javascript">$('input[name="telefone"]').mask('(99) 9999-9999');</script></p>
-						<p><input class="form-control" type="text" name="celular" placeholder="{translate f="Users" l="LBL_CELPHONE"}" custom_type_validation="telephone" maxlength="15"><script type="text/javascript">$('input[name="celular"]').mask('(99) 99999-9999');</script></p>
+						<p><input name="name" type="text" id="name" class="form-control" placeholder="{translate l="LBL_NAME"} *" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="email" type="text" id="email" class="form-control" placeholder="{translate l="LBL_EMAIL"} *" custom_type_validation="email" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="senha_nova" type="password" id="senha_nova" class="form-control" placeholder="{translate l="LBL_PASSWORD"} *" autocomplete="off" required maxlength="50"/></p>
+						<p><input name="confirm_senha_nova" type="password" id="confirm_senha_nova" class="form-control" placeholder="{translate l="LBL_REPEAT_PASSWORD"} *" autocomplete="off" required maxlength="50"/></p>
+						<p class="text-left">** {translate l="LBL_INFO_STRONG_PASSWORD"}</p>
+						<p><input class="form-control" type="text" name="telefone" placeholder="{translate l="LBL_TELEPHONE"}" custom_type_validation="telephone" maxlength="14"><script type="text/javascript">$('input[name="telefone"]').mask('(99) 9999-9999');</script></p>
+						<p><input class="form-control" type="text" name="celular" placeholder="{translate l="LBL_CELPHONE"}" custom_type_validation="telephone" maxlength="15"><script type="text/javascript">$('input[name="celular"]').mask('(99) 99999-9999');</script></p>
 						<p><button type="button" class="btn width-100 btn-outline-success btn-rounded" onclick="ValidateForm('newForm')"><img class="loading-icon" src="{$app_url}images/loading.gif" style="display: none;cursor: not-allowed;width: 1rem;margin-right: 11px;"/> {translate l="LBL_CREATE"}</button></p>
 						<p><button type="button" class="btn width-100 btn-outline-info btn-rounded" onclick="location.href='{$app_url}login'"> {translate l="LBL_BACK"}</button></p>
 					</form>

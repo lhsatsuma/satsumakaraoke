@@ -137,13 +137,16 @@ class BaseController extends Controller
 
 	protected $ext_buttons = [];
 
-	protected string $translate_file;
+	protected string $lang_file;
 	
 	public function __construct()
 	{
+		$this->lang_file = str_replace(['App\\Controllers\\', '\\'], ['', '.'], get_class($this));
+		$GLOBALS['lang_file'] = $this->lang_file;
 		helper('Sys_helper');
 		if(strpos(strtolower(get_class($this)), 'cssmanager') === false
 		&& strpos(strtolower(get_class($this)), 'jsmanager') === false){
+			translate('', 'app');
 			$this->session = getSession();
 			$this->uri = current_url(true)->getSegments();
 			array_shift($this->uri);
@@ -159,7 +162,6 @@ class BaseController extends Controller
 		global $AppVersion;
 		$this->template = $AppVersion->template;
 		$this->template_file = $AppVersion->template_file;
-		$this->translate_file = str_replace(['App\\Controllers\\', '\\'], ['', '.'], get_class($this));
 	}
 	
 	/**
@@ -311,7 +313,7 @@ class BaseController extends Controller
 		$this->js_vars['app_version'] = $AppVersion->version;
 		$this->js_vars['ch_ver'] = GetCacheVersion();
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
-		$this->js_vars['ctrl_language'] = translate($this->translate_file);
+		$this->js_vars['ctrl_language'] = translate('', $this->lang_file);
 		$dataNew = array(
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
@@ -319,7 +321,7 @@ class BaseController extends Controller
 			'is_mobile' => $this->is_mobile,
 			'msg' => $this->session->getFlashdata('msg'),
 			'msg_type' => $msg_type,
-			'title' => translate($this->translate_file, 'LBL_ACTION_CTRL_'. strtoupper($this->routes->methodName())),
+			'title' => translate('LBL_ACTION_CTRL_'. strtoupper($this->routes->methodName())),
 			'sys_title' => getTitle(),
 			'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
 			'auth_user' => $this->session->get('auth_user'),
@@ -329,8 +331,8 @@ class BaseController extends Controller
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
 			'rdct_url' => $this->session->getFlashdata('rdct_url'),
 			'languages' => [
-				'app' => json_encode(translate('app')),
-				$this->translate_file => json_encode(translate($this->translate_file)),
+				'app' => json_encode('',translate('app')),
+				$this->lang_file => json_encode('',translate($this->lang_file)),
 			]
 		);
 		if($this->data){

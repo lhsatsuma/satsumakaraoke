@@ -10,7 +10,7 @@ class Users extends AdminBaseController
 	public function ExtButtonsGenericFilters()
 	{
 		return array(
-			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/users/edit">'.translate('app', 'LBL_NEW_RECORD').'</a>',
+			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/users/edit">'.translate('LBL_NEW_RECORD').'</a>',
 		);
 	}
 	
@@ -72,7 +72,7 @@ class Users extends AdminBaseController
 	public function edit($id = null)
 	{
 		hasPermission(2, 'w', true);
-		$this->data['title'] = translate($this->translate_file, ($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
+		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = array();
 		if($id){

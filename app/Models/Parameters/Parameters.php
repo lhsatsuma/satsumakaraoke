@@ -1,73 +1,77 @@
 <?php
-namespace App\Models\Parametros;
+namespace App\Models\Parameters;
 
-class Parametros extends \App\Models\Basic\Basic
+class Parameters extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'parametros';
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'int',
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
 		'name' => array(
-			'lbl' => 'name do Parâmetro',
+			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
-			'max_length' => 255,
 			'required' => true,
-			'link_record' => true,
+			'min_length' => 2,
+			'max_length' => 255,
+		),
+		'deleted' => array(
+			'lbl' => 'LBL_DELETED',
+			'type' => 'bool',
+			'dont_load_layout' => true,
+		),
+		'date_created' => array(
+			'lbl' => 'LBL_DATE_CREATED',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
+		'user_created' => array(
+			'lbl' => 'LBL_USER_CREATED',
+			'type' => 'related',
+			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
+			'dont_load_layout' => true,
+		),
+		'date_modified' => array(
+			'lbl' => 'LBL_DATE_MODIFIED',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
+		'user_modified' => array(
+			'lbl' => 'LBL_USER_MODIFIED',
+			'type' => 'related',
+			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
+			'dont_load_layout' => true,
 		),
 		'codigo' => array(
-			'lbl' => 'Código',
+			'lbl' => 'LBL_CODE',
 			'type' => 'varchar',
 			'required' => true,
 			'max_length' => 255,
 		),
 		'descricao' => array(
-			'lbl' => 'Descrição',
+			'lbl' => 'LBL_DESCRIPTION',
 			'type' => 'text',
 			'rows' => 10,
 		),
 		'valor' => array(
-			'lbl' => 'Valor Parâmetro',
+			'lbl' => 'LBL_PARAMETER_VALUE',
 			'type' => 'varchar',
 			'max_length' => 255,
-		),
-		'deleted' => array(
-			'lbl' => 'deleted',
-			'type' => 'bool',
-			'dont_load_layout' => true,
-		),
-		'date_created' => array(
-			'lbl' => 'Data Criação',
-			'type' => 'datetime',
-			'dont_load_layout' => true,
-		),
-		'user_created' => array(
-			'lbl' => 'Usuário Criação',
-			'type' => 'related',
-			'table' => 'usuarios',
-			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/users/detail/',
-			]
-		),
-		'date_modified' => array(
-			'lbl' => 'Data Modificação',
-			'type' => 'datetime',
-			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
-			'type' => 'related',
-			'table' => 'usuarios',
-			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/users/detail/',
-			]
 		),
 	);
 	public $idx_table = [

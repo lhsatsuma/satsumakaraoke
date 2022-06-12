@@ -54,7 +54,7 @@
 {if $perms.cod_7.w}
 	<div class="row">
 		<div class="col-12">
-			<a href="{$app_url}admin/arquivos/editar/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> Editar</a>
+			<a href="{$app_url}admin/files/edit/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> {translate l="LBL_EDIT"}</a>
 		</div>
 	</div>
 {/if}

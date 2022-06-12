@@ -29,4 +29,5 @@ return [
     'LBL_NEW_PASSWORD' => 'Nova Senha',
     'LBL_CONFIRM_NEW_PASSWORD' => 'Repita a Nova Senha',
     'LBL_RESET_PREFERENCES' => 'Reseta Preferências',
+    'LBL_LOGIN_INVALID' => 'Login ou senha inválido(s)',
 ];

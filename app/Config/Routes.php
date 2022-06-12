@@ -21,7 +21,6 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override(function() {
-	require_once(APPPATH . 'Helpers/Sys_helper.php');
 	$focus = new \App\Controllers\BaseController();
 
 	$last_uri = $focus->uri[count($focus->uri) - 1];

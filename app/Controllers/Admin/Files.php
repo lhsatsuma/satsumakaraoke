@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Arquivos extends AdminBaseController
+class Files extends AdminBaseController
 {
-    public $module_name = 'Arquivos';
+    public $module_name = 'Files';
     public $data = array();
     public $generic_filter = true;
     public $pager_config = array(
@@ -16,7 +16,7 @@ class Arquivos extends AdminBaseController
 	{
 		$extBtns = [];
 		if(hasPermission(7, 'w')){
-			$extBtns['new'] = '<a class="btn btn-outline-success" href="'.$this->base_url.'admin/arquivos/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>';
+			$extBtns['new'] = '<a class="btn btn-outline-success" href="'.$this->base_url.'admin/files/edit">'.translate('LBL_NEW_RECORD').'</a>';
 		}
 
 		return $extBtns;
@@ -25,8 +25,6 @@ class Arquivos extends AdminBaseController
     public function index($offset = 0)
     {
 		hasPermission(7, 'r', true);
-
-        $this->data['title'] = 'Arquivos';
         
         $initial_filter = array(
             'name' => '',
@@ -38,7 +36,7 @@ class Arquivos extends AdminBaseController
 
         $this->filterLib_cfg = array(
             'use' => true,
-            'action' => base_url().'/admin/arquivos/index',
+            'action' => base_url().'/admin/files/index',
             'generic_filter' => array(
                 'name',
                 
@@ -55,14 +53,12 @@ class Arquivos extends AdminBaseController
         $this->data['records'] = $result;
         $this->data['records_count'] = (count($result)) ? true : false;
 
-        return $this->displayNew('pages/Admin/Arquivos/index');
+        return $this->displayNew('pages/Admin/files/index');
     }
 
-    public function detalhes($id)
+    public function detail($id)
     {
 		hasPermission(7, 'r', true);
-
-        $this->data['title'] = 'Detalhes do Arquivo';
 
         $this->mdl->f['id'] = $id;
         $result = $this->mdl->get();
@@ -75,15 +71,15 @@ class Arquivos extends AdminBaseController
 
 		$this->setPermData(7);
 
-        return $this->displayNew('pages/Admin/Arquivos/detalhes');
+        return $this->displayNew('pages/Admin/files/detail');
     }
 	
 	
-	public function editar($id = null)
+	public function edit($id = null)
 	{
 		hasPermission(7, 'w', true);
 
-		$this->data['title'] = ($id) ? 'Editar Arquivo' : 'Criar Arquivo';
+		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = array();
 		if($id){
@@ -100,7 +96,7 @@ class Arquivos extends AdminBaseController
 
 		$this->setPermData(7);
 		
-		return $this->displayNew('pages/Admin/Arquivos/editar');
+		return $this->displayNew('pages/Admin/files/edit');
 	}
 	
 	public function salvar()
@@ -113,31 +109,31 @@ class Arquivos extends AdminBaseController
 			if(!empty($this->mdl->f['id'])){
 				$deleted = $this->mdl->DeleteRecord();
 				if($deleted){
-					rdct('/admin/arquivos/index');
+					rdct('/admin/files/index');
 				}
 				$this->validation_errors = array(
 					'generic_error' => 'Não foi possível deletar o registro, tente novamente.',
 				);
 				$this->SetErrorValidatedForm(false);
-				rdct('/admin/arquivos/editar/'.$this->mdl->f['id']);
+				rdct('/admin/files/edit/'.$this->mdl->f['id']);
 			}
-			rdct('/admin/arquivos/editar');
+			rdct('/admin/files/edit');
 		}
 		
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
-			rdct('/admin/arquivos/editar/'.$this->request->getPost('id'));
+			rdct('/admin/files/edit/'.$this->request->getPost('id'));
 		}
 		
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			rdct('/admin/arquivos/detalhes/'.$this->mdl->f['id']);
+			rdct('/admin/files/detail/'.$this->mdl->f['id']);
 		}else{
 			$this->validation_errors = array(
 				'generic_error' => $this->mdl->last_error,
 			);
 			$this->SetErrorValidatedForm();
-			rdct('/admin/arquivos/editar/'.$this->request->getPost('id'));
+			rdct('/admin/files/edit/'.$this->request->getPost('id'));
 		}
 	}
 }

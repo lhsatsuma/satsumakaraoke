@@ -25,7 +25,7 @@ class Internal extends AdminBaseController
 	public function ExtButtonsGenericFilters()
 	{
 		return array(
-			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/usuarios/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>',
+			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/usuarios/editar">'.translate('LBL_NEW_RECORD').'</a>',
 		);
 	}
 	
@@ -200,7 +200,7 @@ class Internal extends AdminBaseController
         Delete files from upload where doenst exist on database
         */
 
-        $model = new \App\Models\Arquivos\Arquivos();
+        $model = new \App\Models\Files\Files();
 
         $files = scan_dir(ROOTPATH . 'public/uploads/');
         $total_files = count($files);

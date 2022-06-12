@@ -7,7 +7,7 @@ class Profiles extends AdminBaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/profiles/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/profiles/editar">'.translate('LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}
@@ -71,7 +71,7 @@ class Profiles extends AdminBaseController
 	{
 		hasPermission(2, 'w', true);
 		
-		$this->data['title'] = translate($this->translate_file, ($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
+		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = array();
 		if($id){

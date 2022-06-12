@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Parametros extends AdminBaseController
+class Parameters extends AdminBaseController
 {
-	public $module_name = 'Parametros';
+	public $module_name = 'Parameters';
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/parametros/editar">'.translate('app', 'LBL_NEW_RECORD').'</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/parameters/edit">'.translate('LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}
@@ -15,7 +15,6 @@ class Parametros extends AdminBaseController
 	public function index($offset = 0)
 	{
 		hasPermission(8, 'r', true);
-		$this->data['title'] = 'Lista de Parâmetros';
 		
 		$initial_filter = array(
 			'name' => '',
@@ -28,7 +27,7 @@ class Parametros extends AdminBaseController
 		
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/parametros/index',
+			'action' => base_url().'/admin/parameters/index',
 			'generic_filter' => array(
 				'name',
 				'codigo',
@@ -47,19 +46,17 @@ class Parametros extends AdminBaseController
 		$this->data['records'] = $result;
 		$this->data['records_count'] = (count($result)) ? true : false;
 		
-		return $this->displayNew('pages/Admin/Parametros/index');
+		return $this->displayNew('pages/Admin/parameters/index');
 	}
 	
-	public function detalhes($id = null)
+	public function detail($id = null)
 	{
 		hasPermission(8, 'r', true);
-
-		$this->data['title'] = 'Detalhes do Parâmetro';
 		
 		$this->mdl->f['id'] = $id;
 		$result = $this->mdl->get();
 		if(!$result['id']){
-			rdct('/admin/parametros/index');
+			rdct('/admin/parameters/index');
 		}
 		$result = $this->mdl->formatRecordsView($result);
 		$this->data['record'] = $result;
@@ -68,14 +65,14 @@ class Parametros extends AdminBaseController
 
 		$this->setPermData(8);
 		
-		return $this->displayNew('pages/Admin/Parametros/detalhes');
+		return $this->displayNew('pages/Admin/parameters/detail');
 	}
 	
-	public function editar($id = null)
+	public function edit($id = null)
 	{
 		hasPermission(8, 'w', true);
 
-		$this->data['title'] = ($id) ? 'Editar Parâmetro' : 'Criar Parâmetro';
+		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = array();
 		if($id){
@@ -92,7 +89,7 @@ class Parametros extends AdminBaseController
 
 		$this->setPermData(8);
 		
-		return $this->displayNew('pages/Admin/Parametros/editar');
+		return $this->displayNew('pages/Admin/parameters/edit');
 	}
 	
 	public function salvar()
@@ -107,25 +104,25 @@ class Parametros extends AdminBaseController
 
 				$deleted = $this->mdl->deleteRecord();
 				if($deleted){
-					rdct('/admin/parametros/index');
+					rdct('/admin/parameters/index');
 				}
 				$this->setMsgData('error', 'Não foi possível deletar o registro, tente novamente.');
-				rdct('/admin/parametros/editar/'.$this->mdl->f['id']);
+				rdct('/admin/parameters/edit/'.$this->mdl->f['id']);
 			}
-			rdct('/admin/parametros/editar');
+			rdct('/admin/parameters/edit');
 		}
 		
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
-			rdct('/admin/parametros/editar/'.$this->mdl->f['id']);
+			rdct('/admin/parameters/edit/'.$this->mdl->f['id']);
 		}
 
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			rdct('/admin/parametros/detalhes/'.$this->mdl->f['id']);
+			rdct('/admin/parameters/detail/'.$this->mdl->f['id']);
 		}else{
 			$this->setMsgData('error', $this->mdl->last_error);
-			rdct('/admin/parametros/editar/'.$this->mdl->f['id']);
+			rdct('/admin/parameters/edit/'.$this->mdl->f['id']);
 		}
 	}
 }

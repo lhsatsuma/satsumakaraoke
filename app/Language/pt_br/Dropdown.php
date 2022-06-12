@@ -16,7 +16,7 @@ return [
     ],
     'tipo_acesso' => [
         'public' => 'Público',
-        'privado' => 'Privado',		
+        'private' => 'Privado',		
         'admin' => 'Apenas Admin',		
     ],
     'tipo_menu_list' => [
