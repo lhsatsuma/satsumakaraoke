@@ -130,7 +130,7 @@ class Users extends \App\Models\Basic\Basic
 	public function __construct()
 	{
 		parent::__construct();
-		$this->preference = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
+		$this->preference = new \App\Models\UserPreferences\UserPreferences();
 	}
 	
 	public $template_forget_pass = 'EsqueciMinhaSenha';

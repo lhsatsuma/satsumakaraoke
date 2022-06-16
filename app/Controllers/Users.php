@@ -29,7 +29,7 @@ class Users extends BaseController
 		
 		$result = $this->mdl->get();
 
-		$result['timezone'] = $this->mdl->preference->getValor('timezone_user');
+		$result['timezone'] = $this->mdl->preference->getValue('timezone_user');
 
 		$result = $this->mdl->formatRecordsView($result);
 		
@@ -311,7 +311,7 @@ class Users extends BaseController
 		$ajax = new \App\Libraries\Sys\Ajax();
 		$ajax->CheckIncoming();
 
-		$prefs = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
+		$prefs = new \App\Models\UserPreferences\UserPreferences();
 		$deleted = $prefs->delPref(null, $this->mdl->auth_user_id, true);
 
 		$ajax->setSuccess($deleted);

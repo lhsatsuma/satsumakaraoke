@@ -1,64 +1,68 @@
 <?php
-namespace App\Models\PreferenciasUsuario;
+namespace App\Models\UserPreferences;
 
 use Exception;
 
-class PreferenciasUsuario extends \App\Models\Basic\Basic
+class UserPreferences extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'preferencias_usuario';
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
 		'name' => array(
-			'lbl' => 'Nome',
+			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
 		),
-		'valor' => array(
-			'lbl' => 'Valor',
-			'type' => 'text',
-			'required' => true,
-		),
 		'deleted' => array(
-			'lbl' => 'deleted',
+			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
 		'date_created' => array(
-			'lbl' => 'Data Criação',
+			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_created' => array(
-			'lbl' => 'Usuário Criação',
+			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'dont_load_layout' => true,
-			'parameter' => [
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			]
+			),
+			'dont_load_layout' => true,
 		),
 		'date_modified' => array(
-			'lbl' => 'Data Modificação',
+			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
+			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'dont_load_layout' => true,
-			'parameter' => [
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			]
+			),
+			'dont_load_layout' => true,
+		),
+		'valor' => array(
+			'lbl' => 'LBL_VALUE',
+			'type' => 'text',
+			'required' => true,
 		),
 	);
 	public $idx_table = [
@@ -84,7 +88,7 @@ class PreferenciasUsuario extends \App\Models\Basic\Basic
 		return $this->search(1)[0];
 	}
 
-	public function getValor(string $name, string $user = null)
+	public function getValue(string $name, string $user = null)
 	{
 		return $this->getPref($name, $user)['valor'];
 	}

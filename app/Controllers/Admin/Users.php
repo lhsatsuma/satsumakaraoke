@@ -57,7 +57,7 @@ class Users extends AdminBaseController
 		
 		$this->mdl->f['id'] = $id;
 		$result = $this->mdl->get();
-		$result['timezone'] = $this->mdl->preference->getValor('timezone_user', $this->mdl->f['id']);
+		$result['timezone'] = $this->mdl->preference->getValue('timezone_user', $this->mdl->f['id']);
 
 		$result = $this->mdl->formatRecordsView($result);
 		$this->data['record'] = $result;

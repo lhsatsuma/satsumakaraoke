@@ -67,7 +67,7 @@ class Musicas extends BaseController
 		
 		$this->data['records'] = $result;
 
-		$hideInfoPopup = \App\Models\PreferenciasUsuario\PreferenciasUsuario::getPreference('hideInfoPopup');
+		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 		
 		return $this->displayNew('pages/Musicas/index');
@@ -197,7 +197,7 @@ class Musicas extends BaseController
 
 	public function showPopupWizard()
 	{
-		$hideInfoPopup = \App\Models\PreferenciasUsuario\PreferenciasUsuario::getPreference('hideInfoPopup');
+		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 
 		return $this->displayNew('pages/Musicas/popupWizard');
@@ -207,7 +207,7 @@ class Musicas extends BaseController
 	{
 		$AjaxLib = new \App\Libraries\Sys\Ajax();
 		
-		$mdl = new \App\Models\PreferenciasUsuario\PreferenciasUsuario();
+		$mdl = new \App\Models\UserPreferences\UserPreferences();
 		$AjaxLib->setSuccess($mdl->setPref('hideInfoPopup', '1'));
 	}
 }
