@@ -1,0 +1,27 @@
+<?php
+return [
+    'LBL_ID' => 'ID',
+    'LBL_NAME' => 'Nome',
+    'LBL_DELETED' => 'Deletado',
+    'LBL_DATE_CREATED' => 'Data Criação',
+    'LBL_USER_CREATED' => 'Usuário Criação',
+    'LBL_DATE_MODIFIED' => 'Data Modificação',
+    'LBL_USER_MODIFIED' => 'Usuário Modificação',
+    'LBL_LINK' => 'Link',
+    'LBL_ORIGIN' => 'Origem',
+    'LBL_CODE' => 'Código',
+    'LBL_MD5' => 'MD5 ID',
+    'LBL_LANGUAGE' => 'Idioma',
+    'LBL_DURATION' => 'Duração (Segundos)',
+    'LBL_MY_FAVORITES' => 'Meus Favoritos',
+
+    'LBL_IMPORT' => 'Importar',
+    'LBL_UNFFAVORITE' => 'Desfavoritar',
+    'LBL_INSERT_TO_WAITLIST' => 'Colocar na fila',
+    'LBL_IMPORT_AND_INSERT_TO_WAITLIST' => 'Importar e colocar na fila',
+    'LBL_IMPORT_MUSICS_FROM_YT' => 'Importar Música do Youtube',
+    'LBL_LINK_YT' => 'Link Youtube',
+    'LBL_REMOVED' => 'removido',
+    'LBL_ADDED' => 'adicionado',
+    'LBL_ON_YOUR_FAVORITES' => 'nos seus favoritos!',
+];

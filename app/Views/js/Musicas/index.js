@@ -18,10 +18,10 @@ function OpenModalSelected(id){
 
 	if(fvt == 2){
 		$('#itsFavorite').val('2');
-		$('#InsertFavoriteBtn').html('<i class="far fa-star"></i> Desfavoritar');
+		$('#InsertFavoriteBtn').html('<i class="far fa-star"></i> '+translate.get('LBL_UNFAVORITE'));
 	}else{
 		$('#itsFavorite').val('1');
-		$('#InsertFavoriteBtn').html('<i class="fas fa-star"></i> Favoritar');
+		$('#InsertFavoriteBtn').html('<i class="fas fa-star"></i> '+translate.get('LBL_FAVORITE'));
 	}
 
 	$('#SelectedRowModal').modal('show');
@@ -70,7 +70,7 @@ $('#InsertFavoriteBtn').on('click', () =>{
 			console.log('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]');
 			Swal.close();
 			Swal.fire({
-				title: 'Música '+(($('#itsFavorite').val() == '2') ? 'removida' : 'adicionada')+' nos favoritos!',
+				title: 'Música '+(($('#itsFavorite').val() == '2') ? translate.get('LBL_REMOVED') : translate.get('LBL_ADDED'))+' '+translate.get('LBL_ON_YOUR_FAVORITES'),
 				text: '',
 				icon: 'success',
 				width: '400px',

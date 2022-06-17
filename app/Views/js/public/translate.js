@@ -1,8 +1,9 @@
 class translateApp
 {
-    constructor()
+    constructor(defaultF)
     {
         this.app_langs = {}
+        this.defaultF = defaultF;
     }
     add(f, lang)
     {
@@ -12,17 +13,17 @@ class translateApp
     {
        delete this.app_langs[f]; 
     }
-    get(f, lbl)
+    get(lbl, f)
     {
         if(!lbl){
             return '';
         }
         if(!f){
-            f = 'app';
+            f = this.defaultF;
         }
         if(typeof this.app_langs[f] != 'undefined' && typeof this.app_langs[f][lbl] != 'undefined'){
             return this.app_langs[f][lbl];
-        }else if(f !== 'app' && typeof this.app_langs['app'][lbl] != 'undefined'){
+        }else if(typeof this.app_langs['app'][lbl] != 'undefined'){
             return this.app_langs[f][lbl];
         }
         return lbl;

@@ -19,6 +19,6 @@ class Home extends BaseController
 	
 	public function index()
 	{
-		rdct('/musicas/index');
+		rdct('/musics/index');
 	}
 }

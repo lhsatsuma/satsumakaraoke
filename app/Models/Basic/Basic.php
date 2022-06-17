@@ -11,7 +11,7 @@ class Basic extends Model
 	Table name for this model
 	*/
 	public $table = null;
-	public $where = array();
+	public array $where = array();
 	public $force_deleted = false;
 	public $order_by = array();
 	public $select = '*';

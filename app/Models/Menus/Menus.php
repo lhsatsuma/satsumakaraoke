@@ -58,26 +58,26 @@ class Menus extends \App\Models\Basic\Basic
 			'dont_load_layout' => true,
 		),
 		'ativo' => array(
-			'lbl' => 'Ativo',
+			'lbl' => 'LBL_ACTIVE',
 			'type' => 'bool',
 			'default' => '1',
 			'required' => true,
 		),
 		'ordem' => array(
-			'lbl' => 'Ordem',
+			'lbl' => 'LBL_ORDER',
 			'type' => 'int',
 			'default' => '1',
 			'required' => true,
 		),
 		'tipo' => array(
-			'lbl' => 'Tipo',
+			'lbl' => 'LBL_TYPE',
 			'type' => 'dropdown',
 			'default' => '1',
 			'parameter' => 'tipo_menu_list',
 			'required' => true,
 		),
 		'menu_pai' => array(
-			'lbl' => 'Menu Pai',
+			'lbl' => 'LBL_PARENT_MENU',
 			'type' => 'related',
 			'table' => 'menus',
 			'parameter' => [
@@ -86,24 +86,24 @@ class Menus extends \App\Models\Basic\Basic
 			]
 		),
 		'url_base' => array(
-			'lbl' => 'URL Base',
+			'lbl' => 'LBL_URL_BASE',
 			'type' => 'varchar',
 			'default' => '',
 		),
 		'icon' => array(
-			'lbl' => 'Ícone',
+			'lbl' => 'LBL_ICON',
 			'type' => 'varchar',
 			'default' => 'fas fa-list',
 			'max_length' => 30,
 		),
 		'label' => array(
-			'lbl' => 'Label',
+			'lbl' => 'LBL_LABEL',
 			'type' => 'varchar',
 			'max_length' => 30,
 			'required' => true,
 		),
 		'perm' => array(
-			'lbl' => 'Cód. Permissão',
+			'lbl' => 'LBL_PERMISSION',
 			'type' => 'related',
 			'table' => 'permissao',
 			'parameter' => [

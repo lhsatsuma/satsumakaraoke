@@ -7,7 +7,7 @@ class Menus extends AdminBaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/menus/editar">'.translate('LBL_NEW_RECORD').'</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/menus/edit">'.translate('LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}
@@ -15,7 +15,6 @@ class Menus extends AdminBaseController
 	public function index($offset = 0)
 	{
 		hasPermission(9, 'r', true);
-		$this->data['title'] = 'Lista de Menus';
 		
 		$initial_filter = array(
 			'name' => '',
@@ -50,11 +49,9 @@ class Menus extends AdminBaseController
 		return $this->displayNew('pages/Admin/Menus/index');
 	}
 	
-	public function detalhes($id = null)
+	public function detail($id = null)
 	{
 		hasPermission(9, 'r', true);
-
-		$this->data['title'] = 'Detalhes do Menu';
 		
 		$this->mdl->f['id'] = $id;
 		$result = $this->mdl->get();
@@ -68,14 +65,14 @@ class Menus extends AdminBaseController
 
 		$this->setPermData(9);
 		
-		return $this->displayNew('pages/Admin/Menus/detalhes');
+		return $this->displayNew('pages/Admin/Menus/detail');
 	}
 	
-	public function editar($id = null)
+	public function edit($id = null)
 	{
 		hasPermission(9, 'w', true);
 
-		$this->data['title'] = ($id) ? 'Editar Menu' : 'Criar Menu';
+		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = array();
 		if($id){
@@ -92,7 +89,7 @@ class Menus extends AdminBaseController
 
 		$this->setPermData(9);
 		
-		return $this->displayNew('pages/Admin/Menus/editar');
+		return $this->displayNew('pages/Admin/Menus/edit');
 	}
 	
 	public function salvar()
@@ -110,22 +107,22 @@ class Menus extends AdminBaseController
 					rdct('/admin/menus/index');
 				}
 				$this->setMsgData('error', 'Não foi possível deletar o registro, tente novamente.');
-				rdct('/admin/menus/editar/'.$this->mdl->f['id']);
+				rdct('/admin/menus/edit/'.$this->mdl->f['id']);
 			}
-			rdct('/admin/menus/editar');
+			rdct('/admin/menus/edit');
 		}
 		
 		if(!$this->ValidateFormPost()){
 			$this->SetErrorValidatedForm();
-			rdct('/admin/menus/editar/'.$this->mdl->f['id']);
+			rdct('/admin/menus/edit/'.$this->mdl->f['id']);
 		}
 
 		$saved = $this->mdl->saveRecord();
 		if($saved){
-			rdct('/admin/menus/detalhes/'.$this->mdl->f['id']);
+			rdct('/admin/menus/detail/'.$this->mdl->f['id']);
 		}else{
 			$this->setMsgData('error', $this->mdl->last_error);
-			rdct('/admin/menus/editar/'.$this->mdl->f['id']);
+			rdct('/admin/menus/edit/'.$this->mdl->f['id']);
 		}
 	}
 	

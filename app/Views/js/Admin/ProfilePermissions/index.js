@@ -2,7 +2,7 @@ $('#grupos').change(() => {
     $('#tbodyProfilePermissions').html('');
     if($('#grupos').val()){
         if($('#grupos').val() == '1'){
-            $('#grupos').after('<p class="required" id="grupo1required">'+translate.get('Admin.ProfilePermissions', 'LBL_DEFAULT_PROFILE_ALL')+'</p>');
+            $('#grupos').after('<p class="required" id="grupo1required">'+translate.get('LBL_DEFAULT_PROFILE_ALL')+'</p>');
         }else{
             $('#grupo1required').remove();
         }

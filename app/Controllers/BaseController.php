@@ -330,6 +330,7 @@ class BaseController extends Controller
 			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
 			'rdct_url' => $this->session->getFlashdata('rdct_url'),
+			'default_lang_file' => $this->lang_file,
 			'languages' => [
 				'app' => json_encode(translate('','app')),
 				$this->lang_file => json_encode(translate('',$this->lang_file)),

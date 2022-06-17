@@ -8,49 +8,44 @@
 <input type="hidden" name="id" value="{$record.id}" />
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.dropdown.status}
-	</div>
-	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.related.profile}
-	</div>
-</div>
-<div class="row">
-	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		{$layout.varchar.name}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.email.email}
+		{$layout.bool.ativo}
 	</div>
 </div>
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.telephone.telefone}
+		{$layout.dropdown.tipo}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.celphone.celular}
+		{$layout.varchar.url_base}
 	</div>
 </div>
 <div class="row">
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.dropdown.timezone}
+		{$layout.related.menu_pai}
+	</div>
+	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		{$layout.int.ordem}
+	</div>
+</div>
+<div class="row">
+	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		{$layout.varchar.icon}
+	</div>
+	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		{$layout.varchar.label}
+	</div>
+</div>
+<div class="row">
+	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		{$layout.related.perm}
 	</div>
 </div>
 <div class="row">
 	<div class="col-12">
 		<hr />
-	</div>
-</div>
-<div class="row">
-	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.datetime.ultima_troca_senha}
-	</div>
-</div>
-<div class="row">
-	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.datetime.last_connected}
-	</div>
-	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.varchar.last_ip}
 	</div>
 </div>
 <div class="row">
@@ -69,10 +64,10 @@
 		{$layout.related.user_modified}
 	</div>
 </div>
-{if $perms.cod_1.w}
-<div class="row">
-	<div class="col-12">
-		<a href="{$app_url}admin/users/edit/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> {translate l="LBL_EDIT"}</a>
+{if $perms.cod_9.w}
+	<div class="row">
+		<div class="col-12">
+			<a href="{$app_url}admin/menus/edit/{$record.id}" class="btn btn-outline-success btn-rounded margin-5"><i class="fas fa-edit"></i> {translate l="LBL_EDIT"}</a>
+		</div>
 	</div>
-</div>
 {/if}

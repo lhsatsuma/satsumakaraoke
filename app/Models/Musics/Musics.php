@@ -1,63 +1,63 @@
 <?php
-namespace App\Models\Musicas;
+namespace App\Models\Musics;
 
-class Musicas extends \App\Models\Basic\Basic
+class Musics extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'musicas';
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
 		'name' => array(
-			'lbl' => 'Nome',
+			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
 		),
 		'deleted' => array(
-			'lbl' => 'deleted',
+			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
 		'date_created' => array(
-			'lbl' => 'Data Criação',
+			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_created' => array(
-			'lbl' => 'Usuário Criação',
+			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuarios',
+				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
 		'date_modified' => array(
-			'lbl' => 'Data Modificação',
+			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
+			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuarios',
+				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
-		'link' => array(
+		'LBL_LINK' => array(
 			'lbl' => 'Link',
 			'type' => 'link',
 			'required' => true,
@@ -65,37 +65,37 @@ class Musicas extends \App\Models\Basic\Basic
 			'validations' => 'required',
 		),
 		'origem' => array(
-			'lbl' => 'Origem',
+			'lbl' => 'LBL_ORIGIN',
 			'type' => 'dropdown',
 			'parameter' => 'origem_musica_list',
 			'required' => true,
 			'max_length' => 255,
 		),
 		'codigo' => array(
-			'lbl' => 'Código',
+			'lbl' => 'LBL_CODE',
 			'type' => 'int',
 			'required' => true,
 		),
 		'md5' => array(
-			'lbl' => 'MD5 ID',
+			'lbl' => 'LBL_MD5',
 			'type' => 'varchar',
 			'max_length' => 255,
 		),
 		'tipo' => array(
-			'lbl' => 'Idioma',
+			'lbl' => 'LBL_LANGUAGE',
 			'type' => 'dropdown',
 			'parameter' => 'tipo_musica',
 			'required' => true,
 		),
 		'duration' => array(
-			'lbl' => 'Duração (Segundos)',
+			'lbl' => 'LBL_DURATION',
 			'type' => 'int',
 			'default' => 0,
 			'required' => true,
 		),
 		'fvt' => array(
 			'nondb' => true,
-			'lbl' => 'Meus Favoritos',
+			'lbl' => 'LBL_MY_FAVORITES',
 			'type' => 'bool',
 		)
 	);
@@ -156,7 +156,7 @@ class Musicas extends \App\Models\Basic\Basic
 			$file->f['mimetype'] = 'video/mp4';
 			$file->f['tipo'] = 'private';
 			$file->f['registro'] = $this->f['id'];
-			$file->f['tabela'] = 'musicas';
+			$file->f['tabela'] = $this->table;
 			$file->f['campo'] = 'arquivo_id';
 			$file->saveRecord();
 		}

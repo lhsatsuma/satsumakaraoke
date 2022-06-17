@@ -34,7 +34,7 @@
 		<script src="https://cdn.tiny.cloud/1/gkma8l0v7mxj6bd7bono39z4l7bzq7k29vt4yp3ja81e67db/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 		<script language="javascript" type="text/javascript" src="{$app_url}jsManager/public/translate.js?v={$ch_ver}"></script>
 		<script language="javascript" type="text/javascript">
-			var translate = new translateApp();
+			var translate = new translateApp('{$default_lang_file}');
 			{if $languages}{foreach from=$languages key=f item=l}translate.add('{$f}', {$l});{/foreach}{/if}
 		</script>
 		<script type="text/javascript">var _APP = {$JS_VARS};</script>

@@ -5,18 +5,18 @@
 	<table class="table table-striped table-list tb-rst-fltr">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="ativo" onclick="OrderByFiltro('ativo')">Ativo</th>
-				<th scope="col" class="ptr" dt-h-field="ordem" onclick="OrderByFiltro('ordem')">Ordem</th>
-				<th scope="col" class="ptr" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo</th>
-				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">Nome</th>
-				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">Data Criação</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">Data Modificação</th>
+				<th scope="col" class="ptr" dt-h-field="ativo" onclick="OrderByFiltro('ativo')">{translate l="LBL_ACTIVE"}</th>
+				<th scope="col" class="ptr" dt-h-field="ordem" onclick="OrderByFiltro('ordem')">{translate l="LBL_ORDER"}</th>
+				<th scope="col" class="ptr" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">{translate l="LBL_TYPE"}</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
+				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate l="LBL_DATE_CREATED"}</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th>
 			</tr>
 		</thead>
 		<tbody>
 		{if !empty($records)}
 			{foreach from=$records item=campos}
-				<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/menus/detalhes/{$campos.id}'">
+				<tr class="ptr r-dt-slct" dt-r-id="{$campos.id}" onclick="location.href='{$app_url}admin/menus/detail/{$campos.id}'">
 					<td dt-r-ativo="{$campos.ativo}">{$campos.ativo}</td>
 					<td dt-r-ordem="{$campos.ordem}">{$campos.ordem}</td>
 					<td dt-r-tipo="{$campos.tipo}">{$campos.tipo}</td>
@@ -28,7 +28,7 @@
 			
 		{else}
 		<tr>
-			<td colspan="5">Nenhum registro encontrado!</td>
+			<td colspan="5">{translate l="LBL_NO_RECORDS_FOUND"}</td>
 		</tr>	
 		{/if}
 		</tbody>
