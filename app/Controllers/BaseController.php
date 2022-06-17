@@ -331,8 +331,8 @@ class BaseController extends Controller
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
 			'rdct_url' => $this->session->getFlashdata('rdct_url'),
 			'languages' => [
-				'app' => json_encode('',translate('app')),
-				$this->lang_file => json_encode('',translate($this->lang_file)),
+				'app' => json_encode(translate('','app')),
+				$this->lang_file => json_encode(translate('',$this->lang_file)),
 			]
 		);
 		if($this->data){
