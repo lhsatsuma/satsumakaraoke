@@ -1,0 +1,20 @@
+<?php
+return [
+    'LBL_ID' => 'ID',
+    'LBL_NAME' => 'Nome',
+    'LBL_DELETED' => 'Deletado',
+    'LBL_DATE_CREATED' => 'Data Criação',
+    'LBL_USER_CREATED' => 'Usuário Criação',
+    'LBL_DATE_MODIFIED' => 'Data Modificação',
+    'LBL_USER_MODIFIED' => 'Usuário Modificação',
+    'LBL_MUSIC_ID' => 'Música',
+    'LBL_STATUS' => 'Status',
+    'LBL_ORDER_MUSIC' => 'Ordem - Música',
+    'LBL_INSERTO_TO_WAITLIST_AGAIN' => 'Colocar na fila novamente',
+    'LBL_FILTER_BY_MY_NAME' => 'Filtrar pelo Meu Nome',
+    'LBL_FILTER_BY_PENDENT' => 'Filtrar por Pendentes',
+    'LBL_RANK' => 'Rank',
+    'LBL_TOTAL' => 'Total',
+    'LBL_ACTION_CTRL_TOPMUSICS' => 'Top Músicas Mais Tocadas',
+    'LBL_ACTION_CTRL_INDEX' => 'Músicas na Fila',
+];

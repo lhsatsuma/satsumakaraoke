@@ -2,7 +2,7 @@
 	<span class="form-inline">
 	{if $generic_filter}
 		<input name="search_generic_filter" class="form-control col-12 col-sm-9 col-md-7 col-lg-6 col-xl-4 margin" type="search" placeholder="{translate l="LBL_SEARCH"}..." aria-label="Search" value="{$search_generic_filter}" autocomplete="off">
-		<button class="btn btn-outline-success btn-rounded" type="submit"><i class="fas fa-search"></i> {translate l="LBL_SEARCH"}</button>
+		<button class="btn btn-outline-success btn-rounded" type="button" onclick="submitSearch(this, 'filtroForm')"><i class="fas fa-search"></i> {translate l="LBL_SEARCH"}</button>
 		{if !empty($filters)}
 		<button class="btn btn-outline-success btn-rounded" type="button" data-toggle="modal" data-target="#filtroFormAdvancedModal"><i class="fas fa-filter"></i> {if $icon_filter_advanced}<i class="far fa-times-circle"></i>{/if}</button>
 		{/if}

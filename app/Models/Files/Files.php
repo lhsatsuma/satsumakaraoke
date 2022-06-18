@@ -115,7 +115,7 @@ class Files extends \App\Models\Basic\Basic
 					$this->fields_map['registro']['parameter'] = [
 						'url' => null,
 						'model' => 'Musicas/Musicas',
-						'link_detail' => 'admin/musicas/detalhes/',
+						'link_detail' => 'admin/musics/detalhes/',
 					];
 					break;
 				default:

@@ -15,7 +15,7 @@ class Karaoke_ajax extends AdminBaseController
 		$this->ajax = new \App\Libraries\Sys\Ajax();
 		$this->ajax->CheckIncoming();
 		
-		$this->mdl = new \App\Models\MusicasFila\MusicasFila();
+		$this->mdl = new \App\Models\Waitlist\Waitlist();
 	}
 
 	public function index()

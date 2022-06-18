@@ -42,7 +42,7 @@ class Musics extends BaseController
 		
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/musicas/index',
+			'action' => base_url().'/musics/index',
 			'generic_filter' => array(
 				'name',
 				'codigo',
@@ -70,7 +70,7 @@ class Musics extends BaseController
 		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 		
-		return $this->displayNew('pages/Musicas/index');
+		return $this->displayNew('pages/musics/index');
 	}
 	
 	public function CheckImportVideo()
@@ -132,7 +132,7 @@ class Musics extends BaseController
 		if($AjaxLib->body['auto_fila']){
 			$return_data['auto_fila'] = true;
 			
-			$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
+			$musicas_fila_mdl = new \App\Models\Waitlist\Waitlist();
 			$musicas_fila_mdl->f['name'] = $return_data['saved_record']['name'];
 			$musicas_fila_mdl->f['musica_id'] = $return_data['saved_record']['id'];
 			$musicas_fila_mdl->f['status'] = 'pendente';
@@ -151,7 +151,7 @@ class Musics extends BaseController
 		
 		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
 		
-		$musicas_fila_mdl = new \App\Models\MusicasFila\MusicasFila();
+		$musicas_fila_mdl = new \App\Models\Waitlist\Waitlist();
 		
 		$this->mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $this->mdl->get();
@@ -200,7 +200,7 @@ class Musics extends BaseController
 		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 
-		return $this->displayNew('pages/Musicas/popupWizard');
+		return $this->displayNew('pages/musics/popupWizard');
 	}
 	
 	public function hidePopupWizard()

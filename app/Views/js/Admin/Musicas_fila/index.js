@@ -9,7 +9,7 @@ $('#clearWaitList').click(() => {
     }).then((result) => {
         if(result.isConfirmed){
             fireAjaxLoading({
-                url: _APP.app_url+'admin/musicas_fila/clear_waitlist',
+                url: _APP.app_url+'admin/waitlist/clear_waitlist',
                 callback: (res) => {
                     if(res.status){
                         Swal.fire({

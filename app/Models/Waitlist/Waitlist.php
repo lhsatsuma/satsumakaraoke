@@ -1,7 +1,7 @@
 <?php
-namespace App\Models\MusicasFila;
+namespace App\Models\Waitlist;
 
-class MusicasFila extends \App\Models\Basic\Basic
+class Waitlist extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'musicas_fila';
@@ -9,64 +9,64 @@ class MusicasFila extends \App\Models\Basic\Basic
 	public $id_by_name = true;
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
 		),
 		'name' => array(
-			'lbl' => 'Número',
-			'type' => 'int',
+			'lbl' => 'LBL_NAME',
+			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
 		),
 		'deleted' => array(
-			'lbl' => 'deleted',
+			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
 		),
 		'date_created' => array(
-			'lbl' => 'Data Criação',
+			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_created' => array(
-			'lbl' => 'Usuário Criação',
+			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuarios',
+				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
 		'date_modified' => array(
-			'lbl' => 'Data Modificação',
+			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
 		),
 		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
+			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
 			'parameter' => array(
 				'url' => null,
-				'model' => 'Admin/Usuarios/Usuarios',
+				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
 			),
 			'dont_load_layout' => true,
 		),
 		'musica_id' => array(
-			'lbl' => 'Música ID',
+			'lbl' => 'LBL_MUSIC_ID',
 			'type' => 'related',
 			'required' => true,
 			'table' => 'musicas',
 			'validations' => 'required',
 		),
 		'status' => array(
-			'lbl' => 'Status',
+			'lbl' => 'LBL_STATUS',
 			'type' => 'dropdown',
 			'len' => 255,
 			'parameter' => 'status_musicas_fila_list',

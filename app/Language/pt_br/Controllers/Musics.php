@@ -16,7 +16,8 @@ return [
     'LBL_MY_FAVORITES' => 'Meus Favoritos',
 
     'LBL_IMPORT' => 'Importar',
-    'LBL_UNFFAVORITE' => 'Desfavoritar',
+    'LBL_FAVORITE' => 'Favoritar',
+    'LBL_UNFAVORITE' => 'Desfavoritar',
     'LBL_INSERT_TO_WAITLIST' => 'Colocar na fila',
     'LBL_IMPORT_AND_INSERT_TO_WAITLIST' => 'Importar e colocar na fila',
     'LBL_IMPORT_MUSICS_FROM_YT' => 'Importar Música do Youtube',

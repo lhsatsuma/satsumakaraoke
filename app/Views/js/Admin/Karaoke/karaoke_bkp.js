@@ -192,7 +192,7 @@ function mountWaitList(dontRefresh, totalFound = 0)
 		$('#playingNow').html('<p>'+songNow[1]+' | ['+songNow[2]+'] '+ songNow[3]+'</p>');
 		if(allScreen){
 			$('#songNowId').val(songNow[0]);
-			if(video.src == _app_vars.app_url + 'musicas/karaoke' || video.src == "" || video.src !== _app_vars.karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4'){
+			if(video.src == _app_vars.app_url + 'musics/karaoke' || video.src == "" || video.src !== _app_vars.karaokeURL + 'uploads/VIDEOSKARAOKE/' + songNow[4]+'.mp4'){
 				getNextVideo();
 			}
 		}

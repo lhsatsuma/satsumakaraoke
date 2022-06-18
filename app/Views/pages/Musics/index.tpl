@@ -88,7 +88,7 @@
 	</div>
 </div>
 <div class="modal fade" id="helpSongsModal" tabindex="-1" role="dialog" aria-labelledby="helpSongsModalLabel" aria-hidden="true"></div>
-<script type="text/javascript" src="{$app_url}jsManager/Musicas/index.js?v={$ch_ver}"></script>
+<script type="text/javascript" src="{$app_url}jsManager/Musics//index.js?v={$ch_ver}"></script>
 {/if}
 {if !$bdOnly AND $showPopupWizard}
 	<script type="text/javascript">showPopupWizard();</script>

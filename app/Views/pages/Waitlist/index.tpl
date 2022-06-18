@@ -1,10 +1,10 @@
-<form method="post" id="filtroForm" action="{$app_url}musicas_fila/index">
+<form method="post" id="filtroForm" action="{$app_url}waitlist/index">
 	<input type="hidden" id="search_user_created" name="search_user_created" value="{$search_user_created}"/>
 	<input type="hidden" id="search_status" name="search_status" value="{$search_status}"/>
 	<div class="row">
 		<div class="col-12">
-			<p><button class="btn btn-outline-{$color_user_created} btn-rounded search-button" id="SearchByAssigned">Filtrar por Meu Nome {$icon_user_created}</button>
-				<button class="btn btn-outline-{$color_status_pendente} btn-rounded search-button" id="SearchByPendente">Filtrar por Pendentes {$icon_status_pendente}</button>
+			<p><button class="btn btn-outline-{$color_user_created} btn-rounded search-button" id="SearchByAssigned">{translate l="LBL_FILTER_BY_MY_NAME"} {$icon_user_created}</button>
+				<button class="btn btn-outline-{$color_status_pendente} btn-rounded search-button" id="SearchByPendente">{translate l="LBL_FILTER_BY_PENDENT"} {$icon_status_pendente}</button>
 			</p>
 		</div>
 	</div>
@@ -15,16 +15,16 @@
 	<table class="table table-striped table-list">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="user_created" onclick="OrderByFiltro('user_created')">Usuário</th>
-				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">Número - Música</th>
-				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">Status</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">Data</th>
+				<th scope="col" class="ptr" dt-h-field="usuarios.name" onclick="OrderByFiltro('usuarios.name')">{translate l="LBL_USER_CREATED"}</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_ORDER_MUSIC"}</th>
+				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">{translate l="LBL_STATUS"}</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate l="LBL_DATE_CREATED"}</th>
 			</tr>
 		</thead>
 		<tbody>
 			{if empty($records)}
 			<tr>
-				<td colspan="4">Nenhuma música na fila encontrada!</td>
+				<td colspan="4">{translate l="LBL_NO_RECORDS_FOUND"}</td>
 			</tr>
 			{else}
 			{foreach from=$records item=campos}
@@ -63,17 +63,17 @@
 			<div class="modal-body">
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
-						<button type="button" id="InsertFilaBtn" class="btn btn-outline-success btn-rounded btn-bordered col-8">Colocar na Fila novamente</button>
+						<button type="button" id="InsertFilaBtn" class="btn btn-outline-success btn-rounded btn-bordered col-8">{translate l="LBL_INSERTO_TO_WAITLIST_AGAIN"}</button>
 					</div>
 				</div>
 				<div class="row margin-5">
 					<div class="col-12 primary-row center">
-						<button type="button" class="btn btn-outline-danger btn-bordered col-8" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-outline-danger btn-bordered col-8" data-dismiss="modal">{translate l="LBL_CANCEL"}</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="{$app_url}jsManager/Musicas_fila/index.js?v={$ch_ver}"></script>
+<script type="text/javascript" src="{$app_url}jsManager/Waitlist/index.js?v={$ch_ver}"></script>W
 {/if}

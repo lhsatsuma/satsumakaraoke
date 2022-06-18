@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Musicas_fila extends AdminBaseController
+class Waitlist extends AdminBaseController
 {
-	public $module_name = 'MusicasFila';
+	public $module_name = 'Waitlist';
 
 	public function ExtButtonsGenericFilters()
 	{
@@ -14,11 +14,10 @@ class Musicas_fila extends AdminBaseController
 
 	public function index($offset=0)
 	{
-		$this->data['title'] = 'Músicas na Fila';
 
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/musicas_fila/index',
+			'action' => base_url().'/admin/waitlist/index',
 			'generic_filter' => array(
 				'name',
 				'status',
@@ -44,7 +43,7 @@ class Musicas_fila extends AdminBaseController
 		$result = $this->mdl->formatRecordsView($result);
 		$this->data['records'] = $result;
 		
-		return $this->displayNew('pages/Admin/Musicas_fila/index');
+		return $this->displayNew('pages/Admin/waitlist/index');
 	}
 	
 	public function cancelar_ajax()
@@ -75,7 +74,7 @@ class Musicas_fila extends AdminBaseController
 		
 		$AjaxLib = new \App\Libraries\Sys\Ajax();
 		
-		$this->mdl = new \App\Models\MusicasFila\MusicasFila();
+		$this->mdl = new \App\Models\Waitlist\Waitlist();
 		
 		$this->mdl->select = "id";
 		$count = 0;

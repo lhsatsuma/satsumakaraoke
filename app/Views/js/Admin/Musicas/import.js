@@ -25,7 +25,7 @@ function ajaxNextSearch()
 {
     if(linksDone < links.length){
         handleAjax({
-            url: _APP.app_url+'musicas/CheckImportVideo',
+            url: _APP.app_url+'musics/CheckImportVideo',
             dontClose: linksDone != links.length-1,
             data: JSON.stringify({ 
                 link: links[linksDone][0],
@@ -117,7 +117,7 @@ function ajaxNextImport()
 {
     if(totalImported < $('.importLink_Link').length){
         handleAjax({
-            url: _APP.app_url+'musicas/ImportVideoUrl',
+            url: _APP.app_url+'musics/ImportVideoUrl',
             data: JSON.stringify({ 
                 'link': $('.importLink_Link'+totalImported).val(),
                 'md5': $('.importLink_MD5'+totalImported).val(),

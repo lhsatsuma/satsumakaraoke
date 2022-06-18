@@ -411,6 +411,11 @@ function ValidateForm(fm, elm)
 		}
 	}
 }
+function submitSearch(e, fm)
+{
+	showLoadingIcon(e);
+	$('#'+fm).trigger('submit');
+}
 function switchCheckbox(name)
 {
 	$('#checkbox_'+name+', .slider-for-'+name).on('change click', (e) => {
@@ -802,12 +807,12 @@ function toggleDarkMode(setAjax = true, force_off = false)
 	}
 }
 if((
-		(_APP._CTRL_NAME[0] == 'usuarios' ||
+		(_APP._CTRL_NAME[0] == 'users' ||
 			_APP._CTRL_NAME[0] == 'admin' 
 		) &&
 		_APP._ACTION_NAME == 'login'
 	) ||
-	_APP._ACTION_NAME == 'criarconta'){
+	_APP._ACTION_NAME == 'createAccount'){
 	//Check if cached dark mode
 	if(localStorage.dark_mode_active == '1'){
 		toggleDarkMode(false);

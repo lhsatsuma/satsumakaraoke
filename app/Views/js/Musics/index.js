@@ -29,7 +29,7 @@ function OpenModalSelected(id){
 $('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireAjaxLoading({
-		url: _APP.app_url+'musicas/insert_fila_ajax',
+		url: _APP.app_url+'musics/insert_fila_ajax',
 		data: JSON.stringify({
 			id: $('#IdInsertModal').val(),
 		}),
@@ -56,7 +56,7 @@ $('#InsertFilaBtn').on('click', () =>{
 $('#InsertFavoriteBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireAjaxLoading({
-		url: _APP.app_url+'musicas/insert_favorite_ajax',
+		url: _APP.app_url+'musics/insert_favorite_ajax',
 		data: JSON.stringify({
 			id: $('#IdInsertModal').val(),
 			rmv: ($('#itsFavorite').val() == '2') ? true : false,
@@ -105,7 +105,7 @@ $('#ImportModalLink').keyup(function(){
 			didOpen: () => {
 				swal.showLoading();
 				$.ajax({
-					'url': _APP.app_url+'musicas/CheckImportVideo',
+					'url': _APP.app_url+'musics/CheckImportVideo',
 					dataType: 'json',
 					method: 'POST',
 					headers: {
@@ -145,7 +145,7 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', () =>{
 		didOpen: () => {
 			swal.showLoading();
 			$.ajax({
-				'url': _APP.app_url+'musicas/ImportVideoUrl',
+				'url': _APP.app_url+'musics/ImportVideoUrl',
 				dataType: 'json',
 				method: 'POST',
 				headers: {
@@ -231,7 +231,7 @@ function hideAlwaysPopupWizard()
 	$('#helpSongsModal').modal('hide');
 	handleAjax({
 		dontFireError: true,
-		url: _APP.app_url+'musicas/hidePopupWizard',
+		url: _APP.app_url+'musics/hidePopupWizard',
 	});
 }
 
@@ -243,7 +243,7 @@ function showPopupWizard()
 		return true;
 	}
 	fireAjaxLoading({
-		url: _APP.app_url+'musicas/showPopupWizard?bdOnly=1',
+		url: _APP.app_url+'musics/showPopupWizard?bdOnly=1',
 		callback: (res) => {
 			Swal.close();
 			if(res.detail){

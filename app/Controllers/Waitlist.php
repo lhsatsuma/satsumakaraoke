@@ -1,13 +1,12 @@
 <?php
 namespace App\Controllers;
 
-class Musicas_fila extends BaseController
+class Waitlist extends BaseController
 {
-	public $module_name = 'MusicasFila';
+	public $module_name = 'Waitlist';
 
 	public function index($offset=0)
 	{
-		$this->data['title'] = 'Músicas na Fila';
 		
 		$initial_filter = array(
 			'user_created' => '',
@@ -49,13 +48,11 @@ class Musicas_fila extends BaseController
 			$this->data['icon_status_encerrado'] = $icon_search;
 		}
 		
-		return $this->displayNew('pages/Musicas_fila/index');
+		return $this->displayNew('pages/Waitlist/index');
 	}
 
-	public function topMusicas()
-	{
-		$this->data['title'] = 'Top Músicas Mais Tocadas';
-		
+	public function topMusics()
+	{		
 		$this->mdl->select = "count(*) as total, musica_id";
 		$this->mdl->group_by = 'musica_id';
 		$this->mdl->order_by['count(*)'] = 'DESC';
@@ -69,6 +66,6 @@ class Musicas_fila extends BaseController
 		$this->data['records'] = $results;
 		
 		
-		return $this->displayNew('pages/Musicas_fila/topMusicas');
+		return $this->displayNew('pages/Waitlist/topMusics');
 	}
 }

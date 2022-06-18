@@ -1,15 +1,15 @@
 <table class="table table-responsive-xl table-striped table-list">
 	<thead>
 		<tr>
-			<th scope="col" dt-h-field="rank">Rank</th>
-			<th scope="col" dt-h-field="total">Total</th>
-			<th scope="col" dt-h-field="musicas_id">Música</th>
+			<th scope="col" dt-h-field="rank">{translate l="LBL_RANK"}</th>
+			<th scope="col" dt-h-field="total">{translate l="LBL_TOTAL"}</th>
+			<th scope="col" dt-h-field="musicas_id">{translate l="LBL_MUSIC_ID"}</th>
 		</tr>
 	</thead>
 	<tbody>
 		{if empty($records)}
 		<tr>
-			<td colspan="2">Nenhum registro encontrado!</td>
+			<td colspan="2">{translate l="LBL_NO_RECORDS_FOUND"}</td>
 		</tr>
 		{else}
 		{assign var="rankTop" value="1"}

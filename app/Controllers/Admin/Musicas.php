@@ -23,7 +23,7 @@ class Musicas extends AdminBaseController
 		
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/musicas/index',
+			'action' => base_url().'/admin/musics/index',
 			'generic_filter' => array(
 				'name',
 				'codigo',
@@ -72,7 +72,7 @@ class Musicas extends AdminBaseController
 		
 		$this->filterLib_cfg = array(
 			'use' => true,
-			'action' => base_url().'/admin/musicas/fixnames',
+			'action' => base_url().'/admin/musics/fixnames',
 			'generic_filter' => array(
 				'name',
 				'codigo',

@@ -43,7 +43,7 @@ function OpenModalSelected(id){
 $('#InsertFilaBtn').on('click', () =>{
 	$('#SelectedRowModal').modal('hide');
 	fireAjaxLoading({
-		url: _APP.app_url+'musicas/insert_fila_ajax',
+		url: _APP.app_url+'musics/insert_fila_ajax',
 		data: JSON.stringify({
 			id: $('#IdInsertModal').val(),
 		}),

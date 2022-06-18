@@ -410,7 +410,7 @@ class KaraokeJS{
 							}).then((result) => {
 								if(result.isConfirmed){
 									fireAjaxLoading({
-										url: _APP.app_url+'musicas/insert_fila_ajax',
+										url: _APP.app_url+'musics/insert_fila_ajax',
 										data: JSON.stringify({'id': res.detail.id}),
 										callback: (res) => {
 											Swal.close();
