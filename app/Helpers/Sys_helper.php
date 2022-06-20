@@ -394,7 +394,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		}
 		if($module === 'app'){
 			$module = 'Public.App';
-		}else{
+		}elseif(strpos($module, 'Public.') === false){
 			$module = 'Controllers.'.$module;
 		}
 		

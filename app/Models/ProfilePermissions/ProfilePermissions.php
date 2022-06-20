@@ -8,63 +8,74 @@ class ProfilePermissions extends \App\Models\Basic\Basic
 	public $f = array();
 	public $fields_map = array(
 		'id' => array(
-			'lbl' => 'ID',
+			'lbl' => 'LBL_ID',
 			'type' => 'int',
 			'dont_load_layout' => true,
 			'dont_generate' => true,
 		),
+		'name' => array(
+			'lbl' => 'LBL_NAME',
+			'type' => 'varchar',
+			'required' => true,
+			'min_length' => 2,
+			'max_length' => 255,
+		),
+		'deleted' => array(
+			'lbl' => 'LBL_DELETED',
+			'type' => 'bool',
+			'dont_load_layout' => true,
+		),
+		'date_created' => array(
+			'lbl' => 'LBL_DATE_CREATED',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
+		'user_created' => array(
+			'lbl' => 'LBL_USER_CREATED',
+			'type' => 'related',
+			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
+			'dont_load_layout' => true,
+		),
+		'date_modified' => array(
+			'lbl' => 'LBL_DATE_MODIFIED',
+			'type' => 'datetime',
+			'dont_load_layout' => true,
+		),
+		'user_modified' => array(
+			'lbl' => 'LBL_USER_MODIFIED',
+			'type' => 'related',
+			'table' => 'usuarios',
+			'parameter' => array(
+				'url' => null,
+				'model' => 'Admin/Users/Users',
+				'link_detail' => 'admin/users/detail/',
+			),
+			'dont_load_layout' => true,
+		),
 		'permissao' => array(
-			'lbl' => 'Permissão',
+			'lbl' => 'LBL_PERMISSION',
 			'type' => 'related',
 			'table' => 'permissao',
 			'required' => true,
 			'dont_load_layout' => true,
 		),
 		'grupo' => array(
-			'lbl' => 'Grupo',
+			'lbl' => 'LBL_PROFILE',
 			'type' => 'related',
 			'table' => 'grupos',
 			'required' => true,
 			'dont_load_layout' => true,
 		),
 		'nivel' => array(
-			'lbl' => 'Nível',
+			'lbl' => 'LBL_LEVEL',
 			'type' => 'int',
 			'required' => true,
 			'dont_load_layout' => true,
-		),
-		'deleted' => array(
-			'lbl' => 'deleted',
-			'type' => 'bool',
-			'dont_load_layout' => true,
-		),
-		'date_created' => array(
-			'lbl' => 'Data Criação',
-			'type' => 'datetime',
-			'dont_load_layout' => true,
-		),
-		'user_created' => array(
-			'lbl' => 'Usuário Criação',
-			'type' => 'related',
-			'table' => 'usuarios',
-			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/users/detail/',
-			]
-		),
-		'date_modified' => array(
-			'lbl' => 'Data Modificação',
-			'type' => 'datetime',
-			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
-			'lbl' => 'Usuário Modificação',
-			'type' => 'related',
-			'table' => 'usuarios',
-			'dont_load_layout' => true,
-			'parameter' => [
-				'link_detail' => 'admin/users/detail/',
-			]
 		),
 	);
 	public $idx_table = [

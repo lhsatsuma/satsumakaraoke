@@ -2,30 +2,30 @@
 	{
 		"url": "",
 		"icon": "fas fa-list",
-		"lbl": "Cadastros",
+		"lbl": "LBL_MENU_RECORDS",
 		"subs": [
 			{
 				"url": "admin/files/",
 				"icon": "fas fa-file",
-				"lbl": "Arquivos",
+				"lbl": "LBL_ADMIN_MENU_FILES",
 				"perm": 7
 			},
 			{
 				"url": "admin/users/",
 				"icon": "fas fa-users",
-				"lbl": "Usuários",
+				"lbl": "LBL_ADMIN_MENU_USERS",
 				"perm": 7
 			},
 			{
 				"url": "admin/profiles/",
 				"icon": "fas fa-users-cog",
-				"lbl": "Perfis",
+				"lbl": "LBL_ADMIN_MENU_PROFILES",
 				"perm": 2
 			},
 			{
 				"url": "admin/permissions/",
 				"icon": "fas fa-key",
-				"lbl": "Permissões",
+				"lbl": "LBL_ADMIN_MENU_PERMISSIONS",
 				"perm": 3
 			}
 		]
@@ -33,30 +33,30 @@
 	{
 		"url": "",
 		"icon": "fas fa-list",
-		"lbl": "Administração",
+		"lbl": "LBL_MENU_ADMINISTRATION",
 		"subs": [
 			{
 				"url": "admin/menus/",
 				"icon": "fas fa-file",
-				"lbl": "Menus",
+				"lbl": "LBL_ADMIN_MENU_MENUS",
 				"perm": 9
 			},
 			{
 				"url": "admin/parameters/",
 				"icon": "fas fa-cogs",
-				"lbl": "Parâmetros do Sistema",
+				"lbl": "LBL_ADMIN_MENU_PARAMETERS",
 				"perm": 8
 			},
 			{
 				"url": "admin/profilePermissions",
 				"icon": "fas fa-user-lock",
-				"lbl": "Permissões do Perfil",
+				"lbl": "LBL_ADMIN_MENU_PROFILE_PERMISSIONS",
 				"perm": 4
 			},
 			{
 				"url": "admin/internal/",
 				"icon": "fas fa-list",
-				"lbl": "Utilidades",
+				"lbl": "LBL_ADMIN_MENU_PROFILE_UTILS",
 				"perm": 5
 			}
 		]

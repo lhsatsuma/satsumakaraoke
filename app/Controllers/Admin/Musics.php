@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers\Admin;
 
-class Musicas extends AdminBaseController
+class Musics extends AdminBaseController
 {
-	public $module_name = 'Musicas';
+	public $module_name = 'Musics';
 	
 	public function __construct()
 	{
@@ -43,7 +43,7 @@ class Musicas extends AdminBaseController
 		
 		$this->data['records'] = $result;
 		
-		return $this->displayNew('pages/Admin/Musicas/index');
+		return $this->displayNew('pages/Admin/Musics/index');
 	}
 	
 	public function detalhes($id)
@@ -57,7 +57,7 @@ class Musicas extends AdminBaseController
 		
 		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
 		
-		return $this->displayNew('pages/Admin/Musicas/detalhes');
+		return $this->displayNew('pages/Admin/Musics/detalhes');
 	}
 	
 	public function fixnames($offset = 0)
@@ -91,7 +91,7 @@ class Musicas extends AdminBaseController
 		
 		$this->data['records'] = $result;
 		
-		return $this->displayNew('pages/Admin/Musicas/fixnames');
+		return $this->displayNew('pages/Admin/Musics/fixnames');
 	}
 
 	public function sanitanizeName()
@@ -142,7 +142,7 @@ class Musicas extends AdminBaseController
 		hasPermission(1003, 'w', true);
 		$this->data['title'] = 'Importar Músicas';
 		
-		return $this->displayNew('pages/Admin/Musicas/import');
+		return $this->displayNew('pages/Admin/Musics/import');
 	}
 
 	public function karaoke()
@@ -157,6 +157,6 @@ class Musicas extends AdminBaseController
 			'karaokeURL' => ($videosKaraoke) ? $videosKaraoke : base_url().'/',
 			'host_fila' => ($hostFila) ? $hostFila : base_url().'/'
 		]);
-		return $this->displayNew('pages/Admin/Musicas/karaoke', false);
+		return $this->displayNew('pages/Admin/Musics/karaoke', false);
 	}
 }

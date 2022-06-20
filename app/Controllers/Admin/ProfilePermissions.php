@@ -8,8 +8,6 @@ class ProfilePermissions extends AdminBaseController
 	public function index($offset = 0)
 	{
 		hasPermission(4, 'r', true);
-
-		$this->data['title'] = 'Lista de Permissão por Grupo';
 	
 		$grupos = new \App\Models\Profiles\Profiles();
 		$gruposAtivos = $grupos->getAtivos('id, name');

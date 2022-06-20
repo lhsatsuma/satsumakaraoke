@@ -169,7 +169,7 @@ class Musics extends BaseController
 		
 		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
 		
-		$mdl = new \App\Models\MusicasFavorites\MusicasFavorites();
+		$mdl = new \App\Models\MusicsFavorites\MusicsFavorites();
 		
 		$this->mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $this->mdl->get();

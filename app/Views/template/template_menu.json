@@ -2,12 +2,12 @@
 	{
 		"url": "users/myInfo",
 		"icon": "fas fa-user",
-		"lbl": "Meus dados"
+		"lbl": "LBL_MENU_MY_INFO"
 	},
 	{
 		"url": "admin/users/index",
 		"icon": "fas fa-users",
-		"lbl": "Administração",
+		"lbl": "LBL_MENU_ADMINISTRATION",
 		"perm": 5
 	}
 ]
