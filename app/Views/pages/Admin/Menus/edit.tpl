@@ -37,13 +37,33 @@
 			{$layout.varchar.icon}
 		</div>
 		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			{$layout.varchar.label}
+			{$layout.related.perm}
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			{$layout.related.perm}
+		<div class="col-12">
+			<hr />
+			<h4>{translate l="LBL_SECTION_MENU_LANGUAGES"}</h4>
 		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>{translate l="LBL_LANGUAGE"}</th>
+					<th>{translate l="LBL_TRANSLATION"}</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody id="menu_languages_tbody">
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"><button class="btn btn-rounded btn-outline-success" type="button" onclick="addNewMenuLanguage()">{translate l="LBL_ADD_TRANSLATION"}</button>
+				</tr>
+			</tfoot>
+		</table>
 	</div>
 	<div class="row">
 		<div class="col-12">
@@ -65,3 +85,8 @@
 	</div>
 </form>
 <script type="text/javascript" src="{$app_url}jsManager/Admin/Menus/edit.js?v={$ch_ver}"></script>
+<script type="text/javascript">
+{foreach from=$saved_languages item=menu_language key=menu_language_key}
+	addNewMenuLanguage('{$menu_language.id}','{$menu_language.language}','{$menu_language.name}');
+{/foreach}
+</script>

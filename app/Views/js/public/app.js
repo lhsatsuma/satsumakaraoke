@@ -156,6 +156,7 @@ function LoadPaginationAjax(id_subpanel, page = 0)
 	$(elem).find('.loading-icon').show();
 	let data_json = JSON.stringify({
 		'model': cfg.model,
+		'lang_file':cfg.lang_file,
 		'page': page,
 		'per_page': cfg.per_page,
 		'location_to': cfg.location_to,
@@ -335,4 +336,17 @@ function hideShowFields(hideF, showF)
 			$('label[for="'+idx+'"]').attr('required', true).after(' <span class="required">*</span>');
 		}
 	});
+}
+function mountSubpanel(cfg)
+{
+	cfg.id = 'Collapse_'+cfg.divId;
+	SubpanelsCfg[cfg.id] = cfg;
+	$('#'+cfg.divId).html(`
+	<h5 class="pointer" data-toggle="collapse" id="${cfg.id}_btn" href="#${cfg.id}" onclick="ToggleSubpanel(this, '${cfg.id}')" role="button" aria-expanded="false" data-target=".${cfg.id}" aria-controls="${cfg.id} ${cfg.id}_pagination">
+		${cfg.title} <span id="${cfg.id}_count"></span> <i class="fas fa-chevron-down"></i> <img alt="Carregando..." class="loading-icon" src="${_APP.app_url}images/loading.gif" style="display: none"/>
+	</h5>`);
+
+	if(!!cfg.openDefault){
+		$(`#${cfg.id}_btn`).click();
+	}
 }

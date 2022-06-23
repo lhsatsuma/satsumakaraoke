@@ -35,11 +35,6 @@
 		{$layout.varchar.icon}
 	</div>
 	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		{$layout.varchar.label}
-	</div>
-</div>
-<div class="row">
-	<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		{$layout.related.perm}
 	</div>
 </div>
@@ -71,3 +66,33 @@
 		</div>
 	</div>
 {/if}
+
+<!--
+Subpanel Menu Languages
+-->
+<div class="row"><div class="col-12"><hr /></div></div><div class="row"><div class="col-12" id="subPanel_menu_languages"></div></div>
+{literal}
+<script type="text/javascript">
+mountSubpanel({
+	'divId': 'subPanel_menu_languages',
+	'title': translate.get('LBL_SUBPANEL_MENU_LANGUAGES'),
+	'openDefault': true,
+	'location_to': 'admin/menu_languages/detail/',
+	'model': 'MenuLanguages/MenuLanguages',
+	'lang_file': 'MenuLanguages',
+	'per_page': 5,
+	'fields_return': {
+		'language': '',	
+		'name': '',	
+		'date_modified': '',	
+	},
+	'initial_filter': {
+		'menu_id': '{/literal}{$record.id}{literal}',
+	},
+	'initial_order_by': {
+		'field': 'id',
+		'order': 'ASC',
+	},
+});
+</script>
+{/literal}

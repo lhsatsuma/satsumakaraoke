@@ -9,9 +9,10 @@ class Profiles extends \App\Models\Basic\Basic
 	public $fields_map = array(
 		'id' => array(
 			'lbl' => 'LBL_ID',
-			'type' => 'varchar',
+			'type' => 'int',
 			'max_length' => 36,
 			'dont_load_layout' => true,
+			'dont_generate' => true,
 		),
 		'name' => array(
 			'lbl' => 'LBL_NAME',

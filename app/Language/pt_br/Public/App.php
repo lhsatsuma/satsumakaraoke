@@ -26,4 +26,8 @@ return [
     'LBL_FORGOT_PASSWORD' => 'Esqueci minha Senha',
     'LBL_INFO_LOGIN' => 'Para acessar a lista de músicas, é necessário ter uma conta e estar logado.',
     'LBL_CONNECT' => 'Conectar',
+    'LBL_LANGUAGE' => 'Idioma',
+    'LBL_SELECT_OPTION' => 'Selecione...',
+    'LBL_DARK_MODE' => 'Tema escuro',
+    'LBL_GO_TO_WEBSITE' => 'Ir para o Site',
 ];

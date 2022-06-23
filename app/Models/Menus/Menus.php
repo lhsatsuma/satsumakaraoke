@@ -96,12 +96,6 @@ class Menus extends \App\Models\Basic\Basic
 			'default' => 'fas fa-list',
 			'max_length' => 30,
 		),
-		'label' => array(
-			'lbl' => 'LBL_LABEL',
-			'type' => 'varchar',
-			'max_length' => 30,
-			'required' => true,
-		),
 		'perm' => array(
 			'lbl' => 'LBL_PERMISSION',
 			'type' => 'related',
@@ -128,7 +122,9 @@ class Menus extends \App\Models\Basic\Basic
 	public function mountArrayMenus($type = 'public')
 	{
 		$this->reset();
-		$this->select = 'id, tipo, ordem, url_base, icon, label, perm, menu_pai as parent_menu';
+		$locale = service('request')->getLocale();
+		$this->select = 'menus.id, menus.tipo, menus.ordem, menus.url_base, menus.icon, menus.perm, menus.menu_pai as parent_menu, menu_languages.name as label';
+		$this->join['LEFTJOIN_menu_languages'] = "menu_languages.menu_id = menus.id AND menu_languages.language = '{$locale}'";
 		$this->where['ativo'] = '1';
 		if($type == 'public'){
 			$this->where['tipo'] = ['IN', ['1', '2']];
@@ -145,14 +141,14 @@ class Menus extends \App\Models\Basic\Basic
 				$menus[$menu_result['id']] = [
 					'url' => $menu_result['url_base'],
 					'icon' => $menu_result['icon'],
-					'lbl' => $menu_result['label'],
+					'lbl' => ($menu_result['label']) ?: 'LBL_ERR_MENU_LANGUAGE_NOT_FOUND',
 					'perm' => $menu_result['perm'],
 				];
 			}else{
 				$menus[$menu_result['parent_menu']]['subs'][$menu_result['id']] = [
 					'url' => $menu_result['url_base'],
 					'icon' => $menu_result['icon'],
-					'lbl' => $menu_result['label'],
+					'lbl' => ($menu_result['label']) ?: 'LBL_ERR_MENU_LANGUAGE_NOT_FOUND',
 					'perm' => $menu_result['perm'],
 				];
 			}
@@ -168,6 +164,17 @@ class Menus extends \App\Models\Basic\Basic
 		//Fixing index array of menus
 		$menus = array_values($menus);
 		return $menus;
+	}
+
+	public function getLanguagesMenu()
+	{
+		if($this->f['id']){
+			$menu_languages = new \App\Models\MenuLanguages\MenuLanguages();
+			$menu_languages->select = "id,name,language";
+			$menu_languages->where['menu_id'] = $this->f['id'];
+			return $menu_languages->search();
+		}
+		return [];
 	}
 }
 ?>

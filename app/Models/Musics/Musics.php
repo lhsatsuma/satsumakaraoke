@@ -57,8 +57,8 @@ class Musics extends \App\Models\Basic\Basic
 			),
 			'dont_load_layout' => true,
 		),
-		'LBL_LINK' => array(
-			'lbl' => 'Link',
+		'link' => array(
+			'lbl' => 'LBL_LINK',
 			'type' => 'link',
 			'required' => true,
 			'max_length' => 255,

@@ -317,6 +317,7 @@ class Internal extends AdminBaseController
                 if($tableExists){
                     /* Get metadata from database */
                     foreach($fieldsDB as $fieldDBSearch){
+                        $fieldDBSearch = (array)$fieldDBSearch;
                         if($fieldDBSearch['name'] == $field){
                             $fieldInDB = $fieldDBSearch;
                             break;
@@ -335,7 +336,7 @@ class Internal extends AdminBaseController
                 }elseif($options['type'] == 'currency'){
                     $maxLength = 8;
                 }elseif(isset($options['max_length'])){
-                    $maxLength = ($options['max_length']);
+                    $maxLength = $options['max_length'];
                 }else{
                     $maxLength = $this->getMaxLengthFieldDB($typeDB);
                 }

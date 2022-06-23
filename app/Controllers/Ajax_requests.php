@@ -18,6 +18,7 @@ class Ajax_requests extends BaseController
 		$this->AjaxLib->CheckIncoming();
 		
 		$this->body = $this->AjaxLib->GetData();
+		translate('', 'app');
 	}
 	
 	public function index(int $offset = 0)
@@ -82,12 +83,14 @@ class Ajax_requests extends BaseController
 		
 		$this->model_name = str_replace('/', '\\', $this->body['model']);
 		
+		$this->lang_file = $this->body['lang_file'];
+		$GLOBALS['lang_file'] = $this->body['lang_file'];
+
 		$ns_mdl = "\\App\\Models\\".$this->model_name;
 		if(!class_exists($ns_mdl)){
 			$this->AjaxLib->setError('1x002', 'class nao encontrado!');
 		}
 		$this->mdl = new $ns_mdl();
-		
 		$this->SetView();
 		$this->SetLayout();
 		

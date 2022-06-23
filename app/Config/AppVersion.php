@@ -12,7 +12,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 z = App Version (Fixes for System Version or minor updates)
 	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.12.4a';
+	public $version = '2.13.0a';
 	
 	/*
 	@var bool

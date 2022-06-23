@@ -137,7 +137,7 @@ class BaseController extends Controller
 
 	protected $ext_buttons = [];
 
-	protected string $lang_file;
+	public string $lang_file;
 	
 	public function __construct()
 	{
@@ -146,7 +146,6 @@ class BaseController extends Controller
 		helper('Sys_helper');
 		if(strpos(strtolower(get_class($this)), 'cssmanager') === false
 		&& strpos(strtolower(get_class($this)), 'jsmanager') === false){
-			translate('', 'app');
 			$this->session = getSession();
 			$this->uri = current_url(true)->getSegments();
 			array_shift($this->uri);
@@ -158,7 +157,6 @@ class BaseController extends Controller
 			}
 			$this->setPermData([5, 1001, 1003]);
 		}
-
 		global $AppVersion;
 		$this->template = $AppVersion->template;
 		$this->template_file = $AppVersion->template_file;
@@ -182,7 +180,7 @@ class BaseController extends Controller
 			$this->SetView();
 			$this->SetLayout();
 			$this->SetInitialData();
-			
+			translate('', 'app');
 		}
 	}
 	
@@ -235,7 +233,7 @@ class BaseController extends Controller
 	
 	public function SetLayout()
 	{
-		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map, get_class($this));
+		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map, $this->lang_file);
 		$this->layout->template = $this->template;
 	}
 	public function SetBreadCrumbArr()
@@ -314,6 +312,14 @@ class BaseController extends Controller
 		$this->js_vars['ch_ver'] = GetCacheVersion();
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
 		$this->js_vars['ctrl_language'] = translate('', $this->lang_file);
+
+
+		$locale = service('request')->getLocale();
+		$get_file = 'Dropdown_ext';
+		if(!file_exists(APPPATH . "Language/{$locale}/Public/{$get_file}.php")){
+			$get_file = 'Dropdown';
+		}
+
 		$dataNew = array(
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
@@ -334,6 +340,7 @@ class BaseController extends Controller
 			'languages' => [
 				'app' => json_encode(translate('','app')),
 				$this->lang_file => json_encode(translate('',$this->lang_file)),
+				'Dropdown' => json_encode(translate('', 'Public.'.$get_file)),
 			]
 		);
 		if($this->data){
@@ -473,7 +480,7 @@ class BaseController extends Controller
 	
 	public function GenerateGenericFilter()
 	{
-		$this->filterLib = new \App\Libraries\Sys\Filter($this->request, $this->filter, get_class($this));
+		$this->filterLib = new \App\Libraries\Sys\Filter($this->request, $this->filter, $this->lang_file);
 		$this->filterLib->action = $this->filterLib_cfg['action'];
 		$this->filterLib->generic_filter = $this->filterLib_cfg['generic_filter'];
 		$this->filterLib->id_filter = $this->filterLib_cfg['id_filter'];

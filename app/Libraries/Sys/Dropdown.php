@@ -10,28 +10,13 @@ class Dropdown
 	public $values = array();
 	public function __construct()
 	{
-		//Nothing to do for now
 		$locale = service('request')->getLocale();
-		$locale_search = [$locale, 'en']; //Find first locale of system
+		$get_file = 'Dropdown_ext';
+		if(!file_exists(APPPATH . "Language/{$locale}/Public/{$get_file}.php")){
+			$get_file = 'Dropdown';
+		}
 
-		foreach($locale_search as $lang){
-			$file_language = APPPATH . "Language/{$lang}/Dropdown.php";
-			if(file_exists($file_language)){
-
-				$this->values = include($file_language);
-
-				//Search for extensions of dropdown for system
-				$file_language = APPPATH . "Language/{$lang}/Dropdown_ext.php";
-				
-				if(file_exists($file_language)){
-					$new_values = include($file_language);
-					if(is_array($new_values)){
-						$this->values = array_merge($this->values, $new_values);
-					}
-				}
-				break;
-			}
-		}		
+		$this->values = translate('', 'Public.'.$get_file);
 	}
 	
 	public function GetDropdown($what)

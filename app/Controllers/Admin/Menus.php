@@ -88,6 +88,8 @@ class Menus extends AdminBaseController
 		$this->data['layout'] = $this->layout->GetAllFields($result);
 
 		$this->setPermData(9);
+
+		$this->data['saved_languages'] = $this->mdl->getLanguagesMenu();
 		
 		return $this->displayNew('pages/Admin/Menus/edit');
 	}
@@ -119,6 +121,18 @@ class Menus extends AdminBaseController
 
 		$saved = $this->mdl->saveRecord();
 		if($saved){
+
+			//Saving menu languages
+
+			foreach(getFormData('menu_languages') as $id => $values){
+				$menuLang = new \App\Models\MenuLanguages\MenuLanguages();
+				$menuLang->fillF($values);
+				$menuLang->f['menu_id'] = $this->mdl->f['id'];
+				if(!$menuLang->saveRecord()){
+					$this->setMsgData('error', $menuLang->last_error);
+					rdct('/admin/menus/edit/'.$this->mdl->f['id']);
+				}
+			}
 			rdct('/admin/menus/detail/'.$this->mdl->f['id']);
 		}else{
 			$this->setMsgData('error', $this->mdl->last_error);
