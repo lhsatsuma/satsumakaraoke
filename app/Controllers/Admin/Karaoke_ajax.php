@@ -73,7 +73,7 @@ class Karaoke_ajax extends AdminBaseController
 
 	public function k_search_music()
 	{
-		$mdl = new \App\Models\Musicas\Musicas();
+		$mdl = new \App\Models\Musics\Musics();
 		$mdl->where['codigo'] = $this->ajax->body['code'];
 		$result = $mdl->search(1)[0];
 		if($result){

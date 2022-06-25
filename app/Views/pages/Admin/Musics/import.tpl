@@ -6,24 +6,24 @@
 		</textarea>
 	</div>
 	<div class="col-12 mt-2">
-		<button type="button" class="btn btn-outline-info btn-rounded searchLinks">Procurar</button>
+		<button type="button" class="btn btn-outline-info btn-rounded searchLinks">{translate l="LBL_SEARCH"}</button>
 	</div>
 </div>
 
 <table class="table table-striped mt-5">
 	<thead>
 		<tr class="d-flex">
-			<th class="col-2 col-xl-2">Link</th>
-			<th class="col-2 col-xl-1">Tipo</th>
-			<th class="col-6 col-xl-6">Nome</th>
+			<th class="col-2 col-xl-2">{translate l="LBL_LINK"}</th>
+			<th class="col-2 col-xl-1">{translate l="LBL_LANGUAGE"}</th>
+			<th class="col-6 col-xl-6">{translate l="LBL_NAME"}</th>
 			<th class="col-2 col-xl-2">&nbsp;</th>
-			<th class="col-2 col-xl-1">&nbsp;<span class="counterSeconds">0</span> segundos</th>
+			<th class="col-2 col-xl-1">&nbsp;<span class="counterSeconds">0</span> {translate l="LBL_SECONDS"}</th>
 		</tr>
 	</thead>
 	<tbody id="searchedLinks"></tbody>
 	<tfoot>
 		<tr>
-			<td colspan="4"><button type="button" class="btn btn-outline-success btn-rounded" onclick="finallyImport()">Importar Músicas</button></td>
+			<td colspan="4"><button type="button" class="btn btn-outline-success btn-rounded" onclick="finallyImport()">{translate l="LBL_IMPORT_MUSICS"}</button></td>
 		</tr>
 	</tfoot>
 </table>

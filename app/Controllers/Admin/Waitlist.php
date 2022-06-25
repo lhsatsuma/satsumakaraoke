@@ -51,7 +51,7 @@ class Waitlist extends AdminBaseController
 		
 		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
 		
-		$musicas_mdl = new \App\Models\Musicas\Musicas();
+		$musicas_mdl = new \App\Models\Musics\Musics();
 		
 		$musicas_mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $musicas_mdl->get();

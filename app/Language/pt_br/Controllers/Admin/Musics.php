@@ -11,4 +11,6 @@ return array_merge($lbls, [
     'LBL_ACTION_CTRL_DETAIL' => 'Detalhes da Música',
     'LBL_ACTION_CTRL_NEW' => 'Criar Música',
     'LBL_ACTION_CTRL_EDIT' => 'Editar Música',
+    'LBL_ACTION_CTRL_IMPORT' => 'Importar Músicas',
+    'LBL_IMPORT_MUSICS' => 'Importar Músicas',
 ]);

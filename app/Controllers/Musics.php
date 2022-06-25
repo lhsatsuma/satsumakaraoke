@@ -78,7 +78,7 @@ class Musics extends BaseController
 		hasPermission(1003, 'r', true);
 		$AjaxLib = new \App\Libraries\Sys\Ajax(['link']);
 		
-		$this->mdl = new \App\Models\Musicas\Musicas();
+		$this->mdl = new \App\Models\Musics\Musics();
 
 
 		$ytLib = new \App\Libraries\Youtube();

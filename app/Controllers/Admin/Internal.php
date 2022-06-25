@@ -231,7 +231,7 @@ class Internal extends AdminBaseController
         Delete files from upload where doenst exist on database
         */
 
-        $model = new \App\Models\Musicas\Musicas();
+        $model = new \App\Models\Musics\Musics();
 
         $files = scan_dir(ROOTPATH . 'public/uploads/');
         $total_files = count($files);
@@ -458,7 +458,7 @@ class Internal extends AdminBaseController
     public function reorderMusics()
     {
         ini_set('max_execution_time', 0);
-        $model = new \App\Models\Musicas\Musicas();
+        $model = new \App\Models\Musics\Musics();
         $model->select = "id, name";
         $model->order_by['TRIM(name)'] = 'ASC';
 
@@ -467,7 +467,7 @@ class Internal extends AdminBaseController
         $codigo = 1;
 
         foreach($results as $result){
-            $modelUpdate = new \App\Models\Musicas\Musicas();
+            $modelUpdate = new \App\Models\Musics\Musics();
             $modelUpdate->f['id'] = $result['id'];
             $modelUpdate->f['codigo'] = $codigo;
             $modelUpdate->saveRecord();
@@ -484,7 +484,7 @@ class Internal extends AdminBaseController
 
     public function reconstructTotalMusics()
     {
-        $model = new \App\Models\Musicas\Musicas();
+        $model = new \App\Models\Musics\Musics();
         $model->select = "count(*) as total, tipo";
         $model->group_by = 'tipo';
 
@@ -507,7 +507,7 @@ class Internal extends AdminBaseController
 
     public function reconstructDurationVideos()
     {
-        $model = new \App\Models\Musicas\Musicas();
+        $model = new \App\Models\Musics\Musics();
         $model->select = "id, md5";
         $model->where['BEGINORWHERE_duration'] = 0;
         $model->where['ENDORWHERE_duration'] = ['IS_NULL'];

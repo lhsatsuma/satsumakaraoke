@@ -45,54 +45,6 @@ class Musics extends AdminBaseController
 		
 		return $this->displayNew('pages/Admin/Musics/index');
 	}
-	
-	public function detalhes($id)
-	{
-		$this->data['title'] = 'Detalhes da Música';
-		
-		$this->mdl->f['id'] = $id;
-		$result = $this->mdl->get();
-		$result = $this->mdl->formatRecordsView($result);
-		$this->data['record'] = $result;
-		
-		$this->data['layout'] = $this->layout->GetAllFieldsDetails($result);
-		
-		return $this->displayNew('pages/Admin/Musics/detalhes');
-	}
-	
-	public function fixnames($offset = 0)
-	{
-		hasPermission(1003, 'w', true);
-		$this->data['title'] = 'Arrumar names de Músicas';
-		
-		$initial_order = array(
-			'field' => 'name',
-			'order' => 'ASC',
-		);
-		
-		$this->filterLib_cfg = array(
-			'use' => true,
-			'action' => base_url().'/admin/musics/fixnames',
-			'generic_filter' => array(
-				'name',
-				'codigo',
-				'origem',
-			),
-		);
-		
-		$this->PopulateFiltroPost(array(), $initial_order);
-		
-		$total_row = $this->mdl->total_rows();
-		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
-		
-		$this->mdl->select = "musicas.*";
-		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
-		$result = $this->mdl->formatRecordsView($result);
-		
-		$this->data['records'] = $result;
-		
-		return $this->displayNew('pages/Admin/Musics/fixnames');
-	}
 
 	public function sanitanizeName()
 	{
@@ -140,7 +92,6 @@ class Musics extends AdminBaseController
 	public function import()
 	{
 		hasPermission(1003, 'w', true);
-		$this->data['title'] = 'Importar Músicas';
 		
 		return $this->displayNew('pages/Admin/Musics/import');
 	}

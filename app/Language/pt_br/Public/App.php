@@ -30,4 +30,5 @@ return [
     'LBL_SELECT_OPTION' => 'Selecione...',
     'LBL_DARK_MODE' => 'Tema escuro',
     'LBL_GO_TO_WEBSITE' => 'Ir para o Site',
+    'LBL_SECONDS' => 'segundos',
 ];
