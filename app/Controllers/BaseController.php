@@ -337,11 +337,7 @@ class BaseController extends Controller
 			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
 			'rdct_url' => $this->session->getFlashdata('rdct_url'),
 			'default_lang_file' => $this->lang_file,
-			'languages' => [
-				'app' => json_encode(translate('','app')),
-				$this->lang_file => json_encode(translate('',$this->lang_file)),
-				'Dropdown' => json_encode(translate('', 'Public.'.$get_file)),
-			]
+			'locale' => $locale,
 		);
 		if($this->data){
 			$this->data = array_merge($this->data, $dataNew);

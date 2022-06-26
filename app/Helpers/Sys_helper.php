@@ -422,4 +422,37 @@ if(!isset($GLOBALS['AppVersion'])){
 			return $label;
 		}
 	}
+	function getRecursiveLanguages($lang, $remove, $folder)
+    {
+        $files_return = [];
+        if(!is_dir($folder)){
+            return false;
+        }
+        $files = scan_dir($folder);
+        $count = 0;
+        foreach($files as $file){
+            $check_folder = $folder.$file;
+
+            if(is_dir($check_folder)){
+                getRecursiveLanguages($lang, $remove, $check_folder.'/');
+            }else{
+				if(strpos($file, '.php') !== false
+				&& strpos($file, 'Validation') === false){
+					$file = str_replace('.php', '', $file);
+					$key_array = str_replace([$remove.$lang.'/','Controllers/','/'], ['','', '.'], $folder.$file);
+					$content_json = json_encode(require($check_folder));
+					$files_return[$key_array] = "/* Language for {$key_array} in {$lang} */\n";
+					$files_return[$key_array] .= "translate.add('{$key_array}', {$content_json});\n";
+					$count++;
+				}
+			}
+        }
+        $filename_cache = 'compressed_lang.js';
+        $cache_path = WRITEPATH . 'cache/Languages/'.str_replace($remove, '', $folder);
+        if(!is_dir($cache_path)){
+            mkdir($cache_path, 0777, true);
+        }
+        file_put_contents($cache_path.$filename_cache, $files_return);
+        return $count;
+    }
 }

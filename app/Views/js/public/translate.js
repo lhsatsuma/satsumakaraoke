@@ -21,20 +21,21 @@ class translateApp
         if(!f){
             f = this.defaultF;
         }
+        
         if(typeof this.app_langs[f] != 'undefined' && typeof this.app_langs[f][lbl] != 'undefined'){
             return this.app_langs[f][lbl];
-        }else if(typeof this.app_langs['app'][lbl] != 'undefined'){
-            return this.app_langs['app'][lbl];
+        }else if(typeof this.app_langs['Public.App'][lbl] != 'undefined'){
+            return this.app_langs['Public.App'][lbl];
         }
         return lbl;
     }
     getOptionsHTML(lbl,selected=null)
     {
-        if(!this.app_langs['Dropdown'][lbl]){
+        if(!this.app_langs['Public.Dropdown'][lbl]){
             return '';
         }
         let htmlOpt = '<option value="">'+this.get('LBL_SELECT_OPTION')+'</option>';
-        $.each(this.app_langs['Dropdown'][lbl], (idx, ipt) => {
+        $.each(this.app_langs['Public.Dropdown'][lbl], (idx, ipt) => {
             let selected_opt = (!!selected && selected===idx) ? 'selected' : '';
             htmlOpt += '<option value="'+idx+'" '+selected_opt+'>'+ipt+'</option>';
         });

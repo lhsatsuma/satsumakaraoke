@@ -540,6 +540,29 @@ class Internal extends AdminBaseController
         rdct('/admin/internal/index');
     }
 
+    public function reconstructCacheLanguages()
+    {
+        $langs = scan_dir(APPPATH . 'Language/');
+        $total_langs = count($langs);
+        $reconstruct = [];
+        $dir = WRITEPATH . 'cache/Languages/';
+        if(file_exists($dir)){
+            $di = new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS);
+            $ri = new \RecursiveIteratorIterator($di, \RecursiveIteratorIterator::CHILD_FIRST);
+            foreach ( $ri as $file ) {
+                $file->isDir() ?  rmdir($file) : unlink($file);
+            }
+        }
+        foreach($langs as $lang){
+            getRecursiveLanguages($lang, APPPATH . 'Language/', APPPATH . 'Language/'.$lang.'/');
+        }
+
+        $msg_return = translate('LBL_RECONSTRUCTED_CACHE_LANGUAGES') . ' '.translate('LBL_TIME').' '.$this->calcExectime().'ms';
+        
+        $this->setMsgData('success', $msg_return);
+        rdct('/admin/internal/index');
+    }
+
     private function getTypeFieldDB(string $type)
     {
         $returnVal = $type;

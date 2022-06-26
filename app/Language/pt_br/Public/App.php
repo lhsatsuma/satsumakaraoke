@@ -31,4 +31,5 @@ return [
     'LBL_DARK_MODE' => 'Tema escuro',
     'LBL_GO_TO_WEBSITE' => 'Ir para o Site',
     'LBL_SECONDS' => 'segundos',
+    'LBL_TIME' => 'Tempo',
 ];

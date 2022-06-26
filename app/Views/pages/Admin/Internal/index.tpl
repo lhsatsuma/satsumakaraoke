@@ -39,6 +39,10 @@
             <td>Limpar sessões de usuários</td>
             <td>Deleta as sessões em abertas dos usuários (<span class="required">ATENÇÃO:</span> todos os usuários terão que realizar o login novamente caso necessário).</td>
         </tr>
+        <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'reconstructCacheLanguages')">
+            <td>Reconstrói arquivos cache de traduções.</td>
+            <td></td>
+        </tr>
         <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'deleteMusics')">
             <td>Deletar músicas não existentes no banco de dados</td>
             <td>É isso</td>

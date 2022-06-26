@@ -175,7 +175,6 @@ function LoadPaginationAjax(id_subpanel, page = 0)
 	$.ajax({
 		'url': url_fire,
 		'method': 'post',
-		'dataType': 'json',
 		headers: {
 		  "Content-Type": "application/json",
 		  "X-Requested-With": "XMLHttpRequest"
