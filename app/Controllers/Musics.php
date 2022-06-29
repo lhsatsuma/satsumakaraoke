@@ -70,7 +70,7 @@ class Musics extends BaseController
 		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 		
-		return $this->displayNew('pages/musics/index');
+		return $this->displayNew('pages/Musics/index');
 	}
 	
 	public function CheckImportVideo()
@@ -200,7 +200,7 @@ class Musics extends BaseController
 		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
 		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
 
-		return $this->displayNew('pages/musics/popupWizard');
+		return $this->displayNew('pages/Musics/popupWizard');
 	}
 	
 	public function hidePopupWizard()
