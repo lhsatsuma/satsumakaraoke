@@ -126,6 +126,8 @@ body {
     transition-delay: 0.3s;
     font-size: 1.3rem;
     z-index: 99999;
+    background-color: rgb(133 136 139 / 70%);
+    border-color: rgb(133 136 139 / 70%);
 }
 
 .page-wrapper.toggled #show-sidebar,
@@ -1248,3 +1250,5 @@ body.swal2-shown { overflow-y: none !important; }
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
+
+  

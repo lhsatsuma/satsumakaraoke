@@ -16,7 +16,7 @@ class Musics extends BaseController
 		$extBtns = [];
 		$extBtns['helpSongs'] = '<button class="btn btn-outline-info btn-rounded" type="button" onclick="showPopupWizard()"><i class="fas fa-question"></i></button>';
 		if(hasPermission(1003, 'r')){
-			$extBtns['import'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i> '.translate('LBL_IMPORT').'</button>';
+			$extBtns['import'] = '<button class="btn btn-outline-info btn-rounded" type="button" data-toggle="modal" data-target="#ImportModal"><i class="fas fa-upload"></i></button>';
 		}
 
 		return $extBtns;
