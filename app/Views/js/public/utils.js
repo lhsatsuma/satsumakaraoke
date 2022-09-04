@@ -404,6 +404,7 @@ function ValidateForm(fm, elm)
 				$(f).find('input[name="'+field+'"]').val(checked);
 			}
 		});
+		showLoadingGlobal();
 		$('#'+fm).trigger('submit');
 	}else{
 		if(!!elm){
@@ -414,6 +415,7 @@ function ValidateForm(fm, elm)
 function submitSearch(e, fm)
 {
 	showLoadingIcon(e);
+	showLoadingGlobal();
 	$('#'+fm).trigger('submit');
 }
 function switchCheckbox(name)
@@ -817,4 +819,16 @@ if((
 	if(localStorage.dark_mode_active == '1'){
 		toggleDarkMode(false);
 	}
+}
+
+
+function showLoadingGlobal()
+{
+	let html = '<div id="loadingGlobal" style="width: 100%;height: 100vh;z-index: 9999;position: fixed;vertical-align: middle;background-color: #0c0c0c;opacity: 0.7;padding-top: 35vh;" class="col-12 m-0 center"><div class="lds-dual-ring"></div></div>';
+
+	$('body:first').prepend(html);
+}
+function hideLoadingGlobal()
+{
+	$('#loadingGlobal').remove();
 }

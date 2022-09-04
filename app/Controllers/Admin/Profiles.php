@@ -7,7 +7,7 @@ class Profiles extends AdminBaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
-		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/profiles/editar">'.translate('LBL_NEW_RECORD').'</a>';
+		$this->ext_buttons['new'] = '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/profiles/edit">'.translate('LBL_NEW_RECORD').'</a>';
 
 		return parent::ExtButtonsGenericFilters();
 	}
@@ -67,7 +67,7 @@ class Profiles extends AdminBaseController
 		return $this->displayNew('pages/Admin/Profiles/detail');
 	}
 	
-	public function editar($id = null)
+	public function edit($id = null)
 	{
 		hasPermission(2, 'w', true);
 		
@@ -88,7 +88,7 @@ class Profiles extends AdminBaseController
 
 		$this->setPermData(2);
 		
-		return $this->displayNew('pages/Admin/Profiles/editar');
+		return $this->displayNew('pages/Admin/Profiles/edit');
 	}
 	
 	public function salvar()
@@ -108,7 +108,7 @@ class Profiles extends AdminBaseController
 				$this->setMsgData('error', 'Não foi possível deletar o registro, tente novamente.');
 				rdct('/admin/profiles/edit/'.$this->mdl->f['id']);
 			}
-			rdct('/admin/profiles/editar');
+			rdct('/admin/profiles/edit');
 		}
 		
 		if(!$this->ValidateFormPost()){
