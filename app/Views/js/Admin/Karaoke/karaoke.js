@@ -22,6 +22,7 @@ class KaraokeJS{
 			num: 7,
 			class: '',
 		};
+		this.video = null;
 		$(document).keyup(function(event) {
 			event.preventDefault();
 			if(!karaoke.typeScreen){
@@ -166,14 +167,14 @@ class KaraokeJS{
 				callback: (d) => {
 					karaoke.songNow = [];
 					$('#songNowId').val('');
-					karaoke.getNextVideo(true);
+					karaoke.getNextVideo(true, true);
 				},
 			});
 		}
 	}
-	getNextVideo(call_wait_list = false)
+	getNextVideo(call_wait_list = false,force = false)
 	{
-		if(this.running.nextVideo){
+		if(this.running.nextVideo && !force){
 			return;
 		}
 		this.running.nextVideo = true;
@@ -261,7 +262,7 @@ class KaraokeJS{
 				if(need_loop){
 					setTimeout(function(){
 						karaoke.getThread();
-					}, 5000);
+					}, wait_mil);
 				}
 			}
 		})
