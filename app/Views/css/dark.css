@@ -369,3 +369,13 @@ input[type='search']::-webkit-search-cancel-button {
 .bg-karaoke-remote-control{
     font-size: 1.5rem;
 }
+#loadingGlobal {
+    width: 100%;
+    height: 100vh;
+    z-index: 99999;
+    position: fixed;
+    vertical-align: middle;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding-top: 35vh;
+    color: #d9d9d9;
+}

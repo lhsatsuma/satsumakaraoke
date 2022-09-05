@@ -26,7 +26,7 @@ class Musics extends BaseController
 	{
 		$this->data['title'] = 'Músicas';
 
-		$this->pager_cfg['per_page'] = 40;
+		$this->pager_cfg['per_page'] = 100;
 
 		$initial_filter = array(
 			'codigo' => '',

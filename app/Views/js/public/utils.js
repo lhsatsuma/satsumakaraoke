@@ -541,14 +541,14 @@ function GoToPage(elm, page)
 			action += '/'+page;
 		}
 
+		showLoadingGlobal();
 		if(_APP.ajax_pagination && $('#filtroForm').parent().find('.tb-rst-fltr').length > 0){
 			//Lets try to get Pagination with Ajax
 
 			let formData = new FormData(document.getElementById('filtroForm'));
 
 			let formValues = Object.fromEntries(formData.entries());
-
-			fireAjaxLoading({
+			handleAjax({
 				url: action+'?bdOnly=1',
 				dontfireError: true,
 				data: JSON.stringify(formValues),
@@ -567,12 +567,8 @@ function GoToPage(elm, page)
 					fireErrorGeneric();
 				},
 				callbackAll: (res) => {
-					Swal.close();
+					hideLoadingGlobal();
 				}
-			},
-			{
-				title: 'Aguarde...',
-				text: 'Estamos buscando os registros...',
 			});
 		}else{
 			$('#filtroForm').attr('action', action);
@@ -821,14 +817,27 @@ if((
 	}
 }
 
-
+var intervalLoadingGlobal = null;
 function showLoadingGlobal()
 {
-	let html = '<div id="loadingGlobal" style="width: 100%;height: 100vh;z-index: 9999;position: fixed;vertical-align: middle;background-color: #0c0c0c;opacity: 0.7;padding-top: 35vh;" class="col-12 m-0 center"><div class="lds-dual-ring"></div></div>';
-
+	let html = '<div id="loadingGlobal" class="col-12 m-0 center"><div class="lds-dual-ring"></div><div class="col-12"><h3>Aguarde<span></span></h3></div></div>';
+	intervalLoadingGlobal = setInterval(function(){
+		let span = $('#loadingGlobal').find('span:first');
+		let count = span.html().length;
+		if(count >= 5){
+			count = 0;
+		}else{
+			count++;
+		}
+		let dots = '.'.repeat(count);
+		span.html(dots);
+	}, 200);
 	$('body:first').prepend(html);
+	$('body,html').css('overflow','hidden');
 }
 function hideLoadingGlobal()
 {
+	clearInterval(intervalLoadingGlobal);
 	$('#loadingGlobal').remove();
+	$('body,html').css('overflow','auto');
 }
