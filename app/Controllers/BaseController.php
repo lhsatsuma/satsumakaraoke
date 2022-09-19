@@ -155,7 +155,9 @@ class BaseController extends Controller
 			if(isMobile()){
 				$this->is_mobile = true;
 			}
-			$this->setPermData([5, 1001, 1003]);
+			if($this->session->get('auth_user') || $this->session->get('auth_user_admin')){
+				$this->setPermData([5, 1001, 1003]);
+			}
 		}
 		global $AppVersion;
 		$this->template = $AppVersion->template;
