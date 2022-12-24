@@ -1292,3 +1292,7 @@ body.swal2-shown { overflow-y: none !important; }
     padding-top: 35vh;
     color: #2a2a2a;
 }
+
+input:disabled,input:read-only{
+    cursor: not-allowed;
+}

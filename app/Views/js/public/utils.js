@@ -620,6 +620,7 @@ function fireAndClose(args = {}){
     if(Swal.isVisible()){
         Swal.close();
     }
+	hideLoadingGlobal();
     Swal.fire(args);
 }
 
@@ -820,6 +821,9 @@ if((
 var intervalLoadingGlobal = null;
 function showLoadingGlobal()
 {
+	if($('#loadingGlobal').length){
+		return true;
+	}
 	let html = '<div id="loadingGlobal" class="col-12 m-0 center"><div class="lds-dual-ring"></div><div class="col-12"><h3>Aguarde<span></span></h3></div></div>';
 	intervalLoadingGlobal = setInterval(function(){
 		let span = $('#loadingGlobal').find('span:first');
@@ -840,4 +844,14 @@ function hideLoadingGlobal()
 	clearInterval(intervalLoadingGlobal);
 	$('#loadingGlobal').remove();
 	$('body,html').css('overflow','auto');
+}
+function create_UUID()
+{
+	var dt = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		var r = (dt + Math.random()*16)%16 | 0;
+		dt = Math.floor(dt/16);
+		return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+	});
+	return uuid;
 }

@@ -29,4 +29,10 @@ return [
     'languages' => [
         'pt_br' => 'pt-BR',
     ],
+    'grant_types_list' => [
+        'client_credentials' => 'Client Credentials',
+    ],
+    'scope_list' => [
+        'api' => 'API',
+    ],
 ];

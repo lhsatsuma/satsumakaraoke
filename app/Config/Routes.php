@@ -21,8 +21,15 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override(function() {
-	$focus = new \App\Controllers\BaseController();
+	$uri = current_url(true)->getSegments();
+	array_shift($uri);
+	if(strtolower($uri[0]) == 'api'){
+		\http_response_code(404);
+		die('Resource not found');
+	}
 
+	
+	$focus = new \App\Controllers\BaseController();
 	$last_uri = $focus->uri[count($focus->uri) - 1];
 	$ext_http_code = [
 		'.js',

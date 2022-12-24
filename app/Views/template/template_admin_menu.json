@@ -60,5 +60,11 @@
 				"perm": 5
 			}
 		]
+	},
+	{
+		"url": "admin/OAuthClients/",
+		"icon": "fas fa-lock",
+		"lbl": "LBL_MENU_OAUTH2_CLIENTS",
+		"perm": 10
 	}
 ]

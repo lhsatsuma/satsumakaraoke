@@ -52,6 +52,9 @@ class JsManager extends BaseController
 			if(substr($file_name, -4) == '.map'){
 				return false;
 			}
+			if(!file_exists($file_name)){
+				return false;
+			}
 
 			if($AppVersion->compress_output){
 				//If dont exists cache file or original has been modified

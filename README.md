@@ -39,9 +39,9 @@ If it's the first installation, run base_table.sql on your server. For updates, 
 - Bootstrap 4.5.3
 - FontAwesome 5.15.4
 - jQuery 3.6
-- SweetAlert2 11.4.29
+- SweetAlert2 11.6.16
 - [Composer] Smarty 3.1+
-- [Composer] PHPMailer 6.6+
+- [Composer] PHPMailer 6.7+
 - [Composer] MPDF 8.1+
 - [Composer] JsShrink 1.4
-- yt-dlp 2022.09.01
+- yt-dlp 2022.11.11

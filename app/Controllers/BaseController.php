@@ -137,7 +137,7 @@ class BaseController extends Controller
 
 	protected $ext_buttons = [];
 
-	public string $lang_file;
+	public $lang_file;
 	
 	public function __construct()
 	{
@@ -162,6 +162,8 @@ class BaseController extends Controller
 		global $AppVersion;
 		$this->template = $AppVersion->template;
 		$this->template_file = $AppVersion->template_file;
+		$this->response = \Config\Services::response();
+		$this->request = \Config\Services::request();
 	}
 	
 	/**

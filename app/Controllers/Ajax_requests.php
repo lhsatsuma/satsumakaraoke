@@ -68,77 +68,81 @@ class Ajax_requests extends BaseController
 	
 	public function pagination_ajax()
 	{
-		$required = array(
-			'id',
-			'model',
-			'fields_return',
-			'location_to',
-		);
-		$this->AjaxLib->CheckRequired($required);
-		
-		if(!empty($this->body['per_page'])){
-			$this->pager_cfg['per_page'] = $this->body['per_page'];
-		}
-		$this->pager_cfg['template'] = 'template_ajax';
-		
-		$this->model_name = str_replace('/', '\\', $this->body['model']);
-		
-		$this->lang_file = $this->body['lang_file'];
-		$GLOBALS['lang_file'] = $this->body['lang_file'];
+		try{
+			$required = array(
+				'id',
+				'model',
+				'fields_return',
+				'location_to',
+			);
+			$this->AjaxLib->CheckRequired($required);
+			
+			if(!empty($this->body['per_page'])){
+				$this->pager_cfg['per_page'] = $this->body['per_page'];
+			}
+			$this->pager_cfg['template'] = 'template_ajax';
+			
+			$this->model_name = str_replace('/', '\\', $this->body['model']);
+			
+			$this->lang_file = $this->body['lang_file'];
+			$GLOBALS['lang_file'] = $this->body['lang_file'];
 
-		$ns_mdl = "\\App\\Models\\".$this->model_name;
-		if(!class_exists($ns_mdl)){
-			$this->AjaxLib->setError('1x002', 'class nao encontrado!');
-		}
-		$this->mdl = new $ns_mdl();
-		$this->SetView();
-		$this->SetLayout();
-		
-		$page = ($this->body['page']) ? $this->body['page'] : 0;
-		
-		$c_select = '';
-		$this->mdl->select = '';
-		$list_columns = array();
-		foreach($this->body['fields_return'] as $field => $ext){
-			$this->mdl->select .= $c_select.$field;
-			$c_select = ', ';
-			$list_columns[$field] = $ext;
-		}
-		if(!isset($this->body['fields_return']['id'])){
-			$this->mdl->select .= $c_select.'id';
-		}
-		$this->filterLib_cfg = array(
-			'use' => true,
-			'action' => base_url().'/admin/home/index',
-			'generic_filter' => array(),
-			'id_filter' => $this->body['id'],
-			'template_name' => 'template/Filter_template_ajax',
-			'page' => $page,
-		);
-		
-		$initial_order_by = array();
-		if(!empty($this->body['initial_order_by'])){
-			$initial_order_by = $this->body['initial_order_by'];
+			$ns_mdl = "\\App\\Models\\".$this->model_name;
+			if(!class_exists($ns_mdl)){
+				$this->AjaxLib->setError('1x002', 'class nao encontrado!');
+			}
+			$this->mdl = new $ns_mdl();
+			$this->SetView();
+			$this->SetLayout();
 			
-		}
-		$initial_filter = array();
-		if(!empty($this->body['initial_filter'])){
-			$initial_filter = $this->body['initial_filter'];
+			$page = ($this->body['page']) ? $this->body['page'] : 0;
 			
+			$c_select = '';
+			$this->mdl->select = '';
+			$list_columns = array();
+			foreach($this->body['fields_return'] as $field => $ext){
+				$this->mdl->select .= $c_select.$field;
+				$c_select = ', ';
+				$list_columns[$field] = $ext;
+			}
+			if(!isset($this->body['fields_return']['id'])){
+				$this->mdl->select .= $c_select.'id';
+			}
+			$this->filterLib_cfg = array(
+				'use' => true,
+				'action' => base_url().'/admin/home/index',
+				'generic_filter' => array(),
+				'id_filter' => $this->body['id'],
+				'template_name' => 'template/Filter_template_ajax',
+				'page' => $page,
+			);
+			
+			$initial_order_by = array();
+			if(!empty($this->body['initial_order_by'])){
+				$initial_order_by = $this->body['initial_order_by'];
+				
+			}
+			$initial_filter = array();
+			if(!empty($this->body['initial_filter'])){
+				$initial_filter = $this->body['initial_filter'];
+				
+			}
+			$this->PopulateFiltroPost($initial_filter, $initial_order_by);
+			
+			$total_row = $this->mdl->total_rows();
+			$this->data['pagination'] = $this->GetPagination($total_row, $page, $this->body['id']);
+			
+			$results = $this->mdl->search($this->pager_cfg['per_page'], $page);
+			
+			
+			$results = $this->mdl->formatRecordsView($results);
+			
+			/* LISTAGEM DE REGISTROS GENERICAS COM BASE NO LAYOUT LIB TEMPLATE */
+			
+			$this->data['layout_list'] = $this->layout->GetGenericListaAjax($this->body['id'], $this->body['location_to'], $list_columns, $results);
+		}catch(\Exception $e){
+			log_message('critical', 'Error loading subpainel: '.$e->getMessage());
 		}
-		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
-		
-		$total_row = $this->mdl->total_rows();
-		$this->data['pagination'] = $this->GetPagination($total_row, $page, $this->body['id']);
-		
-		$results = $this->mdl->search($this->pager_cfg['per_page'], $page);
-		
-		
-		$results = $this->mdl->formatRecordsView($results);
-		
-		/* LISTAGEM DE REGISTROS GENERICAS COM BASE NO LAYOUT LIB TEMPLATE */
-		
-		$this->data['layout_list'] = $this->layout->GetGenericListaAjax($this->body['id'], $this->body['location_to'], $list_columns, $results);
 		
 		return $this->view->setData($this->data)->view('template/Lista_Registros_Ajax');
 	}
