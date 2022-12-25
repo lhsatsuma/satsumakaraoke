@@ -1,6 +1,3 @@
-
-var musicsLine = [];
-var keyListSong = null;
 $(document).ready(function(){
 	$('#InitialModal').modal('show');
 });

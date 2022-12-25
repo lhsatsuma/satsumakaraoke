@@ -96,7 +96,7 @@ class Basic extends Model
 	public array $fetched = [];
 	
 
-	public string | null $auth_user_id;
+	public string | null $auth_user_id = null;
     public BaseBuilder $helper;
     public mixed $session;
     public Fields $fields;
@@ -732,20 +732,20 @@ class Basic extends Model
 			}elseif($value){
 				switch($options['type']){
 					case 'datetime':
-						$value = $this->fields->formatDateTime($value);
+						$value = Fields::formatDateTime($value);
 						break;
 					case 'date':
-						$value = $this->fields->formatDate($value);
+						$value = Fields::formatDate($value);
 						break;
 					case 'time':
-						$value = $this->fields->formatTime($value);
+						$value = Fields::formatTime($value);
 						break;
 					case 'int':
-						$value = $this->fields->formatInt($value);
+						$value = Fields::formatInt($value);
 						break;
 					case 'float':
 					case 'currency':
-						$value = $this->fields->formatFloat($value, $options['parameter']['precision']);
+						$value = Fields::formatFloat($value, $options['parameter']['precision']);
 						break;
 					case 'bool':
 						$value = (bool)$value;
