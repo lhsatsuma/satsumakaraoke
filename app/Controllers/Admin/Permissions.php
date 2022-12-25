@@ -76,7 +76,7 @@ class Permissions extends AdminBaseController
 
 		$this->data['title'] = ($id) ? 'Editar Permissão' : 'Criar Permissão';
 		
-		$result = array();
+		$result = [];
 		if($id){
 			$this->mdl->f['id'] = $id;
 			$result = $this->mdl->get();

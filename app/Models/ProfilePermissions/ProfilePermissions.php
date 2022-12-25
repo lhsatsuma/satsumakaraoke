@@ -5,8 +5,8 @@ class ProfilePermissions extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'permissao_grupo';
-	public $f = array();
-	public $fields_map = array(
+	public array $f = [];
+	public array $fields_map = array(
 		'id' => array(
 			'lbl' => 'LBL_ID',
 			'type' => 'int',

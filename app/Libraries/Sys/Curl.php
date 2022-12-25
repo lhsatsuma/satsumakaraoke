@@ -8,8 +8,8 @@ Otimizado para PHP 7.1
 namespace App\Libraries\Sys;
 class Curl{
 	public $base_url = '';
-	private $headers = array();
-	private $data = array();
+	private $headers = [];
+	private $data = [];
 	public $auth = array(
 		'user' => '',
 		'pass' => ''
@@ -57,7 +57,7 @@ class Curl{
 		return true;
 	}
 	public function GetHeaders(){
-		$return = array();
+		$return = [];
 		if(!empty($this->headers)){
 			foreach($this->headers as $type => $content){
 				$return[] = $type.': '.$content;
@@ -71,7 +71,7 @@ class Curl{
 	}
 	public function call(string $method, $data=null, $ext_url=null){
 		//Reset var for the request
-		$this->data = array();
+		$this->data = [];
 		
 		//Checking if method its allowed
 		if(!in_array(strtolower($method), $this->GetOption('methods_allowed'))){

@@ -12,7 +12,7 @@ Controller only for redirect use
 
 class Home extends BaseController
 {
-	public $data = array();
+	public $data = [];
 	public $session;
 	protected $module_name = 'Home';
     protected $dummy_controller = true;

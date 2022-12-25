@@ -5,7 +5,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class CssManager extends BaseController
 {
-	public $data = array();
+	public $data = [];
 	public $session;
 	protected $module_name = 'CssManager';
     protected $dummy_controller = true;

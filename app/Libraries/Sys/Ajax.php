@@ -14,7 +14,7 @@ ERRORS CODE:
 namespace App\Libraries\Sys;
 
 class Ajax{
-	public $data = array();
+	public $data = [];
 	public $request;
 	public $body;
 	

@@ -5,8 +5,8 @@ class OAuthClients extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'oauth_clients';
-	public $f = array();
-	public $fields_map = array(
+	public array $f = [];
+	public array $fields_map = array(
 		'id' => array(
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',

@@ -4,7 +4,7 @@ namespace App\Controllers\Admin;
 class Internal extends AdminBaseController
 {
 	protected $module_name = 'Internal';
-	public $data = array();
+	public $data = [];
 	public $generic_filter = true;
     private $microtime_start;
     private $microtime_end;

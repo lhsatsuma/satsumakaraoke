@@ -1,11 +1,13 @@
 <?php
 namespace App\Models\Users;
 
+use PHPMailer\PHPMailer\Exception;
+
 class Users extends \App\Models\Basic\Basic
 {
 	public $table = 'usuarios';
-	public $f = array();
-	public $fields_map = array(
+	public array $f = [];
+	public array $fields_map = array(
 		'id' => array(
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
@@ -140,7 +142,7 @@ class Users extends \App\Models\Basic\Basic
 		if($operation == 'delete'){
 			$this->preference->delPref(null, $this->f['id']);
 		}else{
-			$this->preference->setPref('timezone_user', (($this->f['timezone']) ? $this->f['timezone'] : date_default_timezone_get()), $this->f['id']);
+			$this->preference->setPref('timezone_user', $this->f['timezone'] ?? date_default_timezone_get(), $this->f['id']);
 		}
 		return true;
 	}
@@ -170,14 +172,18 @@ class Users extends \App\Models\Basic\Basic
 	{
 		return base64_decode(str_replace('00XX00', '=', $this->f['hash_esqueci_senha']));
 	}
-	public function sendForgetPass()
+
+    /**
+     * @throws Exception
+     */
+    public function sendForgetPass()
 	{
 		if(empty($this->f['email'])){
 			return null;
 		}
 		$this->generateHashForget();
 		$mail = new \App\Libraries\Sys\SendEmail();
-		$mail->mailer->AddAddress($this->f['email']);
+		$mail->mailer->addAddress($this->f['email']);
 		
 		$mail->subject = '['.removeAccents(getTitle()).'] Esqueci Minha Senha';
 		$mail->setBodyTemplate($this->template_forget_pass, $this->f);

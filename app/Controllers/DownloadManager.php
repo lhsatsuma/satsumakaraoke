@@ -5,7 +5,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class DownloadManager extends BaseController
 {
-	public $data = array();
+	public $data = [];
 	protected $module_name = 'DownloadManager';
     protected $dummy_controller = true;
 	

@@ -3,7 +3,9 @@ namespace App\Models\Basic;
 
 use CodeIgniter\Model;
 use Exception;
-use phpDocumentor\Reflection\DocBlock\Tags\Example;
+use App\Libraries\Sys\Fields;
+use CodeIgniter\Database\BaseBuilder;
+use App\Models\Files\Files;
 
 class Basic extends Model
 {
@@ -11,23 +13,23 @@ class Basic extends Model
 	Table name for this model
 	*/
 	public $table = null;
-	public array $where = array();
-	public $force_deleted = false;
-	public $order_by = array();
-	public $select = '*';
-	public $join = array();
-	public $group_by = '';
-	public $last_error = '';
-	public $id_by_name = false;
-	public $page_as_offset = false;
+	public array | string $where = [];
+	public bool $force_deleted = false;
+	public array $order_by = [];
+	public string $select = '*';
+	public array $join = [];
+	public string $group_by = '';
+	public string $last_error = '';
+	public bool $id_by_name = false;
+	public bool $page_as_offset = false;
 	
-	//If have ID and you know that it doesn't exists on database, set's this with true
-	public $new_with_id = false;
+	//If you have ID and you know that it doesn't exist on database, set's this with true
+	public bool $new_with_id = false;
 	
 	/*
 	Field map for this model, with definitions 
 	@Example
-	'id' => array(
+	'id' => [
 		'lbl' => 'ID', //label for view
 		'type' => 'varchar', //type of field
 		'min_length' => 2, //min length value
@@ -35,73 +37,76 @@ class Basic extends Model
 		'required' => true, //is required
 		'validations' => 'callback_test', //Extras validations forms
 		'dont_load_layout' => true, //If isset, LayoutLib won't load for Smarty
-	),
+	],
 	
 	ALL BASE FIELDS!!! MUST HAVE IN EVERY TABLE OF DATABASE
 	*/
-	public $fields_map = array(
-		'id' => array(
+	public array $fields_map = [
+		'id' => [
 			'lbl' => 'ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
-		),
-		'name' => array(
+		],
+		'name' => [
 			'lbl' => 'Nome',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'lbl' => 'deleted',
 			'type' => 'bool',
 			'dont_load_layout' => true,
-		),
-		'date_created' => array(
+		],
+		'date_created' => [
 			'lbl' => 'Data Criação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_created' => array(
+		],
+		'user_created' => [
 			'lbl' => 'Usuário Criação',
 			'type' => 'related',
 			'table' => 'caminhadas_usuarios',
 			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
+		],
+		'date_modified' => [
 			'lbl' => 'Data Modificação',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
+		],
+		'user_modified' => [
 			'lbl' => 'Usuário Modificação',
 			'type' => 'related',
 			'table' => 'caminhadas_usuarios',
 			'dont_load_layout' => true,
-		),
-	);
+		],
+	];
 	
 	/*
 	Fields ($this->f) defined for database porpourse
 	*/
-	public $f = array();
+	public array $f = [];
 	
 	
 	/*
 	ToDo: Fetched row and use always $this->name, $this->date_created for setting fields
 	*/
-	public $fetched = array();
+	public array $fetched = [];
 	
 
-	public  $auth_user_id;
+	public string | null $auth_user_id;
+    public BaseBuilder $helper;
+    public mixed $session;
+    public Fields $fields;
 
-	public function __construct()
+    public function __construct()
 	{
 		parent::__construct();
 		$this->session = getSession();
 		$this->helper = $this->db->table($this->table);
-		$this->fields = new \App\Libraries\Sys\Fields();
+		$this->fields = new Fields();
 		getFormData();
 
 		if($this->session->get('auth_user')){
@@ -113,11 +118,11 @@ class Basic extends Model
 
 	public function reset()
 	{
-		$this->where = array();
+		$this->where = [];
 		$this->force_deleted = false;
-		$this->order_by = array();
+		$this->order_by = [];
 		$this->select = '*';
-		$this->join = array();
+		$this->join = [];
 		$this->group_by = '';
 	}
 	
@@ -128,23 +133,22 @@ class Basic extends Model
 	{
 		$this->helper->select($this->select);
 		$this->helper->where('id', $this->f['id']);
-		if(!$this->force_deleted){
-			$this->helper->where('deleted', '0');
-		}
+		if(!$this->force_deleted) {
+            $this->helper->where('deleted', '0');
+        }
+
 		try{
 			$query = $this->helper->get(1);
 			log_message('debug', (string)$this->db->getLastQuery());
-			if($query->resultID->num_rows > 0){
-				return $query->getResult('array')[0];
-			}
+			if($query->resultID->num_rows > 0) return $query->getResult('array')[0];
 		}catch(Exception $e){
-			$this->registerLastError("Error fetching total rows: ");
+			$this->registerLastError('Error fetching total rows: '.$e->getMessage());
 			return null;
 		}
 		return false;
 	}
 
-	public function getAtivo()
+	public function getActive()
 	{
 		//Procurar o registro ativo
 		$this->where['id'] = ['EQUAL', $this->f['id']];
@@ -154,7 +158,7 @@ class Basic extends Model
 		return $this->search(1)[0];
 	}
 
-	public function getAtivos($select = null, $limit = 0)
+	public function getActives($select = null, $limit = 0)
 	{
 		//Procurar o registro ativo
 
@@ -194,7 +198,7 @@ class Basic extends Model
 		$query = $helper2->get(1);
 		log_message('debug', (string)$this->db->getLastQuery());
 		if ($this->db->error()['message']) {
-			$this->registerLastError("Error fetching total rows: ");
+			$this->registerLastError('Error fetching total rows: ');
 			return null;
         }
 		
@@ -207,9 +211,8 @@ class Basic extends Model
 	/*
 	Total Rows with joins and where
 	*/
-	function total_rows($debug = false)
+	public function total_rows()
 	{
-        $result = 0;
 		$this->helper->resetQuery();
         $this->helper->select('COUNT('.$this->table.'.id) AS total');
 		$this->get_join();
@@ -221,7 +224,7 @@ class Basic extends Model
 			return $result->getResult()[0]->total;
 		}catch(Exception $e){
 			if ($this->db->error()['message']) {
-				$this->registerLastError("Error fetching total rows: ");
+				$this->registerLastError('Error fetching total rows: '.$e->getMessage());
 				return false;
 			}
 		}
@@ -237,11 +240,12 @@ class Basic extends Model
 	Beta test: Operator on condition $value[0] = OPERATOR, $value[1] = ACTUAL VALUE
 	There's a hard work to optimize this
 	*/
-	function get_where()
+	public function get_where()
 	{
 		$return_string = '';
 		$c_where = '';
 		$c_where_or = '';
+        $cond_value = '';
 		if(!empty($this->where)){
 			if(is_array($this->where)){
 				foreach($this->where as $field => $value){
@@ -250,17 +254,17 @@ class Basic extends Model
 						//VALUE ITS AN ARRAY, SO THERES OPERATOR
 						switch($value[0]){
 							case 'GREATHER_EQUAL':
-								$value[1] = $this->antiSqlInjection($value[1]);
+								$value[1] = Basic::antiSqlInjection($value[1]);
 								$cond_value = " >= '{$value[1]}'";
 								break;
 							case 'IS_NULL':
-								$cond_value = " IS NULL";
+								$cond_value = ' IS NULL';
 								break;
 							case 'NOT_NULL':
-								$cond_value = " IS NOT NULL";
+								$cond_value = ' IS NOT NULL';
 								break;
 							case 'LESS_EQUAL':
-								$value[1] = $this->antiSqlInjection($value[1]);
+								$value[1] = Basic::antiSqlInjection($value[1]);
 								$cond_value = " <= '{$value[1]}'";
 								break;
 							case 'LESS':
@@ -270,32 +274,32 @@ class Basic extends Model
 								$cond_value = " > '{$value[1]}'";
 								break;
 							case 'BETWEEN':
-								$value[1] = $this->antiSqlInjection($value[1]);
-								$value[2] = $this->antiSqlInjection($value[2]);
+								$value[1] = Basic::antiSqlInjection($value[1]);
+								$value[2] = Basic::antiSqlInjection($value[2]);
 								$cond_value = " BETWEEN '{$value[1]}' AND '{$value[2]}'";
 								break;
 							case 'NOT IN':
 								foreach($value[1] as $kVal => $vVal){
-									$value[1][$kVal] = $this->antiSqlInjection($vVal);
+									$value[1][$kVal] = Basic::antiSqlInjection($vVal);
 								}
 								$cond_value = " NOT IN ('".implode("','", $value[1])."')";
 								break;
 							case 'IN':
 								foreach($value[1] as $kVal => $vVal){
-									$value[1][$kVal] = $this->antiSqlInjection($vVal);
+									$value[1][$kVal] = Basic::antiSqlInjection($vVal);
 								}
 								$cond_value = " IN ('".implode("','", $value[1])."')";
 								break;
 							case 'LIKE':
-								$value[1] = $this->antiSqlInjection($value[1]);
+								$value[1] = Basic::antiSqlInjection($value[1]);
 								$cond_value = " LIKE '{$value[1]}'";
 								break;
 							case 'EQUAL':
-								$value[1] = $this->antiSqlInjection($value[1]);
+								$value[1] = Basic::antiSqlInjection($value[1]);
 								$cond_value = " = '{$value[1]}'";
 								break;
 							case 'DIFF':
-								$value[1] = $this->antiSqlInjection($value[1]);
+								$value[1] = Basic::antiSqlInjection($value[1]);
 								$cond_value = " <> '{$value[1]}'";
 								break;
 							default:
@@ -303,69 +307,69 @@ class Basic extends Model
 								break;
 						}
 					}else{
-						$value = $this->antiSqlInjection($value);
+						$value = Basic::antiSqlInjection($value);
 						$cond_value = " = '{$value}'"; //DEFAULT EQUAL
 					}
-					
+
 					if($value !== ''){
-						if(strpos($field, 'BEGINENDORWHERE_') !== false){
+						if(str_contains($field, 'BEGINENDORWHERE_')){
 							$new_field = str_replace('BEGINENDORWHERE_', '', $field);
-							$return_string .= $c_where."(";
+							$return_string .= $c_where. '(';
 							$return_string .= $new_field.$cond_value;
-							
-							$return_string .= ")";
+
+							$return_string .= ')';
 							$c_where_or = '';
 							$c_where = ' AND ';
 
-						}elseif(strpos($field, 'BEGINORWHERE_') !== false){
+						}elseif(str_contains($field, 'BEGINORWHERE_')){
 							$new_field = str_replace('BEGINORWHERE_', '', $field);
-							
-							$return_string .= $c_where."(";
+
+							$return_string .= $c_where. '(';
 							$return_string .= $c_where_or.$new_field.$cond_value;
 							$c_where_or = ' OR ';
 							$c_where = ' AND ';
 
-						}elseif(strpos($field, 'MIDORWHERE_') !== false){
+						}elseif(str_contains($field, 'MIDORWHERE_')){
 							$new_field = str_replace('MIDORWHERE_', '', $field);
 
 							$return_string .= $c_where_or.$new_field.$cond_value;
 							$c_where_or = ' OR ';
 							$c_where = ' AND ';
-						}elseif(strpos($field, 'ENDORWHERE_') !== false){
+						}elseif(str_contains($field, 'ENDORWHERE_')){
 							$new_field = str_replace('ENDORWHERE_', '', $field);
-							
+
 							$return_string .= $c_where_or.$new_field.$cond_value;
-							
-							$return_string .= ")";
+
+							$return_string .= ')';
 							$c_where = ' AND ';
 							$c_where_or = '';
 						}else{
-							if(strpos($field, '.') === false){
+							if(!str_contains($field, '.')){
 								$field = $this->table.'.'.$field;
 							}
 							$return_string .= $c_where.$field.$cond_value;
-							$c_where = " AND ";
+							$c_where = ' AND ';
 						}
 					}
 				}
 			}else{
 				$return_string = $this->where;
-				$c_where = " AND ";
+				$c_where = ' AND ';
 			}
 		}
 		if(!$this->force_deleted){
 			$return_string .= $c_where."{$this->table}.deleted = '0'";
-			$c_where = " AND ";
+			$c_where = ' AND ';
 			foreach($this->join as $table_name => $on){
-				if(strpos($table_name, ' AS ') !== false){
+				if(str_contains($table_name, ' AS ')){
 					$new_table_name = explode(' AS ', $table_name);
 				}else{
 					$new_table_name = explode(' as ', $table_name);
 				}
 				$new_table_name = $new_table_name[count($new_table_name)-1];
 				
-				if(strpos($table_name, 'LEFTJOIN_') !== false
-				|| strpos($table_name, 'RIGHTJOIN_') !== false){
+				if(str_contains($table_name, 'LEFTJOIN_')
+				|| str_contains($table_name, 'RIGHTJOIN_')){
 					//If the join it's left or right, check deleted for null
 					$new_table_name = str_replace(['LEFTJOIN_', 'RIGHTJOIN_'], '', $new_table_name);
 					$return_string .= $c_where." ({$new_table_name}.deleted = '0' OR {$new_table_name}.deleted IS NULL)";
@@ -373,7 +377,6 @@ class Basic extends Model
 					//If the join it's inner, check only deleted is 0
 					$return_string .= $c_where."{$new_table_name}.deleted = '0'";
 				}
-				$c_where = " AND ";
 			}
 		}
 		if(!empty($return_string)){
@@ -382,15 +385,16 @@ class Basic extends Model
         return $return_string;
     }
 	
-	function get_order_by()
+	public function get_order_by()
 	{
 		$comp = '';
 		$return_string = '';
 		foreach($this->order_by as $field => $value){
-			if(strpos($field, '.') === false && strpos($field, '(*)') === false){
+			if(!str_contains($field, '.') && !str_contains($field, '(*)')){
 				$field = $this->table.'.'.$field;
 			}
-			if($field == $this->table.'.name' && $this->id_by_name){
+            $table_compare = $this->table.'.name';
+			if($field == $table_compare && $this->id_by_name){
 				$field = 'convert('.$field.', decimal)';
 			}
 			$return_string .= $comp.$field.' '.$value;
@@ -400,13 +404,13 @@ class Basic extends Model
         return $return_string;
     }
 	
-	function get_join()
+	public function get_join()
 	{
 		foreach($this->join as $table_name => $on){
-			if(strpos($table_name, 'LEFTJOIN_') !== false){
+			if(str_contains($table_name, 'LEFTJOIN_')){
 				$table_name = str_replace('LEFTJOIN_', '', $table_name);
 				$this->helper->join($table_name, $on, 'left');
-			}elseif(strpos($table_name, 'RIGHTJOIN_') !== false){
+			}elseif(str_contains($table_name, 'RIGHTJOIN_')){
 				$table_name = str_replace('RIGHTJOIN_', '', $table_name);
 				$this->helper->join($table_name, $on, 'right');
 			}else{
@@ -415,19 +419,19 @@ class Basic extends Model
 		}
 	}
 	
-	function get_group_by()
+	public function get_group_by()
 	{
 		$this->helper->groupBy($this->group_by);
 		return $this->group_by;
 	}
 	
-	function search(int $limit = 0, int $page = 0)
+	public function search(int $limit = 0, int $page = 0)
 	{
 		if(!$limit){
 			$limit = 0;
 		}
 		if(!$this->page_as_offset){
-			$offset = ($page > 1) ? ($page - 1) * $limit : 0;
+			$offset = $page > 1 ? ($page - 1) * $limit : 0;
 		}else{
 			$offset = $page;
 		}
@@ -444,11 +448,11 @@ class Basic extends Model
 			if($q->resultID->num_rows > 0){
 				return $q->getResult('array');
 			}
-			return array();
+			return [];
 		}catch(Exception $e){
 			log_message('debug', (string)$this->db->getLastQuery());
 			if ($this->db->error()['message']) {
-				$this->registerLastError("Error fetching total rows: ");
+				$this->registerLastError('Error fetching total rows: '.$e->getMessage());
 				return null;
 			}
 		}
@@ -457,7 +461,6 @@ class Basic extends Model
 	
 	public function before_save(string $operation = null): bool
     {
-		//Nothing to do in base
 		return true;
 	}
 	
@@ -466,56 +469,57 @@ class Basic extends Model
 		//Nothing to do in base
 		return true;
 	}
-	public function formatDBValues(string $type, $value)
-	{
-		switch($type){
-			case 'date':
-				//Sometimes value it's already in format
-				if(strpos($value, '/') !== false){
-					$ex = explode('/', $value);
-					$value = $ex[2].'-'.$ex[1].'-'.$ex[0];
-				}
-				break;
-			case 'datetime':
-				//Sometimes value it's already in format
-				if(strpos($value, '/') !== false){
-					$ex = explode(' ', $value);
-					$ex2 = explode('/', $ex[0]);
-					$value = $ex2[2].'-'.$ex2[1].'-'.$ex2[0].' '.$ex[1];
-				}
-				break;
-			case 'password':
-				//Well, let's assume the value it's not converted yet
-				$value = encrypt_pass($value);
-				break;
-			case 'bool':
-				$value = (bool) $value;
-				break;
-			case 'float':
-			case 'currency':
-				if(strpos($value, ',') !== false){
-					$value = (float)str_replace(',', '.', str_replace('.', '', $value));
-				}
-				break;
-			case 'int':
-				$value = (int)($value);
-				break;
-			case 'link':
-				//Fields of type link ALWAYS needs to begin with http:// or https://
-				if(substr($value, 0, 7) !== 'http://' && substr($value, 0, 8) !== 'https://'){
-					$value = 'http://'.$value;
-				}
-				break;
-			case 'multidropdown':
-				if(is_array($value)){
-					$value = implode('|^|', $value);
-				}
-				break;
-			default:
-				break;
-		}
-		return $value;
-	}
+
+    public static function formatDBValues(string $type, $value)
+    {
+        switch($type){
+            case 'date':
+                //Sometimes value it's already in format
+                if(str_contains($value, '/')){
+                    $ex = explode('/', $value);
+                    $value = $ex[2].'-'.$ex[1].'-'.$ex[0];
+                }
+                break;
+            case 'datetime':
+                //Sometimes value it's already in format
+                if(str_contains($value, '/')){
+                    $ex = explode(' ', $value);
+                    $ex2 = explode('/', $ex[0]);
+                    $value = $ex2[2].'-'.$ex2[1].'-'.$ex2[0].' '.$ex[1];
+                }
+                break;
+            case 'password':
+                //Well, let's assume the value it's not converted yet
+                $value = encrypt_pass($value);
+                break;
+            case 'bool':
+                $value = (bool) $value;
+                break;
+            case 'float':
+            case 'currency':
+                if(str_contains($value, ',')){
+                    $value = (float)str_replace(',', '.', str_replace('.', '', $value));
+                }
+                break;
+            case 'int':
+                $value = (int)$value;
+                break;
+            case 'link':
+                //Fields of type link ALWAYS needs to begin with http:// or https://
+                if(!str_starts_with($value, 'http://') && !str_starts_with($value, 'https://')){
+                    $value = 'http://'.$value;
+                }
+                break;
+            case 'multidropdown':
+                if(is_array($value)){
+                    $value = implode('|^|', $value);
+                }
+                break;
+            default:
+                break;
+        }
+        return $value;
+    }
 	public function saveRecord($execute_logics = true)
 	{
 		$fOld = $this->f;
@@ -532,15 +536,15 @@ class Basic extends Model
 						unset($fOld[$field]);
 						continue;
 					}
-					$value = (isset($fOld[$field])) ? $fOld[$field] : null;
+					$value = $fOld[$field] ?? null;
 					if(isset($fOld[$field]) && in_array($options['type'], ['date', 'datetime']) && empty($value)){
 						$fOld[$field] = null;
 					}elseif(!is_null($value)){
-						$fOld[$field] = $this->formatDBValues($options['type'], $value);
+						$fOld[$field] = Basic::formatDBValues($options['type'], $value);
 					}
 				}
 				if(!empty($fOld['id']) && !$this->new_with_id){
-					$fOld['date_modified'] = date("Y-m-d H:i:s");
+					$fOld['date_modified'] = date('Y-m-d H:i:s');
 					$fOld['user_modified'] = $this->auth_user_id;
 					$this->helper->where('id', $fOld['id']);
 					$executed = $this->helper->update($fOld);
@@ -550,8 +554,8 @@ class Basic extends Model
 							/*
 							Let's mount "name" field as an INT AUTO INCREMENT
 							*/
-							$this->where = array();
-							$this->select = "MAX(CAST(name as UNSIGNED))+1 as codigo_ult";
+							$this->where = [];
+							$this->select = 'MAX(CAST(name as UNSIGNED))+1 as codigo_ult';
 							$number = $this->search(1);
 							$codigo = (int) $number[0]['codigo_ult'];
 							if(empty($codigo)){
@@ -567,14 +571,14 @@ class Basic extends Model
 						}
 					}
 					if(!isset($fOld['date_created'])){
-						$fOld['date_created'] = date("Y-m-d H:i:s");
+						$fOld['date_created'] = date('Y-m-d H:i:s');
 					}
 					if(!isset($fOld['user_created'])){
 						$fOld['user_created'] = $this->auth_user_id;
 					}
 					
 					if(!isset($fOld['date_modified'])){
-						$fOld['date_modified'] = date("Y-m-d H:i:s");
+						$fOld['date_modified'] = date('Y-m-d H:i:s');
 					}
 					
 					if(!isset($fOld['user_modified'])){
@@ -585,12 +589,12 @@ class Basic extends Model
 					
 					//If ID it's an AUTO INCREMENT column, let's get the inserted ID
 					if(empty($fOld['id']) && $this->fields_map['id']['dont_generate']){
-						$fOld['id'] = $this->insertID();
+						$fOld['id'] = $this->db->insertID();
 					}
 				}
 				if($executed &&
 				!$this->db->error()['message']){
-					/* CHECK IF HAS FILES TO CREATE AND NEEDS TO EXECUTE AFTER_SAVE */
+					/* CHECK IF IT HAS FILES TO CREATE AND NEEDS TO EXECUTE AFTER_SAVE */
 
 					$this->f = array_merge($this->f, $fOld);
 					
@@ -604,7 +608,7 @@ class Basic extends Model
 					$this->new_with_id = false;
 					return $this->f;
 				}else{
-					$this->registerLastError("Query failed: ");
+					$this->registerLastError('Query failed: ');
 				}
 			}else{
 				log_message('critical', 'Unable to complete before_save...');
@@ -623,7 +627,7 @@ class Basic extends Model
 				$value = $requestForm->getFile($field);
 				if($value && $value->isValid() && !$value->hasMoved()){
 					if($this->table != 'arquivos'){
-						$file = new \App\Models\Files\Files();
+						$file = new Files();
 						if($this->f[$field]){
 							$file->f['id'] = $this->f[$field];
 							$result = $file->get();
@@ -636,7 +640,7 @@ class Basic extends Model
 						$file->f['mimetype'] = $value->getClientMimeType();
 						$file->f['name'] = $value->getClientName();
 						if(!$file->f['tipo']){
-							$file->f['tipo'] = ($attrs['parameter']['private']) ? $attrs['parameter']['private'] : 'public';
+							$file->f['tipo'] = $attrs['parameter']['private'] ?? 'public';
 						}
 						$file->f['registro'] = $this->f['id'];
 						$file->saveRecord();
@@ -644,19 +648,17 @@ class Basic extends Model
 						$file->helper->where('id', $file->f['id']);
 						$file->helper->update(['arquivo' => $file->f['id']]);
 						// $value->move(ROOTPATH.'public/uploads', $file->f['id']);
-						$this->mdl->f[$field] = $file->f['id'];
+						$this->f[$field] = $file->f['id'];
 						$update[$field] = $file->f['id'];
-					}else{
-						if($this->f['id']){
-							$update['id'] = $this->f['id'];
-							$update['mimetype'] = $value->getClientMimeType();
-							$update['name'] = $value->getClientName();
-							if(!$this->f['tipo']){
-								$update['tipo'] = ($attrs['parameter']['private']) ? $attrs['parameter']['private'] : 'public';
-							}
-							$update['arquivo'] = $this->f['id'];
-							$value->move(ROOTPATH.'public/uploads', $this->f['id']);
-						}
+					}elseif($this->f['id']){
+                        $update['id'] = $this->f['id'];
+                        $update['mimetype'] = $value->getClientMimeType();
+                        $update['name'] = $value->getClientName();
+                        if(!$this->f['tipo']){
+                            $update['tipo'] = $attrs['parameter']['private'] ?? 'public';
+                        }
+                        $update['arquivo'] = $this->f['id'];
+                        $value->move(ROOTPATH.'public/uploads', $this->f['id']);
 					}
 				}
 			}
@@ -673,8 +675,9 @@ class Basic extends Model
 			$oldRecord = $this->get();
 
 			$this->before_save('delete');
+            $updateDeleted = [];
 			$updateDeleted['deleted'] = true;
-			$updateDeleted['date_modified'] = date("Y-m-d H:i:s");
+			$updateDeleted['date_modified'] = date('Y-m-d H:i:s');
 			$updateDeleted['user_modified'] = $this->auth_user_id;
 			$this->helper->where('id', $this->f['id']);
 
@@ -688,7 +691,7 @@ class Basic extends Model
 				$this->after_save('delete');
 				return true;
 			}else{
-				$this->registerLastError("Query failed: ");
+				$this->registerLastError('Query failed: ');
 			}
 		}
 		return false;
@@ -697,10 +700,10 @@ class Basic extends Model
 	public function registerLastError(string $msg, bool $log_error = true)
 	{
 		if($log_error){
-			$msg .= (string)$this->db->getLastQuery(). ' | '.$this->db->error()['message'];
+			$msg .= $this->db->getLastQuery(). ' | '.$this->db->error()['message'];
 		}
 		log_message('critical', $msg);
-		$this->last_error = (string)$this->db->getLastQuery(). ' | '.$this->db->error()['message'];
+		$this->last_error = $this->db->getLastQuery(). ' | '.$this->db->error()['message'];
 	}
 	
 	public function formatRecordsView($result, bool $ignore_raw = false)
@@ -745,7 +748,7 @@ class Basic extends Model
 						$value = $this->fields->formatFloat($value, $options['parameter']['precision']);
 						break;
 					case 'bool':
-						$value = ($value) ? true : false;
+						$value = (bool)$value;
 						break;
 					case 'dropdown':
 						$value = $this->fields->formatDropdown($options['parameter'], $value);
@@ -766,16 +769,16 @@ class Basic extends Model
 								$related = null;
 							}
 							$field_name = $field.'_name';
-							$record[$field_name] = ($related) ? $related['name'] : null;
+							$record[$field_name] = $related ? $related['name'] : null;
 						}
 						break;
 					case 'file':
 						if($this->table !== 'arquivos' && $value){
-							$filemdl = new \App\Models\Files\Files();
+							$filemdl = new Files();
 							$filemdl->f['id'] = $value;
 							$result = $filemdl->get();
 							$field_name = $field.'_name';
-							$record[$field_name] = ($result) ? $result['name'] : '';
+							$record[$field_name] = $result ? $result['name'] : '';
 						}
 						break;
 					default:
@@ -783,23 +786,22 @@ class Basic extends Model
 				}
 				$record[$field] = $value;
 			}elseif($options['type'] == 'bool'){
-				$record[$field] = ($value) ? true : false;
+				$record[$field] = (bool)$value;
 			}
 		}
 		return $record;
 	}
 
-	public function antiSqlInjection($val)
-	{
-		$val = str_replace("\\", "\\\\", $val);
-		$val = str_replace("'", "\\'", $val);
-		return $val;
-	}
+    public static function antiSqlInjection($val)
+    {
+        $val = str_replace("\\", "\\\\", $val);
+        return str_replace("'", "\\'", $val);
+    }
 
 	public function getIdxTable(string $idxName)
 	{
 		try{
-			$tablesList = $this->listTables();
+			$tablesList = $this->db->listTables();
             $tableExists = in_array($this->table, $tablesList);
 			if($tableExists){
 				$q = $this->db->query("SHOW index FROM {$this->table} WHERE key_name = '{$idxName}'");
@@ -808,7 +810,7 @@ class Basic extends Model
 				}
 			}
 		}catch(Exception $e){
-			log_message('critical', 'Error searching Indexes for '.$this->table);
+			log_message('critical', 'Error searching Indexes for '.$this->table.': '.$e->getMessage());
 			return 0;
 		}
 		return 0;
@@ -819,11 +821,11 @@ class Basic extends Model
 		if(!isset($this->idx_table[$key])){
 			return '';
 		}
-		$sqlRepair = "CREATE INDEX ";
+		$sqlRepair = 'CREATE INDEX ';
 		$idxSql = '';
 		foreach($this->idx_table[$key] as $fieldIdx){
 			$fieldIdx = str_replace('_', '', $fieldIdx);
-			$idxSql .= ($idxSql) ? '_'.substr($fieldIdx, 0, 4) : substr($fieldIdx, 0, 4);
+			$idxSql .= $idxSql ? '_'.substr($fieldIdx, 0, 4) : substr($fieldIdx, 0, 4);
 		}
 		$idxSql .= $key;
 		if(!$complete && $this->getIdxTable($idxSql)){
@@ -834,7 +836,7 @@ class Basic extends Model
 		$sqlRepair .= " ON {$this->table} (";
 		$idxSql = '';
 		foreach($this->idx_table[$key] as $fieldIdx){
-			$idxSql .= ($idxSql) ? ', '.$fieldIdx : $fieldIdx;
+			$idxSql .= $idxSql ? ', '.$fieldIdx : $fieldIdx;
 		}
 
 		$sqlRepair .= $idxSql .' );';
@@ -842,4 +844,3 @@ class Basic extends Model
 		return $sqlRepair;
     }
 }
-?>

@@ -4,7 +4,7 @@ namespace App\Controllers\Admin;
 class Users extends AdminBaseController
 {
 	protected $module_name = 'Users';
-	public $data = array();
+	public $data = [];
 	public $generic_filter = true;
 	
 	public function ExtButtonsGenericFilters()
@@ -74,7 +74,7 @@ class Users extends AdminBaseController
 		hasPermission(2, 'w', true);
 		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
-		$result = array();
+		$result = [];
 		if($id){
 			$this->mdl->f['id'] = $id;
 			$result = $this->mdl->get();

@@ -51,7 +51,7 @@ class BaseController extends Controller
 	@var array
 	An array of filter
 	*/
-	public $filter = array();
+	public $filter = [];
 	
 	/*
 	Session core service of CI
@@ -245,7 +245,7 @@ class BaseController extends Controller
 		/*
 		2020-12-02 FINALLY I'VE GOT TO DO THIS!!!!!!!!!!!!!!!!!!!
 		*/
-		$breadcrumb = array();
+		$breadcrumb = [];
 		
 		$controllerName = strtolower(str_replace('App\\Controllers\\', '', get_class($this)));
 		$methodName = strtolower($this->routes->methodName());

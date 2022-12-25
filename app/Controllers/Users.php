@@ -4,7 +4,7 @@ namespace App\Controllers;
 class Users extends BaseController
 {
 	protected $module_name = 'Users';
-	public $data = array();
+	public $data = [];
 	public function __construct()
 	{
 		parent::__construct();

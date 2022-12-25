@@ -4,7 +4,7 @@ namespace App\Controllers\Admin;
 class Files extends AdminBaseController
 {
     protected $module_name = 'Files';
-    public $data = array();
+    public $data = [];
     public $generic_filter = true;
     public $pager_config = array(
         'per_page' => 10,
@@ -81,7 +81,7 @@ class Files extends AdminBaseController
 
 		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
-		$result = array();
+		$result = [];
 		if($id){
 			$this->mdl->f['id'] = $id;
 			$result = $this->mdl->get();

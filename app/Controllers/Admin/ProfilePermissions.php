@@ -1,5 +1,7 @@
 <?php
 namespace App\Controllers\Admin;
+use App\Libraries\Sys\Ajax;
+use App\Libraries\Sys\Dropdown;
 
 class ProfilePermissions extends AdminBaseController
 {
@@ -10,7 +12,7 @@ class ProfilePermissions extends AdminBaseController
 		hasPermission(4, 'r', true);
 	
 		$grupos = new \App\Models\Profiles\Profiles();
-		$gruposAtivos = $grupos->getAtivos('id, name');
+		$gruposAtivos = $grupos->getActives('id, name');
 
 		$gruposArr = [];
 		foreach($gruposAtivos as $key => $val){
@@ -18,7 +20,7 @@ class ProfilePermissions extends AdminBaseController
 			$gruposArr[$val['id']] = $val['name'];
 		}
 		unset($gruposAtivos);
-		$DropdownLib = new \App\Libraries\Sys\Dropdown();
+		$DropdownLib = new Dropdown();
 		$DropdownLib->values['gruposAtivos'] = $gruposArr;
 
 		$this->data['gruposAtivos'] = $DropdownLib->GetDropdownHTML('gruposAtivos');
@@ -30,7 +32,7 @@ class ProfilePermissions extends AdminBaseController
 	{
 		hasPermission(4, 'r', true);
 		
-		$ajaxLib = new \App\Libraries\Sys\Ajax(['grupo_id']);
+		$ajaxLib = new Ajax(['grupo_id']);
 		$permissao = new \App\Models\Permissions\Permissions();
 		$permissoes = $permissao->getAllPermissions($ajaxLib->body['grupo_id']);
 		
@@ -52,9 +54,9 @@ class ProfilePermissions extends AdminBaseController
 			$this->mdl->f['permissao'] = $perm_id;
 
 			$nivel = 0;
-			$nivel += ($postdata['permissao_checked'][$perm_id]['r']) ? 4 : 0;
-			$nivel += ($postdata['permissao_checked'][$perm_id]['w']) ? 2 : 0;
-			$nivel += ($postdata['permissao_checked'][$perm_id]['d']) ? 1 : 0;
+			$nivel += $postdata['permissao_checked'][$perm_id]['r'] ? 4 : 0;
+			$nivel += $postdata['permissao_checked'][$perm_id]['w'] ? 2 : 0;
+			$nivel += $postdata['permissao_checked'][$perm_id]['d'] ? 1 : 0;
 
 			$this->mdl->f['nivel'] = $nivel;
 			

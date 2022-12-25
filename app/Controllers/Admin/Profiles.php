@@ -73,7 +73,7 @@ class Profiles extends AdminBaseController
 		
 		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
-		$result = array();
+		$result = [];
 		if($id){
 			$this->mdl->f['id'] = $id;
 			$result = $this->mdl->get();

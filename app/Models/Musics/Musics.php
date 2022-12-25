@@ -5,8 +5,8 @@ class Musics extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'musicas';
-	public $f = array();
-	public $fields_map = array(
+	public array $f = [];
+	public array $fields_map = array(
 		'id' => array(
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
@@ -126,7 +126,7 @@ class Musics extends \App\Models\Basic\Basic
 		}
 		if(empty($this->f['codigo'])){
 			$this->force_deleted = true;
-			$this->where = array();
+			$this->where = [];
 			$this->select = "MAX(codigo)+1 as codigo_ult";
 			$number = $this->search(1);
 			$this->f['codigo'] = $number[0]['codigo_ult'];

@@ -5,9 +5,9 @@ class Waitlist extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'musicas_fila';
-	public $f = array();
-	public $id_by_name = true;
-	public $fields_map = array(
+	public array $f = [];
+	public  bool $id_by_name = true;
+	public array $fields_map = array(
 		'id' => array(
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',

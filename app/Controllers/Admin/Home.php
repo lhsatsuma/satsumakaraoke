@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Home extends AdminBaseController
 {
-	public $data = array();
+	public $data = [];
 	public $session;
 	public $parser;
 	protected $module_name = 'Home';

@@ -5,7 +5,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class JsManager extends BaseController
 {
-	public $data = array();
+	public $data = [];
 	public $session;
     protected $dummy_controller = true;
 	

@@ -4,10 +4,10 @@ namespace App\Controllers;
 class Ajax_requests extends BaseController
 {
 	protected $module_name = null;
-	public $data = array();
+	public $data = [];
 	protected $dummy_controller = true;
 	
-	public $body = array();
+	public $body = [];
 	
 	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
 	{
@@ -49,7 +49,7 @@ class Ajax_requests extends BaseController
 		}
 		$results = $mdl->search(5);
 		
-		$return = array();
+		$return = [];
 		
 		if($results){
 			$results = $mdl->formatRecordsView($results, true);
@@ -99,7 +99,7 @@ class Ajax_requests extends BaseController
 			
 			$c_select = '';
 			$this->mdl->select = '';
-			$list_columns = array();
+			$list_columns = [];
 			foreach($this->body['fields_return'] as $field => $ext){
 				$this->mdl->select .= $c_select.$field;
 				$c_select = ', ';
@@ -117,12 +117,12 @@ class Ajax_requests extends BaseController
 				'page' => $page,
 			);
 			
-			$initial_order_by = array();
+			$initial_order_by = [];
 			if(!empty($this->body['initial_order_by'])){
 				$initial_order_by = $this->body['initial_order_by'];
 				
 			}
-			$initial_filter = array();
+			$initial_filter = [];
 			if(!empty($this->body['initial_filter'])){
 				$initial_filter = $this->body['initial_filter'];
 				

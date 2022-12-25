@@ -4,7 +4,7 @@ namespace App\Controllers\Admin;
 class OAuthClients extends AdminBaseController
 {
     protected $module_name = 'OAuthClients';
-    public $data = array();
+    public $data = [];
     public $generic_filter = true;
 	
 	public function ExtButtonsGenericFilters()
@@ -75,7 +75,7 @@ class OAuthClients extends AdminBaseController
 
 		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
-		$result = array();
+		$result = [];
 		if($id){
 			$this->mdl->f['id'] = $id;
 			$result = $this->mdl->get();

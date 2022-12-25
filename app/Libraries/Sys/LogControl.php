@@ -64,7 +64,7 @@ class LogControl{
 		return is_file($this->path.$log_file);
 	}
 	private function Add($str, $options_set = array()){
-		$options = array();
+		$options = [];
 		foreach($this->default_options as $key => $val){
 			if(isset($options_set[$key])){
 				$options[$key] = $options_set[$key];
@@ -106,7 +106,7 @@ class LogControl{
 		return $return;
 	}
 	public function Debug($msg = NULL, $die = NULL, $echo = NULL){
-		$options = array();
+		$options = [];
 		$options['level'] = 1;
 		if($die){
 			$options['die'] = 1;
@@ -117,7 +117,7 @@ class LogControl{
 		return $this->Add($msg, $options);
 	}
 	public function Info($msg = NULL, $die = NULL, $echo = NULL){
-		$options = array();
+		$options = [];
 		$options['level'] = 2;
 		if($die){
 			$options['die'] = 1;
@@ -128,7 +128,7 @@ class LogControl{
 		return $this->Add($msg, $options);
 	}
 	public function Warning($msg = NULL, $die = NULL, $echo = NULL){
-		$options = array();
+		$options = [];
 		$options['level'] = 3;
 		if($die){
 			$options['die'] = 1;
@@ -139,7 +139,7 @@ class LogControl{
 		return $this->Add($msg, $options);
 	}
 	public function Fatal($msg = NULL, $die = NULL, $echo = NULL){
-		$options = array();
+		$options = [];
 		$options['level'] = 4;
 		if($die){
 			$options['die'] = 1;

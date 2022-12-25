@@ -5,10 +5,10 @@ class Filter
 {
 	
 	/* Filter fields and propertys */
-	private $filters = array();
+	private $filters = [];
 	
 	/* Extra buttons like New Record */
-	public $ext_buttons = array();
+	public $ext_buttons = [];
 	
 	/* Action of form submit */
 	public $action;
@@ -49,7 +49,7 @@ class Filter
 		$this->smarty->clearInputs($tpl);
 		
 		$this->has_icon_advanced_filter = false;
-		$data = array();
+		$data = [];
 		$data['filters'] = $this->filters;
 		$data['id_filter'] = $this->id_filter;
 		$data['page'] = $this->page;
@@ -66,8 +66,8 @@ class Filter
 	
 	public function GenerateFilterAdvanced()
 	{
-		$fields_map = array();
-		$record = array();
+		$fields_map = [];
+		$record = [];
 		foreach($this->filters as $field => $attrs){
 			if($attrs['options']['type'] == 'related'){
 				$fields_map['search_'.$field] = $attrs['options'];

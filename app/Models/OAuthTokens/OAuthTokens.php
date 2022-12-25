@@ -5,8 +5,8 @@ class OAuthTokens extends \App\Models\Basic\Basic
 {
 	public $db;
 	public $table = 'oauth_access_tokens';
-	public $f = array();
-	public $fields_map = array(
+	public array $f = [];
+	public array $fields_map = array(
 		'access_token' => array(
 			'lbl' => 'LBL_ACCESS_TOKEN',
 			'type' => 'varchar',

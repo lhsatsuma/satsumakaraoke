@@ -7,7 +7,7 @@ class Dropdown
 	ARRAY OF DROPDOWN VALUES
 	*/
 	
-	public $values = array();
+	public $values = [];
 	public function __construct()
 	{
 		$locale = service('request')->getLocale();
@@ -84,7 +84,7 @@ class Dropdown
 	
 	public function multitranslate($what, $value)
 	{
-		$return = array();
+		$return = [];
 		foreach($value as $key => $select){
 			if(isset($this->values[$what][$select])){
 				$return[$key] = $this->values[$what][$select];
@@ -114,13 +114,13 @@ class Dropdown
 			\DateTimeZone::AMERICA,
 		);
 	
-		$timezones = array();
+		$timezones = [];
 		foreach( $regions as $region )
 		{
 			$timezones = array_merge( $timezones, \DateTimeZone::listIdentifiers( $region ) );
 		}
 	
-		$timezone_offsets = array();
+		$timezone_offsets = [];
 		foreach( $timezones as $timezone )
 		{
 			$tz = new \DateTimeZone($timezone);
@@ -130,7 +130,7 @@ class Dropdown
 		// sort timezone by offset
 		asort($timezone_offsets);
 	
-		$timezone_list = array();
+		$timezone_list = [];
 		foreach( $timezone_offsets as $timezone => $offset )
 		{
 			$offset_prefix = $offset < 0 ? '-' : '+';

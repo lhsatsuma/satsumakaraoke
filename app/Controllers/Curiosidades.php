@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Curiosidades extends BaseController
 {
-	public $data = array();
+	public $data = [];
 	public $session;
 	public $parser;
 	protected $module_name = 'Curiosidades';

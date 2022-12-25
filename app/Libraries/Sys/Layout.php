@@ -4,7 +4,7 @@ namespace App\Libraries\Sys;
 class Layout
 {
 	//Sets fields maps because i can get from another controller or model
-	public $fields_map = array();
+	public array $fields_map = [];
 	
 	public $template = 'template';
 
@@ -30,7 +30,7 @@ class Layout
 	public function GetAllFields($record = array())
 	{
 		$this->its_filter = false;
-		$return = array();
+		$return = [];
 		foreach($this->fields_map as $field => $attrs){
 			if(isset($attrs['dont_load_layout'])){
 				continue;
@@ -43,7 +43,7 @@ class Layout
 	public function GetAllFieldsFilter($record = array())
 	{
 		$this->its_filter = true;
-		$return = array();
+		$return = [];
 		foreach($this->fields_map as $field => $attrs){
 			if((isset($attrs['dont_load_layout']) && !$this->disabled_all) || $attrs['force_dont_load_layout']){
 				continue;
@@ -57,7 +57,7 @@ class Layout
 	{
 		$this->its_filter = false;
 		$this->disabled_all = true;
-		$return = array();
+		$return = [];
 		foreach($this->fields_map as $field => $attrs){
 			if((isset($attrs['dont_load_layout']) && !$this->disabled_all) || $attrs['force_dont_load_layout']){
 				continue;
@@ -113,7 +113,7 @@ class Layout
 				}elseif(isset($attrs['default'])){
 					$selected = $attrs['default'];
 				}else{
-					$selected = array();
+					$selected = [];
 				}
 				$return = $this->GetMultiselect($field, $selected);
 				break;
@@ -362,7 +362,7 @@ class Layout
 	
 	public function GetGenericLista(string $location, Array $fields, Array $records, $has_edit = true)
 	{
-		$return_data = array();
+		$return_data = [];
 		
 		$return_data['has_edit'] = $has_edit;
 		
@@ -415,7 +415,7 @@ class Layout
 	
 	public function GetGenericListaAjax(string $subpanel_id, string $location, Array $fields, Array $records, $has_edit = false)
 	{
-		$return_data = array();
+		$return_data = [];
 
 		$return_data['has_edit'] = $has_edit;
 		$return_data['table_id'] = $subpanel_id;

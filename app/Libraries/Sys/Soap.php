@@ -8,8 +8,8 @@ Otimizado para PHP 7.1
 namespace App\Libraries\Sys;
 class Soap
 {
-	private $headers = array();
-	private $data = array();
+	private $headers = [];
+	private $data = [];
 	public $auth = array(
 		'user' => '',
 		'pass' => ''
@@ -30,7 +30,7 @@ class Soap
 		if($this->client){
 			return $this->client;
 		}
-		$dataClient = array();
+		$dataClient = [];
 		
 		$key_array = array(
 			'connection_timeout',
@@ -96,7 +96,7 @@ class Soap
 		
 		// $this->base_url .= $ext;
 		//Reset var for the request
-		$this->data = array();
+		$this->data = [];
 		
 		//Validate All initial Variables to init curl
 		$validated = $this->CheckInitial($urlEffective);
