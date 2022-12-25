@@ -1,25 +1,28 @@
 <?php
 namespace App\Libraries\Sys;
 
+use App\Models\Files\Files;
+use App\Models\Menus\Menus;
+
 class Layout
 {
 	//Sets fields maps because i can get from another controller or model
-	public mixed $fields_map = [];
+	public $fields_map = [];
 	
 	public $template = 'template';
 
 	public $disabled_all = false;
 
 
-	protected string $file_language;
+	protected $file_language;
 	
 	public function __construct($fields_map = null, string $class_name = '')
 	{
 		//Nothing to do for now
 		$this->fields_map = $fields_map;
-		$this->dropdown = new \App\Libraries\Sys\Dropdown();
+		$this->dropdown = new Dropdown();
         $this->dropdown->values['modules_list'] = getModules();
-		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
+		$this->smarty = new SmartyCI(true);
 		$this->session = getSession();
 		$this->request = getFormData();
 		$this->file_language = str_replace(['App\\Controllers\\', '\\'], ['', '.'], $class_name);
@@ -45,7 +48,7 @@ class Layout
 		$this->its_filter = true;
 		$return = [];
 		foreach($this->fields_map as $field => $attrs){
-			if((isset($attrs['dont_load_layout']) && !$this->disabled_all) || $attrs['force_dont_load_layout']){
+			if(isset($attrs['dont_load_layout']) && !$this->disabled_all || $attrs['force_dont_load_layout']){
 				continue;
 			}
 			$return[$attrs['type']][$field] = $this->GetField($field, $attrs, $record);
@@ -59,7 +62,7 @@ class Layout
 		$this->disabled_all = true;
 		$return = [];
 		foreach($this->fields_map as $field => $attrs){
-			if((isset($attrs['dont_load_layout']) && !$this->disabled_all) || $attrs['force_dont_load_layout']){
+			if(isset($attrs['dont_load_layout']) && !$this->disabled_all || $attrs['force_dont_load_layout']){
 				continue;
 			}
 			$return[$attrs['type']][$field] = $this->GetField($field, $attrs, $record);
@@ -129,7 +132,7 @@ class Layout
 	
 	public function getGeneric($type, $field, $selected = null)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/'.$type : $this->template.'/fields/'.$type;
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/'.$type : $this->template.'/fields/'.$type;
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -141,7 +144,7 @@ class Layout
 	
 	public function getHtml($field, $selected, $parameter = null)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Html' : $this->template.'/fields/Html';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Html' : $this->template.'/fields/Html';
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -151,8 +154,8 @@ class Layout
 		$parameter['selector'] = 'textarea[name="'.$field.'"]';
 		$parameter['language'] = 'pt_BR';
 		if($this->session->get('auth_user')['dark_mode']){
-			$parameter['skin'] = "oxide-dark";
-			$parameter['content_css'] = "dark";
+			$parameter['skin'] = 'oxide-dark';
+			$parameter['content_css'] = 'dark';
 		}
 		$data['parameter'] = json_encode($parameter, JSON_PRETTY_PRINT);
 
@@ -161,19 +164,19 @@ class Layout
 	
 	public function GetCurrency($field, $selected)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Currency' : $this->template.'/fields/Currency';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Currency' : $this->template.'/fields/Currency';
 		
 		$this->smarty->clearInputs($tpl);
 		
 		$data = $this->MountDefaultData($field);
-		$data['value'] = ($selected) ? $selected : '0,00';
+		$data['value'] = $selected ?: '0,00';
 		
 		return $this->smarty->setData($data)->view($tpl);
 	}
 	
 	public function GetRelated($field, $record, $autocomplete_ajax)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Related' : $this->template.'/fields/Related';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Related' : $this->template.'/fields/Related';
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -182,7 +185,7 @@ class Layout
 		$data['value_id'] = $record[$field];
 		$data['value'] = $record[$field.'_name'];
 		$data['link_detail'] = $this->base_url.$autocomplete_ajax['link_detail'].$data['value_id'];
-		$data['custom_where'] = ($autocomplete_ajax['custom_where']) ? json_encode($autocomplete_ajax['custom_where']) : '{}';
+		$data['custom_where'] = $autocomplete_ajax['custom_where'] ? json_encode($autocomplete_ajax['custom_where']) : '{}';
 		$data['callback_select'] = $autocomplete_ajax['callback_select'];
 		$data['autocomplete_model'] = $autocomplete_ajax['model'];
 		if(!empty($autocomplete_ajax['url'])){
@@ -198,7 +201,7 @@ class Layout
 	
 	public function GetCep($field, $selected = null, $parameters = null)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Cep' : $this->template.'/fields/Cep';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Cep' : $this->template.'/fields/Cep';
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -206,22 +209,22 @@ class Layout
 		$data['value'] = $selected;
 		
 		
-		$data['autofill_fields'] = ($parameters['autofill_fields']) ? json_encode($parameters['autofill_fields']) : '{}';
+		$data['autofill_fields'] = $parameters['autofill_fields'] ? json_encode($parameters['autofill_fields']) : '{}';
 		return $this->smarty->setData($data)->view($tpl);
 	}
 	
 	public function GetFile($field, $selected = null, $parameter = null)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/File' : $this->template.'/fields/File';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/File' : $this->template.'/fields/File';
 		
 		$this->smarty->clearInputs($tpl);
 		
 		$data = $this->MountDefaultData($field);
 		
 		if(!empty($selected)){
-			$file = new \App\Models\Files\Files();
+			$file = new Files();
 			$file->where['arquivo'] = $selected;
-			$result = $file->search(1,0)[0];
+			$result = $file->search(1)[0];
 			if($result){
 				$data['value'] = $result['id'];
 				$data['filename_field'] = $result['campo'];
@@ -229,8 +232,8 @@ class Layout
 				$data['value_name'] = $result['name'];
 			}
 		}
-		$data['accept'] = ($parameter['accept']) ? $parameter['accept'] : '';
-		$data['max_size'] = (float)($parameter['max_size']) ? $parameter['max_size'] : '';
+		$data['accept'] = $parameter['accept'] ?: '';
+		$data['max_size'] = (float)$parameter['max_size'] ? $parameter['max_size'] : '';
 		
 		//Verify if max_size of field in model have compatibility with upload_max_filesize of php.ini
 		$max_size_ini = (float)str_replace('M', '', ini_get('upload_max_filesize'))*1024;
@@ -255,21 +258,21 @@ class Layout
 	
 	public function GetCheckbox($field, $selected = null)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Checkbox' : $this->template.'/fields/Checkbox';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Checkbox' : $this->template.'/fields/Checkbox';
 		
 		$this->smarty->clearInputs($tpl);
 		
 		
 		$data = $this->MountDefaultData($field);
-		$data['value'] = ($selected) ? 'checked' : '';
-		$data['value_hidden'] = ($selected) ? '1' : '0';
+		$data['value'] = $selected ? 'checked' : '';
+		$data['value_hidden'] = $selected ? '1' : '0';
 		
 		return $this->smarty->setData($data)->view($tpl);
 	}
 	
 	public function GetSelect($field, $selected = null)
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Select' : $this->template.'/fields/Select';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Select' : $this->template.'/fields/Select';
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -283,7 +286,7 @@ class Layout
 	
 	public function GetMultiselect($field, $selected = [])
 	{
-		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Multiselect' : $this->template.'/fields/Multiselect';
+		$tpl = $this->disabled_all ? $this->template.'/fields/disabled/Multiselect' : $this->template.'/fields/Multiselect';
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -311,18 +314,18 @@ class Layout
 			}
 			$condition_filter_html = $this->dropdown->GetDropdownHTML('conditions_filter', $postVal);
 		}
-		return array(
+		return [
 			'label' => translate($this->fields_map[$field]['lbl']),
 			'name' => $field,
 			'ext_attrs' => $this->MountAttrs($this->fields_map[$field]),
-			'required' => ($this->its_filter) ? false : $this->fields_map[$field]['required'],
+			'required' => $this->its_filter ? false : $this->fields_map[$field]['required'],
 			'error' => $this->session->getFlashdata('save_data_errors')[$field],
 			'disabled' => $this->disabled_all,
 			'mask' => $this->fields_map[$field]['mask'],
 			'app_url' => $this->base_url,
 			'its_filter' => $this->its_filter,
 			'condition_filter_html' => $condition_filter_html,
-		);
+        ];
 	}
 	
 	private function MountAttrs($attrs)
@@ -362,22 +365,21 @@ class Layout
 	
 	public function GetGenericLista(string $location, Array $fields, Array $records, $has_edit = true)
 	{
-		$return_data = [];
-		
-		$return_data['has_edit'] = $has_edit;
+		$return_data = [
+            'has_records' => false,
+            'records' => [],
+            'has_edit' => $has_edit,
+        ];
 		
 		foreach($fields as $field => $ext_class){
-			$return_data['table_heads'][$field] = array(
+			$return_data['table_heads'][$field] = [
 				'label' => translate($this->fields_map[$field]['lbl']),
 				'class' => $ext_class,
-			);
+            ];
 		}
-			
-		$return_data['table_tbody'] = array(
-			'has_records' => true,
-			'records' => [],
-		);
+
 		if(!empty($records)){
+            $return_data['has_records'] = true;
 			foreach($records as $record){
 
 				$return_data['table_tbody']['records'][$record['id']]['id_value'] = $record['id'];
@@ -393,24 +395,20 @@ class Layout
 						if($this->fields_map[$field]['link_record']){
 							$link_record = $this->base_url.$this->fields_map[$field]['parameter']['link_detail'].$record[$field];
 						}
-					}else{
-						if($this->fields_map[$field]['link_record']){
-							$link_record = $this->base_url.$location.$record['id'];
-						}
-					}
-					
-					$return_data['table_tbody']['records'][$record['id']]['columns'][$field] = array(
-						'name' => $name,
-						'value' => $value,
-						'link_record' => $link_record,
-					);
-				}
-			}
-		}else{
-			$return_data['table_tbody']['has_records'] = false;
-		}
-		
-		return $return_data;
+					}elseif($this->fields_map[$field]['link_record']){
+                        $link_record = $this->base_url.$location.$record['id'];
+                    }
+
+                    $return_data['table_tbody']['records'][$record['id']]['columns'][$field] = [
+                        'name' => $name,
+                        'value' => $value,
+                        'link_record' => $link_record,
+                    ];
+                }
+            }
+        }
+
+        return $return_data;
 	}
 	
 	public function GetGenericListaAjax(string $subpanel_id, string $location, Array $fields, Array $records, $has_edit = false)
@@ -421,16 +419,16 @@ class Layout
 		$return_data['table_id'] = $subpanel_id;
 		
 		foreach($fields as $field => $ext_class){
-			$return_data['table_heads'][$field] = array(
+			$return_data['table_heads'][$field] = [
 				'label' => translate($this->fields_map[$field]['lbl']),
 				'class' => $ext_class,
-			);
+            ];
 		}
 			
-		$return_data['table_tbody'] = array(
+		$return_data['table_tbody'] = [
 			'has_records' => true,
 			'records' => [],
-		);
+        ];
 		if(!empty($records)){
 			foreach($records as $record){
 				$return_data['table_tbody']['records'][$record['id']]['id_value'] = $record['id'];
@@ -447,16 +445,14 @@ class Layout
 						if($this->fields_map[$field]['link_record']){
 							$link_record = $this->base_url.$this->fields_map[$field]['parameter']['link_detail'].$record[$field];
 						}
-					}else{
-						if($this->fields_map[$field]['link_record']){
-							$link_record = $this->base_url.$location.$record['id'];
-						}
-					}
-					$return_data['table_tbody']['records'][$record['id']]['columns'][$field] = array(
+					}elseif($this->fields_map[$field]['link_record']){
+                        $link_record = $this->base_url.$location.$record['id'];
+                    }
+					$return_data['table_tbody']['records'][$record['id']]['columns'][$field] = [
 						'name' => $name,
-						'value' => (is_bool($value) ? (($value) ? 'Sim' : 'Não') : $value),
+						'value' => is_bool($value) ? ($value ? 'Sim' : 'Não') : $value,
 						'link_record' => $link_record,
-					);
+                    ];
 				}
 			}
 		}else{
@@ -478,8 +474,8 @@ class Layout
 		if($this->session->get('arr_menu_'.$type)){
 			$menusSalvos = $this->session->get('arr_menu_'.$type);
 		}else{
-			$menus = new \App\Models\Menus\Menus();
-			$menusSalvos = $menus->mountArrayMenus((($type == 'template') ? 'public' : 'admin'));
+			$menus = new Menus();
+			$menusSalvos = $menus->mountArrayMenus($type == 'template' ? 'public' : 'admin');
 
 			//Get JSON for menu fixed of framework
 			$file_json = $type. '_menu';
@@ -569,4 +565,3 @@ class Layout
 		return $valid;
 	}
 }
-?>

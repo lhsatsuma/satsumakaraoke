@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
+use App\Models\Files\Files;
 
 class DownloadManager extends BaseController
 {
@@ -61,7 +62,7 @@ class DownloadManager extends BaseController
 		$this->response->setHeader('Cache-Control', 'no-cache')->appendHeader('Cache-Control', 'must-revalidate');
 		$this->response->removeHeader('Location');
 		
-		$file = new \App\Models\Files\Files();
+		$file = new Files();
 		$file->f['id'] = $id;
 		$result = $file->get();
 		if($result){

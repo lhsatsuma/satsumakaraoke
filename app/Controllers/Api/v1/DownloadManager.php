@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Api\v1;
+use App\Models\Files\Files;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use \OAuth2\Request;
 
 class DownloadManager extends ApiController
 {
@@ -23,7 +23,7 @@ class DownloadManager extends ApiController
         $this->response->setHeader('Cache-Control', 'no-cache')->appendHeader('Cache-Control', 'must-revalidate');
         $this->response->removeHeader('Location');
 
-        $file = new \App\Models\Files\Files();
+        $file = new Files();
         $file->f['id'] = $id;
         $result = $file->get();
         if($result){

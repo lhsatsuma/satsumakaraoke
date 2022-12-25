@@ -375,7 +375,7 @@ class BaseController extends Controller
 	}
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function PopulateFiltroPost($initial_filter= [], $initial_order= [])
 	{
@@ -486,7 +486,7 @@ class BaseController extends Controller
 	}
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function GenerateGenericFilter()
 	{
