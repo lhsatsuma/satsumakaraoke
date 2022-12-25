@@ -5,7 +5,7 @@ class Filter
 {
 	
 	/* Filter fields and propertys */
-	private $filters = [];
+	private $filters;
 	
 	/* Extra buttons like New Record */
 	public $ext_buttons = [];
@@ -29,7 +29,7 @@ class Filter
 	
 	public function __construct($request, Array $filters, string $class_name)
 	{
-		$this->smarty = new \App\Libraries\Sys\SmartyCI(true);
+		$this->smarty = new SmartyCI(true);
 		$this->filters = $filters;
 		$this->request = $request;
 		$this->file_language = $class_name;
@@ -38,13 +38,13 @@ class Filter
 	public function SetExtBtn($name, $button){
 		$this->ext_buttons[$name] = $button;
 	}
-	
+
 	public function display()
 	{
 		if(empty($this->action)){
-			throw new \Exception('action filter is undefined');
+			throw new Exception('action filter is undefined');
 		}
-		$tpl = (($this->template) ? $this->template.'/' : '').$this->template_name;
+		$tpl = ($this->template ? $this->template.'/' : '').$this->template_name;
 		
 		$this->smarty->clearInputs($tpl);
 		
@@ -80,7 +80,7 @@ class Filter
 				$this->has_icon_advanced_filter = true;
 			}
 		}
-		$this->layout = new \App\Libraries\Sys\Layout($fields_map, $this->file_language);
+		$this->layout = new Layout($fields_map, $this->file_language);
 		
 		$types_layout = $this->layout->GetAllFieldsFilter($record);
 		$html = '';
@@ -96,4 +96,3 @@ class Filter
 		return $html;
 	}
 }
-?>

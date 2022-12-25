@@ -1,12 +1,14 @@
 <?php
 namespace App\Filters;
 
+use App\Models\Users\Users;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 use App\Libraries\Sys\OAuth;
-use \OAuth2\Request;
-use \OAuth2\Response;
+use Config\Services;
+use OAuth2\Request;
+use OAuth2\Response;
 use CodeIgniter\API\ResponseTrait;
 
 class OAuthFilter implements FilterInterface
@@ -25,7 +27,7 @@ class OAuthFilter implements FilterInterface
             }
             $access_token = $oauth->server->getAccessTokenData($requestOAuth);
             $result_token = $oauth->getRecord($access_token['access_token']);
-            $mdl_user = new \App\Models\Users\Users();
+            $mdl_user = new Users();
             $mdl_user->f['id'] = $result_token['user_id'];
             $AuthUser = $mdl_user->get();
 
@@ -35,9 +37,9 @@ class OAuthFilter implements FilterInterface
             if(!empty($this->body)){
                 $this->body = json_decode($this->body, true);
                 if(is_null($this->body)){
-                    $this->response = \Config\Services::response();
-		            $this->request = \Config\Services::request();
-                    $this->fail('Unable to decode body JSON', 400);
+                    $this->response = Services::response();
+		            $this->request = Services::request();
+                    $this->fail('Unable to decode body JSON');
                     $this->response->send();
                     die();
                 }

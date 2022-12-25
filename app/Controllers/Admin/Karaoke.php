@@ -19,8 +19,8 @@ class Karaoke extends AdminBaseController
 		$hostFila = getParameterValue('karaoke_url_host');
 		
 		$this->js_vars = array_merge($this->js_vars, [
-			'karaokeURL' => ($videosKaraoke) ? $videosKaraoke : base_url().'/',
-			'host_fila' => ($hostFila) ? $hostFila : base_url().'/'
+			'karaokeURL' => $videosKaraoke ?: base_url().'/',
+			'host_fila' => $hostFila ?: base_url().'/'
 		]);
 		return $this->displayNew('pages/Admin/Karaoke/index', false);
 	}

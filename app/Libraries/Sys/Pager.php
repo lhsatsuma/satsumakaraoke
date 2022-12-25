@@ -18,4 +18,3 @@ class Pager extends \CodeIgniter\Pager\Pager
 		return $this->view->setVar('pager', $pager)->setVar('group', $group)->render($this->config->templates[$template]);
 	}
 }
-?>

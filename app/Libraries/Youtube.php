@@ -3,9 +3,7 @@ namespace App\Libraries;
 
 if(!function_exists('remove_emoji')){
 	function remove_emoji($text)
-	{
-        $clean_text = "";
-
+    {
         // Match Emoticons
         $regexEmoticons = '/[\x{1F600}-\x{1F64F}]/u';
         $clean_text = preg_replace($regexEmoticons, '', $text);
@@ -24,9 +22,7 @@ if(!function_exists('remove_emoji')){
 
         // Match Dingbats
         $regexDingbats = '/[\x{2700}-\x{27BF}]/u';
-        $clean_text = preg_replace($regexDingbats, '', $clean_text);
-
-        return $clean_text;
+        return preg_replace($regexDingbats, '', $clean_text);
     }
 
     function remove_non_utf8($str)
@@ -57,7 +53,7 @@ class Youtube
     public function __clear_title($title, $decode = true)
     {
         if($decode){
-            $new_title = trim(remove_emoji(str_replace("&nbsp;", " ", $title)));
+            $new_title = trim(remove_emoji(str_replace('&nbsp;', ' ', $title)));
         }
         $title = $new_title;
 
@@ -116,9 +112,7 @@ class Youtube
             ' - ',
         ],
         $title);
-        $title = (string) trim(remove_non_utf8($title));
-        
-        return $title;
+        return trim(remove_non_utf8($title));
     }
     public function getInfo($videoID)
     {	
@@ -139,36 +133,36 @@ class Youtube
 
     public function importUrl($url, $md5)
     {
-        log_message('info', "DOWNLOADING VIDEO: ".$url);
+        log_message('info', 'DOWNLOADING VIDEO: ' .$url);
         if(file_exists($this->upload_path . $md5)){
 			unlink($this->upload_path . $md5);
 		}
 		$youtube_dl_path = APPPATH . 'ThirdParty/yt-dlp.exe';
-		$string = ("cd $this->upload_path && {$youtube_dl_path} " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
-                  escapeshellarg($md5));
-        log_message('info', "COMMAND: ".$string);
-		$descriptorspec = array(
-		   0 => array("pipe", "r"),  // stdin
-		   1 => array("pipe", "w"),  // stdout
-		   2 => array("pipe", "w"),  // stderr
-		);
+		$string = "cd $this->upload_path && {$youtube_dl_path} " . escapeshellarg($url) . ' --cookies cookies.txt -f 18 --newline --no-cache-dir -o ' .
+                  escapeshellarg($md5);
+        log_message('info', 'COMMAND: ' .$string);
+		$descriptorspec = [
+		   0 => ['pipe', 'r'],  // stdin
+		   1 => ['pipe', 'w'],  // stdout
+		   2 => ['pipe', 'w'],  // stderr
+        ];
 		$process = proc_open($string, $descriptorspec, $pipes);
 		$stdout = stream_get_contents($pipes[1]);
 		fclose($pipes[1]);
         $stderr = stream_get_contents($pipes[2]);
-        if(strpos($stderr, 'HTTP Error 429') !== false){
-            log_message('critical', "FATAL ERROR DOWNLOAD VIDEO: ".$url);
+        if(str_contains($stderr, 'HTTP Error 429')){
+            log_message('critical', 'FATAL ERROR DOWNLOAD VIDEO: ' .$url);
             var_dump($stderr);exit;
         }
 		fclose($pipes[2]);
         proc_close($process);
         
-		if(strpos($stdout, '[download] 100% of') !== false){
-            log_message('info', "DOWNLOAD COMPLETED: ".$url);
+		if(str_contains($stdout, '[download] 100% of')){
+            log_message('info', 'DOWNLOAD COMPLETED: ' .$url);
 			return true;
 		}else{
             if(function_exists('log_message')){
-                log_message('critical', "ERROR DOWNLOADING VIDEO: ".$url);
+                log_message('critical', 'ERROR DOWNLOADING VIDEO: ' .$url);
                 log_message('critical', print_r($stdout, true));
             }else{
                 echo "\nERROR DOWNLOADING VIDEO: ".$url;
@@ -178,4 +172,3 @@ class Youtube
 
     }
 }
-?>

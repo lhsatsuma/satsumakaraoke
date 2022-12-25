@@ -1,6 +1,9 @@
 <?php
 namespace App\Controllers;
 
+use App\Libraries\Sys\Ajax;
+use App\Models\UserPreferences\UserPreferences;
+
 class Users extends BaseController
 {
 	protected $module_name = 'Users';
@@ -9,9 +12,9 @@ class Users extends BaseController
 	{
 		parent::__construct();
 		
-		$data = array(
+		$data = [
 			'login_msg' => '',
-		);
+        ];
 		if($this->uri[0] !== 'login' && $this->uri[1] !== 'myInfo' && $this->uri[1] !== 'salvarmyInfo'){
 			$this->access_cfg['admin_only'] = true;
 		}
@@ -92,7 +95,7 @@ class Users extends BaseController
 		if($this->session->get('auth_user')){
 			rdct('/home');
 		}
-		$ajaxLib = new \App\Libraries\Sys\Ajax();
+		$ajaxLib = new Ajax();
 		$ajaxLib->CheckIncoming();
 
 		$this->mdl->where['email'] = $ajaxLib->body['chkEmail'];
@@ -117,18 +120,18 @@ class Users extends BaseController
 		
 		if(!empty(getFormData('senha_nova')) || !empty(getFormData('confirm_senha_nova'))){
 			if(!verify_pass(getFormData('senha_atual'), $AuthUser['senha'])){
-				$this->validation_errors = array(
+				$this->validation_errors = [
 					'senha_atual' => 'A senha atual não confere.',
-				);
+                ];
 				$this->SetErrorValidatedForm();
 				rdct('/users/myInfo');
 			}
 			$senha_nova = getFormData('senha_nova');
 			$confirm_senha_nova = getFormData('confirm_senha_nova');
 			if($senha_nova !== $confirm_senha_nova){
-				$this->validation_errors = array(
+				$this->validation_errors = [
 					'confirm_senha_nova' => 'As senhas não conferem',
-				);
+                ];
 				$this->SetErrorValidatedForm();
 				rdct('/users/myInfo');
 			}
@@ -142,9 +145,9 @@ class Users extends BaseController
 		//Verify's if the email already exists
 		$search_email = $this->mdl->search(1);
 		if($search_email){
-			$this->validation_errors = array(
+			$this->validation_errors = [
 				'email' => 'Já existe um usuário com este email.',
-			);
+            ];
 			$this->SetErrorValidatedForm();
 			rdct('/users/myInfo');
 		}
@@ -181,7 +184,7 @@ class Users extends BaseController
 	
 	public function auth()
 	{
-		$this->PopulatePost(false);
+		$this->PopulatePost();
 		
 		if(empty($this->mdl->f['email']) || empty($this->mdl->f['senha'])){
 			header('Location: /login');
@@ -201,7 +204,7 @@ class Users extends BaseController
 		$this->mdl->f = [];
 		$this->mdl->f['id'] = $exists['id'];
 		$this->mdl->f['last_ip'] = $this->request->getIPAddress();
-		$this->mdl->f['last_connected'] = date("Y-m-d H:i:s");
+		$this->mdl->f['last_connected'] = date('Y-m-d H:i:s');
 		$this->mdl->auth_user_id = $exists['id'];
 		$this->mdl->saveRecord();
 		
@@ -216,7 +219,7 @@ class Users extends BaseController
 	
 	public function send_forget_pass()
 	{
-		$ajax = new \App\Libraries\Sys\Ajax(['email']);
+		$ajax = new Ajax(['email']);
 		
 		$this->mdl->where['email'] = $ajax->body['email'];
 		$this->mdl->order_by['id'] = 'ASC';
@@ -256,6 +259,7 @@ class Users extends BaseController
 			$this->setMsgData('error', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
 			rdct('/login');
 		}
+        return false;
 	}
 	
 	public function save_fgt_pass()
@@ -279,9 +283,8 @@ class Users extends BaseController
 		if($valid){
 			$nova = $this->request->getPost('nova_senha');
 			$confirm = $this->request->getPost('confirm_nova_senha');
-			$changedValid = true;
+            $changedValid = true;
 			if($nova === $confirm){
-				
 				$changed = $this->mdl->changePass($nova);
 				if($changed){
 					$this->setMsgData('success', 'Senha alterada com sucesso! Você já pode fazer o login com a nova senha.');
@@ -305,13 +308,14 @@ class Users extends BaseController
 			$this->setMsgData('error', 'A chave para recuperação é inválida! Talvez a chave não existe ou expirou.');
 			rdct('/login');
 		}
+        return false;
 	}
 	public function reset_preferences()
 	{
-		$ajax = new \App\Libraries\Sys\Ajax();
+		$ajax = new Ajax();
 		$ajax->CheckIncoming();
 
-		$prefs = new \App\Models\UserPreferences\UserPreferences();
+		$prefs = new UserPreferences();
 		$deleted = $prefs->delPref(null, $this->mdl->auth_user_id, true);
 
 		$ajax->setSuccess($deleted);

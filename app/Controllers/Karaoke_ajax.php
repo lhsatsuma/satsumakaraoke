@@ -1,18 +1,23 @@
 <?php
 namespace App\Controllers;
 
+use App\Libraries\Sys\Ajax;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+
 class Karaoke_ajax extends BaseController
 {
 	protected $module_name = 'MusicasFila';
 
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		hasPermission(1001, 'r', true);
 
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
-		$this->ajax = new \App\Libraries\Sys\Ajax();
+		$this->ajax = new Ajax();
 		$this->ajax->CheckIncoming();
 	}
 

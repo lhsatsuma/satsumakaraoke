@@ -6,11 +6,11 @@ class Files extends AdminBaseController
     protected $module_name = 'Files';
     public $data = [];
     public $generic_filter = true;
-    public $pager_config = array(
+    public $pager_config = [
         'per_page' => 10,
         'segment' => 3,
         'template' => 'template_basic',
-    );
+    ];
 	
 	public function ExtButtonsGenericFilters()
 	{
@@ -26,22 +26,22 @@ class Files extends AdminBaseController
     {
 		hasPermission(7, 'r', true);
         
-        $initial_filter = array(
+        $initial_filter = [
             'name' => '',
-        );
-        $initial_order_by = array(
+        ];
+        $initial_order_by = [
             'field' => 'name',
             'order' => 'ASC',
-        );
+        ];
 
-        $this->filterLib_cfg = array(
+        $this->filterLib_cfg = [
             'use' => true,
             'action' => base_url().'/admin/files/index',
-            'generic_filter' => array(
+            'generic_filter' => [
                 'name',
-                
-            ),
-        );
+
+            ],
+        ];
 
         $this->PopulateFiltroPost($initial_filter, $initial_order_by);
 
@@ -51,7 +51,7 @@ class Files extends AdminBaseController
         $result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
         $result = $this->mdl->formatRecordsView($result);
         $this->data['records'] = $result;
-        $this->data['records_count'] = (count($result)) ? true : false;
+        $this->data['records_count'] = (bool)count((array)$result);
 
         return $this->displayNew('pages/Admin/files/index');
     }
@@ -79,7 +79,7 @@ class Files extends AdminBaseController
 	{
 		hasPermission(7, 'w', true);
 
-		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
+		$this->data['title'] = translate($id ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = [];
 		if($id){
@@ -111,9 +111,9 @@ class Files extends AdminBaseController
 				if($deleted){
 					rdct('/admin/files/index');
 				}
-				$this->validation_errors = array(
+				$this->validation_errors = [
 					'generic_error' => 'Não foi possível deletar o registro, tente novamente.',
-				);
+                ];
 				$this->SetErrorValidatedForm(false);
 				rdct('/admin/files/edit/'.$this->mdl->f['id']);
 			}
@@ -129,9 +129,9 @@ class Files extends AdminBaseController
 		if($saved){
 			rdct('/admin/files/detail/'.$this->mdl->f['id']);
 		}else{
-			$this->validation_errors = array(
+			$this->validation_errors = [
 				'generic_error' => $this->mdl->last_error,
-			);
+            ];
 			$this->SetErrorValidatedForm();
 			rdct('/admin/files/edit/'.$this->request->getPost('id'));
 		}

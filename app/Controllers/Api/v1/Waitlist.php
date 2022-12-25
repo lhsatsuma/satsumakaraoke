@@ -1,6 +1,5 @@
 <?php
 namespace App\Controllers\Api\v1;
-use \OAuth2\Request;
 
 class Waitlist extends ApiController
 {

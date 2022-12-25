@@ -2,12 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Sys\Ajax;
+use App\Libraries\Sys\Filter;
+use App\Libraries\Sys\InitApp;
+use App\Libraries\Sys\Layout;
+use App\Libraries\Sys\SmartyCI;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\Response;
+use Config\Services;
 use Psr\Log\LoggerInterface;
 
 class BaseController extends Controller
@@ -59,8 +65,7 @@ class BaseController extends Controller
 	public $session;
 	
 	/*
-	@class of Smarty
-	Smarty it's a TPL Engine for PHP
+	@class of Smarty	 it's a TPL Engine for PHP
 	Because the Parser of CI4 it's limited for functions and vars display
 	*/
 	public $view;
@@ -98,20 +103,20 @@ class BaseController extends Controller
 	Check if this controller is only for admin
 	*/
 	
-	public $access_cfg = array(
+	public $access_cfg = [
 		'needs_login' => true, //For access all pages, needs to be logged in
 		'admin_only' => false,
-	);
+    ];
 	
 	/*
 	@array
 	Sets var for pagination config
 	*/
-	public $pager_cfg = array(
+	public $pager_cfg = [
 		'per_page' => 20,
 		'segment' => 3,
 		'template' => 'template_basic',
-	);
+    ];
 	
 	/*
 	@namespace
@@ -121,15 +126,15 @@ class BaseController extends Controller
 	
 	/*
 	@Array
-	Sets if it's gonna use the Generic Filter
+	Sets if it's going to use the Generic Filter
 	*/
-	public $filterLib_cfg = array(
+	public $filterLib_cfg = [
 		'use' => false,
 		'action' => '',
-		'generic_filter' => array(
+		'generic_filter' => [
 			'name',
-		),
-	);
+        ],
+    ];
 
 	protected $is_mobile = false;
 
@@ -141,16 +146,16 @@ class BaseController extends Controller
 	
 	public function __construct()
 	{
-		$this->lang_file = str_replace(['App\\Controllers\\', '\\'], ['', '.'], get_class($this));
+		$this->lang_file = str_replace(['App\\Controllers\\', '\\'], ['', '.'], $this::class);
 		$GLOBALS['lang_file'] = $this->lang_file;
 		helper('Sys_helper');
-		if(strpos(strtolower(get_class($this)), 'cssmanager') === false
-		&& strpos(strtolower(get_class($this)), 'jsmanager') === false){
+		if(!str_contains(strtolower($this::class), 'cssmanager')
+		&& !str_contains(strtolower($this::class), 'jsmanager')){
 			$this->session = getSession();
 			$this->uri = current_url(true)->getSegments();
 			array_shift($this->uri);
-			$this->routes = \Config\Services::router();
-			$this->request = \Config\Services::request();
+			$this->routes = Services::router();
+			$this->request = Services::request();
 
 			if(isMobile()){
 				$this->is_mobile = true;
@@ -162,14 +167,14 @@ class BaseController extends Controller
 		global $AppVersion;
 		$this->template = $AppVersion->template;
 		$this->template_file = $AppVersion->template_file;
-		$this->response = \Config\Services::response();
-		$this->request = \Config\Services::request();
+		$this->response = Services::response();
+		$this->request = Services::request();
 	}
 	
 	/**
 	 * Constructor.
 	 */
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
@@ -190,13 +195,13 @@ class BaseController extends Controller
 	
 	public function SetView()
 	{
-		$this->view = new \App\Libraries\Sys\SmartyCI();
+		$this->view = new SmartyCI();
 	}
 	
 	public function SetMdl()
 	{
 		//Let's call for MDL (model) for short code in Controllers
-		$namespace_call = ($this->ns_model) ? $this->ns_model : '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name;
+		$namespace_call = $this->ns_model ?: '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name;
 		if(class_exists($namespace_call)){
 			$this->mdl = new $namespace_call();
 		}
@@ -205,7 +210,7 @@ class BaseController extends Controller
 	public function SetSys()
 	{
 		//Initialize all system vars for models and session data
-		$this->sysLib = new \App\Libraries\Sys\InitApp($this->module_name);
+		$this->sysLib = new InitApp($this->module_name);
 		$this->CheckSysAccess();
 	}
 	
@@ -237,7 +242,7 @@ class BaseController extends Controller
 	
 	public function SetLayout()
 	{
-		$this->layout = new \App\Libraries\Sys\Layout($this->mdl->fields_map, $this->lang_file);
+		$this->layout = new Layout($this->mdl->fields_map, $this->lang_file);
 		$this->layout->template = $this->template;
 	}
 	public function SetBreadCrumbArr()
@@ -247,7 +252,7 @@ class BaseController extends Controller
 		*/
 		$breadcrumb = [];
 		
-		$controllerName = strtolower(str_replace('App\\Controllers\\', '', get_class($this)));
+		$controllerName = strtolower(str_replace('App\\Controllers\\', '', $this::class));
 		$methodName = strtolower($this->routes->methodName());
 		if(count($this->uri) == 0){
 			//For cases like app_url/
@@ -279,7 +284,7 @@ class BaseController extends Controller
 	public function getBreadcrumb()
 	{
 		$breadcrumb = [];
-		$controllerName = strtolower(str_replace('App\\Controllers\\', '', get_class($this)));
+		$controllerName = strtolower(str_replace('App\\Controllers\\', '', $this::class));
 		$methodName = strtolower($this->routes->methodName());
 		if(count($this->uri) == 0){
 			//For cases like app_url/
@@ -311,7 +316,7 @@ class BaseController extends Controller
 		}elseif($this->session->getFlashdata('msg_type') == 'error'){
 			$msg_type = 'error';
 		}
-		$this->js_vars['ajax_pagination'] = ($AppVersion->ajax_pagination ? true : false);
+		$this->js_vars['ajax_pagination'] = (bool)$AppVersion->ajax_pagination;
 		$this->js_vars['app_version'] = $AppVersion->version;
 		$this->js_vars['ch_ver'] = GetCacheVersion();
 		$this->js_vars['dark_mode'] = $this->session->get('auth_user')['dark_mode'];
@@ -319,12 +324,12 @@ class BaseController extends Controller
 
 
 		$locale = service('request')->getLocale();
-		$get_file = 'Dropdown_ext';
-		if(!file_exists(APPPATH . "Language/{$locale}/Public/{$get_file}.php")){
-			$get_file = 'Dropdown';
-		}
+//		$get_file = 'Dropdown_ext';
+//		if(!file_exists(APPPATH . "Language/{$locale}/Public/{$get_file}.php")){
+//			$get_file = 'Dropdown';
+//		}
 
-		$dataNew = array(
+		$dataNew = [
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
 			'ch_ver_org' => $AppVersion->version,
@@ -338,11 +343,11 @@ class BaseController extends Controller
 			'auth_user_admin' => $this->session->get('auth_user_admin'),
 			'breadcrumb' => $this->SetBreadCrumbArr(),
 			'auto_redirect_after_to' => getFormData('auto_redirect_after_to'),
-			'bdOnly' => ($this->request->getGet('bdOnly') ? true : false),
+			'bdOnly' => (bool)$this->request->getGet('bdOnly'),
 			'rdct_url' => $this->session->getFlashdata('rdct_url'),
 			'default_lang_file' => $this->lang_file,
 			'locale' => $locale,
-		);
+        ];
 		if($this->data){
 			$this->data = array_merge($this->data, $dataNew);
 		}else{
@@ -368,12 +373,15 @@ class BaseController extends Controller
 			}
 		}
 	}
-	
-	public function PopulateFiltroPost($initial_filter=array(), $initial_order=array())
+
+    /**
+     * @throws \Exception
+     */
+    public function PopulateFiltroPost($initial_filter= [], $initial_order= [])
 	{
 		//Just a generic function for populate all mdl->f with incoming post
 		foreach($this->mdl->fields_map as $field => $options){
-			$value = (!is_null(getFormData('search_'.$field))) ? getFormData('search_'.$field) : null;
+			$value = !is_null(getFormData('search_'.$field)) ? getFormData('search_'.$field) : null;
 			if(is_null($value) &&
 			isset($initial_filter[$field]) &&
 			!empty($initial_filter[$field])){
@@ -415,16 +423,16 @@ class BaseController extends Controller
 					}
 				}
 				$this->data['search_'.$field] = $old_value;
-				$this->filter[$field] = array(
+				$this->filter[$field] = [
 					'options' => $options,
 					'value' => $old_value,
-				);
+                ];
 			}
 			if(isset($initial_filter[$field])){
-				$this->filter[$field] = array(
+				$this->filter[$field] = [
 					'options' => $options,
 					'value' => $old_value,
-				);
+                ];
 			}
 		}
 		if($this->filterLib_cfg['generic_filter'] && !is_null(getFormData('search_generic_filter'))){
@@ -434,7 +442,6 @@ class BaseController extends Controller
 					if($this->fields_map[$field]['nondb']){
 						continue;
 					}
-					$key_where = "";
 					if(count($this->filterLib_cfg['generic_filter']) > 1){
 						if($key == 0){
 							$key_where = 'BEGINORWHERE_';
@@ -477,10 +484,13 @@ class BaseController extends Controller
 			
 		}
 	}
-	
-	public function GenerateGenericFilter()
+
+    /**
+     * @throws \Exception
+     */
+    public function GenerateGenericFilter()
 	{
-		$this->filterLib = new \App\Libraries\Sys\Filter($this->request, $this->filter, $this->lang_file);
+		$this->filterLib = new Filter($this->request, $this->filter, $this->lang_file);
 		$this->filterLib->action = $this->filterLib_cfg['action'];
 		$this->filterLib->generic_filter = $this->filterLib_cfg['generic_filter'];
 		$this->filterLib->id_filter = $this->filterLib_cfg['id_filter'];
@@ -491,7 +501,7 @@ class BaseController extends Controller
 			$this->filterLib->template = $this->template;
 		}
 		$this->filterLib->ext_buttons = $this->ExtButtonsGenericFilters();
-		$this->filterLib->order_by = array('field'=>$this->data['order_by_field'], 'order'=>$this->data['order_by_order']);
+		$this->filterLib->order_by = ['field'=>$this->data['order_by_field'], 'order'=>$this->data['order_by_order']];
 		return $this->filterLib->display();
 	}
 	
@@ -503,8 +513,8 @@ class BaseController extends Controller
 	public function GetPagination($total, $offset=0, $group = 'default')
 	{
 		
-		$pager = \Config\Services::pagerext();
-		$page = ($offset > 1) ? ($offset) : 1;
+		$pager = Services::pagerext();
+		$page = max($offset, 1);
 		return $pager->makeLinks($page, $this->pager_cfg['per_page'], $total, $this->pager_cfg['template'], $this->pager_cfg['segment'], $group);
 		
 	}
@@ -522,7 +532,7 @@ class BaseController extends Controller
 			'menu_arr' => $this->data['menu_arr'],
 		]);
 
-		return $this->display($this->view->setData(array('content'=>$content))->view($this->template.'/'.$this->template_file));
+		return $this->display($this->view->setData(['content'=>$content])->view($this->template.'/'.$this->template_file));
 	}
 
 	public function setDataTPL()
@@ -539,10 +549,10 @@ class BaseController extends Controller
 		Compressing HTML to output to consume less memory
 		*/
 		if($AppVersion->compress_output){
-			$content = str_replace(array("    ", "\t", "\n", "\r"), "", $content);
+			$content = str_replace(['    ', "\t", "\n", "\r"], '', $content);
 		}
 		if($this->request->getGet('bdOnly')){
-			$Ajax = new \App\Libraries\Sys\Ajax();
+			$Ajax = new Ajax();
 			$Ajax->setSuccess($content);
 		}else{
 			return $content;
@@ -601,7 +611,7 @@ class BaseController extends Controller
 	public function ValidateFormPost()
 	{
 		
-		$this->validation = \Config\Services::validation();
+		$this->validation = Services::validation();
 		foreach($this->mdl->fields_map as $field => $attrs){
 			if($field == 'id'){
 				continue;
@@ -621,7 +631,7 @@ class BaseController extends Controller
 				}
 			}else{
 				if($attrs['required'] && isset($_POST[$field]) ||
-				(isset($attrs['skipRequired']) && !$attrs['skipRequired'])){
+                    isset($attrs['skipRequired']) && !$attrs['skipRequired']){
 					$validation_str .= $c_validation_str.'required';
 					$c_validation_str = '|';
 				}

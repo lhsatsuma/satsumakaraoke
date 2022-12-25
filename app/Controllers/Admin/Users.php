@@ -9,9 +9,9 @@ class Users extends AdminBaseController
 	
 	public function ExtButtonsGenericFilters()
 	{
-		return array(
+		return [
 			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/users/edit">'.translate('LBL_NEW_RECORD').'</a>',
-		);
+        ];
 	}
 	
 	
@@ -19,22 +19,22 @@ class Users extends AdminBaseController
 	{
 		hasPermission(1, 'r', true);
 		
-		$initial_filter = array(
+		$initial_filter = [
 			'name' => '',
-		);
-		$initial_order_by = array(
+        ];
+		$initial_order_by = [
 			'field' => 'date_created',
 			'order' => 'DESC',
-		);
+        ];
 		
-		$this->filterLib_cfg = array(
+		$this->filterLib_cfg = [
 			'use' => true,
 			'action' => base_url().'/admin/users/index',
-			'generic_filter' => array(
+			'generic_filter' => [
 				'name',
 				'email',
-			),
-		);
+            ],
+        ];
 		
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
 		
@@ -46,7 +46,7 @@ class Users extends AdminBaseController
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
-		$this->data['records_count'] = (count($result)) ? true : false;
+		$this->data['records_count'] = (bool)count((array)$result);
 		
 		return $this->displayNew('pages/Admin/Users/index');
 	}
@@ -72,7 +72,7 @@ class Users extends AdminBaseController
 	public function edit($id = null)
 	{
 		hasPermission(2, 'w', true);
-		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
+		$this->data['title'] = translate($id ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = [];
 		if($id){
@@ -118,9 +118,9 @@ class Users extends AdminBaseController
 		}
 		
 		if(empty($this->mdl->f['id']) && empty(getFormData('senha_nova')) && empty(getFormData('confirm_senha_nova'))){
-			$this->validation_errors = array(
+			$this->validation_errors = [
 				'senha_nova' => 'É necessário digitar uma senha para novos usuários.',
-			);
+            ];
 			$this->SetErrorValidatedForm();
 			rdct('/admin/users/edit/');
 		}
@@ -129,9 +129,9 @@ class Users extends AdminBaseController
 			$senha_nova = getFormData('senha_nova');
 			$confirm_senha_nova = getFormData('confirm_senha_nova');
 			if($senha_nova !== $confirm_senha_nova){
-				$this->validation_errors = array(
+				$this->validation_errors = [
 					'confirm_senha_nova' => 'As senhas não conferem',
-				);
+                ];
 				$this->SetErrorValidatedForm();
 				rdct('/admin/users/edit/'.getFormData('id'));
 			}
@@ -143,9 +143,9 @@ class Users extends AdminBaseController
 		//Verify's if the email already exists
 		$search_email = $this->mdl->search(1);
 		if($search_email){
-			$this->validation_errors = array(
+			$this->validation_errors = [
 				'email' => 'Já existe um usuário com este email.',
-			);
+            ];
 			$this->SetErrorValidatedForm();
 			rdct('/admin/users/edit/'.getFormData('id'));
 		}
@@ -175,7 +175,7 @@ class Users extends AdminBaseController
 	
 	public function auth()
 	{
-		$this->PopulatePost(false);
+		$this->PopulatePost();
 		
 		if(empty($this->mdl->f['email']) || empty($this->mdl->f['senha'])){
 			header('Location: /admin/login');
@@ -200,7 +200,7 @@ class Users extends AdminBaseController
 		$this->mdl->f = [];
 		$this->mdl->f['id'] = $exists['id'];
 		$this->mdl->f['last_ip'] = $this->request->getIPAddress();
-		$this->mdl->f['last_connected'] = date("Y-m-d H:i:s");
+		$this->mdl->f['last_connected'] = date('Y-m-d H:i:s');
 		$this->mdl->auth_user_id = $exists['id'];
 		$this->mdl->saveRecord();
 		

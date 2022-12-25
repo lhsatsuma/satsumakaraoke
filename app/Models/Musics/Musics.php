@@ -1,104 +1,107 @@
 <?php
 namespace App\Models\Musics;
 
-class Musics extends \App\Models\Basic\Basic
+use App\Models\Basic\Basic;
+use App\Models\Files\Files;
+use getID3;
+class Musics extends Basic
 {
 	public $db;
 	public $table = 'musicas';
 	public array $f = [];
-	public array $fields_map = array(
-		'id' => array(
+	public array $fields_map = [
+		'id' => [
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
-		),
-		'name' => array(
+        ],
+		'name' => [
 			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
-		),
-		'deleted' => array(
+        ],
+		'deleted' => [
 			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
-		),
-		'date_created' => array(
+        ],
+		'date_created' => [
 			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_created' => array(
+        ],
+		'user_created' => [
 			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+            ],
 			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
+        ],
+		'date_modified' => [
 			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
+        ],
+		'user_modified' => [
 			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+            ],
 			'dont_load_layout' => true,
-		),
-		'link' => array(
+        ],
+		'link' => [
 			'lbl' => 'LBL_LINK',
 			'type' => 'link',
 			'required' => true,
 			'max_length' => 255,
 			'validations' => 'required',
-		),
-		'origem' => array(
+        ],
+		'origem' => [
 			'lbl' => 'LBL_ORIGIN',
 			'type' => 'dropdown',
 			'parameter' => 'origem_musica_list',
 			'required' => true,
 			'max_length' => 255,
-		),
-		'codigo' => array(
+        ],
+		'codigo' => [
 			'lbl' => 'LBL_CODE',
 			'type' => 'int',
 			'required' => true,
-		),
-		'md5' => array(
+        ],
+		'md5' => [
 			'lbl' => 'LBL_MD5',
 			'type' => 'varchar',
 			'max_length' => 255,
-		),
-		'tipo' => array(
+        ],
+		'tipo' => [
 			'lbl' => 'LBL_LANGUAGE',
 			'type' => 'dropdown',
 			'parameter' => 'tipo_musica',
 			'required' => true,
-		),
-		'duration' => array(
+        ],
+		'duration' => [
 			'lbl' => 'LBL_DURATION',
 			'type' => 'int',
 			'default' => 0,
 			'required' => true,
-		),
-		'fvt' => array(
+        ],
+		'fvt' => [
 			'nondb' => true,
 			'lbl' => 'LBL_MY_FAVORITES',
 			'type' => 'bool',
-		)
-	);
+        ]
+    ];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],
@@ -113,11 +116,12 @@ class Musics extends \App\Models\Basic\Basic
 		return true;
 	}
 	
-	function force_save(string $link, string $md5, string $title, string $tipo)
+	public function force_save(string $link, string $md5, string $title, string $tipo)
 	{
-		$this->where = array(
+        $return_data = [];
+		$this->where = [
 			'md5' => $md5,
-		);
+        ];
 		$result = $this->search(1);
 		if($result[0]){
 			$return_data['exists'] = true;
@@ -127,7 +131,7 @@ class Musics extends \App\Models\Basic\Basic
 		if(empty($this->f['codigo'])){
 			$this->force_deleted = true;
 			$this->where = [];
-			$this->select = "MAX(codigo)+1 as codigo_ult";
+			$this->select = 'MAX(codigo)+1 as codigo_ult';
 			$number = $this->search(1);
 			$this->f['codigo'] = $number[0]['codigo_ult'];
 			if(is_null($this->f['codigo'])){
@@ -142,13 +146,13 @@ class Musics extends \App\Models\Basic\Basic
 		$this->f['origem'] = 'UserImport';
 
 		$file_path = FCPATH . 'uploads/'.$md5;
-		$getID3 = new \getID3();
+		$getID3 = new getID3();
 		$analized = $getID3->analyze($file_path);
 		$this->f['duration'] = (int)$analized['playtime_seconds'];
 
 		$return_data['saved_record'] = $this->saveRecord();
 		if($return_data['saved_record'] && !$return_data['exists']){
-			$file = new \App\Models\Files\Files();
+			$file = new Files();
 			$file->new_with_id = true;
 			$file->f['id'] = $md5;
 			$file->f['name'] = $title.'.mp4';
@@ -164,4 +168,3 @@ class Musics extends \App\Models\Basic\Basic
 		return $return_data;
 	}
 }
-?>

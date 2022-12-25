@@ -27,11 +27,10 @@ class PagerRenderer extends \CodeIgniter\Pager\PagerRenderer
 			$links[] = [
 				'uri'    => (string) ($this->segment === 0 ? $uri->addQuery($this->pageSelector, $i) : $uri->setSegment($this->segment, $i)),
 				'title'  => (int) $i,
-				'active' => ($i === $this->current || ($this->current == 0 && $i == 1)),
+				'active' => $i === $this->current || $this->current == 0 && $i == 1,
 			];
 		}
 
 		return $links;
 	}
 }
-?>

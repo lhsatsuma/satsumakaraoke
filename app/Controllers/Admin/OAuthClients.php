@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers\Admin;
 
+use App\Libraries\Sys\Ajax;
+
 class OAuthClients extends AdminBaseController
 {
     protected $module_name = 'OAuthClients';
@@ -21,21 +23,21 @@ class OAuthClients extends AdminBaseController
     {
 		hasPermission(10, 'r', true);
         
-        $initial_filter = array(
+        $initial_filter = [
             'name' => '',
-        );
-        $initial_order_by = array(
+        ];
+        $initial_order_by = [
             'field' => 'name',
             'order' => 'ASC',
-        );
+        ];
 
-        $this->filterLib_cfg = array(
+        $this->filterLib_cfg = [
             'use' => true,
             'action' => base_url().'/admin/OAuthClients/index',
-            'generic_filter' => array(
+            'generic_filter' => [
                 'name',
-            ),
-        );
+            ],
+        ];
 
         $this->PopulateFiltroPost($initial_filter, $initial_order_by);
 
@@ -45,7 +47,7 @@ class OAuthClients extends AdminBaseController
         $result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
         $result = $this->mdl->formatRecordsView($result);
         $this->data['records'] = $result;
-        $this->data['records_count'] = (count((array)$result)) ? true : false;
+        $this->data['records_count'] = count((array)$result);
 
         return $this->displayNew('pages/Admin/OAuthClients/index');
     }
@@ -73,7 +75,7 @@ class OAuthClients extends AdminBaseController
 	{
 		hasPermission(10, 'w', true);
 
-		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
+		$this->data['title'] = translate($id ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = [];
 		if($id){
@@ -105,9 +107,9 @@ class OAuthClients extends AdminBaseController
 				if($deleted){
 					rdct('/admin/OAuthClients/index');
 				}
-				$this->validation_errors = array(
+				$this->validation_errors = [
 					'generic_error' => 'Não foi possível deletar o registro, tente novamente.',
-				);
+                ];
 				$this->SetErrorValidatedForm(false);
 				rdct('/admin/OAuthClients/edit/'.$this->mdl->f['id']);
 			}
@@ -123,9 +125,9 @@ class OAuthClients extends AdminBaseController
 		if($saved){
 			rdct('/admin/OAuthClients/detail/'.$this->mdl->f['id']);
 		}else{
-			$this->validation_errors = array(
+			$this->validation_errors = [
 				'generic_error' => $this->mdl->last_error,
-			);
+            ];
 			$this->SetErrorValidatedForm();
 			rdct('/admin/OAuthClients/edit/'.$this->request->getPost('id'));
 		}
@@ -133,7 +135,7 @@ class OAuthClients extends AdminBaseController
 
 	public function check_client_id()
 	{
-		$ajax = new \App\Libraries\Sys\Ajax(['client_id']);
+		$ajax = new Ajax(['client_id']);
 		
 		$this->mdl->f['client_id'] = $ajax->body['client_id'];
 		$this->mdl->f['id'] = $ajax->body['id'];

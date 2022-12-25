@@ -1,6 +1,8 @@
 <?php
 namespace App\Libraries\Sys;
 
+use Config\Smarty;
+
 class SmartyCI extends \Smarty
 {
 	protected $config;
@@ -12,9 +14,9 @@ class SmartyCI extends \Smarty
 	{
 		parent::__construct();
 		
-		if ($this->config !== $this->config instanceof \Config\Smarty)
+		if ($this->config !== $this->config instanceof Smarty)
 		{
-			$this->config = new \Config\Smarty();
+			$this->config = new Smarty();
 		}
 		$this->template_dir = $this->config->templateDir;		
 		$this->compile_dir = $this->config->compileDir;		
@@ -36,7 +38,7 @@ class SmartyCI extends \Smarty
 	public function clearInputs($view)
 	{
 		$this->clearAllAssign();
-		$this->clearCache($view, null, null);
+		$this->clearCache($view);
 	}
 	public function view(string $view, array $options = null) 
 	{
@@ -52,7 +54,7 @@ class SmartyCI extends \Smarty
 		}
 		
 		if(!$this->isCaching){
-			$this->smarty->clearCache($view, null, null);
+			$this->smarty->clearCache($view);
 		}
 			
 		return $this->fetch($view);

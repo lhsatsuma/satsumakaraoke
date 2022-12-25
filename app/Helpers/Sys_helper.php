@@ -1,11 +1,17 @@
 <?php
 /* ALL FUNCTIONS WITH NO CLASS GOES HERE */
 
+use App\Controllers\BaseController;
+use App\Models\Parameters\Parameters;
+use App\Models\ProfilePermissions\ProfilePermissions;
+use Config\AppVersion;
+use Config\Services;
+
 if(!isset($GLOBALS['AppVersion'])){
-	$GLOBALS['AppVersion'] = new \Config\AppVersion();
+	$GLOBALS['AppVersion'] = new AppVersion();
 	function GetCacheVersion(){
 		global $AppVersion;
-		return ($AppVersion->enc_md5) ? md5($AppVersion->version) : $AppVersion->version;
+		return $AppVersion->enc_md5 ? md5($AppVersion->version) : $AppVersion->version;
 	}
 	function getTitle(){
 		global $AppVersion;
@@ -30,10 +36,10 @@ if(!isset($GLOBALS['AppVersion'])){
 	function Mask($mask,$str)
 	{
 
-		$str = str_replace(" ","",$str);
+		$str = str_replace(' ', '',$str);
 
 		for($i=0;$i<strlen($str);$i++){
-			$mask[strpos($mask,"#")] = $str[$i];
+			$mask[strpos($mask, '#')] = $str[$i];
 		}
 
 		return $mask;
@@ -47,12 +53,12 @@ if(!isset($GLOBALS['AppVersion'])){
 	function round_up($number, $precision = 2)
 	{
 		$fig = (int) str_pad('1', $precision, '0');
-		return (ceil($number * $fig) / $fig);
+		return ceil($number * $fig) / $fig;
 	}
 	function round_down($number, $precision = 2)
 	{
 		$fig = (int) str_pad('1', $precision, '0');
-		return (floor($number * $fig) / $fig);
+		return floor($number * $fig) / $fig;
 	}
 	function create_guid(){
 		$microTime = microtime();
@@ -61,8 +67,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		$sec_hex = dechex($a_sec);
 		ensure_length($dec_hex, 5);
 		ensure_length($sec_hex, 6);
-		$guid = '';
-		$guid .= $dec_hex;
+		$guid = $dec_hex;
 		$guid .= create_guid_section(3);
 		$guid .= '-';
 		$guid .= create_guid_section(4);
@@ -150,7 +155,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		}
 
 		// Elimina possivel mascara
-		$cpf = preg_replace("/[^0-9]/", "", $cpf);
+		$cpf = preg_replace('/[^0-9]/', '', $cpf);
 		$cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 		
 		// Verifica se o numero de digitos informados é igual a 11 
@@ -159,7 +164,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		}
 		// Verifica se nenhuma das sequências invalidas abaixo 
 		// foi digitada. Caso afirmativo, retorna falso
-		else if ($cpf == '00000000000' || 
+		if ($cpf == '00000000000' ||
 			$cpf == '11111111111' || 
 			$cpf == '22222222222' || 
 			$cpf == '33333333333' || 
@@ -177,9 +182,9 @@ if(!isset($GLOBALS['AppVersion'])){
 			for ($t = 9; $t < 11; $t++) {
 				
 				for ($d = 0, $c = 0; $c < $t; $c++) {
-					$d += $cpf[$c] * (($t + 1) - $c);
+					$d += $cpf[$c] * ($t + 1 - $c);
 				}
-				$d = ((10 * $d) % 11) % 10;
+				$d = 10 * $d % 11 % 10;
 				if ($cpf[$c] != $d) {
 					return false;
 				}
@@ -189,18 +194,19 @@ if(!isset($GLOBALS['AppVersion'])){
 		}
 	}
 
-	function validaCNPJ($cnpj){$cnpj=preg_replace('/[^0-9]/','',(string) $cnpj);if(strlen($cnpj)!=14)return false;if(preg_match('/(\d)\1{13}/',$cnpj))return false;for($i=0,$j=5,$soma=0;$i<12;$i++){$soma+=$cnpj[$i]*$j;$j=($j==2)?9:$j-1;}$resto=$soma%11;if($cnpj[12]!=($resto<2?0:11-$resto))return false;for($i=0,$j=6,$soma=0;$i<13;$i++){$soma+=$cnpj[$i]*$j;$j=($j==2)?9:$j-1;}$resto=$soma%11;return $cnpj[13]==($resto<2?0:11-$resto);}
+	function validaCNPJ($cnpj){$cnpj=preg_replace('/[^0-9]/','',(string) $cnpj);if(strlen($cnpj) != 14 || preg_match('/(\d)\1{13}/', $cnpj))return false;
+        for($i=0, $j=5, $soma=0; $i<12; $i++){$soma+=$cnpj[$i]*$j;$j= $j==2 ?9:$j-1;}$resto=$soma%11;if($cnpj[12]!=($resto<2?0:11-$resto))return false;for($i=0, $j=6, $soma=0; $i<13; $i++){$soma+=$cnpj[$i]*$j;$j= $j==2 ?9:$j-1;}$resto=$soma%11;return $cnpj[13]==($resto<2?0:11-$resto);}
 
 	function convertSize($size){
 		$base = log($size) / log(1024);
-		$suffix = array("", "KB", "MB", "GB", "TB");
+		$suffix = ['', 'KB', 'MB', 'GB', 'TB'];
 		$f_base = floor($base);
-		$math = round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
+		$math = round(1024 ** ($base - floor($base)), 1) . $suffix[$f_base];
 		
 		return str_replace('.', ',', $math);
 	}
 	function removeAccents($string){
-		return preg_replace(array("/ç|Ç/","/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","c a A e E i I o O u U n N"),$string);
+		return preg_replace(['/ç|Ç/', '/(á|à|ã|â|ä)/', '/(Á|À|Ã|Â|Ä)/', '/(é|è|ê|ë)/', '/(É|È|Ê|Ë)/', '/(í|ì|î|ï)/', '/(Í|Ì|Î|Ï)/', '/(ó|ò|õ|ô|ö)/', '/(Ó|Ò|Õ|Ô|Ö)/', '/(ú|ù|û|ü)/', '/(Ú|Ù|Û|Ü)/', '/(ñ)/', '/(Ñ)/'],explode(' ', 'c a A e E i I o O u U n N'),$string);
 	}
 	function sliceString($string, $int, $capitalize = false, $clean = false){
 		$result = implode(' ', array_slice(explode(' ', $string), 0, $int));
@@ -256,7 +262,7 @@ if(!isset($GLOBALS['AppVersion'])){
 	{
 		global $requestForm;
 		if(!$requestForm){
-			$requestForm = \Config\Services::request();
+			$requestForm = Services::request();
 		}
 		if($requestForm->isAJAX()){
 			$rawInput = $requestForm->getBody();
@@ -302,7 +308,7 @@ if(!isset($GLOBALS['AppVersion'])){
 			$permissions = getSession()->get('PRM_'.$cod.'_'.$profile);
 			if(is_null($permissions)){
 				if(!$permissao){
-					$permissao = new \App\Models\ProfilePermissions\ProfilePermissions();
+					$permissao = new ProfilePermissions();
 				}
 				$levelPermission = $permissao->hasPermission($cod, $profile)['nivel'];
 
@@ -327,7 +333,7 @@ if(!isset($GLOBALS['AppVersion'])){
 					$levelPermission -= 2;
 					$permissions['w'] = 1;
 				}
-				$level -= 1;
+				--$level;
 				if($level > 0){
 					$permissions['d'] = 1;
 				}
@@ -346,7 +352,7 @@ if(!isset($GLOBALS['AppVersion'])){
 	}
 	function rdctForbbiden()
 	{
-		$focus = new \App\Controllers\BaseController();
+		$focus = new BaseController();
 		$focus->SetSys();
 		$focus->SetView();
 		$focus->SetLayout();
@@ -359,7 +365,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		$parametro_valor = getSession()->get('PARAM_CACHE_'.$cod);
 		if(is_null($parametro_valor)){
 			if(!$parametros){
-				$parametros = new \App\Models\Parameters\Parameters();
+				$parametros = new Parameters();
 			}
 			$parametro_valor = $parametros->getParameterValue($cod)['valor'];
 			getSession()->set('PARAM_CACHE_'.$cod, $parametro_valor);
@@ -368,13 +374,12 @@ if(!isset($GLOBALS['AppVersion'])){
 	}
 	function checkRdct($rdct_url)
 	{
-		return ($rdct_url
+		return $rdct_url
 			&& strpos($rdct_url, 'downloadManager') === false
 			&& strpos($rdct_url, 'cssManager') === false
 			&& strpos($rdct_url, 'jsManager') === false
 			&& strpos($rdct_url, 'Ajax_requests') === false
-			&& strpos($rdct_url, '_ajax') === false
-		);
+			&& strpos($rdct_url, '_ajax') === false;
 	}
 
 	function isMobile()
@@ -406,7 +411,7 @@ if(!isset($GLOBALS['AppVersion'])){
 			$file = APPPATH . 'Language/'.$locale.'/'.implode('/', $file).'.php';
 			if(file_exists($file)){
 				log_message('debug', 'Calling language: '.$module);
-				$GLOBALS['translates'][$module] = require($file);
+				$GLOBALS['translates'][$module] = require $file;
 			}else{
 				log_message('error', 'Language file dont exist: '.$module);
 			}
@@ -431,21 +436,19 @@ if(!isset($GLOBALS['AppVersion'])){
         $files = scan_dir($folder);
         $count = 0;
         foreach($files as $file){
-            $check_folder = $folder.$file;
+        $check_folder = $folder.$file;
 
             if(is_dir($check_folder)){
                 getRecursiveLanguages($lang, $remove, $check_folder.'/');
-            }else{
-				if(strpos($file, '.php') !== false
-				&& strpos($file, 'Validation') === false){
-					$file = str_replace('.php', '', $file);
-					$key_array = str_replace([$remove.$lang.'/','Controllers/','/'], ['','', '.'], $folder.$file);
-					$content_json = json_encode(require($check_folder));
-					$files_return[$key_array] = "/* Language for {$key_array} in {$lang} */\n";
-					$files_return[$key_array] .= "translate.add('{$key_array}', {$content_json});\n";
-					$count++;
-				}
-			}
+            }elseif(strpos($file, '.php') !== false
+                && strpos($file, 'Validation') === false){
+                $file = str_replace('.php', '', $file);
+                $key_array = str_replace([$remove.$lang.'/','Controllers/','/'], ['','', '.'], $folder.$file);
+                $content_json = json_encode(require $check_folder);
+                $files_return[$key_array] = "/* Language for {$key_array} in {$lang} */\n";
+                $files_return[$key_array] .= "translate.add('{$key_array}', {$content_json});\n";
+                $count++;
+            }
         }
         $filename_cache = 'compressed_lang.js';
         $cache_path = WRITEPATH . 'cache/Languages/'.str_replace($remove, '', $folder);

@@ -7,21 +7,21 @@ AUTHOR: LUIS HENRIQUE MINORU SATSUMA
 LAST UPDATE: 13/09/2020
  */
 
-use CodeIgniter\Controller;
+use App\Controllers\BaseController;
 
-class AdminBaseController extends \App\Controllers\BaseController
+class AdminBaseController extends BaseController
 {
 	public $template_file = 'template_admin';
-	public $access_cfg = array(
+	public $access_cfg = [
 		'needs_login' => true, //For access all pages, needs to be logged in
 		'admin_only' => true,
-	);
+    ];
 	
-	public $pager_cfg = array(
+	public $pager_cfg = [
 		'per_page' => 20,
 		'segment' => 4,
 		'template' => 'template_basic',
-	);
+    ];
 
 	public function __construct()
 	{
@@ -39,7 +39,7 @@ class AdminBaseController extends \App\Controllers\BaseController
 			$this->mdl = new $namespace_call();
 		}else{
 			//If don't find Admin Model, let's try to call default of BaseController
-			$namespace_call = ($this->ns_model) ? $this->ns_model : '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name;
+			$namespace_call = $this->ns_model ?: '\\App\\Models\\'.$this->module_name.'\\'.$this->module_name;
 			if(class_exists($namespace_call)){
 				$this->mdl = new $namespace_call();
 			}

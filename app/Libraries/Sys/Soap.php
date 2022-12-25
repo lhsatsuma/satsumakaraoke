@@ -10,16 +10,16 @@ class Soap
 {
 	private $headers = [];
 	private $data = [];
-	public $auth = array(
+	public $auth = [
 		'user' => '',
 		'pass' => ''
-	);
+    ];
 	private $client;	
-	private $options = array(
+	private $options = [
 		'location' => '',
 		'uri' => '',
 		'trace' => true,
-	);
+    ];
 	public function __construct(){
 		//Nothing to do for now
 	}
@@ -31,11 +31,12 @@ class Soap
 			return $this->client;
 		}
 		$dataClient = [];
-		
-		$key_array = array(
+        $headers = [];
+
+		$key_array = [
 			'connection_timeout',
 			'keep_alive',
-		);
+        ];
 		foreach($key_array as $key){
 			$key_val = $this->GetOption($key);
 			if(isset($key_val)){
@@ -52,10 +53,10 @@ class Soap
 		$dataClient['location'] = $urlEffective;
 		$dataClient['trace'] = 1;
 		
-		$this->client = new \SoapClient($urlEffective, $dataClient);
+		$this->client = new SoapClient($urlEffective, $dataClient);
 		
 		if(!empty($this->headers)){
-			$headers[] = new \SoapHeader('SoapNamespace', $this->headers);
+			$headers[] = new SoapHeader('SoapNamespace', $this->headers);
 			$this->client->__setSoapHeaders($headers);
 		}
 		
@@ -102,10 +103,9 @@ class Soap
 		$validated = $this->CheckInitial($urlEffective);
 		if($validated === true){
 			$valid_soap = true;
-			$result = null;
 			try{
 				$result = $this->client->__call($method, $data);
-			}catch(\SoapFault $fault){
+			}catch(SoapFault $fault){
 				$valid_soap = false;
 				$this->data['request_body'] = $this->client->__getLastRequest();
 				$this->data['request_headers'] = $this->client->__getLastRequestHeaders();
@@ -115,7 +115,7 @@ class Soap
 			$this->data['response_body'] = $result;
 			$this->data['response_header'] = $this->client->__getLastResponseHeaders();
 			
-			$soap_msg = ($valid_soap) ? 'SOAP call successfully' : 'Error in SOAP call';
+			$soap_msg = $valid_soap ? 'SOAP call successfully' : 'Error in SOAP call';
 			
 			return $this->set_data($valid_soap, $soap_msg);
 		}
@@ -124,28 +124,28 @@ class Soap
 	}
 	private function set_data($error_code, $msg){
 		
-		$status = ($error_code) ? true : false;
+		$status = (bool)$error_code;
 		
 		if(!$status){
-			$this->data = array(
+			$this->data = [
 				'status' => $status,
 				'msg' => $msg,
-				'request' => array(
+				'request' => [
 					'uri' => $this->GetOption('uri'),
-				),
-			);
+                ],
+            ];
 		}else{
-			$this->data = array(
+			$this->data = [
 				'status' => $status,
 				'msg' => $msg,
-				'request' => array(
+				'request' => [
 					'uri' => $this->GetOption('uri'),
-				),
-				'response' => array(
+                ],
+				'response' => [
 					'header' => $this->data['response_header'],
 					'body' => $this->data['response_body'],
-				),
-			);
+                ],
+            ];
 		}
 		return $this->data;
 	}
@@ -156,16 +156,12 @@ class Soap
 		switch($option){
 			case 'request_headers':
 				return $this->client->__getLastRequestHeaders();
-				break;
 			case 'request_body':
 				return $this->client->__getLastRequest();
-				break;
 			case 'response_headers':
 				return $this->client->__getLastResponseHeaders();
-				break;
 			default:
 				return null;
 		}
 	}
 }
-?>

@@ -1,13 +1,16 @@
 <?php
 namespace App\Controllers\Admin;
 
+use CodeIgniter\Model;
+use FilesystemIterator;
+use getID3;
+
 class Internal extends AdminBaseController
 {
 	protected $module_name = 'Internal';
 	public $data = [];
 	public $generic_filter = true;
     private $microtime_start;
-    private $microtime_end;
 
     public function __construct()
     {
@@ -18,15 +21,15 @@ class Internal extends AdminBaseController
 
     private function calcExectime()
     {
-        $this->microtime_end = microtime(true);
-        return number_format($this->microtime_end - $this->microtime_start, 5, '.', ',');
+        $microtime_end = microtime(true);
+        return number_format($microtime_end - $this->microtime_start, 5);
     }
 	
 	public function ExtButtonsGenericFilters()
 	{
-		return array(
+		return [
 			'new' => '<a class="btn btn-outline-success btn-rounded" href="'.$this->base_url.'admin/usuarios/editar">'.translate('LBL_NEW_RECORD').'</a>',
-		);
+        ];
 	}
 	
 	public function index()
@@ -73,7 +76,7 @@ class Internal extends AdminBaseController
         foreach($files as $file){
             //Dont remove index.html and htaccess files
             if(!in_array($file, ['index.html', '.htaccess'])
-            && filemtime($file) <= strtotime("Y-m-d H:i:s")-172800){
+            && filemtime($file) <= strtotime('Y-m-d H:i:s')-172800){
                 unlink(WRITEPATH . 'logs/'.$file);
                 $deleted++;
             }
@@ -85,7 +88,7 @@ class Internal extends AdminBaseController
         foreach($files as $file){
             //Dont remove index.html and htaccess files
             if(!in_array($file, ['index.html', '.htaccess'])
-            && filemtime($file) <= strtotime("Y-m-d H:i:s")-172800){
+            && filemtime($file) <= strtotime('Y-m-d H:i:s')-172800){
                 unlink(WRITEPATH . 'uploads/'.$file);
                 $deleted++;
             }
@@ -159,7 +162,7 @@ class Internal extends AdminBaseController
         Delete records from database where deleted = 1
         */
 
-        $model = new \CodeIgniter\Model();
+        $model = new Model();
         $model->setTable('usuarios');
 
         $tables = $model->listTables();
@@ -285,13 +288,13 @@ class Internal extends AdminBaseController
         /*
         Reconstruct database with models definitions
         */
-        $model = new \CodeIgniter\Model();
+        $model = new Model();
         $model->setTable('usuarios');
 
         getModules();
         $models = getModules();
         $sqlRepair = '';
-        $tablesList = (!$complete) ? $model->listTables() : [];
+        $tablesList = !$complete ? $model->listTables() : [];
 
         foreach($models as $className => $name){
             $sqlRepairTable = '';
@@ -305,7 +308,7 @@ class Internal extends AdminBaseController
                 $fieldsDB = (array)$mdl->getFieldData($mdl->table);
             }else{
                 $fieldsDB = [];
-                $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."CREATE TABLE {$mdl->table} (";
+                $sqlRepairTable .= ($sqlRepairTable ? '<br />' : '') ."CREATE TABLE {$mdl->table} (";
             }
 
             /* Checking every field */
@@ -334,7 +337,7 @@ class Internal extends AdminBaseController
 
                 /* Sets the max_length property accordingly to model definition */
                 if($options['type'] == 'int'){
-                    $maxLength = ($options['max_length'] > $this->getMaxLengthFieldDB('int') || !isset($options['max_length'])) ? $this->getMaxLengthFieldDB('int') : $options['max_length'];
+                    $maxLength = $options['max_length'] > $this->getMaxLengthFieldDB('int') || !isset($options['max_length']) ? $this->getMaxLengthFieldDB('int') : $options['max_length'];
                 }elseif($options['type'] == 'related'){
                     $maxLength = 36;
                 }elseif($options['type'] == 'currency'){
@@ -346,87 +349,82 @@ class Internal extends AdminBaseController
                 }
                 
                 if(!$tableExists){
-                    //If table don't exists, just put field and type
-                    $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."{$field} {$typeDB}";
+                    //If table don't exist, just put field and type
+                    $sqlRepairTable .= ($sqlRepairTable ? '<br />' : '') ."{$field} {$typeDB}";
                     if($options['dont_generate']){
-                        $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
+                        $sqlRepairTable .= ' NOT NULL AUTO_INCREMENT';
                     }
                     $needUpdate = true;
                 }elseif($tableExists && !$fieldInDB){
                     //If table exists but field don't, let's try an ADD COLUMN
-                    $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."ALTER TABLE {$mdl->table} ADD {$field} {$typeDB}";
+                    $sqlRepairTable .= ($sqlRepairTable ? '<br />' : '') ."ALTER TABLE {$mdl->table} ADD {$field} {$typeDB}";
                     if($options['dont_generate']){
-                        $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
+                        $sqlRepairTable .= ' NOT NULL AUTO_INCREMENT';
                     }
                     $needUpdate = true;
                     $isAdd = true;
                 }elseif(
-                    (
-                        $tableExists &&
-                        $fieldInDB['type'] !== $typeDB
-                        || 
-                        $fieldInDB['max_length'] !== $maxLength
-                    )
+                    $tableExists &&
+                    $fieldInDB['type'] !== $typeDB
                     ||
-                    (
-                        isset($options['default']) && !is_null($options['default'])
-                        && $options['default'] != $fieldInDB['default']
-                    )
+                    $fieldInDB['max_length'] !== $maxLength
+                    ||
+                    isset($options['default']) && !is_null($options['default'])
+                    && $options['default'] != $fieldInDB['default']
                 ){
                     //If table and field exists but there's something different, let's try an MODIFY COLUMN
-                    $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."ALTER TABLE {$mdl->table} MODIFY COLUMN {$field} {$typeDB}";
+                    $sqlRepairTable .= ($sqlRepairTable ? '<br />' : '') ."ALTER TABLE {$mdl->table} MODIFY COLUMN {$field} {$typeDB}";
                     if($options['dont_generate']){
-                        $sqlRepairTable .= " NOT NULL AUTO_INCREMENT";
+                        $sqlRepairTable .= ' NOT NULL AUTO_INCREMENT';
                     }
                     $needUpdate = true;
                 }
 
                 if($needUpdate){
                     /* If field needs to update, let's make the definitions of */
-                    if($maxLength){if($options['type'] == 'currency'){
+                    if($maxLength){
+                        if($options['type'] == 'currency' || $options['type'] == 'float'){
                             $sqlRepairTable .= '('.$maxLength.','.$options['parameter']['precision'].')';
-                        }elseif($options['type'] == 'float'){
-                            $sqlRepairTable .= '('.$maxLength.','.$options['parameter']['precision'].')';
-                        }elseif($typeDB !== 'datetime' && $typeDB !== 'bool'){
+                        } elseif($typeDB !== 'datetime' && $typeDB !== 'bool'){
                             $sqlRepairTable .= '('.$maxLength.')';
                         }
                     }
                     if(isset($options['default']) && $typeDB == 'tinyint'){
-                        $sqlRepairTable .= ' DEFAULT '. (($options['default']) ? "TRUE" : "FALSE");
+                        $sqlRepairTable .= ' DEFAULT '. ($options['default'] ? 'TRUE' : 'FALSE');
                     }elseif(isset($options['default']) && !is_null($options['default'])){
                         $sqlRepairTable .= ' DEFAULT '.(is_string($options['default']) ? "'{$options['default']}'" : $options['default']);
                     }
 
                     if($tableExists && $isAdd && $previousField){
                         //Insert field after previousField in model definition if possibly
-                        $sqlRepairTable .= " AFTER ".$previousField.";";
+                        $sqlRepairTable .= ' AFTER ' .$previousField. ';';
                     }elseif($tableExists && $isAdd){
                         //Insert field in first of the table
-                        $sqlRepairTable .= " FIRST;";
+                        $sqlRepairTable .= ' FIRST;';
                     }elseif(!$tableExists){
-                        $sqlRepairTable .= ",";
+                        $sqlRepairTable .= ',';
                     }else{
-                        $sqlRepairTable .= ";";
+                        $sqlRepairTable .= ';';
                     }
                 }
                 
                 $previousField = $field;
             }
             if(!$tableExists){
-                $pks_fields = ($mdl->pks_table) ? implode(', ',$mdl->pks_table) : 'id';
-                $sqlRepairTable .= (($sqlRepairTable) ? "<br />" : "") ."PRIMARY KEY ({$pks_fields})<br />) ENGINE = InnoDB;";
+                $pks_fields = $mdl->pks_table ? implode(', ',$mdl->pks_table) : 'id';
+                $sqlRepairTable .= ($sqlRepairTable ? '<br />' : '') ."PRIMARY KEY ({$pks_fields})<br />) ENGINE = InnoDB;";
             }
             $sqlRepairIdx = '';
             foreach($mdl->idx_table as $keyIdx => $fieldsIdx){
                 $sqlIdx = $mdl->getIdxSQL($keyIdx, $complete);
-                $sqlRepairIdx .= ($sqlIdx) ? "<br />".$sqlIdx : '';
+                $sqlRepairIdx .= $sqlIdx ? '<br />' .$sqlIdx : '';
             }
             if($sqlRepairIdx){
                 $sqlRepairTable .= "<br /><br />-- SQL INDEX FOR TABLE {$mdl->table}".$sqlRepairIdx;
             }
             if($sqlRepairTable){
                 if($sqlRepair){
-                    $sqlRepair .= "<br /><br />";
+                    $sqlRepair .= '<br /><br />';
                 }
                 $sqlRepair .= "/*<br />SQL FOR TABLE {$mdl->table}<br />*/<br />".$sqlRepairTable;
             }
@@ -447,7 +445,7 @@ class Internal extends AdminBaseController
                     $('#sqlRepair').val($('#sqlRepair').val().replace(/<br *\\/?>/gi, '\\n'));
                 </script><hr />";
         }else{
-            $msg_return .= "<br/>Nada a se fazer...";
+            $msg_return .= '<br/>Nada a se fazer...';
         }
         $this->setMsgData('success', $msg_return);
         rdct('/admin/internal/index');
@@ -463,7 +461,7 @@ class Internal extends AdminBaseController
     {
         ini_set('max_execution_time', 0);
         $model = new \App\Models\Musics\Musics();
-        $model->select = "id, name";
+        $model->select = 'id, name';
         $model->order_by['TRIM(name)'] = 'ASC';
 
         $results = $model->search();
@@ -489,7 +487,7 @@ class Internal extends AdminBaseController
     public function reconstructTotalMusics()
     {
         $model = new \App\Models\Musics\Musics();
-        $model->select = "count(*) as total, tipo";
+        $model->select = 'count(*) as total, tipo';
         $model->group_by = 'tipo';
 
         $results = $model->search();
@@ -497,7 +495,7 @@ class Internal extends AdminBaseController
             'total' => 0
         ];
         foreach($results as $result){
-            $result['tipo'] = str_replace("/", "", strtolower($result['tipo']));
+            $result['tipo'] = str_replace('/', '', strtolower($result['tipo']));
             $json['total'] += $result['total'];
             $json[$result['tipo']] = $result['total'];
         }
@@ -512,14 +510,14 @@ class Internal extends AdminBaseController
     public function reconstructDurationVideos()
     {
         $model = new \App\Models\Musics\Musics();
-        $model->select = "id, md5";
+        $model->select = 'id, md5';
         $model->where['BEGINORWHERE_duration'] = 0;
         $model->where['ENDORWHERE_duration'] = ['IS_NULL'];
 
         $results = $model->search();
         $total = count($results);
         $total_updated = 0;
-        $getID3 = new \getID3();
+        $getID3 = new getID3();
         foreach($results as $result){
             $file_path = FCPATH . 'uploads/'.$result['md5'];
             if(file_exists($file_path)){
@@ -551,8 +549,8 @@ class Internal extends AdminBaseController
         $reconstruct = [];
         $dir = WRITEPATH . 'cache/Languages/';
         if(file_exists($dir)){
-            $di = new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS);
-            $ri = new \RecursiveIteratorIterator($di, \RecursiveIteratorIterator::CHILD_FIRST);
+            $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
+            $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ( $ri as $file ) {
                 $file->isDir() ?  rmdir($file) : unlink($file);
             }

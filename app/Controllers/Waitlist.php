@@ -8,14 +8,14 @@ class Waitlist extends BaseController
 	public function index($offset=0)
 	{
 		
-		$initial_filter = array(
+		$initial_filter = [
 			'user_created' => '',
 			'status' => 'pendente',
-		);
-		$initial_order_by = array(
+        ];
+		$initial_order_by = [
 			'field' => 'date_created',
 			'order' => 'DESC',
-		);
+        ];
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
 
 		$total_row = $this->mdl->total_rows();
@@ -53,7 +53,7 @@ class Waitlist extends BaseController
 
 	public function topMusics()
 	{		
-		$this->mdl->select = "count(*) as total, musica_id";
+		$this->mdl->select = 'count(*) as total, musica_id';
 		$this->mdl->group_by = 'musica_id';
 		$this->mdl->order_by['count(*)'] = 'DESC';
 		$results = $this->mdl->search(10, 0);

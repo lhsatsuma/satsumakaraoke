@@ -1,12 +1,14 @@
 <?php
 namespace App\Controllers\Api\v1;
 
+use App\Controllers\BaseController;
 use CodeIgniter\API\ResponseTrait;
-use \App\Libraries\Sys\OAuth;
-use \Oauth2\Request;
-use CodeIgniter\HTTP\Message;
+use App\Libraries\Sys\OAuth;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
-class ApiController extends \App\Controllers\BaseController
+class ApiController extends BaseController
 {
     use ResponseTrait;
     protected $dummy_controller = true;
@@ -19,7 +21,7 @@ class ApiController extends \App\Controllers\BaseController
         parent::__construct();
         $this->oauth = new OAuth();
         
-        $this->method = $this->request->getMethod(true);
+        $this->method = strtoupper($_SERVER['REQUEST_METHOD']);
     }
 
     public function checkMethod(mixed $methods = null)
@@ -28,7 +30,7 @@ class ApiController extends \App\Controllers\BaseController
             if(is_string($methods)){
                 $methods = [$methods];
             }
-            if(!in_array($this->request->getMethod(true), $methods)){
+            if(!in_array(strtoupper($_SERVER['REQUEST_METHOD']), $methods)){
                 return false;
             }
         }
@@ -36,7 +38,7 @@ class ApiController extends \App\Controllers\BaseController
         return true;
     }
 
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);

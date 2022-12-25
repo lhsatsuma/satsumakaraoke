@@ -33,4 +33,3 @@ class InitApp
 		return false;
 	}
 }
-?>

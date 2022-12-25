@@ -1,82 +1,85 @@
 <?php
 namespace App\Models\Menus;
 
-class Menus extends \App\Models\Basic\Basic
+use App\Models\Basic\Basic;
+use App\Models\MenuLanguages\MenuLanguages;
+
+class Menus extends Basic
 {
 	public $db;
 	public $table = 'menus';
 	public array $f = [];
-	public array $fields_map = array(
-		'id' => array(
+	public array $fields_map = [
+		'id' => [
 			'lbl' => 'LBL_ID',
 			'type' => 'int',
 			'dont_load_layout' => true,
 			'dont_generate' => true,
-		),
-		'name' => array(
+        ],
+		'name' => [
 			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
-		),
-		'deleted' => array(
+        ],
+		'deleted' => [
 			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
-		),
-		'date_created' => array(
+        ],
+		'date_created' => [
 			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_created' => array(
+        ],
+		'user_created' => [
 			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+            ],
 			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
+        ],
+		'date_modified' => [
 			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
+        ],
+		'user_modified' => [
 			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+            ],
 			'dont_load_layout' => true,
-		),
-		'ativo' => array(
+        ],
+		'ativo' => [
 			'lbl' => 'LBL_ACTIVE',
 			'type' => 'bool',
 			'default' => '1',
 			'required' => true,
-		),
-		'ordem' => array(
+        ],
+		'ordem' => [
 			'lbl' => 'LBL_ORDER',
 			'type' => 'int',
 			'default' => '1',
 			'required' => true,
-		),
-		'tipo' => array(
+        ],
+		'tipo' => [
 			'lbl' => 'LBL_TYPE',
 			'type' => 'dropdown',
 			'default' => '1',
 			'parameter' => 'tipo_menu_list',
 			'required' => true,
-		),
-		'menu_pai' => array(
+        ],
+		'menu_pai' => [
 			'lbl' => 'LBL_PARENT_MENU',
 			'type' => 'related',
 			'table' => 'menus',
@@ -84,19 +87,19 @@ class Menus extends \App\Models\Basic\Basic
 				'model' => 'Menus/Menus',
 				'link_detail' => 'admin/menus/detalhes/',
 			]
-		),
-		'url_base' => array(
+        ],
+		'url_base' => [
 			'lbl' => 'LBL_URL_BASE',
 			'type' => 'varchar',
 			'default' => '',
-		),
-		'icon' => array(
+        ],
+		'icon' => [
 			'lbl' => 'LBL_ICON',
 			'type' => 'varchar',
 			'default' => 'fas fa-list',
 			'max_length' => 30,
-		),
-		'perm' => array(
+        ],
+		'perm' => [
 			'lbl' => 'LBL_PERMISSION',
 			'type' => 'related',
 			'table' => 'permissao',
@@ -104,8 +107,8 @@ class Menus extends \App\Models\Basic\Basic
 				'model' => 'Permissions/Permissions',
 				'link_detail' => 'admin/permissions/detail/',
 			]
-		),
-	);
+        ],
+    ];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'ativo', 'tipo', 'deleted'],
@@ -141,14 +144,14 @@ class Menus extends \App\Models\Basic\Basic
 				$menus[$menu_result['id']] = [
 					'url' => $menu_result['url_base'],
 					'icon' => $menu_result['icon'],
-					'lbl' => ($menu_result['label']) ?: 'LBL_ERR_MENU_LANGUAGE_NOT_FOUND',
+					'lbl' => $menu_result['label'] ?: 'LBL_ERR_MENU_LANGUAGE_NOT_FOUND',
 					'perm' => $menu_result['perm'],
 				];
 			}else{
 				$menus[$menu_result['parent_menu']]['subs'][$menu_result['id']] = [
 					'url' => $menu_result['url_base'],
 					'icon' => $menu_result['icon'],
-					'lbl' => ($menu_result['label']) ?: 'LBL_ERR_MENU_LANGUAGE_NOT_FOUND',
+					'lbl' => $menu_result['label'] ?: 'LBL_ERR_MENU_LANGUAGE_NOT_FOUND',
 					'perm' => $menu_result['perm'],
 				];
 			}
@@ -162,19 +165,17 @@ class Menus extends \App\Models\Basic\Basic
 		}
 
 		//Fixing index array of menus
-		$menus = array_values($menus);
-		return $menus;
+        return array_values($menus);
 	}
 
 	public function getLanguagesMenu()
 	{
 		if($this->f['id']){
-			$menu_languages = new \App\Models\MenuLanguages\MenuLanguages();
-			$menu_languages->select = "id,name,language";
+			$menu_languages = new MenuLanguages();
+			$menu_languages->select = 'id,name,language';
 			$menu_languages->where['menu_id'] = $this->f['id'];
 			return $menu_languages->search();
 		}
 		return [];
 	}
 }
-?>

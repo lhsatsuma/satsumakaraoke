@@ -1,6 +1,9 @@
 <?php
 namespace App\Controllers\Admin;
 
+use App\Libraries\Sys\Ajax;
+use App\Libraries\Youtube;
+
 class Musics extends AdminBaseController
 {
 	protected $module_name = 'Musics';
@@ -16,28 +19,28 @@ class Musics extends AdminBaseController
 		
 		$this->data['title'] = 'Músicas';
 		
-		$initial_order = array(
+		$initial_order = [
 			'field' => 'name',
 			'order' => 'ASC',
-		);
+        ];
 		
-		$this->filterLib_cfg = array(
+		$this->filterLib_cfg = [
 			'use' => true,
 			'action' => base_url().'/admin/musics/index',
-			'generic_filter' => array(
+			'generic_filter' => [
 				'name',
 				'codigo',
 				'origem',
 				'tipo'
-			),
-		);
+            ],
+        ];
 		
-		$this->PopulateFiltroPost(array(), $initial_order);
+		$this->PopulateFiltroPost([], $initial_order);
 		
 		$total_row = $this->mdl->total_rows();
 		$this->data['pagination'] = $this->GetPagination($total_row, $offset);
 		
-		$this->mdl->select = "musicas.*";
+		$this->mdl->select = 'musicas.*';
 		$result = $this->mdl->search($this->pager_cfg['per_page'], $offset);
 		$result = $this->mdl->formatRecordsView($result);
 		
@@ -48,11 +51,11 @@ class Musics extends AdminBaseController
 
 	public function sanitanizeName()
 	{
-		$this->ajax = new \App\Libraries\Sys\Ajax();
+		$this->ajax = new Ajax();
 		$this->ajax->CheckIncoming();
 		$this->ajax->CheckRequired(['name']);
 
-		$ytLib = new \App\Libraries\Youtube();
+		$ytLib = new Youtube();
 		$this->ajax->setSuccess($ytLib->__clear_title(urldecode($this->ajax->body['name'])));
 		
 	}
@@ -60,7 +63,7 @@ class Musics extends AdminBaseController
 	public function fixnamesSave()
 	{
 		hasPermission(1003, 'w', true);
-		$this->ajax = new \App\Libraries\Sys\Ajax(['id', 'newname', 'tipo']);
+		$this->ajax = new Ajax(['id', 'newname', 'tipo']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();
@@ -77,7 +80,7 @@ class Musics extends AdminBaseController
 	public function fixnamesSaveDel()
 	{
 		hasPermission(1003, 'w', true);
-		$this->ajax = new \App\Libraries\Sys\Ajax(['id']);
+		$this->ajax = new Ajax(['id']);
 
 		$this->mdl->f['id'] = $this->ajax->body['id'];
 		$found = $this->mdl->get();
@@ -105,8 +108,8 @@ class Musics extends AdminBaseController
 
 
 		$this->js_vars = array_merge($this->js_vars, [
-			'karaokeURL' => ($videosKaraoke) ? $videosKaraoke : base_url().'/',
-			'host_fila' => ($hostFila) ? $hostFila : base_url().'/'
+			'karaokeURL' => $videosKaraoke ?: base_url().'/',
+			'host_fila' => $hostFila ?: base_url().'/'
 		]);
 		return $this->displayNew('pages/Admin/Musics/karaoke', false);
 	}

@@ -13,6 +13,8 @@ ERRORS CODE:
 */
 namespace App\Libraries\Sys;
 
+use Config\Services;
+
 class Ajax{
 	public $data = [];
 	public $request;
@@ -20,7 +22,7 @@ class Ajax{
 	
 	public function __construct(Array $required = null)
 	{
-		$this->request = \Config\Services::request();
+		$this->request = Services::request();
 		$this->body = $this->GetData();
 
 		if($required){
@@ -34,11 +36,11 @@ class Ajax{
 		if(!$this->request->isAJAX()){
 			$this->setError('0x001', 'XMLHttpRequest não setado');
 		}
-		if($this->request->getMethod(false) !== 'post'){
+		if(strtolower($_SERVER['REQUEST_METHOD']) !== 'post'){
 			$this->setError('0x002', 'Método inválido');
 		}
 	}
-	public function CheckRequired(Array $fields = array())
+	public function CheckRequired(Array $fields = [])
 	{
 		foreach($fields as $field){
 			if(empty($this->body[$field])){
@@ -72,7 +74,7 @@ class Ajax{
 	public function setAjax()
 	{
 		global $AppVersion;
-		$encoded = json_encode($this->data, ((!$AppVersion->compress_output) ? JSON_PRETTY_PRINT : null));
+		$encoded = json_encode($this->data, !$AppVersion->compress_output ? JSON_PRETTY_PRINT : null);
 		$logLevel = 'debug';
 		if(!$this->data['status']){
 			$logLevel = 'info';
@@ -87,4 +89,3 @@ class Ajax{
 		exit;
 	}
 }
-?>

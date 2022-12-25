@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
+use JShrink\Minifier;
 
 class JsManager extends BaseController
 {
@@ -12,13 +13,13 @@ class JsManager extends BaseController
 	public function get(...$fileEx)
 	{
 		if($fileEx){
-			//Get's all info of file and check if allowed access
+			//Gets all info of file and check if allowed access
 			$fileInfo = $this->getFile($fileEx);
 
 			if($fileInfo){
                 $this->response->setHeader('Content-Type', $fileInfo['mimetype'])->appendHeader('Content-Length', filesize($fileInfo['path']));
-                $this->response->setHeader('Last-Modified', date("D, d M Y H:i:s", filemtime($fileInfo['path'])).' GMT');
-				$this->response->setHeader('Expires', date("D, d M Y H:i:s", filemtime($fileInfo['path'])+2592000).' GMT');
+                $this->response->setHeader('Last-Modified', date('D, d M Y H:i:s', filemtime($fileInfo['path'])).' GMT');
+				$this->response->setHeader('Expires', date('D, d M Y H:i:s', filemtime($fileInfo['path'])+2592000).' GMT');
                 $this->response->setHeader('Cache-Control', 'max-age=2592000');
                 $this->response->setHeader('Pragma', 'public');
 				return readfile($fileInfo['path']);
@@ -46,24 +47,21 @@ class JsManager extends BaseController
 
 
 		$ch_ver = GetCacheVersion();
-		if(strpos(implode('/', $fileEx), 'Languages') === false){
+		if(!str_contains(implode('/', $fileEx), 'Languages')){
 			$cachePath = WRITEPATH . 'cache/js/js_min_'.md5(implode('_', $fileEx));
 			$file_name = APPPATH.'Views/js/'.implode('/', $fileEx);
-			if(substr($file_name, -4) == '.map'){
-				return false;
-			}
-			if(!file_exists($file_name)){
+			if(str_ends_with($file_name, '.map') || !file_exists($file_name)){
 				return false;
 			}
 
-			if($AppVersion->compress_output){
+            if($AppVersion->compress_output){
 				//If dont exists cache file or original has been modified
 				if(!file_exists($cachePath)
-				|| (filemtime($cachePath) < filemtime($file_name))){
-					if(strstr($file_name, '.min.')){
+				|| filemtime($cachePath) < filemtime($file_name)){
+					if(str_contains($file_name, '.min.')){
 						$minifiedCode = file_get_contents($file_name);
 					}else{
-						$minifiedCode = \JShrink\Minifier::minify(file_get_contents($file_name));
+						$minifiedCode = Minifier::minify(file_get_contents($file_name));
 					}
 					if(!is_dir(WRITEPATH . 'cache/js/')){
 						mkdir(WRITEPATH . 'cache/js/');
@@ -95,15 +93,15 @@ class JsManager extends BaseController
 	private function checkAccess($tipo)
 	{
 		if($tipo == 'admin'){
-			$this->access_cfg = array(
+			$this->access_cfg = [
 				'needs_login' => true,
 				'admin_only' => true,
-			);
+            ];
 		}elseif($tipo == 'private'){
-			$this->access_cfg = array(
+			$this->access_cfg = [
 				'needs_login' => true,
 				'admin_only' => false,
-			);
+            ];
 		}
 		$this->SetSys(); //Checking session if necessary
 	}

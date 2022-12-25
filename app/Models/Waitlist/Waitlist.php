@@ -1,79 +1,81 @@
 <?php
 namespace App\Models\Waitlist;
 
-class Waitlist extends \App\Models\Basic\Basic
+use App\Models\Basic\Basic;
+
+class Waitlist extends Basic
 {
 	public $db;
 	public $table = 'musicas_fila';
 	public array $f = [];
 	public  bool $id_by_name = true;
-	public array $fields_map = array(
-		'id' => array(
+	public array $fields_map = [
+		'id' => [
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
-		),
-		'name' => array(
+		],
+		'name' => [
 			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
-		),
-		'date_created' => array(
+		],
+		'date_created' => [
 			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_created' => array(
+		],
+		'user_created' => [
 			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+			],
 			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
+		],
+		'date_modified' => [
 			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
+		],
+		'user_modified' => [
 			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+			],
 			'dont_load_layout' => true,
-		),
-		'musica_id' => array(
+		],
+		'musica_id' => [
 			'lbl' => 'LBL_MUSIC_ID',
 			'type' => 'related',
 			'required' => true,
 			'table' => 'musicas',
 			'validations' => 'required',
-		),
-		'status' => array(
+		],
+		'status' => [
 			'lbl' => 'LBL_STATUS',
 			'type' => 'dropdown',
 			'len' => 255,
 			'parameter' => 'status_musicas_fila_list',
 			'required' => true,
 			'validations' => 'required|max_length[255]',		
-		),
-	);
+		],
+	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],
@@ -88,17 +90,17 @@ class Waitlist extends \App\Models\Basic\Basic
 	public function createJSON()
 	{
 		log_message('debug', 'Creating JSON musics in line...');
-		$this->select = "musicas_fila.id,
+		$this->select = 'musicas_fila.id,
 		usuarios.name as cantor,
 		musicas.codigo,
 		musicas.name as name_musica,
 		musicas.md5,
 		musicas_fila.name as numero_fila,
-		musicas.duration";
-		$this->where["status"] = "pendente";
-		$this->join["musicas"] = "musicas.id = musicas_fila.musica_id";
-		$this->join["usuarios"] = "usuarios.id = musicas_fila.user_created";
-		$this->order_by["musicas_fila.date_created"] = "ASC";
+		musicas.duration';
+		$this->where['status'] = 'pendente';
+		$this->join['musicas'] = 'musicas.id = musicas_fila.musica_id';
+		$this->join['usuarios'] = 'usuarios.id = musicas_fila.user_created';
+		$this->order_by['musicas_fila.date_created'] = 'ASC';
 
 		$total_rows = $this->total_rows();
 		$this->page_as_offset = true;
@@ -107,7 +109,7 @@ class Waitlist extends \App\Models\Basic\Basic
 			return false;
 		}
 		foreach($result as $key => $fila){
-			$result[$key]['cantor'] = explode(' ', $result[$key]['cantor'], 3);
+			$result[$key]['cantor'] = explode(' ', $fila['cantor'], 3);
 			$result[$key]['cantor'] = $result[$key]['cantor'][0] . ' '.$result[$key]['cantor'][1]; 
 			if(strlen($result[$key]['cantor']) > 11){
 				$result[$key]['cantor'] = mb_substr(trim($result[$key]['cantor']), 0, 11) . '...';
@@ -123,4 +125,3 @@ class Waitlist extends \App\Models\Basic\Basic
 		return file_put_contents(WRITEPATH . 'utils/line_music.json', json_encode(['t' => $total_rows, 's' => $result]));
 	}
 }
-?>

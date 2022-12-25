@@ -1,6 +1,9 @@
 <?php
 namespace App\Libraries\Sys;
 
+use Config\Services;
+use PHPMailer\PHPMailer\PHPMailer;
+
 class SendEmail{
 	
 	public $view; //Smarty View for Email Template
@@ -11,15 +14,15 @@ class SendEmail{
 	public $mailer;
 	public function __construct(Array $override = [])
 	{
-		$this->mailCI = \Config\Services::email();
+		$this->mailCI = Services::email();
 		if(!empty($override)){
 			foreach($override as $k => $v){
 				$this->mailCI->$k = $v;
 			}
 		}
 		
-		$this->mailer = new \PHPMailer\PHPMailer\PHPMailer();
-		$this->mailer->IsSMTP();
+		$this->mailer = new PHPMailer();
+		$this->mailer->isSMTP();
 		$this->mailer->Host = $this->mailCI->SMTPHost;
 		$this->mailer->Port = $this->mailCI->SMTPPort;
 		$this->mailer->SMTPAuth = true;
@@ -33,12 +36,12 @@ class SendEmail{
 		$this->mailer->Debugoutput = function($str, $level) {
 			log_message('debug', "$level: $str\n");
 		};
-		$this->view = new \App\Libraries\Sys\SmartyCI();
+		$this->view = new SmartyCI();
 		
-		$data = array(
+		$data = [
 			'app_url' => base_url().'/',
 			'ch_ver' => GetCacheVersion(),
-		);
+        ];
 		$this->view->setData($data);
 		$this->mailCI->setFrom($this->mailCI->fromEmail, $this->mailCI->fromName);
 		
@@ -46,12 +49,12 @@ class SendEmail{
 	
 	public function send()
 	{
-		$this->mailer->AddAddress($this->toAddr);
-		$this->mailer->IsHTML(true); // Define que o e-mail será enviado como HTML
+		$this->mailer->addAddress($this->toAddr);
+		$this->mailer->isHTML(); // Define que o e-mail será enviado como HTML
 		$this->mailer->Subject  = $this->subject; // Assunto da mensagem
 		$this->mailer->Body = $this->body;
 
-		$sended = $this->mailer->Send();
+		$sended = $this->mailer->send();
 		if(!$sended){
 			log_message('error', 'Error sending email: '.$this->mailer->ErrorInfo);
 		}
@@ -64,4 +67,3 @@ class SendEmail{
 		$this->body = $this->view->setData($data)->view('template/emails/'.$name);
 	}
 }
-?>

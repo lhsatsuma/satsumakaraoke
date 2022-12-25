@@ -2,12 +2,14 @@
 
 namespace App\Libraries\Sys;
 
-use \OAuth2\Storage\Pdo;
-use \App\Models\OAuthTokens\OAuthTokens;
+use OAuth2\GrantType\ClientCredentials;
+use OAuth2\Server;
+use OAuth2\Storage\Pdo;
+use App\Models\OAuthTokens\OAuthTokens;
 
 class OAuth
 {
-    public \OAuth2\Server $server;
+    public Server $server;
     private Pdo $storage;
 
     public function __construct()
@@ -17,8 +19,8 @@ class OAuth
             'username' => getenv('database.default.username'),
             'password' => getenv('database.default.password'),
         ]);
-        $this->server = new \OAuth2\Server($this->storage);
-        $this->server->addGrantType(new \OAuth2\GrantType\ClientCredentials($this->storage));
+        $this->server = new Server($this->storage);
+        $this->server->addGrantType(new ClientCredentials($this->storage));
     }
 
     public function getRecord($access_token)

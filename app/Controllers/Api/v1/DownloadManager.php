@@ -17,8 +17,6 @@ class DownloadManager extends ApiController
 
         //If file doesn't exist, throw 404
         throw PageNotFoundException::forPageNotFound();
-
-        return false;
     }
     private function getFile($id)
     {
@@ -41,15 +39,15 @@ class DownloadManager extends ApiController
     private function checkAccess($tipo)
     {
         if($tipo == 'admin'){
-            $this->access_cfg = array(
+            $this->access_cfg = [
                 'needs_login' => true,
                 'admin_only' => true,
-            );
+            ];
         }elseif($tipo == 'private'){
-            $this->access_cfg = array(
+            $this->access_cfg = [
                 'needs_login' => true,
                 'admin_only' => false,
-            );
+            ];
         }
         $this->SetSys(); //Checking session if necessary
     }

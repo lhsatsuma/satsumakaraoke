@@ -1,6 +1,11 @@
 <?php
 namespace App\Controllers;
 
+use App\Libraries\Sys\Ajax;
+use App\Libraries\Youtube;
+use App\Models\MusicsFavorites\MusicsFavorites;
+use App\Models\UserPreferences\UserPreferences;
+
 class Musics extends BaseController
 {
 	protected $module_name = 'Musics';
@@ -28,33 +33,33 @@ class Musics extends BaseController
 
 		$this->pager_cfg['per_page'] = 100;
 
-		$initial_filter = array(
+		$initial_filter = [
 			'codigo' => '',
 			'name' => '',
 			'tipo' => '',
 			'fvt' => '',
-		);
+        ];
 		
-		$initial_order = array(
+		$initial_order = [
 			'field' => 'name',
 			'order' => 'ASC',
-		);
+        ];
 		
-		$this->filterLib_cfg = array(
+		$this->filterLib_cfg = [
 			'use' => true,
 			'action' => base_url().'/musics/index',
-			'generic_filter' => array(
+			'generic_filter' => [
 				'name',
 				'codigo',
 				'origem',
 				'tipo'
-			),
-		);
+            ],
+        ];
 		
 		$this->PopulateFiltroPost($initial_filter, $initial_order);
-		$key_join = ($this->filter['fvt']['value']) ? "musicas_favorites" : "LEFTJOIN_musicas_favorites";
+		$key_join = $this->filter['fvt']['value'] ? 'musicas_favorites' : 'LEFTJOIN_musicas_favorites';
 
-		$this->mdl->select = "musicas.*, IF(musicas_favorites.id IS NOT NULL, 2, 1) as favorite";
+		$this->mdl->select = 'musicas.*, IF(musicas_favorites.id IS NOT NULL, 2, 1) as favorite';
 		$this->mdl->join[$key_join] = "musicas.id = musicas_favorites.musica_id
 		AND musicas_favorites.user_created = '{$this->session->get('auth_user')['id']}'
 		AND musicas_favorites.deleted = 0";
@@ -67,8 +72,8 @@ class Musics extends BaseController
 		
 		$this->data['records'] = $result;
 
-		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
-		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
+		$hideInfoPopup = UserPreferences::getPreference('hideInfoPopup');
+		$this->data['showPopupWizard'] = !$hideInfoPopup;
 		
 		return $this->displayNew('pages/Musics/index');
 	}
@@ -76,21 +81,21 @@ class Musics extends BaseController
 	public function CheckImportVideo()
 	{
 		hasPermission(1003, 'r', true);
-		$AjaxLib = new \App\Libraries\Sys\Ajax(['link']);
+		$AjaxLib = new Ajax(['link']);
 		
 		$this->mdl = new \App\Models\Musics\Musics();
 
 
-		$ytLib = new \App\Libraries\Youtube();
+		$ytLib = new Youtube();
 		$AjaxLib->body['link'] = trim($AjaxLib->body['link']);
 
 
-		if(strpos($AjaxLib->body['link'], 'https://youtu.be/') !== false){
+		if(str_contains($AjaxLib->body['link'], 'https://youtu.be/')){
 			$AjaxLib->body['link'] = 'https://www.youtube.com/watch?v='.str_replace('https://youtu.be/', '', $AjaxLib->body['link']);
 		}
 
 
-		$videoID = explode("?v=", $AjaxLib->body['link'])[1];
+		$videoID = explode('?v=', $AjaxLib->body['link'])[1];
 		$dataInfo = $ytLib->getInfo($videoID);
 		if(!$dataInfo['md5']){
 			$AjaxLib->setError('0x001', 'Link inválido!');
@@ -105,21 +110,21 @@ class Musics extends BaseController
 	{
 		hasPermission(1003, 'r', true);
 		
-		$AjaxLib = new \App\Libraries\Sys\Ajax(['link','md5','title']);
+		$AjaxLib = new Ajax(['link','md5','title']);
 		
-		$return_data = array(
+		$return_data = [
 			'exists' => false,
 			'saved' => false,
 			'downloaded' => false,
-			'saved_record' => array(),
+			'saved_record' => [],
 			'auto_fila' => false,
-			'saved_fila' => array(),
+			'saved_fila' => [],
 			'len_link' => $AjaxLib->body['len_link']
-		);
+        ];
 		
-		$ytLib = new \App\Libraries\Youtube();
+		$ytLib = new Youtube();
 
-		$downloaded = $ytLib->importUrl($AjaxLib->body['link'], $AjaxLib->body['md5'], $AjaxLib->body['title']);
+		$downloaded = $ytLib->importUrl($AjaxLib->body['link'], $AjaxLib->body['md5']);
 
 		if(!$downloaded){
 			$AjaxLib->setError('3x002', 'Não foi possível realizar o download do vídeo! Entre em contato com o administrador!', $return_data);
@@ -149,7 +154,7 @@ class Musics extends BaseController
 	public function insert_fila_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
+		$AjaxLib = new Ajax(['id']);
 		
 		$musicas_fila_mdl = new \App\Models\Waitlist\Waitlist();
 		
@@ -167,9 +172,9 @@ class Musics extends BaseController
 	public function insert_favorite_ajax()
 	{
 		
-		$AjaxLib = new \App\Libraries\Sys\Ajax(['id']);
+		$AjaxLib = new Ajax(['id']);
 		
-		$mdl = new \App\Models\MusicsFavorites\MusicsFavorites();
+		$mdl = new MusicsFavorites();
 		
 		$this->mdl->f['id'] = $AjaxLib->body['id'];
 		$result = $this->mdl->get();
@@ -197,17 +202,17 @@ class Musics extends BaseController
 
 	public function showPopupWizard()
 	{
-		$hideInfoPopup = \App\Models\UserPreferences\UserPreferences::getPreference('hideInfoPopup');
-		$this->data['showPopupWizard'] = ($hideInfoPopup) ? false: true;
+		$hideInfoPopup = UserPreferences::getPreference('hideInfoPopup');
+		$this->data['showPopupWizard'] = !$hideInfoPopup;
 
 		return $this->displayNew('pages/Musics/popupWizard');
 	}
 	
 	public function hidePopupWizard()
 	{
-		$AjaxLib = new \App\Libraries\Sys\Ajax();
+		$AjaxLib = new Ajax();
 		
-		$mdl = new \App\Models\UserPreferences\UserPreferences();
+		$mdl = new UserPreferences();
 		$AjaxLib->setSuccess($mdl->setPref('hideInfoPopup', '1'));
 	}
 }

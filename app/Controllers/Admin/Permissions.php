@@ -18,21 +18,21 @@ class Permissions extends AdminBaseController
 
 		$this->data['title'] = 'Lista de Permissões';
 		
-		$initial_filter = array(
+		$initial_filter = [
 			'name' => '',
-		);
-		$initial_order_by = array(
+        ];
+		$initial_order_by = [
 			'field' => 'id',
 			'order' => 'ASC',
-		);
+        ];
 		
-		$this->filterLib_cfg = array(
+		$this->filterLib_cfg = [
 			'use' => true,
 			'action' => base_url().'/admin/permissions/index',
-			'generic_filter' => array(
+			'generic_filter' => [
 				'name',
-			),
-		);
+            ],
+        ];
 		
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
 		
@@ -44,7 +44,7 @@ class Permissions extends AdminBaseController
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
-		$this->data['records_count'] = (count($result)) ? true : false;
+		$this->data['records_count'] = (bool)count((array)$result);
 		
 		return $this->displayNew('pages/Admin/Permissions/index');
 	}
@@ -74,7 +74,7 @@ class Permissions extends AdminBaseController
 	{
 		hasPermission(3, 'w', true);
 
-		$this->data['title'] = ($id) ? 'Editar Permissão' : 'Criar Permissão';
+		$this->data['title'] = $id ? 'Editar Permissão' : 'Criar Permissão';
 		
 		$result = [];
 		if($id){

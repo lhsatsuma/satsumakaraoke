@@ -4,7 +4,7 @@ namespace App\Libraries\Sys;
 class Layout
 {
 	//Sets fields maps because i can get from another controller or model
-	public array $fields_map = [];
+	public mixed $fields_map = [];
 	
 	public $template = 'template';
 
@@ -13,7 +13,7 @@ class Layout
 
 	protected string $file_language;
 	
-	public function __construct($fields_map, string $class_name)
+	public function __construct($fields_map = null, string $class_name = '')
 	{
 		//Nothing to do for now
 		$this->fields_map = $fields_map;
@@ -27,7 +27,7 @@ class Layout
 		$this->base_url = base_url().'/';
 	}
 	
-	public function GetAllFields($record = array())
+	public function GetAllFields($record = [])
 	{
 		$this->its_filter = false;
 		$return = [];
@@ -40,7 +40,7 @@ class Layout
 		return $return;
 	}
 	
-	public function GetAllFieldsFilter($record = array())
+	public function GetAllFieldsFilter($record = [])
 	{
 		$this->its_filter = true;
 		$return = [];
@@ -53,7 +53,7 @@ class Layout
 		return $return;
 	}
 	
-	public function GetAllFieldsDetails($record = array())
+	public function GetAllFieldsDetails($record = [])
 	{
 		$this->its_filter = false;
 		$this->disabled_all = true;
@@ -281,7 +281,7 @@ class Layout
 		return $this->smarty->setData($data)->view($tpl);
 	}
 	
-	public function GetMultiselect($field, $selected = array())
+	public function GetMultiselect($field, $selected = [])
 	{
 		$tpl = ($this->disabled_all) ? $this->template.'/fields/disabled/Multiselect' : $this->template.'/fields/Multiselect';
 		
@@ -375,7 +375,7 @@ class Layout
 			
 		$return_data['table_tbody'] = array(
 			'has_records' => true,
-			'records' => array(),
+			'records' => [],
 		);
 		if(!empty($records)){
 			foreach($records as $record){
@@ -429,7 +429,7 @@ class Layout
 			
 		$return_data['table_tbody'] = array(
 			'has_records' => true,
-			'records' => array(),
+			'records' => [],
 		);
 		if(!empty($records)){
 			foreach($records as $record){

@@ -1,93 +1,95 @@
 <?php
 namespace App\Models\Files;
 
-class Files extends \App\Models\Basic\Basic
+use App\Models\Basic\Basic;
+
+class Files extends Basic
 {
 	public $db;
 	public $table = 'arquivos';
 	public array $f = [];
-	public array $fields_map = array(
-		'id' => array(
+	public array $fields_map = [
+		'id' => [
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
-		),
-		'name' => array(
+        ],
+		'name' => [
 			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
-		),
-		'deleted' => array(
+        ],
+		'deleted' => [
 			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
-		),
-		'date_created' => array(
+        ],
+		'date_created' => [
 			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_created' => array(
+        ],
+		'user_created' => [
 			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+            ],
 			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
+        ],
+		'date_modified' => [
 			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
+        ],
+		'user_modified' => [
 			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+            ],
 			'dont_load_layout' => true,
-		),
-		'arquivo' => array(
+        ],
+		'arquivo' => [
 			'lbl' => 'LBL_FILE',
 			'type' => 'file',
-			'parameter' => array(
+			'parameter' => [
 				'max_size' => 40960,
-			),
-		),
-		'mimetype' => array(
+            ],
+        ],
+		'mimetype' => [
 			'lbl' => 'LBL_MIMETYPE',
 			'type' => 'varchar',
 			'max_length' => 255,
-		),
-		'tipo' => array(
+        ],
+		'tipo' => [
 			'lbl' => 'LBL_TYPE_ACCESS',
 			'type' => 'dropdown',
 			'parameter' => 'tipo_acesso',
-		),
-		'registro' => array(
+        ],
+		'registro' => [
 			'lbl' => 'LBL_RELATED_TO',
 			'type' => 'related',
-		),
-		'tabela' => array(
+        ],
+		'tabela' => [
 			'lbl' => 'LBL_RELATED_TABLE',
 			'type' => 'varchar',
-		),
-		'campo' => array(
+        ],
+		'campo' => [
 			'lbl' => 'LBL_RELATED_FIELD',
 			'type' => 'varchar',
 			'max_length' => 255,
-		),
-	);
+        ],
+    ];
 	public $idx_table = [
 		['id', 'deleted'],
 		['name', 'deleted'],
@@ -101,7 +103,7 @@ class Files extends \App\Models\Basic\Basic
 		$query = $this->helper->get(1);
 		
 		if ($this->db->error()['message']) {
-			$this->RegisterLastError("Error fetching total rows: ");
+			$this->registerLastError('Error fetching total rows: ');
 			return null;
         }
 		
@@ -131,4 +133,3 @@ class Files extends \App\Models\Basic\Basic
 		return false;
 	}
 }
-?>

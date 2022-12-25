@@ -10,31 +10,31 @@ class Curl{
 	public $base_url = '';
 	private $headers = [];
 	private $data = [];
-	public $auth = array(
+	public $auth = [
 		'user' => '',
 		'pass' => ''
-	);
+    ];
 	private $ch;	
-	private $options = array(
+	private $options = [
 		'ssl' => false,
 		'ssl_version' => 3,
 		'timeout' => 10,
 		'header' => false,
 		'connect_timeout' => 10,
-		'http_code_accept' => array(
+		'http_code_accept' => [
 			200, //OK
 			201, //CREATED
 			202, //ACCEPTED
 			204, //No Content
-		),
-		'methods_allowed' => array(
+        ],
+		'methods_allowed' => [
 			'post',
 			'get',
 			'put',
 			'delete',
-		),
+        ],
 		'response_json' => false,
-	);
+    ];
 	public function __construct(){
 		//Nothing to do for now
 	}
@@ -87,9 +87,9 @@ class Curl{
 			}
 			if(strtolower($method) == 'get'){
 				if(!empty($data)){
-					$url .= (strpos($ext_url, '?') === false) ? '?'.http_build_query($data) : http_build_query($data);
+					$url .= !str_contains($ext_url, '?') ? '?'.http_build_query($data) : http_build_query($data);
 				}
-				curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, "GET");
+				curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, 'GET');
 				$this->InitCurl($url);
 			}else{
 				$this->InitCurl($url);
@@ -129,7 +129,6 @@ class Curl{
 		$this->Auth();
 		log_message('debug', '[CURL][URL] '.$url);
 		log_message('debug', '[CURL][HEADERS] '.var_export($this->GetHeaders(), true));
-		return true;
 	}
 	private function ExecuteCurl(){
 		$result = curl_exec($this->ch);
@@ -158,10 +157,10 @@ class Curl{
 	}
 	private function set_data($error_code, $msg){
 		if($error_code == 0){
-			$this->data = array(
+			$this->data = [
 				'status' => false,
 				'msg' => $msg,
-			);
+            ];
 		}else{
 			if($this->GetOption('header')){
 				$header = substr($this->data['response'], 0, $this->data['header_size']);
@@ -178,18 +177,17 @@ class Curl{
 			}else{
 				$status = true;
 			}
-			$this->data = array(
+			$this->data = [
 				'status' => $status,
 				'msg' => $msg,
-				'response' => array(
+				'response' => [
 					'url' => $this->data['url_effective'],
 					'code' => $this->data['http_code'],
 					'header' => $header,
 					'body' => $body,
-				),
-			);
+                ],
+            ];
 		}
 		return $this->data;
 	}
 }
-?>

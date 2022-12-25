@@ -18,8 +18,8 @@ class CssManager extends BaseController
 
 			if($fileInfo){
                 $this->response->setHeader('Content-Type', $fileInfo['mimetype'])->appendHeader('Content-Length', filesize($fileInfo['path']));
-                $this->response->setHeader('Last-Modified', date("D, d M Y H:i:s", filemtime($fileInfo['path'])).' GMT');
-				$this->response->setHeader('Expires', date("D, d M Y H:i:s", filemtime($fileInfo['path'])+2592000).' GMT');
+                $this->response->setHeader('Last-Modified', date('D, d M Y H:i:s', filemtime($fileInfo['path'])).' GMT');
+				$this->response->setHeader('Expires', date('D, d M Y H:i:s', filemtime($fileInfo['path'])+2592000).' GMT');
                 $this->response->setHeader('Cache-Control', 'max-age=2592000');
                 $this->response->setHeader('Pragma', 'public');
 				return readfile($fileInfo['path']);
@@ -38,22 +38,22 @@ class CssManager extends BaseController
 		$ch_ver = GetCacheVersion();
         $cachePath = WRITEPATH . 'cache/css/css_min_'.md5(implode('_', $fileEx));
         $file_name = APPPATH.'Views/css/'.implode('/', $fileEx);
-		if(substr($file_name, -4) == '.map'){
+		if(str_ends_with($file_name, '.map')){
 			return false;
 		}
 
 		if($AppVersion->compress_output){
-			//If dont exists cache file or original has been modified
+			//If don't exists cache file or original has been modified
 			if(!file_exists($cachePath)
-			|| (filemtime($cachePath) < filemtime($file_name))){
-				if(strstr($file_name, '.min.')){
+			|| filemtime($cachePath) < filemtime($file_name)){
+				if(str_contains($file_name, '.min.')){
 					$minifiedCode = file_get_contents($file_name);
 				}else{
 					$minifiedCode = file_get_contents($file_name);
 					//replace all new lines and spaces
-					$minifiedCode = str_replace("\r\n", " ", $minifiedCode);
-					$minifiedCode = str_replace("\t", " ", $minifiedCode);
-					$minifiedCode = preg_replace("/(\d*px(?!;))/", "$1 ", $minifiedCode);
+					$minifiedCode = str_replace("\r\n", ' ', $minifiedCode);
+					$minifiedCode = str_replace("\t", ' ', $minifiedCode);
+					$minifiedCode = preg_replace('/(\d*px(?!;))/', '$1 ', $minifiedCode);
 				}
 				if(!is_dir(WRITEPATH . 'cache/css/')){
 					mkdir(WRITEPATH . 'cache/css/');
@@ -61,7 +61,7 @@ class CssManager extends BaseController
 				file_put_contents($cachePath, "/*{$ch_ver}*/\n".$minifiedCode);
 			}
 		}else{
-			/* If dont compress, just return original file */
+			/* If you don't compress, just return original file */
 			$cachePath = $file_name;
 		}
 

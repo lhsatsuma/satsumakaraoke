@@ -1,129 +1,132 @@
 <?php
 namespace App\Models\Users;
 
+use App\Models\Basic\Basic;
 use PHPMailer\PHPMailer\Exception;
+use App\Models\UserPreferences\UserPreferences;
+use App\Libraries\Sys\SendEmail;
 
-class Users extends \App\Models\Basic\Basic
+class Users extends Basic
 {
 	public $table = 'usuarios';
 	public array $f = [];
-	public array $fields_map = array(
-		'id' => array(
+	public array $fields_map = [
+		'id' => [
 			'lbl' => 'LBL_ID',
 			'type' => 'varchar',
 			'max_length' => 36,
 			'dont_load_layout' => true,
-		),
-		'name' => array(
+		],
+		'name' => [
 			'lbl' => 'LBL_NAME',
 			'type' => 'varchar',
 			'required' => true,
 			'min_length' => 2,
 			'max_length' => 255,
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'lbl' => 'LBL_DELETED',
 			'type' => 'bool',
 			'dont_load_layout' => true,
-		),
-		'date_created' => array(
+		],
+		'date_created' => [
 			'lbl' => 'LBL_DATE_CREATED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_created' => array(
+		],
+		'user_created' => [
 			'lbl' => 'LBL_USER_CREATED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+			],
 			'dont_load_layout' => true,
-		),
-		'date_modified' => array(
+		],
+		'date_modified' => [
 			'lbl' => 'LBL_DATE_MODIFIED',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'user_modified' => array(
+		],
+		'user_modified' => [
 			'lbl' => 'LBL_USER_MODIFIED',
 			'type' => 'related',
 			'table' => 'usuarios',
-			'parameter' => array(
+			'parameter' => [
 				'url' => null,
 				'model' => 'Admin/Users/Users',
 				'link_detail' => 'admin/users/detail/',
-			),
+			],
 			'dont_load_layout' => true,
-		),
-		'email' => array(
+		],
+		'email' => [
 			'lbl' => 'LBL_EMAIL',
 			'type' => 'email',
 			'len' => 255,
 			'required' => true,
 			'min_length' => 10,
 			'max_length' => 255,
-		),
-		'senha' => array(
+		],
+		'senha' => [
 			'lbl' => 'LBL_PASSWORD',
 			'type' => 'password',
-		),
-		'status' => array(
+		],
+		'status' => [
 			'lbl' => 'LBL_STATUS',
 			'type' => 'dropdown',
 			'parameter' => 'status_usuario_list',
 			'default' => 'ativo',
 			'required' => true,
-		),
-		'profile' => array(
+		],
+		'profile' => [
 			'lbl' => 'LBL_PROFILE',
 			'type' => 'related',
 			'table' => 'profiles',
 			'required' => true,
 			'skipRequired' => true,
-			'parameter' => array(
+			'parameter' => [
 				'model' => 'Profiles/Profiles',
 				'link_detail' => 'admin/profiles/detail/',
-			),
-		),
-		'last_ip' => array(
+			],
+		],
+		'last_ip' => [
 			'lbl' => 'LBL_LAST_IP',
 			'type' => 'varchar',
-		),
-		'last_connected' => array(
+		],
+		'last_connected' => [
 			'lbl' => 'LBL_LAST_CONNECTED',
 			'type' => 'datetime',
-		),
-		'hash_esqueci_senha' => array(
+		],
+		'hash_esqueci_senha' => [
 			'lbl' => 'LBL_HASH_ESQUECI_SENHA',
 			'type' => 'varchar',
-		),
-		'ultima_troca_senha' => array(
+		],
+		'ultima_troca_senha' => [
 			'lbl' => 'LBL_ULTIMA_TROCA_SENHA',
 			'type' => 'datetime',
 			'dont_load_layout' => true,
-		),
-		'dark_mode' => array(
+		],
+		'dark_mode' => [
 			'lbl' => 'LBL_DARK_MODE',
 			'type' => 'bool',
-		),
-		'timezone' => array(
+		],
+		'timezone' => [
 			'nondb' => true,
 			'lbl' => 'LBL_TIMEZONE',
 			'type' => 'dropdown',
 			'parameter' => 'timezones_availables',
-		),
-		'telefone' => array(
+		],
+		'telefone' => [
 			'lbl' => 'LBL_TELEPHONE',
 			'type' => 'telephone',
-		),
-		'celular' => array(
+		],
+		'celular' => [
 			'lbl' => 'LBL_CELPHONE',
 			'type' => 'celphone',
-		),
-	);
+		],
+	];
 	public $idx_table = [
 		['id', 'deleted'],
 		['profile','deleted'],
@@ -132,9 +135,9 @@ class Users extends \App\Models\Basic\Basic
 	public function __construct()
 	{
 		parent::__construct();
-		$this->preference = new \App\Models\UserPreferences\UserPreferences();
+		$this->preference = new UserPreferences();
 	}
-	
+
 	public $template_forget_pass = 'EsqueciMinhaSenha';
 
 	public function after_save(string $operation = null) : bool
@@ -160,13 +163,13 @@ class Users extends \App\Models\Basic\Basic
 				}
 			}		
 		}else{
-			$this->RegisterLastError("Query search login failed: ");	
+			$this->registerLastError('Query search login failed: ');
 		}
 		return false;
 	}
 	public function generateHashForget()
 	{
-		$this->f['hash_esqueci_senha'] = str_replace('=', '00XX00', base64_encode(date("Y-m-d H:i:s")));
+		$this->f['hash_esqueci_senha'] = str_replace('=', '00XX00', base64_encode(date('Y-m-d H:i:s')));
 	}
 	public function decryptHashForget()
 	{
@@ -182,7 +185,7 @@ class Users extends \App\Models\Basic\Basic
 			return null;
 		}
 		$this->generateHashForget();
-		$mail = new \App\Libraries\Sys\SendEmail();
+		$mail = new SendEmail();
 		$mail->mailer->addAddress($this->f['email']);
 		
 		$mail->subject = '['.removeAccents(getTitle()).'] Esqueci Minha Senha';
@@ -196,12 +199,16 @@ class Users extends \App\Models\Basic\Basic
 			return false;
 		}
 	}
-	public function validateHash(string $hash)
+
+    /**
+     * @throws \Exception
+     */
+    public function validateHash(string $hash)
 	{
 		if($this->f['hash_esqueci_senha'] == $hash){
 			$decrypted = $this->decryptHashForget();
-			$date1 = new \DateTime($decrypted);
-			$date2 = new \DateTime();
+			$date1 = new DateTime($decrypted);
+			$date2 = new DateTime();
 			$diff = $date2->getTimestamp() - $date1->getTimestamp();
 			
 			if($diff < 86400){ //Max 24 horas para utilizar
@@ -215,8 +222,7 @@ class Users extends \App\Models\Basic\Basic
 	{
 		$encrypted = encrypt_pass($new);
 		$this->helper->where('id', $this->f['id']);
-		$this->helper->update(['senha' => $encrypted, 'hash_esqueci_senha' => null, 'ultima_troca_senha' => date("Y-m-d H:i:s")]);
+		$this->helper->update(['senha' => $encrypted, 'hash_esqueci_senha' => null, 'ultima_troca_senha' => date('Y-m-d H:i:s')]);
 		return true;
 	}
 }
-?>

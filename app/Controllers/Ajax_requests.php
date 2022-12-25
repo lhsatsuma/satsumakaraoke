@@ -1,6 +1,11 @@
 <?php
 namespace App\Controllers;
 //asdasdasd
+use App\Libraries\Sys\Ajax;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+
 class Ajax_requests extends BaseController
 {
 	protected $module_name = null;
@@ -9,12 +14,12 @@ class Ajax_requests extends BaseController
 	
 	public $body = [];
 	
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 		
-		$this->AjaxLib = new \App\Libraries\Sys\Ajax();
+		$this->AjaxLib = new Ajax();
 		$this->AjaxLib->CheckIncoming();
 		
 		$this->body = $this->AjaxLib->GetData();
@@ -28,9 +33,9 @@ class Ajax_requests extends BaseController
 	
 	public function get_related()
 	{
-		$required = array(
+		$required = [
 			'model',
-		);
+        ];
 		$this->AjaxLib->CheckRequired($required);
 		
 		$this->model_name = str_replace('/', '\\', $this->body['model']);
@@ -38,14 +43,14 @@ class Ajax_requests extends BaseController
 		$ns_mdl = "\\App\\Models\\".$this->model_name;
 		$mdl = new $ns_mdl();
 		
-		$mdl->select = "id, name";
+		$mdl->select = 'id, name';
 		
 		if(!empty($this->body['custom_where'])){
 			$mdl->where = $this->body['custom_where'];
 		}else{
-			$mdl->where = array(
+			$mdl->where = [
 				'name' => ['LIKE', $this->body['search_param'].'%'],
-			);
+            ];
 		}
 		$results = $mdl->search(5);
 		
@@ -55,26 +60,26 @@ class Ajax_requests extends BaseController
 			$results = $mdl->formatRecordsView($results, true);
 		
 			foreach($results as $key => $fields){
-				$return[$key] = array(
+				$return[$key] = [
 					'value' => $fields['name'],
 					'label' => $fields['name'],
 					'id' => $fields['id'],
-				);
+                ];
 			}
 		}
 		
-		$this->AjaxLib->SetSuccess($return);
+		$this->AjaxLib->setSuccess($return);
 	}
 	
 	public function pagination_ajax()
 	{
 		try{
-			$required = array(
+			$required = [
 				'id',
 				'model',
 				'fields_return',
 				'location_to',
-			);
+            ];
 			$this->AjaxLib->CheckRequired($required);
 			
 			if(!empty($this->body['per_page'])){
@@ -95,7 +100,7 @@ class Ajax_requests extends BaseController
 			$this->SetView();
 			$this->SetLayout();
 			
-			$page = ($this->body['page']) ? $this->body['page'] : 0;
+			$page = $this->body['page'] ?: 0;
 			
 			$c_select = '';
 			$this->mdl->select = '';
@@ -108,14 +113,14 @@ class Ajax_requests extends BaseController
 			if(!isset($this->body['fields_return']['id'])){
 				$this->mdl->select .= $c_select.'id';
 			}
-			$this->filterLib_cfg = array(
+			$this->filterLib_cfg = [
 				'use' => true,
 				'action' => base_url().'/admin/home/index',
-				'generic_filter' => array(),
+				'generic_filter' => [],
 				'id_filter' => $this->body['id'],
 				'template_name' => 'template/Filter_template_ajax',
 				'page' => $page,
-			);
+            ];
 			
 			$initial_order_by = [];
 			if(!empty($this->body['initial_order_by'])){
@@ -140,7 +145,7 @@ class Ajax_requests extends BaseController
 			/* LISTAGEM DE REGISTROS GENERICAS COM BASE NO LAYOUT LIB TEMPLATE */
 			
 			$this->data['layout_list'] = $this->layout->GetGenericListaAjax($this->body['id'], $this->body['location_to'], $list_columns, $results);
-		}catch(\Exception $e){
+		}catch(Exception $e){
 			log_message('critical', 'Error loading subpainel: '.$e->getMessage());
 		}
 		

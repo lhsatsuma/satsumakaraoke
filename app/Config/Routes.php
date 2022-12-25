@@ -3,6 +3,8 @@
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
+use App\Controllers\BaseController;
+
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
@@ -24,12 +26,12 @@ $routes->set404Override(function() {
 	$uri = current_url(true)->getSegments();
 	array_shift($uri);
 	if(strtolower($uri[0]) == 'api'){
-		\http_response_code(404);
+		http_response_code(404);
 		die('Resource not found');
 	}
 
 	
-	$focus = new \App\Controllers\BaseController();
+	$focus = new BaseController();
 	$last_uri = $focus->uri[count($focus->uri) - 1];
 	$ext_http_code = [
 		'.js',

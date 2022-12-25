@@ -7,7 +7,7 @@ class Token extends ApiController
 	public function index()
 	{
 		$request = new Request();
-		$respond = $this->oauth->server->handleTokenRequest($request->createFromGlobals());
+		$respond = $this->oauth->server->handleTokenRequest($request::createFromGlobals());
 
 		return $this->respond(json_decode($respond->getResponseBody()), $respond->getStatusCode());
 	}

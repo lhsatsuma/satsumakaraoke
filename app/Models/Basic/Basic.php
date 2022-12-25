@@ -536,7 +536,7 @@ class Basic extends Model
 						unset($fOld[$field]);
 						continue;
 					}
-					$value = $fOld[$field] ?? null;
+					$value = $fOld[$field] ?: null;
 					if(isset($fOld[$field]) && in_array($options['type'], ['date', 'datetime']) && empty($value)){
 						$fOld[$field] = null;
 					}elseif(!is_null($value)){
@@ -640,7 +640,7 @@ class Basic extends Model
 						$file->f['mimetype'] = $value->getClientMimeType();
 						$file->f['name'] = $value->getClientName();
 						if(!$file->f['tipo']){
-							$file->f['tipo'] = $attrs['parameter']['private'] ?? 'public';
+							$file->f['tipo'] = $attrs['parameter']['private'] ?: 'public';
 						}
 						$file->f['registro'] = $this->f['id'];
 						$file->saveRecord();
@@ -655,7 +655,7 @@ class Basic extends Model
                         $update['mimetype'] = $value->getClientMimeType();
                         $update['name'] = $value->getClientName();
                         if(!$this->f['tipo']){
-                            $update['tipo'] = $attrs['parameter']['private'] ?? 'public';
+                            $update['tipo'] = $attrs['parameter']['private'] ?: 'public';
                         }
                         $update['arquivo'] = $this->f['id'];
                         $value->move(ROOTPATH.'public/uploads', $this->f['id']);

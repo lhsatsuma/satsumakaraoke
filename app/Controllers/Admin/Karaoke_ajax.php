@@ -1,21 +1,27 @@
 <?php
 namespace App\Controllers\Admin;
 
+use App\Libraries\Sys\Ajax;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+use App\Models\Waitlist\Waitlist;
+
 class Karaoke_ajax extends AdminBaseController
 {
 	protected $module_name = 'MusicasFila';
 
-	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
 
 		hasPermission(1002, 'r', true);
 		
-		$this->ajax = new \App\Libraries\Sys\Ajax();
+		$this->ajax = new Ajax();
 		$this->ajax->CheckIncoming();
 		
-		$this->mdl = new \App\Models\Waitlist\Waitlist();
+		$this->mdl = new Waitlist();
 	}
 
 	public function index()
@@ -43,9 +49,9 @@ class Karaoke_ajax extends AdminBaseController
 		}
 
 		$encoded = [
-			'th' => ($thread) ? $thread : null,
-			't' => ($encoded_line['t']) ? $encoded_line['t'] : 0,
-			's' => ($encoded_line['s']) ? $encoded_line['s'] : [],
+			'th' => $thread ?: null,
+			't' => $encoded_line['t'] ?: 0,
+			's' => $encoded_line['s'] ?: [],
 		];
 		$this->ajax->setSuccess($encoded);
 	}

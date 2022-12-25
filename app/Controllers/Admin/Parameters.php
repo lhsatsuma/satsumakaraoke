@@ -16,23 +16,23 @@ class Parameters extends AdminBaseController
 	{
 		hasPermission(8, 'r', true);
 		
-		$initial_filter = array(
+		$initial_filter = [
 			'name' => '',
 			'codigo' => '',
-		);
-		$initial_order_by = array(
+        ];
+		$initial_order_by = [
 			'field' => 'date_created',
 			'order' => 'DESC',
-		);
+        ];
 		
-		$this->filterLib_cfg = array(
+		$this->filterLib_cfg = [
 			'use' => true,
 			'action' => base_url().'/admin/parameters/index',
-			'generic_filter' => array(
+			'generic_filter' => [
 				'name',
 				'codigo',
-			),
-		);
+            ],
+        ];
 		
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
 		
@@ -44,7 +44,7 @@ class Parameters extends AdminBaseController
 		$result = $this->mdl->formatRecordsView($result);
 		
 		$this->data['records'] = $result;
-		$this->data['records_count'] = (count($result)) ? true : false;
+		$this->data['records_count'] = (bool)count((array)$result);
 		
 		return $this->displayNew('pages/Admin/parameters/index');
 	}
@@ -72,7 +72,7 @@ class Parameters extends AdminBaseController
 	{
 		hasPermission(8, 'w', true);
 
-		$this->data['title'] = translate(($id) ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
+		$this->data['title'] = translate($id ? 'LBL_ACTION_CTRL_EDIT' : 'LBL_ACTION_CTRL_NEW');
 		
 		$result = [];
 		if($id){

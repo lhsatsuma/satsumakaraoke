@@ -1,6 +1,8 @@
 <?php namespace Config;
 
-class AppVersion extends \CodeIgniter\Config\BaseConfig
+use CodeIgniter\Config\BaseConfig;
+
+class AppVersion extends BaseConfig
 {
 	/*
 	@var string
@@ -12,7 +14,7 @@ class AppVersion extends \CodeIgniter\Config\BaseConfig
 	 z = App Version (Fixes for System Version or minor updates)
 	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.15.1b';
+	public $version = '2.15.3b';
 	
 	/*
 	@var bool
