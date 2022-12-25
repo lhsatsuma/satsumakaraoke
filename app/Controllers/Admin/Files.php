@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Files extends AdminBaseController
 {
-    public $module_name = 'Files';
+    protected $module_name = 'Files';
     public $data = array();
     public $generic_filter = true;
     public $pager_config = array(

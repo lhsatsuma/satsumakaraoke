@@ -3,9 +3,9 @@ namespace App\Controllers;
 //asdasdasd
 class Ajax_requests extends BaseController
 {
-	public $module_name = null;
+	protected $module_name = null;
 	public $data = array();
-	public $dummy_controller = true;
+	protected $dummy_controller = true;
 	
 	public $body = array();
 	

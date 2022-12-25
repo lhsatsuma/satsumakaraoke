@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Permissions extends AdminBaseController
 {
-	public $module_name = 'Permissions';
+	protected $module_name = 'Permissions';
 	
 	public function ExtButtonsGenericFilters()
 	{

@@ -4,7 +4,7 @@ use \OAuth2\Request;
 
 class Thread extends ApiController
 {
-	public $module_name = 'Waitlist';
+	protected $module_name = 'Waitlist';
 
 	public function get()
 	{

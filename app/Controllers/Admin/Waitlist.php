@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Waitlist extends AdminBaseController
 {
-	public $module_name = 'Waitlist';
+	protected $module_name = 'Waitlist';
 
 	public function ExtButtonsGenericFilters()
 	{

@@ -23,9 +23,10 @@ class OAuthFilter implements FilterInterface
                 $oauth->server->getResponse()->send();
                 die();
             }
-            
+            $access_token = $oauth->server->getAccessTokenData($requestOAuth);
+            $result_token = $oauth->getRecord($access_token['access_token']);
             $mdl_user = new \App\Models\Users\Users();
-            $mdl_user->f['id'] = $exists['id'];
+            $mdl_user->f['id'] = $result_token['user_id'];
             $AuthUser = $mdl_user->get();
 
             getSession()->set('auth_user', $AuthUser);

@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Profiles extends AdminBaseController
 {
-	public $module_name = 'Profiles';
+	protected $module_name = 'Profiles';
 	
 	public function ExtButtonsGenericFilters()
 	{

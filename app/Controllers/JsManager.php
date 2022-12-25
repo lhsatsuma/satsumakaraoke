@@ -7,7 +7,7 @@ class JsManager extends BaseController
 {
 	public $data = array();
 	public $session;
-	public $dummy_controller = true;
+    protected $dummy_controller = true;
 	
 	public function get(...$fileEx)
 	{

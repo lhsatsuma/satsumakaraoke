@@ -14,8 +14,8 @@ class Home extends BaseController
 {
 	public $data = array();
 	public $session;
-	public $module_name = 'Home';
-	public $dummy_controller = true;
+	protected $module_name = 'Home';
+    protected $dummy_controller = true;
 	
 	public function index()
 	{

@@ -6,10 +6,8 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 class DownloadManager extends BaseController
 {
 	public $data = array();
-	public $session;
-	public $parser;
-	public $module_name = 'DownloadManager';
-	public $dummy_controller = true;
+	protected $module_name = 'DownloadManager';
+    protected $dummy_controller = true;
 	
 	public function download($id = null)
 	{
@@ -24,6 +22,8 @@ class DownloadManager extends BaseController
 		
 		//If file doesn't exists, throw 404
 		throw PageNotFoundException::forPageNotFound();
+
+        return false;
 	}
 	
 	public function preview($id = null)

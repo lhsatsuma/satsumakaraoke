@@ -91,8 +91,8 @@ class BaseController extends Controller
 	/*
 	Dummy controller is a variable to set if has to call all initials vars and libs
 	*/
-	
-	public $dummy_controller = false;
+
+    protected $dummy_controller = false;
 	
 	/*
 	Check if this controller is only for admin

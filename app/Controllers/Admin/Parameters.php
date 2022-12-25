@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Parameters extends AdminBaseController
 {
-	public $module_name = 'Parameters';
+	protected $module_name = 'Parameters';
 	
 	public function ExtButtonsGenericFilters()
 	{

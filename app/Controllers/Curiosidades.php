@@ -6,7 +6,7 @@ class Curiosidades extends BaseController
 	public $data = array();
 	public $session;
 	public $parser;
-	public $module_name = 'Curiosidades';
+	protected $module_name = 'Curiosidades';
 	
 	public function index()
 	{

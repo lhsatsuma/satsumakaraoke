@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Waitlist extends BaseController
 {
-	public $module_name = 'Waitlist';
+	protected $module_name = 'Waitlist';
 
 	public function index($offset=0)
 	{

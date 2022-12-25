@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Karaoke extends AdminBaseController
 {
-	public $module_name = 'Karaoke';
+	protected $module_name = 'Karaoke';
 	
 	public function __construct()
 	{

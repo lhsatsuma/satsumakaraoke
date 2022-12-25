@@ -9,7 +9,7 @@ use CodeIgniter\HTTP\Message;
 class ApiController extends \App\Controllers\BaseController
 {
     use ResponseTrait;
-    public $dummy_controller = true;
+    protected $dummy_controller = true;
     protected $token;
     protected OAuth $oauth;
     protected $method;
@@ -22,7 +22,7 @@ class ApiController extends \App\Controllers\BaseController
         $this->method = $this->request->getMethod(true);
     }
 
-    public function checkMethod(mixed $methods = [])
+    public function checkMethod(mixed $methods = null)
     {
         if(!empty($methods)){
             if(is_string($methods)){

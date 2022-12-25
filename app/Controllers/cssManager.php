@@ -7,8 +7,8 @@ class CssManager extends BaseController
 {
 	public $data = array();
 	public $session;
-	public $module_name = 'CssManager';
-	public $dummy_controller = true;
+	protected $module_name = 'CssManager';
+    protected $dummy_controller = true;
 	
 	public function get(...$fileEx)
 	{

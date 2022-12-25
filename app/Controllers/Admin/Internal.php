@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Internal extends AdminBaseController
 {
-	public $module_name = 'Internal';
+	protected $module_name = 'Internal';
 	public $data = array();
 	public $generic_filter = true;
     private $microtime_start;

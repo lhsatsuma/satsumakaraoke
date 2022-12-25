@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Menus extends AdminBaseController
 {
-	public $module_name = 'Menus';
+	protected $module_name = 'Menus';
 	
 	public function ExtButtonsGenericFilters()
 	{

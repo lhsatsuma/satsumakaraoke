@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class OAuthClients extends AdminBaseController
 {
-    public $module_name = 'OAuthClients';
+    protected $module_name = 'OAuthClients';
     public $data = array();
     public $generic_filter = true;
 	

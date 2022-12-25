@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class Users extends AdminBaseController
 {
-	public $module_name = 'Users';
+	protected $module_name = 'Users';
 	public $data = array();
 	public $generic_filter = true;
 	

@@ -3,7 +3,7 @@ namespace App\Controllers\Admin;
 
 class ProfilePermissions extends AdminBaseController
 {
-	public $module_name = 'ProfilePermissions';
+	protected $module_name = 'ProfilePermissions';
 
 	public function index($offset = 0)
 	{

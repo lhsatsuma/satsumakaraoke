@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Users extends BaseController
 {
-	public $module_name = 'Users';
+	protected $module_name = 'Users';
 	public $data = array();
 	public function __construct()
 	{
