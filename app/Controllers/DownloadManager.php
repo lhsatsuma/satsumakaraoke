@@ -49,9 +49,9 @@ class DownloadManager extends BaseController
 
 	private function checkMimetypeDefault($mimetype)
 	{
-		if(strpos($mimetype, 'image') === false
+		if(!str_contains($mimetype, 'image')
 		&& $mimetype !== 'application/pdf'
-		&& strpos($mimetype, 'video/') === false){
+		&& !str_contains($mimetype, 'video/')){
 			return true;
 		}
 		return false;

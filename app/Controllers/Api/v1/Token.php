@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers\Api\v1;
-use \OAuth2\Request;
+use OAuth2\Request;
 
 class Token extends ApiController
 {
