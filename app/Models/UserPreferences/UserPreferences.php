@@ -78,6 +78,9 @@ class UserPreferences extends Basic
 	}
 	public function getPref(string $name, string $user = null)
 	{
+        if(getSession()->get('USER_PREF_'.$name)){
+            return getSession()->get('USER_PREF_'.$name);
+        }
 		$this->select = 'id, name, valor';
 		$this->where['name'] = $name;
 		$this->where['user_created'] = $user ?: $this->auth_user_id;
@@ -85,7 +88,9 @@ class UserPreferences extends Basic
 		if(empty($this->where['user_created']) || empty($name)){
 			return false;
 		}
-		return $this->search(1)[0];
+        $pref = $this->search(1)[0];
+        getSession()->set('USER_PREF_'.$name, $pref);
+		return $pref;
 	}
 
 	public function getValue(string $name, string $user = null)
