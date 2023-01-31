@@ -135,73 +135,42 @@ $('#ImportModalLink').keyup(function(){
 		});
 	}
 }).change();
-$('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', () =>{
-	if($(this).prop('disabled') || !$('#ImportModalLinkTitle').length || !$('#ImportModalLinkMD5').length){
+$('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', (event) =>{
+	const target = $(event.currentTarget);
+
+	if(target.prop('disabled') || !$('#ImportModalLinkTitle').length || !$('#ImportModalLinkMD5').length){
 		return;
 	}
 	$('#ImportModal').modal('hide');
-	swal.fire({
-		title: 'Importando...',
-		didOpen: () => {
-			swal.showLoading();
-			$.ajax({
-				'url': _APP.app_url+'musics/ImportVideoUrl',
-				dataType: 'json',
-				method: 'POST',
-				headers: {
-				  "Content-Type": "application/json",
-				  "X-Requested-With": "XMLHttpRequest"
-				},
-				data: JSON.stringify({ 
-					'link': $('#ImportModalLink').val(),
-					'md5': $('#ImportModalLinkMD5').val(),
-					'title': $('#ImportModalLinkTitle').val(),
-					'tipo': $('#ImportModalLinkTipo').val(),
-					'auto_fila': ($(this).attr('id') == 'ImportMusicaAndFilaButton') ? true : false,
-				}),
-				success: function(d){
-					swal.close();
-				},
-				complete: function(d){
-					var r = d.responseJSON;
-					swal.close();
-					if(!!r){
-						if(r.status && r.detail){
-							let title_sa_fire = 'Música importada';
-							if(r.detail.auto_fila){
-								title_sa_fire += " e colocada na fila";
-							}
-							Swal.fire({
-								title: title_sa_fire,
-								text: r.detail.saved_record.name,
-								icon: 'success',
-								width: '400px',
-								showConfirmButton: false,
-								timer: 1000,
-								timerProgressBar: true,
-								didClose: () => {
-									$('#filtroForm').trigger('submit');
-								}
-							});
-						}else{
-							Swal.fire({
-								title: 'Erro ao importar a música!',
-								text: r.error_msg,
-								icon: 'error',
-								width: '400px',
-							});
-						}
-					}else{
-						Swal.fire({
-							title: 'Erro ao importar a música',
-							text: '',
-							icon: 'error',
-							width: '400px',
-						});
-					}
+	let auto_fila = target.attr('id') === 'ImportMusicaAndFilaButton';
+	console.log(auto_fila);
+	fireAjaxLoading({
+		url: _APP.app_url+'musics/ImportVideoUrl',
+		data: JSON.stringify({
+			'link': $('#ImportModalLink').val(),
+			'md5': $('#ImportModalLinkMD5').val(),
+			'title': $('#ImportModalLinkTitle').val(),
+			'tipo': $('#ImportModalLinkTipo').val(),
+			'auto_fila': auto_fila,
+		}),
+		callback: (r) => {
+			let title_sa_fire = 'Música importada';
+			if(r.detail.auto_fila){
+				title_sa_fire += " e colocada na fila";
+			}
+			Swal.fire({
+				title: title_sa_fire,
+				text: r.detail.saved_record.name,
+				icon: 'success',
+				width: '400px',
+				showConfirmButton: false,
+				timer: 1000,
+				timerProgressBar: true,
+				didClose: () => {
+					$('#filtroForm').trigger('submit');
 				}
 			});
-		},
+		}
 	});
 });
 function changeByTraco(){

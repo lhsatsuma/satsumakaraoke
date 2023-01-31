@@ -6,7 +6,8 @@
 		<thead>
 			<tr class="d-flex">
 				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">{translate l="LBL_LANGUAGE"}</th>
-				<th scope="col" class="ptr col-9 col-xl-11" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
+				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">{translate l="LBL_CODE"}</th>
+				<th scope="col" class="ptr col-6 col-xl-10" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,7 +19,7 @@
 			{foreach from=$records item=campos}
 			<tr class="ptr r-dt-slct d-flex" dt-r-id="{$campos.id}" dt-r-fvt="{$campos.favorite}">
 				<td class="col-3 col-xl-1" dt-r-tipo="{$campos.raw.tipo}">{$campos.tipo}</td>
-				<td class="col-9 col-xl-11" dt-r-name="{$campos.name}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.name}</td>
+				<td colspan="2" class="col-9 col-xl-11" dt-r-name="{$campos.name}"  dt-r-codigo="{$campos.codigo}">[{$campos.codigo}] {$campos.name}</td>
 			</tr>
 			{/foreach}
 			{/if}

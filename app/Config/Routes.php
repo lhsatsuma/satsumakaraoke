@@ -71,7 +71,7 @@ $routes->match(['get', 'post'], '/admin/login/auth', 'Users::auth', ['namespace'
 $routes->match(['get', 'post'], '/admin/login/logout', 'Users::logout', ['namespace' => 'App\Controllers\Admin']);
 
 $routes->match(['get'], '/jsManager/(:any)', 'JsManager::get/$1');
-$routes->match(['get'], '/cssManager/(:any)', 'cssManager::get/$1');
+$routes->match(['get'], '/cssManager/(:any)', 'CssManager::get/$1');
 
 /*
  * --------------------------------------------------------------------

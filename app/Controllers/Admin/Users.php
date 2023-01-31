@@ -38,7 +38,7 @@ class Users extends AdminBaseController
 		
 		$this->PopulateFiltroPost($initial_filter, $initial_order_by);
 		
-		
+		$this->mdl->select = 'id, name, email, status, date_created, date_modified';
 		$total_row = $this->mdl->total_rows();
 		$this->GetPagination($total_row, $offset);
 		

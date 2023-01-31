@@ -119,6 +119,7 @@ class Musics extends Basic
 	public function force_save(string $link, string $md5, string $title, string $tipo)
 	{
         $return_data = [];
+        $this->force_deleted = true;
 		$this->where = [
 			'md5' => $md5,
         ];
@@ -129,7 +130,6 @@ class Musics extends Basic
 			$this->f['codigo'] = $result[0]['codigo'];
 		}
 		if(empty($this->f['codigo'])){
-			$this->force_deleted = true;
 			$this->where = [];
 			$this->select = 'MAX(codigo)+1 as codigo_ult';
 			$number = $this->search(1);
@@ -137,13 +137,14 @@ class Musics extends Basic
 			if(is_null($this->f['codigo'])){
 				$this->f['codigo'] = 1;
 			}
-			$this->force_deleted = false;
 		}
+        $this->force_deleted = false;
 		$this->f['name'] = $title;
 		$this->f['md5'] = $md5;
 		$this->f['link'] = $link;
 		$this->f['tipo'] = $tipo;
 		$this->f['origem'] = 'UserImport';
+        $this->f['deleted'] = 0;
 
 		$file_path = FCPATH . 'uploads/'.$md5;
 		$getID3 = new getID3();
@@ -151,9 +152,17 @@ class Musics extends Basic
 		$this->f['duration'] = (int)$analized['playtime_seconds'];
 
 		$return_data['saved_record'] = $this->saveRecord();
-		if($return_data['saved_record'] && !$return_data['exists']){
+		if($return_data['saved_record']){
 			$file = new Files();
-			$file->new_with_id = true;
+            $file->force_deleted = true;
+            //Check if already has File Record
+            $file->select = 'id';
+            $file->where['id'] = $md5;
+            $file_exists = $this->search(1);
+
+            //If exists, just update
+            $file->new_with_id = !$file_exists[0]['id'];
+
 			$file->f['id'] = $md5;
 			$file->f['name'] = $title.'.mp4';
 			$file->f['arquivo'] = $md5;
