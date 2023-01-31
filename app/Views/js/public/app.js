@@ -39,10 +39,10 @@ $(document).ready(function(){
 	
 	/* -->SIDEBAR JS */
 	
-	orderByFiltro();
+	setOrderByIcon();
 	insertMaskInputs();
 });
-function orderByFiltro()
+function setOrderByIcon()
 {
 	let order_by_field = $('#filtroForm').find('input[name="order_by_field"]').val();
 	let order_by_order = $('#filtroForm').find('input[name="order_by_order"]').val();
@@ -86,9 +86,9 @@ function clearFiltroForm(elm)
 	$('#filtroForm').find('input, select').each(function(){
 		$(this).val('');
 	});
-	$('#filtroForm').trigger('submit');
+	submitSearch(elm, 'filtroForm');
 }
-function OrderByFiltro(field)
+function OrderByFilter(field)
 {
 	let order_by_field = $('#filtroForm').find('input[name="order_by_field"]').val();
 	let order_by_order = $('#filtroForm').find('input[name="order_by_order"]').val();
@@ -102,9 +102,9 @@ function OrderByFiltro(field)
 	}
 	$('#filtroForm').find('input[name="order_by_field"]').val(field);
 	$('#filtroForm').find('input[name="order_by_order"]').val(new_order);
-	$('#filtroForm').trigger('submit');
+	submitSearch(null, 'filtroForm');
 }
-function OrderByFiltroSubpanel(id_subpanel, field)
+function OrderByFilterSubpanel(id_subpanel, field)
 {
 	let cfg = SubpanelsCfg[id_subpanel];
 	

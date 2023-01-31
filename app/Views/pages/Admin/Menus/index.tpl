@@ -5,12 +5,12 @@
 	<table class="table table-striped table-list tb-rst-fltr">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="ativo" onclick="OrderByFiltro('ativo')">{translate l="LBL_ACTIVE"}</th>
-				<th scope="col" class="ptr" dt-h-field="ordem" onclick="OrderByFiltro('ordem')">{translate l="LBL_ORDER"}</th>
-				<th scope="col" class="ptr" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">{translate l="LBL_TYPE"}</th>
-				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
-				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate l="LBL_DATE_CREATED"}</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th>
+				<th scope="col" class="ptr" dt-h-field="ativo" onclick="OrderByFilter('ativo')">{translate l="LBL_ACTIVE"}</th>
+				<th scope="col" class="ptr" dt-h-field="ordem" onclick="OrderByFilter('ordem')">{translate l="LBL_ORDER"}</th>
+				<th scope="col" class="ptr" dt-h-field="tipo" onclick="OrderByFilter('tipo')">{translate l="LBL_TYPE"}</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFilter('name')">{translate l="LBL_NAME"}</th>
+				<th scope="col" class="ptr d-none d-xl-table-cell" dt-h-field="date_created" onclick="OrderByFilter('date_created')">{translate l="LBL_DATE_CREATED"}</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFilter('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th>
 			</tr>
 		</thead>
 		<tbody>

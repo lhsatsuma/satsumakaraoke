@@ -5,10 +5,10 @@
     <table class="table table-striped table-list tb-rst-fltr">
         <thead>
             <tr>
-                <th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th> 
-                <th scope="col" class="ptr" dt-h-field="tabela" onclick="OrderByFiltro('tabela')">{translate l="LBL_RELATED_TABLE"}</th> 
-                <th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="registro" onclick="OrderByFiltro('registro')">{translate l="LBL_RELATED_TO"}</th> 
-                <th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFiltro('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th> 
+                <th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFilter('name')">{translate l="LBL_NAME"}</th>
+                <th scope="col" class="ptr" dt-h-field="tabela" onclick="OrderByFilter('tabela')">{translate l="LBL_RELATED_TABLE"}</th>
+                <th scope="col" class="ptr d-none d-md-table-cell" dt-h-field="registro" onclick="OrderByFilter('registro')">{translate l="LBL_RELATED_TO"}</th>
+                <th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_modified" onclick="OrderByFilter('date_modified')">{translate l="LBL_DATE_MODIFIED"}</th>
             </tr>
         </thead>
         <tbody>

@@ -8,7 +8,7 @@
 				<th>&nbsp;</th>
 			{/if}
 		{foreach from=$layout_list.table_heads item=thead key=thead_name}
-			<th scope="col" class="ptr {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFiltroSubpanel('{$layout_list.table_id}', '{$thead_name}')">{$thead.label}</th>
+			<th scope="col" class="ptr {$thead.class}" dt-h-field="{$thead_name}" onclick="OrderByFilterSubpanel('{$layout_list.table_id}', '{$thead_name}')">{$thead.label}</th>
 		{/foreach}
 		</tr>
 	</thead>

@@ -15,10 +15,10 @@
 	<table class="table table-striped table-list">
 		<thead>
 			<tr>
-				<th scope="col" class="ptr" dt-h-field="usuarios.name" onclick="OrderByFiltro('usuarios.name')">{translate l="LBL_USER_CREATED"}</th>
-				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_ORDER_MUSIC"}</th>
-				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFiltro('status')">{translate l="LBL_STATUS"}</th>
-				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_created" onclick="OrderByFiltro('date_created')">{translate l="LBL_DATE_CREATED"}</th>
+				<th scope="col" class="ptr" dt-h-field="usuarios.name" onclick="OrderByFilter('usuarios.name')">{translate l="LBL_USER_CREATED"}</th>
+				<th scope="col" class="ptr" dt-h-field="name" onclick="OrderByFilter('name')">{translate l="LBL_ORDER_MUSIC"}</th>
+				<th scope="col" class="ptr" dt-h-field="status" onclick="OrderByFilter('status')">{translate l="LBL_STATUS"}</th>
+				<th scope="col" class="ptr d-none d-lg-table-cell" dt-h-field="date_created" onclick="OrderByFilter('date_created')">{translate l="LBL_DATE_CREATED"}</th>
 			</tr>
 		</thead>
 		<tbody>

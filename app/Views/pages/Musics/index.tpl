@@ -5,9 +5,9 @@
 	<table class="table table-striped table-list tb-rst-fltr">
 		<thead>
 			<tr class="d-flex">
-				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">{translate l="LBL_LANGUAGE"}</th>
-				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">{translate l="LBL_CODE"}</th>
-				<th scope="col" class="ptr col-6 col-xl-10" dt-h-field="name" onclick="OrderByFiltro('name')">{translate l="LBL_NAME"}</th>
+				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="tipo" onclick="OrderByFilter('tipo')">{translate l="LBL_LANGUAGE"}</th>
+				<th scope="col" class="ptr col-3 col-xl-1" dt-h-field="codigo" onclick="OrderByFilter('codigo')">{translate l="LBL_CODE"}</th>
+				<th scope="col" class="ptr col-6 col-xl-10" dt-h-field="name" onclick="OrderByFilter('name')">{translate l="LBL_NAME"}</th>
 			</tr>
 		</thead>
 		<tbody>

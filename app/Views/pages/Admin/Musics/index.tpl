@@ -4,9 +4,9 @@
 <table class="table table-striped table-list tb-rst-fltr">
 	<thead>
 		<tr class="d-flex">
-			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="codigo" onclick="OrderByFiltro('codigo')">#</th>
-			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="tipo" onclick="OrderByFiltro('tipo')">Tipo</th>
-			<th scope="col" class="ptr col-8 col-xl-10" dt-h-field="name" onclick="OrderByFiltro('name')">Nome</th>
+			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="codigo" onclick="OrderByFilter('codigo')">#</th>
+			<th scope="col" class="ptr col-2 col-xl-1" dt-h-field="tipo" onclick="OrderByFilter('tipo')">Tipo</th>
+			<th scope="col" class="ptr col-8 col-xl-10" dt-h-field="name" onclick="OrderByFilter('name')">Nome</th>
 		</tr>
 	</thead>
 	<tbody>
