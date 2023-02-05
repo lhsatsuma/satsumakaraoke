@@ -556,7 +556,7 @@ function GoToPage(elm, page)
 					$('#filtroForm').parent().find('.tb-rst-fltr').remove();
 					$('#filtroForm').parent().find('.table-pagination').remove();
 					$('#filtroForm').after(res.detail);
-					orderByFiltro();
+					setOrderByIcon();
 					if(typeof addEventRowData != 'undefined'){
 						addEventRowData();
 					}
