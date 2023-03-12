@@ -65,31 +65,73 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="ImportModal" tabindex="-1" role="dialog" aria-labelledby="ImportModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h6 class="modal-title" id="ImportModalLabel">{translate l="LBL_IMPORT_MUSICS_FROM_YT"}</h6>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-12 margin-b-10">
-						<label for="ImportModalLink">{translate l="LBL_LINK_YT"}</label>
-						<input class="form-control" type="text" id="ImportModalLink" name="ImportModalLink" autocomplete="off" />
-					</div>
-					<div class="col-12 margin-b-10" id="ImportModalLinkTitleDiv"></div>
-					<div class="col-12">
-						<button class="btn btn-outline-success btn-rounded margin-5" id="ImportMusicaButton">{translate l="LBL_IMPORT"}</button>
-						<button class="btn btn-outline-info btn-rounded margin-5" id="ImportMusicaAndFilaButton">{translate l="LBL_IMPORT_AND_INSERT_TO_WAITLIST"}</button>
-						<button class="btn btn-outline-warning btn-rounded margin-5" data-dismiss="modal">{translate l="LBL_CANCEL"}</button>
+{if $perms.cod_1003.w}
+	<div class="modal fade" id="ImportModal" tabindex="-1" role="dialog" aria-labelledby="ImportModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title" id="ImportModalLabel">{translate l="LBL_IMPORT_MUSICS_FROM_YT"}</h6>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12 margin-b-10">
+							<label for="ImportModalLink">{translate l="LBL_LINK_YT"}</label>
+							<input class="form-control" type="text" id="ImportModalLink" name="ImportModalLink" autocomplete="off" />
+						</div>
+						<div class="col-12 margin-b-10" id="ImportModalLinkTitleDiv"></div>
+						<div class="col-12">
+							<button class="btn btn-outline-success btn-rounded margin-5" id="searchMusicButton">{translate l="LBL_SEARCH_MUSIC_YT"}</button>
+							<button class="btn btn-outline-warning btn-rounded margin-5" data-dismiss="modal">{translate l="LBL_CANCEL"}</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	<div class="modal fade" id="ImportModalResult" tabindex="-1" role="dialog" aria-labelledby="ImportModalResultLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title" id="ImportModalResultLabel">{translate l="LBL_IMPORT_MUSICS_FROM_YT"}</h6>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12 margin-b-10">
+							<label for="ImportModalResultLink">{translate l="LBL_LINK_YT"}</label>
+							<input class="form-control" type="text" id="ImportModalLink" name="ImportModalLink" autocomplete="off" />
+						</div>
+						<div class="col-12 margin-b-10" id="ImportModalLinkTitleDiv">
+
+							<p>
+								<label>Nome</label>
+								<input type="hidden" id="ImportModalLinkMD5" name="ImportModalLinkMD5" value="'+r.detail.md5+'"/>
+								<input class="form-control" type="text" id="ImportModalLinkTitle" name="ImportModalLinkTitle" value="'+fixNameUtf8(r.detail.title)+'"/>
+							</p>
+							<p>
+								<button type="button" class="btn btn-outline-info btn-rounded" onclick="changeByTraco(this)">Inverter Titulo/cantor</button>
+							</p>
+							<p>
+								<label>Tipo</label>
+								<select class="form-control" id="ImportModalLinkTipo" name="ImportModalLinkTipo">
+								</select>
+								<script type="text/javascript">
+									$('#ImportModalLinkTipo').html(translate.getOptionsHTML('tipo_musica'));
+								</script>
+							</p>
+						</div>
+						<div class="col-12">
+							<button class="btn btn-outline-success btn-rounded margin-5 d-none" id="ImportMusicaButton">{translate l="LBL_IMPORT"}</button>
+							<button class="btn btn-outline-info btn-rounded margin-5 d-none" id="ImportMusicaAndFilaButton">{translate l="LBL_IMPORT_AND_INSERT_TO_WAITLIST"}</button>
+							<button class="btn btn-outline-warning btn-rounded margin-5" data-dismiss="modal">{translate l="LBL_CANCEL"}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
 <div class="modal fade" id="helpSongsModal" tabindex="-1" role="dialog" aria-labelledby="helpSongsModalLabel" aria-hidden="true"></div>
-<script type="text/javascript" src="{$app_url}jsManager/Musics//index.js?v={$ch_ver}"></script>
+{jsfile f="Musics/index.js"}
 {/if}
 {if !$bdOnly AND $showPopupWizard}
 	<script type="text/javascript">showPopupWizard();</script>

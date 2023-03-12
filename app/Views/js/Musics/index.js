@@ -26,7 +26,7 @@ function OpenModalSelected(id){
 
 	$('#SelectedRowModal').modal('show');
 }
-$('#InsertFilaBtn').on('click', () =>{
+$('#InsertFilaBtn').on('click', () => {
 	$('#SelectedRowModal').modal('hide');
 	fireAjaxLoading({
 		url: _APP.app_url+'musics/insert_fila_ajax',
@@ -67,7 +67,6 @@ $('#InsertFavoriteBtn').on('click', () =>{
 			}else{
 				$('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]').attr('dt-r-fvt', '2');
 			}
-			console.log('tr[dt-r-id="'+$('#IdInsertModal').val()+'"]');
 			Swal.close();
 			Swal.fire({
 				title: 'Música '+(($('#itsFavorite').val() == '2') ? translate.get('LBL_REMOVED') : translate.get('LBL_ADDED'))+' '+translate.get('LBL_ON_YOUR_FAVORITES'),
@@ -81,25 +80,25 @@ $('#InsertFavoriteBtn').on('click', () =>{
 		}
 	})
 });
-lastImportLink = '';
-$('#ImportModalLink').keyup(function(){
-
-	if($(this).val().indexOf('http://') == -1
-	&& $(this).val().indexOf('https://') == -1
-	&& $(this).val().indexOf('youtube') == -1
-	&& $(this).val().indexOf('youtu.be') == -1
-	&& $(this).val().indexOf('youtu.be') == -1
-	&& lastImportLink !== $(this).val()
+var lastImportLink = '';
+$('#searchMusicButton').on('click', () => {
+	let link_input = $('#ImportModalLink').val();
+	if(link_input.indexOf('http://') == -1
+		&& link_input.indexOf('https://') == -1
+		&& link_input.indexOf('youtube') == -1
+		&& link_input.indexOf('youtu.be') == -1
+		&& link_input.indexOf('youtu.be') == -1
+		&& lastImportLink !== link_input
 	){
 		return;
 	}
-	lastImportLink = $(this).val();
+	lastImportLink = link_input;
 	$('#ImportModalLink').removeClass('invalid-value');
 	$('#ImportModalLink').parent().find('.validation-error').remove();
 	$('#ImportMusicaButton').prop('disabled', true);
 	$('#ImportMusicaAndFilaButton').prop('disabled', true);
 	
-	if($(this).val() !== ''){
+	if(link_input !== ''){
 		swal.fire({
 			title: 'Procurando...',
 			didOpen: () => {
@@ -122,19 +121,20 @@ $('#ImportModalLink').keyup(function(){
 						var r = d.responseJSON;
 						if(!!r.status && !!r.detail){
 							$('#ImportModalLinkTitleDiv').html('<p><label>Nome</label><input type="hidden" id="ImportModalLinkMD5" name="ImportModalLinkMD5" value="'+r.detail.md5+'"/><input class="form-control" type="text" id="ImportModalLinkTitle" name="ImportModalLinkTitle" value="'+fixNameUtf8(r.detail.title)+'"/></p><p><button type="button" class="btn btn-outline-info btn-rounded" onclick="changeByTraco(this)">Inverter Titulo/cantor</button></p><p><label>Tipo</label><select class="form-control" id="ImportModalLinkTipo" name="ImportModalLinkTipo"><option value="N/A">N/A</option><option value="INT">INT</option><option value="BRL">BRL</option><option value="ESP">ESP</option><option value="JPN">JPN</option><option value="OTR">OTR</option></select></p>');
-							$('#ImportMusicaButton').prop('disabled', false);
-							$('#ImportMusicaAndFilaButton').prop('disabled', false);
+							$('#ImportMusicaButton').prop('disabled', false).show();
+							$('#ImportMusicaAndFilaButton').prop('disabled', false).show();
+							$('#searchMusicButton').hide();
 						}else{
 							$('#ImportModalLink').addClass('invalid-value').after('<span class="validation-error required">'+r.detail+'</span>');
 						}
 						swal.close();
-						
 					}
 				});
 			},
 		});
 	}
 }).change();
+
 $('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', (event) =>{
 	const target = $(event.currentTarget);
 
@@ -143,7 +143,6 @@ $('#ImportMusicaButton, #ImportMusicaAndFilaButton').on('click', (event) =>{
 	}
 	$('#ImportModal').modal('hide');
 	let auto_fila = target.attr('id') === 'ImportMusicaAndFilaButton';
-	console.log(auto_fila);
 	fireAjaxLoading({
 		url: _APP.app_url+'musics/ImportVideoUrl',
 		data: JSON.stringify({

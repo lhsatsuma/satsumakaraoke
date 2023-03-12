@@ -375,11 +375,11 @@ if(!isset($GLOBALS['AppVersion'])){
 	function checkRdct($rdct_url)
 	{
 		return $rdct_url
-			&& strpos($rdct_url, 'downloadManager') === false
-			&& strpos($rdct_url, 'cssManager') === false
-			&& strpos($rdct_url, 'jsManager') === false
-			&& strpos($rdct_url, 'Ajax_requests') === false
-			&& strpos($rdct_url, '_ajax') === false;
+			&& !str_contains($rdct_url, 'downloadManager')
+			&& !str_contains($rdct_url, 'cssManager')
+			&& !str_contains($rdct_url, 'jsManager')
+			&& !str_contains($rdct_url, 'Ajax_requests')
+			&& !str_contains($rdct_url, '_ajax');
 	}
 
 	function isMobile()
@@ -399,7 +399,7 @@ if(!isset($GLOBALS['AppVersion'])){
 		}
 		if($module === 'app'){
 			$module = 'Public.App';
-		}elseif(strpos($module, 'Public.') === false){
+		}elseif(!str_contains($module, 'Public.')){
 			$module = 'Controllers.'.$module;
 		}
 		
@@ -440,8 +440,8 @@ if(!isset($GLOBALS['AppVersion'])){
 
             if(is_dir($check_folder)){
                 getRecursiveLanguages($lang, $remove, $check_folder.'/');
-            }elseif(strpos($file, '.php') !== false
-                && strpos($file, 'Validation') === false){
+            }elseif(str_contains($file, '.php')
+                && !str_contains($file, 'Validation')){
                 $file = str_replace('.php', '', $file);
                 $key_array = str_replace([$remove.$lang.'/','Controllers/','/'], ['','', '.'], $folder.$file);
                 $content_json = json_encode(require $check_folder);

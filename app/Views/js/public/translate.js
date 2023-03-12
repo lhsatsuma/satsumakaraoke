@@ -31,11 +31,13 @@ class translateApp
     }
     getOptionsHTML(lbl,selected=null)
     {
-        if(!this.app_langs['Public.Dropdown'][lbl]){
+        if(!this.app_langs['Public.Dropdown'][lbl] && !this.app_langs['Public.Dropdown_ext'][lbl]){
             return '';
         }
         let htmlOpt = '<option value="">'+this.get('LBL_SELECT_OPTION')+'</option>';
-        $.each(this.app_langs['Public.Dropdown'][lbl], (idx, ipt) => {
+        let options = this.app_langs['Public.Dropdown_ext'][lbl] ?this.app_langs['Public.Dropdown_ext'][lbl] : this.app_langs['Public.Dropdown'][lbl];
+
+        $.each(options, (idx, ipt) => {
             let selected_opt = (!!selected && selected===idx) ? 'selected' : '';
             htmlOpt += '<option value="'+idx+'" '+selected_opt+'>'+ipt+'</option>';
         });

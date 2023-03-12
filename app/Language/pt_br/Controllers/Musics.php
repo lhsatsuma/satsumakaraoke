@@ -21,6 +21,7 @@ return [
     'LBL_INSERT_TO_WAITLIST' => 'Colocar na fila',
     'LBL_IMPORT_AND_INSERT_TO_WAITLIST' => 'Importar e colocar na fila',
     'LBL_IMPORT_MUSICS_FROM_YT' => 'Importar Música do Youtube',
+    'LBL_SEARCH_MUSIC_YT' => 'Buscar Música',
     'LBL_LINK_YT' => 'Link Youtube',
     'LBL_REMOVED' => 'removido',
     'LBL_ADDED' => 'adicionado',
