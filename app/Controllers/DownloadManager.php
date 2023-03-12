@@ -87,7 +87,12 @@ class DownloadManager extends BaseController
 				'needs_login' => true,
 				'admin_only' => false,
 			);
-		}
+		}else{
+            $this->access_cfg = array(
+                'needs_login' => false,
+                'admin_only' => false,
+            );
+        }
 		$this->SetSys(); //Checking session if necessary
 	}
 }
