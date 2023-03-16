@@ -195,7 +195,8 @@ INSERT INTO permissao (id, name, deleted, date_created, user_created, date_modif
 (8, 'Cadastro de Parâmetros', 0, '2021-09-20 17:22:22', '1', '2021-09-20 17:22:22', '1'),
 (9, 'Cadastro de Menus', 0, '2021-10-25 20:25:00', '1', '2021-10-25 20:25:00', '1'),
 (10, 'Cadastro - OAuth2', 0, '2022-12-24 08:00:00', '1', '2022-12-24 08:00:00', '1'),
-(11, 'API - OAuth2', 0, '2022-12-24 08:00:00', '1', '2022-12-24 08:00:00', '1');
+(11, 'API - OAuth2', 0, '2022-12-24 08:00:00', '1', '2022-12-24 08:00:00', '1'),
+(12, 'Payload - Carga', 0, '2023-03-15 08:00:00', '1', '2022-03-15 08:00:00', '1');
 
 INSERT INTO grupos (id, name, ativo, deleted, date_created, user_created, date_modified, user_modified) VALUES
 (1, 'Administrador do Sistema', 1, 0, '2021-09-19 22:07:10', '1', '2021-09-19 22:07:10', '1'),

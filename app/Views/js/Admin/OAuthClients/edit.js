@@ -1,4 +1,4 @@
-if(_APP._ACTION_NAME == 'edit'){
+if(_APP._ACTION_NAME == 'edit' && $('input[name="id"]').val()){
     $('input[name="client_id"]').attr('readonly', true);
 }
 //Disable field, only generate

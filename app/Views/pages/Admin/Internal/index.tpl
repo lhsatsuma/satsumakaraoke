@@ -63,6 +63,10 @@
             <td>Limpar arquivo de músicas na fila e thread</td>
             <td>Limpa o arquivo JSON referente as musicas na fila e de thread (Controle Remoto).</td>
         </tr>
+        <tr class="ptr r-dt-slct" onclick="confirmInternal(this, 'generatePayload')">
+            <td>Gerar Carga API</td>
+            <td>Gera arquivo de carga para envio de API.</td>
+        </tr>
 	</tbody>
 </table>
 <script type="text/javascript" src="{$app_url}jsManager/Admin/Internal/index.js?v={$ch_ver}"></script>

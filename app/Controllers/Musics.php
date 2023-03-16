@@ -215,4 +215,15 @@ class Musics extends BaseController
 		$mdl = new UserPreferences();
 		$AjaxLib->setSuccess($mdl->setPref('hideInfoPopup', '1'));
 	}
+
+    public static function generatePayload()
+    {
+        $model = new \App\Models\Musics\Musics();
+        $model->select = 'id,name, tipo, md5, codigo,duration';
+
+        $results = $model->search();
+        $total = count($results);
+
+        return ['status' => 1, 'total' => $total, 'data' => $results];
+    }
 }

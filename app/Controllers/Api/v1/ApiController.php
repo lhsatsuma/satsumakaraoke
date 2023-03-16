@@ -42,9 +42,9 @@ class ApiController extends BaseController
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-		
-		$this->mdl = new \App\Models\Waitlist\Waitlist();
+
         $this->getBody();
+        $this->response = $response;
 	}
 
     public function getBody()
@@ -57,5 +57,21 @@ class ApiController extends BaseController
             }
         }
         return $this->body;
+    }
+
+    /**
+     * Overrides ResponseTrait function
+     * For minify responses
+     * @param $data
+     * @param int|null $status
+     * @param string $message
+     * @return false|string
+     */
+    protected function respond($data = null, ?int $status = null, string $message = '')
+    {
+        $status = empty($status) ? 200 : $status;
+
+        $this->response->setHeader('Content-Type', 'application/json')->setStatusCode($status);
+        return json_encode($data);
     }
 }

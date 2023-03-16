@@ -544,6 +544,15 @@ class Internal extends AdminBaseController
         rdct('/admin/internal/index');
     }
 
+    public function generatePayload()
+    {
+        PayloadController::generatePayload();
+
+        $msg_return = 'Geração de arquivo de carga concluído! Tempo: '.$this->calcExectime().'ms';
+        $this->setMsgData('success', $msg_return);
+        rdct('/admin/internal/index');
+    }
+
     public function reconstructCacheLanguages()
     {
         $langs = scan_dir(APPPATH . 'Language/');
