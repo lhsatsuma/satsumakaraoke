@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Api\v1;
+namespace App\Controllers\Api\V1;
 use App\Models\Files\Files;
 use CodeIgniter\Exceptions\PageNotFoundException;
 

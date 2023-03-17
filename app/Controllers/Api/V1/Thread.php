@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Api\v1;
+namespace App\Controllers\Api\V1;
 use OAuth2\Request;
 
 class Thread extends ApiController

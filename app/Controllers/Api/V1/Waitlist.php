@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Api\v1;
+namespace App\Controllers\Api\V1;
 
 class Waitlist extends ApiController
 {

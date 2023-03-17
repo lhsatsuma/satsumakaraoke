@@ -1,7 +1,6 @@
 <?php
-namespace App\Controllers\Api\v1;
+namespace App\Controllers\Api\V1;
 use App\Controllers\Admin\PayloadController;
-use OAuth2\Request;
 
 class Payload extends ApiController
 {
@@ -27,7 +26,7 @@ class Payload extends ApiController
         }
 
         if(empty($this->body['hash'])){
-            return $this->fail('Hash not found', 400);
+            return $this->fail('Hash not found');
         }
 
         $payload_status = PayloadController::getStatusPayload();
