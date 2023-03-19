@@ -73,6 +73,8 @@ $routes->match(['get', 'post'], '/admin/login/logout', 'Users::logout', ['namesp
 $routes->match(['get'], '/jsManager/(:any)', 'JsManager::get/$1');
 $routes->match(['get'], '/cssManager/(:any)', 'CssManager::get/$1');
 
+$routes->options('(:any)', '', ['filter' => 'cors']);
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

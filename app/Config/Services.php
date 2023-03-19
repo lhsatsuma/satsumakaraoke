@@ -4,6 +4,8 @@ namespace Config;
 
 use CodeIgniter\Config\BaseService;
 
+use App\Libraries\Sys\ServiceCors;
+
 /**
  * Services Configuration file.
  *
@@ -33,4 +35,15 @@ class Services extends BaseService
 
 		return new \App\Libraries\Sys\Pager($config, $view);
 	}
+
+    public static function cors(?Cors $config = null, bool $getShared = true)
+    {
+        $config ??= config('cors');
+
+        if ($getShared) {
+            return static::getSharedInstance('cors', $config);
+        }
+
+        return new ServiceCors($config);
+    }
 }

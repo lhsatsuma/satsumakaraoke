@@ -9,7 +9,7 @@ use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 use App\Filters\OAuthFilter;
-use Fluent\Cors\Filters\CorsFilter;
+use App\Filters\CorsFilter;
 
 class Filters extends BaseConfig
 {
