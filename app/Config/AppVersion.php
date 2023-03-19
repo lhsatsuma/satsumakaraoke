@@ -14,7 +14,7 @@ class AppVersion extends BaseConfig
 	 z = App Version (Fixes for System Version or minor updates)
 	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.16.3a';
+	public $version = '2.16.5a';
 	
 	/*
 	@var bool

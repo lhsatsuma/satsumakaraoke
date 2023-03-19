@@ -38,7 +38,10 @@ class Services extends BaseService
 
     public static function cors(?Cors $config = null, bool $getShared = true)
     {
-        $config ??= config('cors');
+        if (empty($config))
+        {
+            $config = config('Cors');
+        }
 
         if ($getShared) {
             return static::getSharedInstance('cors', $config);
