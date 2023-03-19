@@ -14,9 +14,21 @@ use CodeIgniter\API\ResponseTrait;
 class OAuthFilter implements FilterInterface
 {
     use ResponseTrait;
+
+    public function __construct()
+    {
+        $this->cors = Services::cors();
+    }
     public function before(RequestInterface $request, $arguments = null)
     {
         helper('Sys_helper');
+
+        // For Preflight, return the Preflight response
+        if ($this->cors->isPreflightRequest($request)) {
+            $response = $this->cors->handlePreflightRequest($request);
+            return $this->cors->varyHeader($response, 'Access-Control-Request-Method');
+        }
+
         if($request->uri->getSegment(3) != 'token'){
             $oauth = new OAuth();
             $requestOAuth = Request::createFromGlobals();
@@ -49,5 +61,13 @@ class OAuthFilter implements FilterInterface
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
+        if ($request->getMethod(true) === 'OPTIONS') {
+            $response = $this->cors->varyHeader($response, 'Access-Control-Request-Method');
+        }
+
+        if (! $response->hasHeader('Access-Control-Allow-Origin')) {
+            // Add the CORS headers to the Response
+            $response = $this->cors->addActualRequestHeaders($response, $request);
+        }
     }
 }
