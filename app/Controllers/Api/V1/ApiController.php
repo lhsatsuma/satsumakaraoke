@@ -77,7 +77,8 @@ class ApiController extends BaseController
 
     protected function fail($messages, int $status = 400, ?string $code = null, string $customMessage = '')
     {
-        $this->response->setHeader('Access-Control-Allow-Origin', '*');
-        return parent::fail($messsages, $status, $code, $customMessage);
+        $this->response->setHeader('Content-Type', 'application/json')->setHeader('Access-Control-Allow-Origin', '*')->setStatusCode($status);
+
+        return json_encode(['status' => 0, 'error' => $messages, 'error_code' => $code ?? '0x000']);
     }
 }

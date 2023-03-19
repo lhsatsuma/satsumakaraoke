@@ -19,21 +19,24 @@ class Payload extends ApiController
         return $this->respond(PayloadController::getStatusPayload(), 200);
     }
 
-    public function get()
+    public function get($hash = null)
     {
         if(!$this->checkMethod('GET')){
             return $this->fail('Method not supported', 405);
         }
-
-        if(empty($this->body['hash'])){
-            return $this->fail('Hash not found');
+        if(empty($hash)){
+            return $this->fail('Hash not found', 400, '2x001');
         }
 
         $payload_status = PayloadController::getStatusPayload();
 
-        if(!$payload_status['status'] || $payload_status['data']['hash'] !== $this->body['hash']){
-            return $this->fail('Payload not available', 409);
+        if(!$payload_status['status']){
+            return $this->fail('Payload not available', 409, '2x002');
+        }elseif($payload_status['data']['hash'] !== $hash){
+            return $this->fail('Invalid hash', 409, '2x003');
         }
+
+
         $return_get = [
             'status' => 1,
             'data' => PayloadController::getPayload(),
