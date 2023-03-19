@@ -53,7 +53,7 @@ class Files extends AdminBaseController
         $this->data['records'] = $result;
         $this->data['records_count'] = (bool)count((array)$result);
 
-        return $this->displayNew('pages/Admin/files/index');
+        return $this->displayNew('pages/Admin/Files/index');
     }
 
     public function detail($id)
@@ -71,7 +71,7 @@ class Files extends AdminBaseController
 
 		$this->setPermData(7);
 
-        return $this->displayNew('pages/Admin/files/detail');
+        return $this->displayNew('pages/Admin/Files/detail');
     }
 	
 	
@@ -96,7 +96,7 @@ class Files extends AdminBaseController
 
 		$this->setPermData(7);
 		
-		return $this->displayNew('pages/Admin/files/edit');
+		return $this->displayNew('pages/Admin/Files/edit');
 	}
 	
 	public function salvar()
