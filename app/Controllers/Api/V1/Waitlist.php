@@ -19,4 +19,20 @@ class Waitlist extends ApiController
 		$this->ajax->setSuccess();
 		return $this->respond('', 200);
 	}
+
+    public function get()
+    {
+        if(!$this->checkMethod('GET')){
+            return $this->fail('Method not supported', 405);
+        }
+        $encoded_line = json_decode(file_get_contents(WRITEPATH . 'utils/line_music.json'), true);
+        $encoded = [
+            't' => $encoded_line['t'] ?? 0,
+            's' => $encoded_line['s'] ?? [],
+        ];
+        return $this->respond([
+            'status' => 1,
+            'data' => $encoded
+        ], 200);
+    }
 }

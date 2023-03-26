@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers\Api\V1;
 use OAuth2\Request;
+use App\Models\Waitlist\Waitlist;
 
 class Thread extends ApiController
 {
@@ -11,6 +12,8 @@ class Thread extends ApiController
         if(!$this->checkMethod('GET')){
             return $this->fail('Method not supported', 405);
         }
+
+        $this->mdl = new Waitlist();
 
 		$thread = json_decode(file_get_contents(WRITEPATH . 'utils/thread.json'), true);
 
