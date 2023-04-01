@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers\Api\V1;
 
+use App\Models\Musics\Musics;
+
 class Waitlist extends ApiController
 {
 	protected $module_name = 'Waitlist';
@@ -33,6 +35,30 @@ class Waitlist extends ApiController
         return $this->respond([
             'status' => 1,
             'data' => $encoded
+        ], 200);
+    }
+
+    public function put()
+    {
+        if(!$this->checkMethod('PUT')){
+            return $this->fail('Method not supported', 405);
+        }
+
+        $musics_mdl = new Musics();
+        $musics_mdl->f['id'] = $this->body['music_id'];
+        $result = $musics_mdl->get();
+
+        if(!$result){
+            return $this->fail('Music not found', 404);
+        }
+        $this->mdl->f['musica_id'] = $result['id'];
+        $this->mdl->f['status'] = 'pendente';
+        $this->mdl->f['user_created'] = $this->body['user_id'];
+        $saved_record = $this->mdl->saveRecord();
+
+        return $this->respond([
+            'status' => 1,
+            'data' => $saved_record
         ], 200);
     }
 }

@@ -45,6 +45,7 @@ class ApiController extends BaseController
 
         $this->getBody();
         $this->response = $response;
+        $this->SetMdl();
 	}
 
     public function getBody()
