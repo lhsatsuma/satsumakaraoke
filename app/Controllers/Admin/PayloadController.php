@@ -112,6 +112,7 @@ class PayloadController extends AdminBaseController
         self::setJSONStatus(0, [
             'date' => $date_start,
             'hash' => create_guid(),
+            'android_app' => $GLOBALS['AppVersion']->android_app_version,
             'total_records' => $total_records
         ]);
 

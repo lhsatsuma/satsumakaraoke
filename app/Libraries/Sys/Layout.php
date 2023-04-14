@@ -27,7 +27,7 @@ class Layout
 		$this->request = getFormData();
 		$this->file_language = str_replace(['App\\Controllers\\', '\\'], ['', '.'], $class_name);
 		
-		$this->base_url = base_url().'/';
+		$this->base_url = base_url();
 	}
 	
 	public function GetAllFields($record = [])

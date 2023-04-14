@@ -647,7 +647,6 @@ class Basic extends Model
 						
 						$file->helper->where('id', $file->f['id']);
 						$file->helper->update(['arquivo' => $file->f['id']]);
-						// $value->move(ROOTPATH.'public/uploads', $file->f['id']);
 						$this->f[$field] = $file->f['id'];
 						$update[$field] = $file->f['id'];
 					}elseif($this->f['id']){
@@ -658,7 +657,7 @@ class Basic extends Model
                             $update['tipo'] = $attrs['parameter']['private'] ?: 'public';
                         }
                         $update['arquivo'] = $this->f['id'];
-                        $value->move(ROOTPATH.'public/uploads', $this->f['id']);
+                        $value->move(ROOTPATH.'public/uploads', $this->f['id'], true);
 					}
 				}
 			}

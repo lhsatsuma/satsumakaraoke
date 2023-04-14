@@ -108,8 +108,8 @@ class Musics extends AdminBaseController
 
 
 		$this->js_vars = array_merge($this->js_vars, [
-			'karaokeURL' => $videosKaraoke ?: base_url().'/',
-			'host_fila' => $hostFila ?: base_url().'/'
+			'karaokeURL' => $videosKaraoke ?: base_url(),
+			'host_fila' => $hostFila ?: base_url()
 		]);
 		return $this->displayNew('pages/Admin/Musics/karaoke', false);
 	}

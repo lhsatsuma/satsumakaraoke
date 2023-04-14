@@ -39,7 +39,7 @@ class SendEmail{
 		$this->view = new SmartyCI();
 		
 		$data = [
-			'app_url' => base_url().'/',
+			'app_url' => base_url(),
 			'ch_ver' => GetCacheVersion(),
         ];
 		$this->view->setData($data);

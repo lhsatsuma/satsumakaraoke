@@ -178,7 +178,7 @@ class BaseController extends Controller
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-		$this->base_url = base_url().'/';
+		$this->base_url = base_url();
 		$this->js_vars['app_url'] = $this->base_url;
 		
 		//Check dummy controller
@@ -330,7 +330,7 @@ class BaseController extends Controller
 //		}
 
 		$dataNew = [
-			'app_url' => base_url().'/',
+			'app_url' => base_url(),
 			'ch_ver' => GetCacheVersion(),
 			'ch_ver_org' => $AppVersion->version,
 			'is_mobile' => $this->is_mobile,

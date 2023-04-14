@@ -60,7 +60,10 @@ if(!isset($GLOBALS['AppVersion'])){
 		$fig = (int) str_pad('1', $precision, '0');
 		return floor($number * $fig) / $fig;
 	}
-	function create_guid(){
+	function create_guid($legacy = false){
+        if(!$legacy){
+            return create_guid_v4();
+        }
 		$microTime = microtime();
 		list($a_dec, $a_sec) = explode(' ', $microTime);
 		$dec_hex = dechex($a_dec * 1000000);
@@ -457,5 +460,17 @@ if(!isset($GLOBALS['AppVersion'])){
         }
         file_put_contents($cache_path.$filename_cache, $files_return);
         return $count;
+    }
+
+
+    function create_guid_v4()
+    {
+        $data = random_bytes(16);
+        assert(strlen($data) == 16);
+
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 }
