@@ -23,7 +23,7 @@ class Users extends ApiController
         }
 
         $this->mdl->f['id'] = $exists['id'];
-        $this->mdl->select = 'usuarios.id, usuarios.name, usuarios.email, usuarios.telefone, usuarios.celular';
+        $this->mdl->select = 'usuarios.id, usuarios.name, usuarios.email, usuarios.telefone, usuarios.celular, usuarios.profile';
         $AuthUser = $this->mdl->get();
 
         $this->mdl->f = [];
@@ -32,6 +32,14 @@ class Users extends ApiController
         $this->mdl->f['last_connected'] = date('Y-m-d H:i:s');
         $this->mdl->auth_user_id = $exists['id'];
         $this->mdl->saveRecord();
+
+        $this->session->set('auth_user', $AuthUser);
+
+        $perms = [
+            '1001' => hasPermission(1001)
+        ];
+
+        $AuthUser['perms'] = $perms;
 
         return $this->respond(['status' => 1, 'data' => $AuthUser], 200);
     }
