@@ -46,13 +46,13 @@ class Thread extends ApiController
 		return $this->respondDeleted();
 	}
 
-	public function get_copy()
+	public function getCopy()
 	{
 		if(!$this->checkMethod('GET')){
             return $this->fail('Method not supported', 405);
         }
 		$encoded = file_get_contents(WRITEPATH . 'utils/threadCopy.json');
-		return $this->respond(json_decode($encoded, true), 200);
+		return $this->respond(['status' => 1, 'data' => json_decode($encoded, true)], 200);
 	}
 
 	public function set()
@@ -77,6 +77,6 @@ class Thread extends ApiController
 			];
 			file_put_contents(WRITEPATH . 'utils/threadCopy.json', json_encode($data_copy));
 		}
-		return $this->respondCreated();
+        return $this->respond(['status' => 1, 'data' => 'ok'], 200);
 	}
 }
