@@ -109,10 +109,16 @@ class PayloadController extends AdminBaseController
             $total_records[$module_name] = $payload['total'];
         }
 
+        $android_info = getParameterValue('android_app_info');
+        $android_info = explode('|', $android_info);
+
         self::setJSONStatus(0, [
             'date' => $date_start,
             'hash' => create_guid(),
-            'android_app' => $GLOBALS['AppVersion']->android_app_version,
+            'android_app' => [
+                'version' => $android_info[0],
+                'hash' => $android_info[1],
+            ],
             'total_records' => $total_records
         ]);
 

@@ -14,7 +14,7 @@ class AppVersion extends BaseConfig
 	 z = App Version (Fixes for System Version or minor updates)
 	 A = Indicates if its Alpha, Beta or Release
 	 */
-	public $version = '2.16.12a';
+	public $version = '2.16.13a';
 	
 	/*
 	@var bool
@@ -41,11 +41,6 @@ class AppVersion extends BaseConfig
 	public $charset = 'UTF-8';
 
 	public $google_api_key = '';
-
-    public $android_app_version = [
-        'version' => '1.1.7',
-        'hash' => '3a170a9c-f8ec-d430-04ad-640df6ba3484'
-    ];
 
 	public function __construct()
 	{
