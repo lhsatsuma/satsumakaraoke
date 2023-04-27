@@ -3,6 +3,7 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Exception as ExceptionAlias;
 use Psr\Log\LoggerInterface;
 
 class PayloadController extends AdminBaseController
@@ -32,17 +33,24 @@ class PayloadController extends AdminBaseController
         try {
             $path_payload = WRITEPATH . 'utils/payload/payload_status.json';
             if (!file_exists($path_payload)) {
-                throw new \Exception('Payload not available', 1);
+                throw new ExceptionAlias('Payload not available', 1);
             }
             $payload_status = self::getPayloadFile();
 
             if(!$payload_status['status']){
-                throw new \Exception('Payload not available', $payload_status['code']);
+                throw new ExceptionAlias('Payload not available', $payload_status['code']);
             }
+
+            $android_info = getParameterValue('android_app_info');
+            $android_info = explode('|', $android_info);
+            $payload_status['data']['android_app'] = [
+                'version' => $android_info[0],
+                'hash' => $android_info[1],
+            ];
 
             $return_status['status'] = 1;
             $return_status['data'] = $payload_status['data'];
-        }catch(\Exception $e){
+        }catch(ExceptionAlias $e){
             $return_status['status'] = 0;
             $return_status['msg'] = $e->getMessage();
             $return_status['code'] = $e->getCode() ?? 503;
@@ -109,16 +117,9 @@ class PayloadController extends AdminBaseController
             $total_records[$module_name] = $payload['total'];
         }
 
-        $android_info = getParameterValue('android_app_info');
-        $android_info = explode('|', $android_info);
-
         self::setJSONStatus(0, [
             'date' => $date_start,
             'hash' => create_guid(),
-            'android_app' => [
-                'version' => $android_info[0],
-                'hash' => $android_info[1],
-            ],
             'total_records' => $total_records
         ]);
 
