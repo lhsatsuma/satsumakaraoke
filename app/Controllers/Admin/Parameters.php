@@ -46,7 +46,7 @@ class Parameters extends AdminBaseController
 		$this->data['records'] = $result;
 		$this->data['records_count'] = (bool)count((array)$result);
 		
-		return $this->displayNew('pages/Admin/parameters/index');
+		return $this->displayNew('pages/Admin/Parameters/index');
 	}
 	
 	public function detail($id = null)
@@ -65,7 +65,7 @@ class Parameters extends AdminBaseController
 
 		$this->setPermData(8);
 		
-		return $this->displayNew('pages/Admin/parameters/detail');
+		return $this->displayNew('pages/Admin/Parameters/detail');
 	}
 	
 	public function edit($id = null)
@@ -89,7 +89,7 @@ class Parameters extends AdminBaseController
 
 		$this->setPermData(8);
 		
-		return $this->displayNew('pages/Admin/parameters/edit');
+		return $this->displayNew('pages/Admin/Parameters/edit');
 	}
 	
 	public function salvar()
