@@ -172,6 +172,11 @@ class Users extends BaseController
 			rdct('/home');
 		}
 		$this->data['enabled_create_user'] = getParameterValue('enable_create_user_login');
+
+        $android_info = getParameterValue('android_app_info');
+        $android_info = explode('|', $android_info);
+
+        $this->data['android_version'] = $android_info;
 		return $this->displayNew('pages/Users/login', false);
 	}
 	

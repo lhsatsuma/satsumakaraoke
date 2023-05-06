@@ -41,6 +41,13 @@
 							<p><a href="{$app_url}login/createAccount" >{translate l="LBL_CREATE_ACCOUNT"}</a></p>
 						{/if}
 					</form>
+					<hr />
+					<p>
+						<button onclick="location.href='{$app_url}downloadManager/download/{$android_version[1]}'" style="background: transparent;border: none;color: chartreuse;"><i class="fab fa-android" style="font-size: 3rem"></i></button>
+						<br />
+						<span style="font-size: 0.7rem">v{$android_version[0]}</span>
+					</p>
+					<hr />
 					<p class="versao-sistema">ⓒ 2022 {translate l="LBL_COPYRIGHT"}<br />{translate l="LBL_DEVELOPED_BY"} Luis Satsuma | v{$ch_ver_org}</p>
 				</div>
 			</div>
